@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { signUp } from '../../store/session';
 
-const SignUpForm = ({authenticated, setAuthenticated}) => {
+const SignUpForm = ({ setNav, authenticated, setAuthenticated }) => {
   const dispatch = useDispatch();
   const [username, setUsername] = useState('');
   const [firstName, setFirstName] = useState('');
@@ -11,6 +11,11 @@ const SignUpForm = ({authenticated, setAuthenticated}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [repeatPassword, setRepeatPassword] = useState('');
+
+  useEffect(() => {
+    setNav(false);
+  }, [setNav])
+
 
   const onSignUp = async (e) => {
     e.preventDefault();
@@ -23,13 +28,14 @@ const SignUpForm = ({authenticated, setAuthenticated}) => {
         password
       ));
       if (!user.errors) {
+        setNav(true);
         setAuthenticated(true);
       }
     }
   };
 
   if (authenticated) {
-    return <Redirect to='/' />;
+    return <Redirect to='/home' />;
   }
 
   return (

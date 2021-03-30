@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
-import { login } from "../../services/auth";
+import { login } from "../../store/auth";
 
 const LoginForm = ({ authenticated, setAuthenticated }) => {
   const [errors, setErrors] = useState([]);
@@ -15,14 +15,6 @@ const LoginForm = ({ authenticated, setAuthenticated }) => {
     } else {
       setErrors(user.errors);
     }
-  };
-
-  const updateEmail = (e) => {
-    setEmail(e.target.value);
-  };
-
-  const updatePassword = (e) => {
-    setPassword(e.target.value);
   };
 
   if (authenticated) {
@@ -43,7 +35,7 @@ const LoginForm = ({ authenticated, setAuthenticated }) => {
           type="text"
           placeholder="Email"
           value={email}
-          onChange={updateEmail}
+          onChange={(e) => setEmail(e.target.value)}
         />
       </div>
       <div>
@@ -53,7 +45,7 @@ const LoginForm = ({ authenticated, setAuthenticated }) => {
           type="password"
           placeholder="Password"
           value={password}
-          onChange={updatePassword}
+          onChange={(e) => setPassword(e.target.value)}
         />
         <button type="submit">Login</button>
       </div>

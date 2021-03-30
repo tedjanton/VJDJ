@@ -18,7 +18,7 @@
 ### 4. Search
 * Users can search for songs, albums, or named playlists
 * Users can input part of any of the above and still get back results
-* Once search, users will land on a page that displays the search for item(s)
+* Once search, users will land on a page that displays the searched for item(s)
 
 ### 5. Home Page
 * After sign in, users will be brought to a home page that displays:

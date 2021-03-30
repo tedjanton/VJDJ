@@ -14,26 +14,23 @@
 ## ```/home```
 * Home page with featured music video and list of recently played songs
 * List of user's curated playlists in left hand rail listing
-* Button to make a playlist
+* Button to make a playlist (if clicked, created a new playlist to add tracks to)
 * Nav bar w/ search
 
 ## ```/playlists/:id```
-* Shows all recent "sips" activity
-* Shows featured coffees (left had rail)
+* Lists all songs for that playlist
+* Edit or delete songs or the full playlist
 * Nav bar
 
-## ```/top-rated```
-* Shows coffees that have the highest avg rating
-* Shows featured coffees (left hand rail)
-* Nav bar
+## ```/search```
+* Landing page to display search results
+* Will show artist, playlist, or song that highest matches the search query
 
-## ```/coffees/:id```
-* Display all of the coffee's details
-* Buttons to add to your "sips"
-* Feed of users "sip" activity
-* Nav bar
+## ```/albums/:id```
+* Displays details about album
+* Lists tracks associated with the album
 
-## ```/shop/:id```
-* Display all of the shop's details
-* Displays number of coffees at that shop
-* Feed of user's "sip" activity
+## ```/artists/:id```
+* Displays artist details
+* Lists top 5 most played songs
+* Lists discography for artist

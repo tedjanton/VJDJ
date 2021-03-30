@@ -1,11 +1,39 @@
 .landing-background-container {
   background-image: url("../../images/bursts.svg");
   background-color: rgb(41, 65, 171);
-  background-size: 170%;
-  background-position: 50% 11%;
+  background-size: 180%;
+  background-position: 50% 15%;
   display: flex;
   -webkit-box-pack: center;
   justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
   min-height: 846px;
+  text-align: center;
+  color: #1ed760;
+}
+
+.landing-title-start h1,
+.landing-title-end h1,
+.landing-title-watch h1 {
+  font-size: 100px;
+  margin: 0;
+  width: 900px;
+  line-height: 95px;
+}
+
+.landing-title-start {
+  text-align: left;
+}
+
+.landing-title-end {
+  text-align: right;
+}
+
+.landing-title-watch {
+  color: yellow;
+}
+
+.landing-title-and {
   color: #1ed760;
 }

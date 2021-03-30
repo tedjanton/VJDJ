@@ -15,12 +15,7 @@
 * Users can edit their playlists (UPDATE)
 * Users can delete their playlists or songs from their playlists (DELETE)
 
-### 4. Search
-* Users can search for songs, albums, or named playlists
-* Users can input part of any of the above and still get back results
-* Once search, users will land on a page that displays the searched for item(s)
-
-### 5. Home Page
+### 4. Home Page
 * After sign in, users will be brought to a home page that displays:
     * Featured music video
     * Featured music releases
@@ -28,7 +23,7 @@
     * Nav bar with search
     * Left hand rail with list of playlists
 
-### 6. Songs
+### 5. Songs
 * Users will be able to pause, move slider, and navigate back/forward
 * Music player will have continuous play as you navigate site
 * If a music video for that song is available, users can click a button next to the song to play it
@@ -49,6 +44,9 @@
     * Users can repeat songs or playlists
 * Search:
     * Dropdown menu appears as users search
+    * Users can search for songs, albums, or named playlists
+    * Users can input part of any of the above and still get back results
+    * Once search, users will land on a page that displays the searched for item(s)
 * Friending:
     * Users can friend other users and give permissions to edit their playlists
 * Explore Page:

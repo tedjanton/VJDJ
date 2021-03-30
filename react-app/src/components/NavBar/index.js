@@ -8,46 +8,50 @@ const NavBar = ({ nav, authenticated, setAuthenticated }) => {
   let links;
   if (authenticated) {
     links = (
-      <div>
-        <p>Profile Dropdown</p>
-        <LogoutButton setAuthenticated={setAuthenticated} />
-      </div>
+      <nav className="nav-container">
+        <div className="nav-home">
+          <p>Profile Dropdown</p>
+          <LogoutButton setAuthenticated={setAuthenticated} />
+        </div>
+      </nav>
     )
   } else if (!nav) {
     links = (
-      <>
-      </>
+      <nav className="nav-container-hidden">
+      </nav>
     )
   } else {
     links = (
-      <ul>
-        <li>
-          <p>About Me</p>
-        </li>
-        <li>
-          <p>Github</p>
-        </li>
-        <li>
-          <p>Linkedin</p>
-        </li>
-        <li>
-          <NavLink to="/sign-up" exact={true} activeClassName="active">
-            Sign Up
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to="/login" exact={true} activeClassName="active">
-            Log In
-          </NavLink>
-        </li>
-      </ul>
+      <nav className="nav-container">
+        <div className="nav-landing-container">
+          <div>
+            <p>About Me</p>
+          </div>
+          <div>
+            <p>Github</p>
+          </div>
+          <div>
+            <p>Linkedin</p>
+          </div>
+          <div>
+            <NavLink to="/sign-up" exact={true} activeClassName="active">
+              Sign Up
+            </NavLink >
+          </div>
+          <div>
+            <NavLink  to="/login" exact={true} activeClassName="active">
+              Log In
+            </NavLink >
+          </div>
+        </div>
+      </nav>
     )
   }
 
   return (
-    <nav>
+    <>
       {links}
-    </nav>
+    </>
   );
 }
 

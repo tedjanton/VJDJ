@@ -6,6 +6,7 @@ import SignUpForm from './components/auth/SignUpForm';
 import NavBar from './components/NavBar';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import Landing from './components/Landing';
+import Home from './components/Home';
 import { authenticate } from './store/session';
 
 function App() {
@@ -49,7 +50,7 @@ function App() {
             setAuthenticated={setAuthenticated} />
         </Route>
         <ProtectedRoute path='/home' exact authenticated={authenticated}>
-          <h1>My Home Page</h1>
+          <Home />
         </ProtectedRoute>
       </Switch>
     </BrowserRouter>

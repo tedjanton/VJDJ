@@ -1,5 +1,5 @@
 ## ```/```
-* Welcome page with a background image
+* Welcome page with a background image and welcome message
 * Buttons to sign-in/create account in nav bar
 
 ## ```/login```

@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import LogoutButton from '../auth/LogoutButton';
 import './NavBar.css';
 
-const NavBar = ({ authenticated, setAuthenticated }) => {
+const NavBar = ({ nav, authenticated, setAuthenticated }) => {
 
   let links;
   if (authenticated) {
@@ -12,6 +12,11 @@ const NavBar = ({ authenticated, setAuthenticated }) => {
         <p>Profile Dropdown</p>
         <LogoutButton setAuthenticated={setAuthenticated} />
       </div>
+    )
+  } else if (!nav) {
+    links = (
+      <>
+      </>
     )
   } else {
     links = (
@@ -38,7 +43,6 @@ const NavBar = ({ authenticated, setAuthenticated }) => {
       </ul>
     )
   }
-
 
   return (
     <nav>

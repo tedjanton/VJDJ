@@ -36,6 +36,7 @@ a:visited {
 
 .nav-home-container {
   position: fixed;
+  z-index: 200;
   width: 100%;
   display: flex;
   justify-content: flex-end;

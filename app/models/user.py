@@ -12,6 +12,7 @@ class User(db.Model, UserMixin):
   email = db.Column(db.String(255), nullable = False, unique = True)
   hashed_password = db.Column(db.String(255), nullable = False)
 
+  playlists = db.relationship('Playlist', back_populates='user')
 
   @property
   def password(self):
@@ -33,5 +34,6 @@ class User(db.Model, UserMixin):
       "fist_name": self.first_name,
       "last_name": self.last_name,
       "username": self.username,
-      "email": self.email
+      "email": self.email,
+      'playlists': [playlist.to_no_user_dict() for playlist in self.playlists],
     }

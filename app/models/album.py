@@ -1,0 +1,23 @@
+from .db import db
+
+
+class Album(db.Model):
+  __tablename__ = 'albums'
+
+  id = db.Column(db.Integer, primary_key = True)
+  title = db.Column(db.String(50), nullable = False)
+  year = db.Column(db.Integer, nullable = False)
+  art_src = db.Column(db.String, nullable = False)
+  artist_id = db.Column(db.Integer, db.ForeignKey("artists.id"), nullable = False)
+
+  artist = db.relationship('Artist', back_populates='albums')
+  tracks = db.relationship('Track', back_populates='album')
+
+  def to_dict(self):
+    return {
+      'id': self.id,
+      'title': self.title,
+      'year': self.year,
+      'art_src': self.art_src,
+      'artist': self.artist.to_dict(),
+    }

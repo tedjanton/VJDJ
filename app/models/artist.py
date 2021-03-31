@@ -13,14 +13,14 @@ class Artist(db.Model):
   albums = db.relationship('Album', back_populates='artist')
   tracks = db.relationship('Track', secondary=track_artists, back_populates='artists')
 
-  def to_dict(self):
-    return {
-      'id': self.id,
-      'name': self.name,
-      'bio': self.bio,
-      'image': self.image,
-      'tracks': [track.to_no_artists_dict() for track in self.tracks]
-    }
+  # def to_dict(self):
+  #   return {
+  #     'id': self.id,
+  #     'name': self.name,
+  #     'bio': self.bio,
+  #     'image': self.image,
+  #     'tracks': [track.to_no_artists_album_dict() for track in self.tracks]
+  #   }
 
 
   def to_no_tracks_dict(self):

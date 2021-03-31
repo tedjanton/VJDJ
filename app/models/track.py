@@ -21,7 +21,7 @@ class Track(db.Model):
 
   album = db.relationship('Album', back_populates='tracks')
   artists = db.relationship('Artist', secondary=track_artists, back_populates='tracks')
-  playlist_tracks = db.relationship('PlaylistTrack', back_populates='tracks')
+  playlist_tracks = db.relationship('PlaylistTrack', back_populates='track')
 
   def to_dict(self):
     return {
@@ -31,18 +31,17 @@ class Track(db.Model):
       'num_plays': self.num_plays,
       'audio_src': self.audio_src,
       'vid_src': self.vid_src,
-      'album': self.album.to_dict(),
+      'album': self.album.to_no_artist_dict(),
       'artists': [artist.to_no_tracks_dict() for artist in self.artists],
     }
 
 
-  def to_no_artists_dict(self):
-    return {
-      'id': self.id,
-      'title': self.title,
-      'track_num': self.track_num,
-      'num_plays': self.num_plays,
-      'audio_src': self.audio_src,
-      'vid_src': self.vid_src,
-      'album': self.album.to_dict(),
-    }
+  # def to_no_artists_album_dict(self):
+  #   return {
+  #     'id': self.id,
+  #     'title': self.title,
+  #     'track_num': self.track_num,
+  #     'num_plays': self.num_plays,
+  #     'audio_src': self.audio_src,
+  #     'vid_src': self.vid_src,
+  #   }

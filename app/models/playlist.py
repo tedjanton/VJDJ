@@ -10,29 +10,29 @@ class Playlist(db.Model):
   created_at = db.Column(db.DateTime, nullable = False)
 
   user = db.relationship('User', back_populates='playlists')
-  playlist_tracks = db.relationship('PlaylistTrack', back_populates='playlist' )
+  tracks = db.relationship('PlaylistTrack', back_populates='playlist')
 
-  def to_dict(self):
-    return {
-      'id': self.id,
-      'name': self.name,
-      'user': self.user.to_dict(),
-      'tracks': [track.to_dict() for track in self.playlist_tracks],
-      'created_at': self.created_at,
-    }
+  # def to_dict(self):
+  #   return {
+  #     'id': self.id,
+  #     'name': self.name,
+  #     'user': self.user.to_dict(),
+  #     'tracks': [track.to_dict() for track in self.tracks],
+  #     'created_at': self.created_at,
+  #   }
 
   def to_no_user_dict(self):
     return {
       'id': self.id,
       'name': self.name,
-      'tracks': [track.to_dict() for track in self.playlist_tracks],
+      'tracks': [track.to_dict() for track in self.tracks],
       'created_at': self.created_at,
     }
 
-  def to_no_tracks_dict(self):
-    return {
-      'id': self.id,
-      'name': self.name,
-      'user': self.user,
-      'created_at': self.created_at,
-    }
+  # def to_no_tracks_dict(self):
+  #   return {
+  #     'id': self.id,
+  #     'name': self.name,
+  #     'user': self.user,
+  #     'created_at': self.created_at,
+  #   }

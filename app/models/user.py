@@ -35,5 +35,4 @@ class User(db.Model, UserMixin):
       "last_name": self.last_name,
       "username": self.username,
       "email": self.email,
-      'playlists': [playlist.to_no_user_dict() for playlist in self.playlists],
     }

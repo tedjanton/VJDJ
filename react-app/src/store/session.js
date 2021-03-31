@@ -18,7 +18,7 @@ export const authenticate = () => async dispatch => {
 }
 
 export const login = (email, password) => async dispatch => {
-  const res = await fetch('/api/auth/login', {
+  const res = await fetch('/api/auth/login/', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ email, password })
@@ -29,7 +29,7 @@ export const login = (email, password) => async dispatch => {
 }
 
 export const logout = () => async dispatch => {
-  const res = await fetch("/api/auth/logout");
+  const res = await fetch("/api/auth/logout/");
   dispatch(remove());
   return await res.json();
 };
@@ -41,7 +41,7 @@ export const signUp = (
   email,
   password
   ) => async dispatch => {
-  const res = await fetch("/api/auth/signup", {
+  const res = await fetch("/api/auth/signup/", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({

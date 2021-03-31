@@ -34,6 +34,14 @@ a:visited {
   background-color: none;
 }
 
+.nav-home-container {
+  position: fixed;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  color: white;
+}
+
 .nav-home {
   margin-right: 5%;
 }

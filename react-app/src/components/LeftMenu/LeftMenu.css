@@ -1,0 +1,7 @@
+.lm-container {
+  position: fixed;
+  color: white;
+  background-color: black;
+  width: 250px;
+  height: 100%;
+}

@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify
 from flask_login import login_required
-from app.models import User
+from app.models import User, Playlist
 
 user_routes = Blueprint('users', __name__)
 
@@ -12,8 +12,15 @@ def users():
     return {"users": [user.to_dict() for user in users]}
 
 
-@user_routes.route('/<int:id>')
+@user_routes.route('/<int:id>/')
 @login_required
 def user(id):
     user = User.query.get(id)
     return user.to_dict()
+
+
+@user_routes.route('/<int:id>/playlists/')
+@login_required
+def user_playlists(id):
+    playlists = Playlist.query.filter(Playlist.user_id == id).all()
+    return {'playlists': [playlist.to_pl_name_dict() for playlist in playlists]}

@@ -1,4 +1,14 @@
 .home-container {
-  position: absolute;
-  margin-top: 100px;
+  /* display: flex; */
+}
+
+.home-featured-video-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  margin-left: 250px;
+}
+
+.home-bottom-container {
+  background-color: rgb(20, 20, 20);
 }

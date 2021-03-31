@@ -8,7 +8,7 @@ const NavBar = ({ nav, authenticated, setAuthenticated }) => {
   let links;
   if (authenticated) {
     links = (
-      <nav className="nav-container">
+      <nav className="nav-home-container">
         <div className="nav-home">
           <p>Profile Dropdown</p>
           <LogoutButton setAuthenticated={setAuthenticated} />

@@ -20,6 +20,6 @@ def albums_seed1():
   db.session.add(montero)
   db.session.commit()
 
-  def undo_albums_seed1():
-    db.session.execute('TRUNICATE albums CASCADE;')
-    db.session.commit()
+def undo_albums_seed1():
+  db.session.execute('TRUNICATE albums CASCADE;')
+  db.session.commit()

@@ -1,0 +1,14 @@
+
+.popular-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin-left: 260px;
+  margin-right: 10px;
+}
+
+.popular-songs-container {
+  display: flex;
+  justify-content: space-around;
+}

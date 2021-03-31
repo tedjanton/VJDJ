@@ -23,4 +23,4 @@ def user(id):
 @login_required
 def user_playlists(id):
     playlists = Playlist.query.filter(Playlist.user_id == id).all()
-    return {'playlists': [playlist.to_no_user_dict() for playlist in playlists]}
+    return {'playlists': [playlist.to_pl_name_dict() for playlist in playlists]}

@@ -21,13 +21,19 @@ class Playlist(db.Model):
   #     'created_at': self.created_at,
   #   }
 
-  def to_no_user_dict(self):
+  def to_pl_name_dict(self):
     return {
       'id': self.id,
       'name': self.name,
-      'tracks': [track.to_dict() for track in self.tracks],
       'created_at': self.created_at,
     }
+  # def to_no_user_dict(self):
+  #   return {
+  #     'id': self.id,
+  #     'name': self.name,
+  #     'tracks': [track.to_dict() for track in self.tracks],
+  #     'created_at': self.created_at,
+  #   }
 
   # def to_no_tracks_dict(self):
   #   return {

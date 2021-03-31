@@ -25,6 +25,15 @@ const Home = () => {
         />
       </div>
       <div className="home-bottom-container">
+        <div className="home-featured-detail-container">
+          <div className="home-featured-title">
+            <h1>{`MONTERO`}</h1>
+            <span>Lil Nas X</span>
+          </div>
+          <div className="home-feature-watch-button">
+            <button>Watch Now</button>
+          </div>
+        </div>
         <Popular />
       </div>
     </div>

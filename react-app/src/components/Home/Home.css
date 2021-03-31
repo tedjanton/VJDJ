@@ -1,14 +1,30 @@
-.home-container {
-  /* display: flex; */
-}
-
 .home-featured-video-container {
+  z-index: -2;
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
   margin-left: 250px;
 }
 
+.home-featured-detail-container {
+  margin-left: 250px;
+  padding: 10px;
+  z-index: 100;
+}
+
+.home-featured-title {
+  font-size: 30px;
+}
+
+.home-feature-watch-button {
+  z-index: 104;
+}
+
 .home-bottom-container {
-  background-color: rgb(20, 20, 20);
+  position: absolute;
+  top: -5em;
+  width: 100%;
+  padding-top: 400px;
+  background: rgb(15, 15, 15);
+  background: linear-gradient(13deg, rgba(15, 15, 15,1) 42%, rgba(15, 15, 15,0.66) 65%, rgba(15, 15, 15,0.27) 79%, rgba(15, 15, 15,0) 87%);
 }

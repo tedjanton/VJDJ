@@ -1,24 +1,17 @@
 
 .popular-container {
-  position: relative;
-  /* top: -800px; */
   display: flex;
   flex-direction: column;
-  /* justify-content: flex-start; */
-  /* align-items: flex-start; */
   margin-left: 250px;
+  padding: 10px;
 }
 
 .popular-header {
-  position: absolute;
-  top: -150px;
-  padding: 100px 10px 10px 20px;
-  /* width: 100%; */
-  background-image: linear-gradient(rgba(15, 15, 15, 0), rgb(15, 15, 15), rgb(15, 15, 15))
+  width: 100%;
+  /* background-image: linear-gradient(rgba(15, 15, 15, 0), rgb(15, 15, 15), rgb(15, 15, 15)) */
 }
 
 .popular-header h2 {
-  position: relative;
   z-index: 101;
 }
 

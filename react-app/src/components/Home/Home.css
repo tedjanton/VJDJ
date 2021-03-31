@@ -1,10 +1,4 @@
-/* .home-container {
-  position: relative;
-  z-index: -100;
-} */
-
 .home-featured-video-container {
-  position: relative;
   z-index: -2;
   display: flex;
   flex-direction: row;
@@ -13,13 +7,8 @@
 }
 
 .home-featured-detail-container {
-  position: absolute;
-  /* width: 100%; */
-  top: -200px;
   margin-left: 250px;
-  background: rgb(15, 15, 15);
-  background: linear-gradient(18deg, rgba(15, 15, 15, 1) 0%, rgba(15, 15, 15, 1) 17%, rgba(15, 15, 15, 0.7) 38%, rgba(15, 15, 15, 0) 100%);
-  padding: 500px 10px 100px 20px;
+  padding: 10px;
   z-index: 100;
 }
 
@@ -28,6 +17,14 @@
 }
 
 .home-feature-watch-button {
-  /* position: relative; */
   z-index: 104;
+}
+
+.home-bottom-container {
+  position: absolute;
+  top: -5em;
+  width: 100%;
+  padding-top: 400px;
+  background: rgb(15, 15, 15);
+  background: linear-gradient(13deg, rgba(15, 15, 15,1) 42%, rgba(15, 15, 15,0.66) 65%, rgba(15, 15, 15,0.27) 79%, rgba(15, 15, 15,0) 87%);
 }

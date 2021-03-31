@@ -34,9 +34,7 @@ const Home = () => {
             <button>Watch Now</button>
           </div>
         </div>
-        <div>
-          <Popular />
-        </div>
+        <Popular />
       </div>
     </div>
   )

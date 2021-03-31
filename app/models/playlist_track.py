@@ -9,8 +9,8 @@ class PlaylistTrack(db.Model):
   track_id = db.Column(db.Integer, db.ForeignKey('tracks.id'), nullable = False)
   playlist_id = db.Column(db.Integer, db.ForeignKey('playlists.id'), nullable = False)
 
-  track = db.relationship('Track', back_populates='playlist_track')
-  playlist = db.relationship('Playlist', back_populates='playlist_track')
+  tracks = db.relationship('Track', back_populates='playlist_tracks')
+  playlist = db.relationship('Playlist', back_populates='playlist_tracks')
 
   def to_dict(self):
     return {

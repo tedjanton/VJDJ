@@ -23,8 +23,8 @@ def seed():
 @seed_commands.command('undo')
 def undo():
     undo_playlists_seed1()
-    # undo_tracks_seed1()
-    # undo_albums_seed1()
+    undo_tracks_seed1()
+    undo_albums_seed1()
     # undo_artists_seed1()
     # undo_users()
     # Add other undo functions here

@@ -64,9 +64,7 @@ function App() {
           <PlaylistDetail />
         </ProtectedRoute>
       </Switch>
-      <footer>
-        <MusicPlayer />
-      </footer>
+      <MusicPlayer authenticated={authenticated} />
     </BrowserRouter>
   );
 }

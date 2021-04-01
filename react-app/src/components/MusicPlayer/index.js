@@ -20,22 +20,22 @@ const MusicPlayer = ({}) => {
   const [trackIdx, setTrackIdx] = useState(0);
   const [trackProgress, setTrackProgress] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
-
   const { title, artist, art, audio_src } = tracks[trackIdx]
-
   const audioRef = useRef(new Audio(audio_src))
   const intervalRef = useRef();
   const isReady = useRef(false);
-
   const { duration } = audioRef.current;
+
 
   useEffect(() => {
     if (isPlaying) {
       audioRef.current.play();
+      startTimer();
     } else {
+      clearInterval(intervalRef.current);
       audioRef.current.pause();
     }
-  });
+  }, [isPlaying]);
 
   useEffect(() => {
     return () => {
@@ -53,14 +53,16 @@ const MusicPlayer = ({}) => {
     if (isReady.current) {
       audioRef.current.play();
       setIsPlaying(true);
-      // startTimer();
+      startTimer();
     } else {
       isReady.current = true;
     }
   }, [trackIdx])
 
   const toPrevTrack = () => {
-    if (trackIdx - 1 < 0) {
+    if (trackProgress > 2) {
+      audioRef.current.currentTime = 0;
+    } else if (trackIdx - 1 < 0) {
       setTrackIdx(tracks.length - 1);
     } else {
       setTrackIdx(trackIdx - 1);
@@ -75,6 +77,34 @@ const MusicPlayer = ({}) => {
     }
   }
 
+  const startTimer = () => {
+    clearInterval(intervalRef.current);
+    intervalRef.current = setInterval(() => {
+      if (audioRef.current.ended) {
+        toNextTrack();
+      } else {
+        setTrackProgress(audioRef.current.currentTime)
+      }
+    }, [1000])
+  }
+
+  const onScrub = (value) => {
+    clearInterval(intervalRef.current);
+    audioRef.current.currentTime = value;
+    setTrackProgress(audioRef.current.currentTime);
+  };
+
+  const onScrubEnd = () => {
+    if (!isPlaying) {
+      setIsPlaying(true)
+    }
+    startTimer();
+  }
+
+  const currentPercentage = duration ? `${(trackProgress / duration) * 100}%` : '0%';
+  const trackStyling = `
+    -webkit-gradient(linear, 0% 0%, 100% 0%, color-stop(${currentPercentage}, #fff), color-stop(${currentPercentage}, #777))
+  `
 
   return (
     <div className="mp-container">
@@ -99,6 +129,26 @@ const MusicPlayer = ({}) => {
             onNextClick={toNextTrack}
             onPlayPauseClick={setIsPlaying}
           />
+        </div>
+        <div className="mp-progress-container">
+          <div className="mp-progress-start">
+            <p>{trackProgress ? new Date(trackProgress * 1000).toISOString().substr(15, 4) : "0:00"}</p>
+          </div>
+          <input
+            type="range"
+            value={trackProgress}
+            step="1"
+            min="0"
+            max={duration ? duration : `${duration}`}
+            className="progress"
+            onChange={(e) => onScrub(e.target.value)}
+            onMouseUp={onScrubEnd}
+            onKeyUp={onScrubEnd}
+            style={{ background: trackStyling }}
+          />
+          <div className="mp-progress-end">
+            <p>{duration ? new Date(duration * 1000).toISOString().substr(15, 4) : "0:00"}</p>
+          </div>
         </div>
       </div>
     </div>

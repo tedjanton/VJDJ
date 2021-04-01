@@ -10,6 +10,7 @@ import Landing from './components/Landing';
 import Home from './components/Home';
 import PlaylistDetail from './components/PlaylistDetail';
 import { authenticate } from './store/session';
+import MusicPlayer from './components/MusicPlayer';
 
 function App() {
   const dispatch = useDispatch();
@@ -63,6 +64,9 @@ function App() {
           <PlaylistDetail />
         </ProtectedRoute>
       </Switch>
+      <footer>
+        <MusicPlayer />
+      </footer>
     </BrowserRouter>
   );
 }

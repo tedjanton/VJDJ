@@ -1,0 +1,43 @@
+.mp-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.mp-art-container img {
+  height: 40px;
+}
+
+.mp-track-info {
+  display: flex;
+  align-items: center;
+}
+
+.controls-container {
+  display: flex;
+  height: 30px;
+}
+
+.prev,
+.play,
+.pause,
+.next {
+  background: none;
+  border: none;
+  outline: none;
+}
+
+.prev:focus,
+.play:focus,
+.pause:focus,
+.next:focus {
+  outline: none;
+}
+
+.fa-play-circle,
+.fa-pause-circle,
+.fa-step-backward,
+.fa-step-forward {
+  color: white;
+  font-size: 30px;
+}

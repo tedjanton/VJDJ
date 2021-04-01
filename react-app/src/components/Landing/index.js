@@ -1,9 +1,14 @@
 import React from 'react';
+import { Redirect } from "react-router-dom";
 import "./Landing.css";
 
 
-const Landing = ({ authenticated }) => {
+const Landing = ({ setNav, authenticated }) => {
+  setNav(true);
 
+  if (authenticated) {
+    return <Redirect to="/home" />
+  }
 
   return (
     <div className="landing-background-container">

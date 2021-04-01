@@ -41,7 +41,7 @@ function App() {
       )}
       <Switch>
         <Route path='/' exact >
-          <Landing authenticated={authenticated} />
+          <Landing setNav={setNav} authenticated={authenticated} />
         </Route>
         <Route path='/login' exact >
           <LoginForm

@@ -24,6 +24,7 @@ class Playlist(db.Model):
     return {
       'id': self.id,
       'name': self.name,
+      'user': self.user.to_dict(),
       'created_at': self.created_at,
     }
   # def to_no_user_dict(self):

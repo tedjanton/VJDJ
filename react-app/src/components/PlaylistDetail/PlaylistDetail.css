@@ -1,4 +1,34 @@
 .pl-page-container {
   position: relative;
-  margin-left: 285px;
+  padding-left: 285px;
+}
+
+.pl-image img {
+  max-width: 120px;
+}
+
+.pl-header-container {
+  display: flex;
+  margin-top: 150px;
+  align-items: flex-end;
+}
+
+.pl-header-image-container {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
+  max-width: 240px;
+}
+
+.pl-header-details-container {
+  margin: 0 0 0 30px;
+}
+
+.pl-subheader {
+  display: flex;
+}
+
+.pl-user-name p,
+.pl-num-songs p {
+  margin: 3px;
 }

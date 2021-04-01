@@ -25,6 +25,7 @@
   top: -15em;
   width: 100%;
   padding-top: 400px;
+  padding-bottom: 120px;
   background: rgb(15, 15, 15);
   background: linear-gradient(13deg, rgba(15, 15, 15, 1) 42%, rgba(15, 15, 15, 0.6) 65%, rgba(15, 15, 15, 0.2) 79%, rgba(15, 15, 15, 0) 87%);
 }

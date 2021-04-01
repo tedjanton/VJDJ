@@ -20,12 +20,16 @@ const MusicPlayer = ({}) => {
   const [trackIdx, setTrackIdx] = useState(0);
   const [trackProgress, setTrackProgress] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [vol, setVol] = useState(1);
   const { title, artist, art, audio_src } = tracks[trackIdx]
   const audioRef = useRef(new Audio(audio_src))
   const intervalRef = useRef();
   const isReady = useRef(false);
   const { duration } = audioRef.current;
 
+  useEffect(() => {
+    audioRef.current.volume = vol;
+  }, [vol])
 
   useEffect(() => {
     if (isPlaying) {
@@ -103,9 +107,12 @@ const MusicPlayer = ({}) => {
 
   const currentPercentage = duration ? `${(trackProgress / duration) * 100}%` : '0%';
   const trackStyling = `
-    -webkit-gradient(linear, 0% 0%, 100% 0%, color-stop(${currentPercentage}, #fff), color-stop(${currentPercentage}, #777))
-  `
-
+    -webkit-gradient(linear, 0% 0%, 100% 0%, color-stop(${currentPercentage}, #e1e1e1), color-stop(${currentPercentage}, #505050))
+  `;
+  const currentVolPercentage = `${vol * 100}%`;
+  const volStyling = `
+    -webkit-gradient(linear, 0% 0%, 100% 0%, color-stop(${currentVolPercentage}, #e1e1e1), color-stop(${currentVolPercentage}, #505050))
+  `;
   return (
     <div className="mp-container">
       <div className="mp-track-info">
@@ -116,12 +123,16 @@ const MusicPlayer = ({}) => {
             alt="track art"
           />
         </div>
-        <div className="mp-title-container">
-          <p>{title}</p>
+        <div className="mp-track-details">
+          <div className="mp-title-container">
+            <p>{title}</p>
+          </div>
+          <div className="mp-artist-container">
+            <p>{artist}</p>
+          </div>
         </div>
-        <div className="mp-artist-container">
-          <p>{artist}</p>
-        </div>
+      </div>
+      <div className="mp-handling-container">
         <div className="mp-controls-container">
           <Controls
             isPlaying={isPlaying}
@@ -140,15 +151,32 @@ const MusicPlayer = ({}) => {
             step="1"
             min="0"
             max={duration ? duration : `${duration}`}
-            className="progress"
+            className="progress slider"
             onChange={(e) => onScrub(e.target.value)}
             onMouseUp={onScrubEnd}
             onKeyUp={onScrubEnd}
-            style={{ background: trackStyling }}
+            style={{ background: trackStyling, height: "4px" }}
           />
           <div className="mp-progress-end">
             <p>{duration ? new Date(duration * 1000).toISOString().substr(15, 4) : "0:00"}</p>
           </div>
+        </div>
+      </div>
+      <div className="mp-volume-container">
+        <div className="mp-vol-icon">
+          <i className="fas fa-volume-up" />
+        </div>
+        <div className="mp-vol-slider">
+          <input
+            type="range"
+            value={vol}
+            step="0.01"
+            min="0"
+            max="1"
+            className="volume slider"
+            onChange={(e) => setVol(e.target.value)}
+            style={{ background: volStyling, height: "4px"  }}
+          />
         </div>
       </div>
     </div>

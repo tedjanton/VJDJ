@@ -10,7 +10,9 @@ const LeftMenu = ({ authenticated }) => {
   const userPls = useSelector(state => state.playlists.userPls)
 
   useEffect(() => {
-    dispatch(getUserPls(user.id))
+    if (user) {
+      dispatch(getUserPls(user.id))
+    }
   }, [user, dispatch])
 
 
@@ -20,7 +22,7 @@ const LeftMenu = ({ authenticated }) => {
         <p>LOGO</p>
       </div>
       <div className="lm-nav-buttons">
-        <p>Home</p>
+        <NavLink to='/home'>Home</NavLink>
         <p>Search</p>
       </div>
       <div className="lm-create-pl">

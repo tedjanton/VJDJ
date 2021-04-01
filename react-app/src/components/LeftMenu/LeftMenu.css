@@ -1,7 +1,7 @@
 .lm-container {
   position: fixed;
   top: 0;
-  z-index: 100;
+  z-index: 200;
   color: white;
   background-color: black;
   width: 250px;

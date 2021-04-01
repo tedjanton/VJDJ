@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { ColorExtractor } from 'react-color-extractor';
 import { useParams } from 'react-router-dom';
 import { getPlaylist } from '../../store/playlists';
 import './PlaylistDetail.css';
@@ -10,27 +11,31 @@ const PlaylistDetail = () => {
   const params = useParams();
   const playlist = useSelector(state => state.playlists.selected?.playlist);
   const tracks = useSelector(state => state.playlists.selected?.tracks);
-  const [images, setImages] = useState([])
+  const [images, setImages] = useState([]);
+  const [colors, getColors] = useState([]);
 
-  useEffect(async () => {
-    let pl = await dispatch(getPlaylist(params.id))
-    let imgs = [];
-    if (pl.tracks) {
-      for (let i = 0; i < 4; i++) {
-        imgs.push(pl.tracks[i].track.album.art_src);
+  useEffect(() => {
+    (async() => {
+      let pl = await dispatch(getPlaylist(params.id))
+      let imgs = [];
+      if (pl.tracks) {
+        for (let i = 0; i < 4; i++) {
+          imgs.push(pl.tracks[i].track.album.art_src);
+        }
       }
-    }
-    setImages(imgs);
+      setImages(imgs);
+    })();
   }, [dispatch, params])
 
-
   return (
-    <div className="pl-page-container">
+    <div className="pl-page-container" style={{ backgroundColor: `${colors[3]}80`}}>
       <div className="pl-header-container">
         <div className="pl-header-image-container">
         {images?.map((image, i) => (
           <div key={i} className="pl-image">
-            <img src={image} alt="image" />
+            <ColorExtractor getColors={(c) => getColors(c)}>
+              <img src={image} alt="art" />
+            </ColorExtractor>
           </div>
         ))}
         </div>

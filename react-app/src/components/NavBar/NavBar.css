@@ -10,6 +10,7 @@ a:visited {
 .nav-container {
   position: fixed;
   display: flex;
+  z-index: 200;
   justify-content: flex-end;
   align-items: center;
   background-color: black;

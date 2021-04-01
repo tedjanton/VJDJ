@@ -1,6 +1,7 @@
 .pl-page-container {
   position: relative;
   padding-left: 285px;
+  padding-top: 150px;
 }
 
 .pl-image img {
@@ -9,7 +10,6 @@
 
 .pl-header-container {
   display: flex;
-  margin-top: 150px;
   align-items: flex-end;
 }
 

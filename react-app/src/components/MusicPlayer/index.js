@@ -1,31 +1,40 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Controls from "./Controls";
-import chromatica from '../../images/chromatica.jpeg';
-import future_nostalgia from '../../images/future_nostalgia.jpeg';
 import './MusicPlayer.css';
+import { useSelector } from 'react-redux';
 
-
-const MusicPlayer = ({}) => {
-  let tracks = [{
-    title: "Stupid Love",
-    artist: "Lady Gaga",
-    art: chromatica,
-    audio_src: 'https://vjdj.s3.amazonaws.com/music/lady-gaga/Chromatica/03+Stupid+Love.m4a'
-  }, {
-    title: "Don't Start Now",
-    artist: "Dua Lipa",
-    art: future_nostalgia,
-    audio_src: 'https://vjdj.s3.amazonaws.com/music/dua-lipa/future-nostalgia/02-dua_lipa-dont_start_now.mp3'
-  }]
+const MusicPlayer = () => {
+  const [loaded, setLoaded] = useState(false);
+  const tracks = useSelector(state => state.playlists.selected?.tracks.map((track) => ({
+    title: track.track.title,
+    artists: track.track.artists.map(artist => artist.name),
+    art: track.track.album.art_src,
+    audio_src: track.track.audio_src,
+  })))
   const [trackIdx, setTrackIdx] = useState(0);
   const [trackProgress, setTrackProgress] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [vol, setVol] = useState(1);
-  const { title, artist, art, audio_src } = tracks[trackIdx]
+  const { title, artists, art, audio_src } = tracks ? tracks[trackIdx] : {};
   const audioRef = useRef(new Audio(audio_src))
   const intervalRef = useRef();
   const isReady = useRef(false);
   const { duration } = audioRef.current;
+
+  const startTimer = () => {
+    clearInterval(intervalRef.current);
+    intervalRef.current = setInterval(() => {
+      if (audioRef.current.ended) {
+        toNextTrack();
+      } else {
+        setTrackProgress(audioRef.current.currentTime)
+      }
+    }, [1000])
+  }
+
+  useEffect(() => {
+    audioRef.current = new Audio(audio_src)
+  }, [audio_src])
 
   useEffect(() => {
     audioRef.current.volume = vol;
@@ -39,7 +48,7 @@ const MusicPlayer = ({}) => {
       clearInterval(intervalRef.current);
       audioRef.current.pause();
     }
-  }, [isPlaying]);
+  }, [startTimer, isPlaying]);
 
   useEffect(() => {
     return () => {
@@ -50,7 +59,6 @@ const MusicPlayer = ({}) => {
 
   useEffect(() => {
     audioRef.current.pause();
-
     audioRef.current = new Audio(audio_src);
     setTrackProgress(audioRef.current.currentTime);
 
@@ -81,17 +89,6 @@ const MusicPlayer = ({}) => {
     }
   }
 
-  const startTimer = () => {
-    clearInterval(intervalRef.current);
-    intervalRef.current = setInterval(() => {
-      if (audioRef.current.ended) {
-        toNextTrack();
-      } else {
-        setTrackProgress(audioRef.current.currentTime)
-      }
-    }, [1000])
-  }
-
   const onScrub = (value) => {
     clearInterval(intervalRef.current);
     audioRef.current.currentTime = value;
@@ -113,6 +110,7 @@ const MusicPlayer = ({}) => {
   const volStyling = `
     -webkit-gradient(linear, 0% 0%, 100% 0%, color-stop(${currentVolPercentage}, #e1e1e1), color-stop(${currentVolPercentage}, #505050))
   `;
+
   return (
     <div className="mp-container">
       <div className="mp-track-info">
@@ -128,7 +126,7 @@ const MusicPlayer = ({}) => {
             <p>{title}</p>
           </div>
           <div className="mp-artist-container">
-            <p>{artist}</p>
+            <p>{artists}</p>
           </div>
         </div>
       </div>
@@ -185,3 +183,16 @@ const MusicPlayer = ({}) => {
 
 
 export default MusicPlayer;
+
+
+// let tracks = [{
+  //   title: "Stupid Love",
+  //   artist: "Lady Gaga",
+  //   art: chromatica,
+  //   audio_src: 'https://vjdj.s3.amazonaws.com/music/lady-gaga/Chromatica/03+Stupid+Love.m4a'
+  // }, {
+  //   title: "Don't Start Now",
+  //   artist: "Dua Lipa",
+  //   art: future_nostalgia,
+  //   audio_src: 'https://vjdj.s3.amazonaws.com/music/dua-lipa/future-nostalgia/02-dua_lipa-dont_start_now.mp3'
+  // }]

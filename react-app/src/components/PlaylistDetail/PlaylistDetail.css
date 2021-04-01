@@ -2,10 +2,14 @@
   position: relative;
   padding-left: 285px;
   padding-top: 150px;
+  padding-bottom: 30px;
 }
 
+
+.pl-image,
 .pl-image img {
-  max-width: 120px;
+  width: 130px;
+  height: 130px;
 }
 
 .pl-header-container {
@@ -17,7 +21,8 @@
   display: grid;
   grid-template-rows: 1fr 1fr;
   grid-template-columns: 1fr 1fr;
-  max-width: 240px;
+  width: 260px;
+  height: 260px;
 }
 
 .pl-header-details-container {

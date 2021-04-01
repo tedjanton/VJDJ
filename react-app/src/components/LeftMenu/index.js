@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { NavLink } from 'react-router-dom';
 import { getUserPls } from '../../store/playlists';
 import './LeftMenu.css';
 
-const LeftMenu = () => {
+const LeftMenu = ({ authenticated }) => {
   const dispatch = useDispatch();
   const user = useSelector(state => state.session.user)
   const userPls = useSelector(state => state.playlists.userPls)
@@ -11,6 +12,7 @@ const LeftMenu = () => {
   useEffect(() => {
     dispatch(getUserPls(user.id))
   }, [user, dispatch])
+
 
   return (
     <div className="lm-container">
@@ -27,9 +29,9 @@ const LeftMenu = () => {
       </div>
       <div className="lm-user-pls">
       {userPls?.map(pl => (
-        <div key={pl.id} className="lm-user-pl">
+        <NavLink to={`/playlists/${pl.id}`} key={pl.id} className="lm-user-pl">
           <p>{pl.name}</p>
-        </div>
+        </NavLink>
       ))}
       </div>
     </div>

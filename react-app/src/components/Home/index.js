@@ -9,9 +9,6 @@ const Home = () => {
 
   return (
     <div className="home-container">
-      <div className="lm-container">
-        <LeftMenu />
-      </div>
       <div className="home-featured-video-container">
         <video
           id="featured-video"

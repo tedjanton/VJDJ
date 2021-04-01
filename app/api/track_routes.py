@@ -9,4 +9,4 @@ track_routes = Blueprint('tracks', __name__)
 @login_required
 def pop_tracks():
   tracks = Track.query.order_by(Track.num_plays.desc()).limit(5)
-  return {'pop_tracks': [track.to_pop_dict() for track in tracks]}
+  return {'pop_tracks': [track.to_dict() for track in tracks]}

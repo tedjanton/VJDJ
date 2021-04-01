@@ -23,7 +23,7 @@ class Track(db.Model):
   artists = db.relationship('Artist', secondary=track_artists, back_populates='tracks')
   playlist_tracks = db.relationship('PlaylistTrack', back_populates='track')
 
-  def to_pop_dict(self):
+  def to_dict(self):
     return {
       'id': self.id,
       'title': self.title,

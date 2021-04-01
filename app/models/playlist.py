@@ -12,19 +12,19 @@ class Playlist(db.Model):
   user = db.relationship('User', back_populates='playlists')
   tracks = db.relationship('PlaylistTrack', back_populates='playlist')
 
-  # def to_dict(self):
-  #   return {
-  #     'id': self.id,
-  #     'name': self.name,
-  #     'user': self.user.to_dict(),
-  #     'tracks': [track.to_dict() for track in self.tracks],
-  #     'created_at': self.created_at,
-  #   }
+  def to_dict(self):
+    return {
+      'id': self.id,
+      'name': self.name,
+      'tracks': [track.to_dict() for track in self.tracks],
+      'created_at': self.created_at,
+    }
 
   def to_pl_name_dict(self):
     return {
       'id': self.id,
       'name': self.name,
+      'user': self.user.to_dict(),
       'created_at': self.created_at,
     }
   # def to_no_user_dict(self):

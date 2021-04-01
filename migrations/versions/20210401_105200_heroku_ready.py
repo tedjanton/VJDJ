@@ -1,8 +1,8 @@
-"""built models
+"""heroku-ready
 
-Revision ID: fd8cc4f0b578
-Revises: 37a7057d34ef
-Create Date: 2021-03-30 18:45:48.077562
+Revision ID: fca3d78529d6
+Revises: 
+Create Date: 2021-04-01 10:52:00.979973
 
 """
 from alembic import op
@@ -10,8 +10,8 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'fd8cc4f0b578'
-down_revision = '37a7057d34ef'
+revision = 'fca3d78529d6'
+down_revision = None
 branch_labels = None
 depends_on = None
 
@@ -24,6 +24,17 @@ def upgrade():
     sa.Column('bio', sa.String(length=2000), nullable=False),
     sa.Column('image', sa.String(), nullable=False),
     sa.PrimaryKeyConstraint('id')
+    )
+    op.create_table('users',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('first_name', sa.String(length=40), nullable=False),
+    sa.Column('last_name', sa.String(length=40), nullable=False),
+    sa.Column('username', sa.String(length=40), nullable=False),
+    sa.Column('email', sa.String(length=255), nullable=False),
+    sa.Column('hashed_password', sa.String(length=255), nullable=False),
+    sa.PrimaryKeyConstraint('id'),
+    sa.UniqueConstraint('email'),
+    sa.UniqueConstraint('username')
     )
     op.create_table('albums',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -54,11 +65,13 @@ def upgrade():
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('playlist_tracks',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('order_num', sa.Integer(), nullable=False),
     sa.Column('track_id', sa.Integer(), nullable=False),
     sa.Column('playlist_id', sa.Integer(), nullable=False),
     sa.ForeignKeyConstraint(['playlist_id'], ['playlists.id'], ),
     sa.ForeignKeyConstraint(['track_id'], ['tracks.id'], ),
-    sa.PrimaryKeyConstraint('track_id', 'playlist_id')
+    sa.PrimaryKeyConstraint('id')
     )
     op.create_table('track_artists',
     sa.Column('track_id', sa.Integer(), nullable=False),
@@ -77,5 +90,6 @@ def downgrade():
     op.drop_table('tracks')
     op.drop_table('playlists')
     op.drop_table('albums')
+    op.drop_table('users')
     op.drop_table('artists')
     # ### end Alembic commands ###

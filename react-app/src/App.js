@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, createContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import LoginForm from './components/auth/LoginForm';
@@ -12,12 +12,17 @@ import PlaylistDetail from './components/PlaylistDetail';
 import { authenticate } from './store/session';
 import Queue from './components/Queue';
 
+export const AppWithContext = createContext();
+
 function App() {
   const dispatch = useDispatch();
   const [authenticated, setAuthenticated] = useState(false);
   const [nav, setNav] = useState(true);
   const [loaded, setLoaded] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [trackQueue, setTrackQueue] = useState([]);
+
+  console.log(trackQueue);
 
   useEffect(() => {
     (async() => {
@@ -35,37 +40,54 @@ function App() {
 
   return (
     <BrowserRouter>
-      <NavBar nav={nav} authenticated={authenticated} setAuthenticated={setAuthenticated} />
-      {authenticated && (
-      <>
-        <LeftMenu authenticated={authenticated} />
-      </>
-      )}
-      <Switch>
-        <Route path='/' exact >
-          <Landing setNav={setNav} authenticated={authenticated} />
-        </Route>
-        <Route path='/login' exact >
-          <LoginForm
-            setNav={setNav}
-            authenticated={authenticated}
-            setAuthenticated={setAuthenticated}
-          />
-        </Route>
-        <Route path='/sign-up' exact >
-          <SignUpForm
-            setNav={setNav}
-            authenticated={authenticated}
-            setAuthenticated={setAuthenticated} />
-        </Route>
-        <ProtectedRoute path='/home' exact authenticated={authenticated}>
-          <Home />
-        </ProtectedRoute>
-        <ProtectedRoute path='/playlists/:id' exact authenticated={authenticated}>
-          <PlaylistDetail isPlaying={isPlaying} setIsPlaying={setIsPlaying}/>
-        </ProtectedRoute>
-      </Switch>
-      <Queue authenticated={authenticated} />
+      <AppWithContext.Provider
+        trackQueue={trackQueue}
+        setTrackQueue={setTrackQueue}
+        value={{trackQueue, setTrackQueue}}
+      >
+        <NavBar nav={nav} authenticated={authenticated} setAuthenticated={setAuthenticated} />
+        {authenticated && (
+        <>
+          <LeftMenu authenticated={authenticated} />
+        </>
+        )}
+        <Switch>
+          <Route path='/' exact >
+            <Landing setNav={setNav} authenticated={authenticated} />
+          </Route>
+          <Route path='/login' exact >
+            <LoginForm
+              setNav={setNav}
+              authenticated={authenticated}
+              setAuthenticated={setAuthenticated}
+            />
+          </Route>
+          <Route path='/sign-up' exact >
+            <SignUpForm
+              setNav={setNav}
+              authenticated={authenticated}
+              setAuthenticated={setAuthenticated} />
+          </Route>
+          <ProtectedRoute path='/home' exact authenticated={authenticated}>
+            <Home />
+          </ProtectedRoute>
+          <ProtectedRoute path='/playlists/:id' exact authenticated={authenticated}>
+            <PlaylistDetail
+              isPlaying={isPlaying}
+              setIsPlaying={setIsPlaying}
+              trackQueue={trackQueue}
+              setTrackQueue={setTrackQueue}
+            />
+          </ProtectedRoute>
+        </Switch>
+        <Queue
+          isPlaying={isPlaying}
+          setIsPlaying={setIsPlaying}
+          authenticated={authenticated}
+          trackQueue={trackQueue}
+          setTrackQueue={setTrackQueue}
+        />
+      </AppWithContext.Provider>
     </BrowserRouter>
   );
 }

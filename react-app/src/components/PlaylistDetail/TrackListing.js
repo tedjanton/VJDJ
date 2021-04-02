@@ -40,7 +40,7 @@ const TrackListing = ({ track, isPlaying, setIsPlaying }) => {
           </button>
         </div>
         <div className="track-time">
-          <p>TIME</p>
+          <p>{track.track.time}</p>
         </div>
       </div>
     </div>

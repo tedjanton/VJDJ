@@ -4,11 +4,10 @@ import './MusicPlayer.css';
 import { useSelector } from 'react-redux';
 
 const MusicPlayer = ({ tracks, isPlaying, setIsPlaying }) => {
-  
   const [trackIdx, setTrackIdx] = useState(0);
   const [trackProgress, setTrackProgress] = useState(0);
   const [vol, setVol] = useState(1);
-  const { title, artists, art, audio_src } = tracks ? tracks[trackIdx] : {};
+  const { title, artists, art, audio_src } = tracks[trackIdx];
   const audioRef = useRef(new Audio(audio_src))
   const intervalRef = useRef();
   const isReady = useRef(false);
@@ -24,15 +23,6 @@ const MusicPlayer = ({ tracks, isPlaying, setIsPlaying }) => {
       }
     }, [1000])
   }
-
-  // console.log(audio_src);
-
-  // useEffect(() => {
-  //   audioRef.current = new Audio(audio_src)
-  //   return () => {
-
-  //   }
-  // }, [audio_src])
 
   useEffect(() => {
     audioRef.current.volume = vol;

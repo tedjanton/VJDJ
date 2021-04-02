@@ -10,3 +10,11 @@ track_routes = Blueprint('tracks', __name__)
 def pop_tracks():
   tracks = Track.query.order_by(Track.num_plays.desc()).limit(5)
   return {'pop_tracks': [track.to_dict() for track in tracks]}
+
+
+@track_routes.route('/<int:id>/')
+def add_track_to_queue(id):
+  track = Track.query.get(id)
+  return track.to_queue_dict()
+
+

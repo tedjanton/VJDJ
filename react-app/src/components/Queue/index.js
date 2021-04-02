@@ -1,17 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import MusicPlayer from '../MusicPlayer';
 
 
-const Queue = ({ authenticated }) => {
-  const [isPlaying, setIsPlaying] = useState(false);
+const Queue = ({ isPlaying, setIsPlaying, authenticated, trackQueue, setTrackQueue }) => {
 
-  const tracks = useSelector(state => state.tracks.popTracks?.map((track) => ({
-    title: track.title,
-    artists: track.artists.map(artist => artist.name),
-    art: track.album.art_src,
-    audio_src: track.audio_src,
-  })))
+  let tracks = trackQueue;
 
   if (!authenticated) {
     return null;
@@ -19,7 +13,7 @@ const Queue = ({ authenticated }) => {
 
   return (
     <div>
-      {tracks && (
+      {tracks.length && (
         <MusicPlayer
           tracks={tracks}
           isPlaying={isPlaying}

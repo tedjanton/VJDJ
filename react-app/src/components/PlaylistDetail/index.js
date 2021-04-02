@@ -3,11 +3,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ColorExtractor } from 'react-color-extractor';
 import { useParams } from 'react-router-dom';
 import TrackListing from './TrackListing';
+import { formatTrack } from '../../utils';
 import { getPlaylist } from '../../store/playlists';
+import { addMultipleTracks } from '../../store/queue';
 import './PlaylistDetail.css';
 
 
-const PlaylistDetail = ({ isPlaying, setIsPlaying }) => {
+const PlaylistDetail = ({ isPlaying, setIsPlaying, trackQueue, setTrackQueue }) => {
   const dispatch = useDispatch();
   const params = useParams();
   const playlist = useSelector(state => state.playlists.selected?.playlist);
@@ -28,6 +30,12 @@ const PlaylistDetail = ({ isPlaying, setIsPlaying }) => {
       setImages(square);
     })();
   }, [dispatch, params])
+
+  const addToQueue = () => {
+    const plTracks = tracks.map(({ track }) => formatTrack(track));
+
+    setTrackQueue([...trackQueue, ...plTracks])
+  }
 
   return (
     <div className="pl-page-container" style={{ backgroundColor: `${colors[3]}80`}}>
@@ -61,7 +69,15 @@ const PlaylistDetail = ({ isPlaying, setIsPlaying }) => {
       <div className="pl-bottom-container">
         <div className="pl-bottom-header">
           <div className="pl-music-play-buttons">
-          {isPlaying ? (
+          <button
+              type="button"
+              className="pl-play"
+              aria-label="Play"
+              onClick={addToQueue}
+            >
+              <i className="pl fas fa-play" />
+            </button>
+          {/* {isPlaying ? (
             <button
               type="button"
               className="pl-pause"
@@ -79,7 +95,7 @@ const PlaylistDetail = ({ isPlaying, setIsPlaying }) => {
             >
               <i className="pl fas fa-play" />
             </button>
-          )}
+          )} */}
           </div>
           <div className="pl-like-button">
             <i className="pl fas fa-heart" />

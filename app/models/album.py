@@ -30,3 +30,6 @@ class Album(db.Model):
       'year': self.year,
       'art_src': self.art_src,
     }
+
+  def to_only_art_dict(self):
+    return self.art_src

@@ -1,15 +1,13 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { createPlaylist } from '../../store/playlists';
+import { createPlaylist, getUserPls } from '../../store/playlists';
 
 const PlaylistModal = ({ setShowModal }) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const user = useSelector(state => state.session.user)
   const [name, setName] = useState("");
-
-  console.log(user);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -18,7 +16,9 @@ const PlaylistModal = ({ setShowModal }) => {
       user_id: user.id
     }
     const newPlaylist = await dispatch(createPlaylist(submission));
-    // return history.push(`/playlists/${newPlaylist.id}`)
+    setShowModal(false)
+    dispatch(getUserPls(user.id))
+    return history.push(`/playlists/${newPlaylist.id}`)
   }
 
   return (

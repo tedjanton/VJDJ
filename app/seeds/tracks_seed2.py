@@ -37,7 +37,7 @@ def tracks_seed2():
   midnight_sky = Track(title="Midnight Sky",
                          track_num=2,
                          num_plays=36729,
-                         audio_src="https://vjdj.s3.amazonaws.com/music/miley-cyrus/Miley+Cyrus+-+Prisoner+(Official+Video)+ft.+Dua+Lipa+(320+kbps).mp3",
+                         audio_src="https://vjdj.s3.amazonaws.com/music/miley-cyrus/Miley+Cyrus+-+Midnight+Sky+(Official+Video)+(320+kbps).mp3",
                          vid_src="https://www.youtube.com/embed/aS1no1myeTM",
                          length="3:43",
                          album_id=6,

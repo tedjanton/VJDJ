@@ -1,8 +1,8 @@
-"""heroku-ready
+"""remigrating
 
-Revision ID: fca3d78529d6
+Revision ID: 293498c9a5c4
 Revises: 
-Create Date: 2021-04-01 10:52:00.979973
+Create Date: 2021-04-02 11:36:13.597934
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'fca3d78529d6'
+revision = '293498c9a5c4'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -60,6 +60,7 @@ def upgrade():
     sa.Column('num_plays', sa.Integer(), nullable=True),
     sa.Column('audio_src', sa.String(), nullable=False),
     sa.Column('vid_src', sa.String(), nullable=True),
+    sa.Column('length', sa.String(), nullable=False),
     sa.Column('album_id', sa.Integer(), nullable=False),
     sa.ForeignKeyConstraint(['album_id'], ['albums.id'], ),
     sa.PrimaryKeyConstraint('id')

@@ -20,14 +20,14 @@ seed_commands = AppGroup('seed')
 def seed():
     seed_users()
     artists_seed1()
-    albums_seed1()
-    tracks_seed1()
-    playlists_seed1()
-    playlist_tracks_seed1()
     artists_seed2()
+    albums_seed1()
     albums_seed2()
+    tracks_seed1()
     tracks_seed2()
+    playlists_seed1()
     playlists_seed2()
+    playlist_tracks_seed1()
     playlist_tracks_seed2()
     # Add other seed functions here
 

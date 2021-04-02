@@ -24,7 +24,13 @@
 }
 
 .lm-user-pls {
+  display: flex;
+  flex-direction: column;
   padding: 20px 20px 20px 0;
   margin: 20px;
   border-top: thin solid white;
+}
+
+.lm-user-pl-container {
+  margin: 5px 0;
 }

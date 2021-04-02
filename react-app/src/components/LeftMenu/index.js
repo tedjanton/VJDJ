@@ -38,12 +38,14 @@ const LeftMenu = ({ authenticated }) => {
       </div>
       <div className="lm-user-pls">
       {userPls?.map(pl => (
-        <NavLink
-          to={`/playlists/${pl.id}`}
-          key={pl.id}
-          className="lm-user-pl">
-          {pl.name}
-        </NavLink>
+        <div className="lm-user-pl-container">
+          <NavLink
+            to={`/playlists/${pl.id}`}
+            key={pl.id}
+            className="lm-user-pl">
+            {pl.name}
+          </NavLink>
+        </div>
       ))}
       </div>
     </div>

@@ -5,7 +5,7 @@ def playlist_tracks_seed2():
   track1 = PlaylistTrack(order_num=1, track_id=13, playlist_id=2)
   track2 = PlaylistTrack(order_num=2, track_id=9, playlist_id=2)
   track3 = PlaylistTrack(order_num=3, track_id=3, playlist_id=2)
-  track4 = PlaylistTrack(order_num=4, track_id=5, playlist_id=1)
+  track4 = PlaylistTrack(order_num=4, track_id=5, playlist_id=2)
   track5 = PlaylistTrack(order_num=5, track_id=10, playlist_id=2)
   track6 = PlaylistTrack(order_num=6, track_id=7, playlist_id=2)
   track7 = PlaylistTrack(order_num=7, track_id=12, playlist_id=2)

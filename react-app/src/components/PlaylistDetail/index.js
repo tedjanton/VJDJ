@@ -20,11 +20,12 @@ const PlaylistDetail = ({ isPlaying, setIsPlaying }) => {
       let pl = await dispatch(getPlaylist(params.id))
       let imgs = [];
       if (pl.tracks) {
-        for (let i = 0; i < 4; i++) {
+        for (let i = 0; i < pl.tracks.length; i++) {
           imgs.push(pl.tracks[i].track.album.art_src);
         }
       }
-      setImages(imgs);
+      let square = imgs.filter((img, i) => i < 4)
+      setImages(square);
     })();
   }, [dispatch, params])
 
@@ -32,7 +33,7 @@ const PlaylistDetail = ({ isPlaying, setIsPlaying }) => {
     <div className="pl-page-container" style={{ backgroundColor: `${colors[3]}80`}}>
       <div className="pl-header-container">
         <div className="pl-header-image-container">
-        {images?.map((image, i) => (
+        {images && images?.map((image, i) => (
           <div key={i} className="pl-image">
             <ColorExtractor getColors={(c) => getColors(c)}>
               <img src={image} alt="art" />

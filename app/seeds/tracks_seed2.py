@@ -7,6 +7,7 @@ def tracks_seed2():
                 num_plays=3058,
                 audio_src="https://vjdj.s3.amazonaws.com/music/lizzo/Lizzo+-+Good+As+Hell+(Video)+(320+kbps).mp3",
                 vid_src="https://www.youtube.com/embed/vuq-VAiW9kw",
+                length="2:39",
                 album_id=4,
                 artists=[Artist.query.get(5)])
   juice = Track(title="Juice",
@@ -14,6 +15,7 @@ def tracks_seed2():
                 num_plays=489295,
                 audio_src="https://vjdj.s3.amazonaws.com/music/lizzo/Lizzo+-+Juice+(Official+Video)+(320+kbps).mp3",
                 vid_src="https://www.youtube.com/embed/XaCrQL_8eMY",
+                length="3:15",
                 album_id=4,
                 artists=[Artist.query.get(5)])
   blinding_lights = Track(title="Blinding Lights",
@@ -21,6 +23,7 @@ def tracks_seed2():
                      num_plays=23493,
                      audio_src="https://vjdj.s3.amazonaws.com/music/the-weeknd/The+Weeknd+-+Blinding+Lights+(Lyrics)+(320+kbps).mp3",
                      vid_src="https://www.youtube.com/embed/4NRXx6U8ABQ",
+                     length="3:20",
                      album_id=5,
                      artists=[Artist.query.get(6)])
   prisoner = Track(title="Prisoner",
@@ -28,6 +31,7 @@ def tracks_seed2():
                            num_plays=549943,
                            audio_src="https://vjdj.s3.amazonaws.com/music/miley-cyrus/Miley+Cyrus+-+Prisoner+(Official+Video)+ft.+Dua+Lipa+(320+kbps).mp3",
                            vid_src="https://www.youtube.com/embed/0ir1qkPXPVM",
+                           length="2:49",
                            album_id=6,
                            artists=[Artist.query.get(7), Artist.query.get(2)])
   midnight_sky = Track(title="Midnight Sky",
@@ -35,6 +39,7 @@ def tracks_seed2():
                          num_plays=36729,
                          audio_src="https://vjdj.s3.amazonaws.com/music/miley-cyrus/Miley+Cyrus+-+Prisoner+(Official+Video)+ft.+Dua+Lipa+(320+kbps).mp3",
                          vid_src="https://www.youtube.com/embed/aS1no1myeTM",
+                         length="3:43",
                          album_id=6,
                          artists=[Artist.query.get(7)])
 
@@ -43,6 +48,7 @@ def tracks_seed2():
                num_plays=52455,
                audio_src="https://vjdj.s3.amazonaws.com/music/cardi-b/Cardi+B+-+Up+(Lyrics)+(320+kbps).mp3",
                vid_src="https://www.youtube.com/embed/rCiBgLOcuKU",
+               length="2:36",
                album_id=7,
                artists=[Artist.query.get(8)])
 

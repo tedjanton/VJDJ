@@ -17,6 +17,7 @@ class Track(db.Model):
   num_plays = db.Column(db.Integer)
   audio_src = db.Column(db.String, nullable = False)
   vid_src = db.Column(db.String)
+  length = db.Column(db.String, nullable = False)
   album_id = db.Column(db.Integer, db.ForeignKey('albums.id'), nullable = False)
 
   album = db.relationship('Album', back_populates='tracks')

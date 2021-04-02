@@ -18,6 +18,19 @@
 
 .home-feature-watch-button {
   z-index: 104;
+  margin-top: 20px;
+}
+
+.home-feature-watch-button button {
+  background: #1db954;
+  border: none;
+  height: 50px;
+  width: 140px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 18px;
+  border-radius: 30px;
+  color: white;
+  font-weight: 600;
 }
 
 .home-bottom-container {

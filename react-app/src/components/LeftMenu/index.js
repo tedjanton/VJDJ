@@ -19,11 +19,18 @@ const LeftMenu = ({ authenticated }) => {
   return (
     <div className="lm-container">
       <div className="lm-logo">
-        <p>LOGO</p>
+        <h2>VJDJ</h2>
       </div>
       <div className="lm-nav-buttons">
-        <NavLink to='/home'>Home</NavLink>
-        <p>Search</p>
+        <div className="lm-nav-home">
+          <NavLink to='/home'>
+            <i className="fas fa-home"
+            />Home
+          </NavLink>
+        </div>
+        <div className="lm-nav-search">
+          <p><i className="fas fa-search" />Search</p>
+        </div>
       </div>
       <div className="lm-create-pl">
         <p>Create Playlist</p>
@@ -31,8 +38,11 @@ const LeftMenu = ({ authenticated }) => {
       </div>
       <div className="lm-user-pls">
       {userPls?.map(pl => (
-        <NavLink to={`/playlists/${pl.id}`} key={pl.id} className="lm-user-pl">
-          <p>{pl.name}</p>
+        <NavLink
+          to={`/playlists/${pl.id}`}
+          key={pl.id}
+          className="lm-user-pl">
+          {pl.name}
         </NavLink>
       ))}
       </div>

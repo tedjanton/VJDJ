@@ -33,8 +33,11 @@ const MusicPlayer = ({ authenticated, isPlaying, setIsPlaying }) => {
   // console.log(audio_src);
 
   // useEffect(() => {
-  //   audioRef.current = new Audio(audioSrc)
-  // }, [audioSrc])
+  //   audioRef.current = new Audio(audio_src)
+  //   return () => {
+
+  //   }
+  // }, [audio_src])
 
   useEffect(() => {
     audioRef.current.volume = vol;
@@ -53,6 +56,7 @@ const MusicPlayer = ({ authenticated, isPlaying, setIsPlaying }) => {
   useEffect(() => {
     return () => {
       audioRef.current.pause();
+
       clearInterval(intervalRef.current);
     }
   }, []);
@@ -120,11 +124,13 @@ const MusicPlayer = ({ authenticated, isPlaying, setIsPlaying }) => {
       <div className="mp-container">
         <div className="mp-track-info">
           <div className="mp-art-container">
-            <img
-              className="mp-art"
-              src={art}
-              alt="track art"
-              />
+            {art && (
+              <img
+                className="mp-art"
+                src={art}
+                alt="track art"
+                />
+            )}
           </div>
           <div className="mp-track-details">
             <div className="mp-title-container">

@@ -1,15 +1,16 @@
 import React from 'react';
 
 
-const TrackListing = ({ track }) => {
+const TrackListing = ({ track, isPlaying, setIsPlaying }) => {
 
-  const audio = new Audio(track.track.audio_src);
-
-  audio.preload = "metadata";
 
   return (
     <div className="pl-track-container">
-      <div className="pl-track-container-inner">
+      <div
+        className="pl-track-container-inner"
+        // onClick={handlePlaying}
+        id={`track-${track.track.order_num}`}
+      >
         <div className="track-details-container">
           <div className="track-num">
             <p>{track.order_num}</p>
@@ -23,7 +24,7 @@ const TrackListing = ({ track }) => {
             </div>
             <div className="track-artists">
               {track.track.artists.map(artist => (
-                <div className="track-artist">
+                <div key={artist.id} className="track-artist">
                   <p>{artist.name}</p>
                 </div>
               ))}

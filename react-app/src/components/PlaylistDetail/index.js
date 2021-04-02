@@ -111,7 +111,12 @@ const PlaylistDetail = ({ isPlaying, setIsPlaying }) => {
       </div>
       <div className="tracks-container">
       {tracks?.map(track => (
-        <TrackListing track={track} />
+        <TrackListing
+          track={track}
+          isPlaying={isPlaying}
+          setIsPlaying={setIsPlaying}
+          key={track.id}
+        />
       ))}
       </div>
       <div className="pl-margin-bottom"></div>

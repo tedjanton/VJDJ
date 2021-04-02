@@ -6,7 +6,7 @@ import { getPlaylist } from '../../store/playlists';
 import './PlaylistDetail.css';
 
 
-const PlaylistDetail = () => {
+const PlaylistDetail = ({ isPlaying, setIsPlaying }) => {
   const dispatch = useDispatch();
   const params = useParams();
   const playlist = useSelector(state => state.playlists.selected?.playlist);
@@ -54,6 +54,29 @@ const PlaylistDetail = () => {
               <p>{`${tracks?.length} ${tracks?.length === 1 ? "song" : "songs" }`}</p>
             </div>
           </div>
+        </div>
+      </div>
+      <div className="pl-bottom-container">
+        <div className="pl-bottom-header">
+        {isPlaying ? (
+          <button
+            type="button"
+            className="pl-pause"
+            aria-label="Pause"
+            onClick={() => setIsPlaying(false)}
+          >
+            <i className="pl fas fa-pause" />
+          </button>
+        ) : (
+          <button
+            type="button"
+            className="pl-play"
+            aria-label="Play"
+            onClick={() => setIsPlaying(true)}
+          >
+            <i className="pl fas fa-play" />
+          </button>
+        )}
         </div>
       </div>
     </div>

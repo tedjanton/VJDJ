@@ -3,7 +3,7 @@ import Controls from "./Controls";
 import './MusicPlayer.css';
 import { useSelector } from 'react-redux';
 
-const MusicPlayer = ({ authenticated }) => {
+const MusicPlayer = ({ authenticated, isPlaying, setIsPlaying }) => {
   const tracks = useSelector(state => state.playlists.selected?.tracks.map((track) => ({
     title: track.track.title,
     artists: track.track.artists.map(artist => artist.name),
@@ -12,7 +12,6 @@ const MusicPlayer = ({ authenticated }) => {
   })))
   const [trackIdx, setTrackIdx] = useState(0);
   const [trackProgress, setTrackProgress] = useState(0);
-  const [isPlaying, setIsPlaying] = useState(false);
   const [vol, setVol] = useState(1);
   const { title, artists, art, audio_src } = tracks ? tracks[trackIdx] : {};
   const audioRef = useRef(new Audio(audio_src))

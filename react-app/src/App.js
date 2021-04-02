@@ -17,6 +17,7 @@ function App() {
   const [authenticated, setAuthenticated] = useState(false);
   const [nav, setNav] = useState(true);
   const [loaded, setLoaded] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
 
   useEffect(() => {
     (async() => {
@@ -61,10 +62,14 @@ function App() {
           <Home />
         </ProtectedRoute>
         <ProtectedRoute path='/playlists/:id' exact authenticated={authenticated}>
-          <PlaylistDetail />
+          <PlaylistDetail isPlaying={isPlaying} setIsPlaying={setIsPlaying}/>
         </ProtectedRoute>
       </Switch>
-      <MusicPlayer authenticated={authenticated} />
+      <MusicPlayer
+        authenticated={authenticated}
+        isPlaying={isPlaying}
+        setIsPlaying={setIsPlaying}
+      />
     </BrowserRouter>
   );
 }

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ColorExtractor } from 'react-color-extractor';
 import { useParams } from 'react-router-dom';
+import TrackListing from './TrackListing';
 import { getPlaylist } from '../../store/playlists';
 import './PlaylistDetail.css';
 
@@ -58,27 +59,62 @@ const PlaylistDetail = ({ isPlaying, setIsPlaying }) => {
       </div>
       <div className="pl-bottom-container">
         <div className="pl-bottom-header">
-        {isPlaying ? (
-          <button
-            type="button"
-            className="pl-pause"
-            aria-label="Pause"
-            onClick={() => setIsPlaying(false)}
-          >
-            <i className="pl fas fa-pause" />
-          </button>
-        ) : (
-          <button
-            type="button"
-            className="pl-play"
-            aria-label="Play"
-            onClick={() => setIsPlaying(true)}
-          >
-            <i className="pl fas fa-play" />
-          </button>
-        )}
+          <div className="pl-music-play-buttons">
+          {isPlaying ? (
+            <button
+              type="button"
+              className="pl-pause"
+              aria-label="Pause"
+              onClick={() => setIsPlaying(false)}
+            >
+              <i className="pl fas fa-pause" />
+            </button>
+          ) : (
+            <button
+              type="button"
+              className="pl-play"
+              aria-label="Play"
+              onClick={() => setIsPlaying(true)}
+            >
+              <i className="pl fas fa-play" />
+            </button>
+          )}
+          </div>
+          <div className="pl-like-button">
+            <i className="pl fas fa-heart" />
+          </div>
+          <div className="pl-dot-menu">
+            <i className="pl fas fa-ellipsis-h" />
+          </div>
+        </div>
+        <div className="pl-table-container">
+          <div className="pl-table-header">
+            <div className="pl-header-num-title-container">
+              <div className="pl-header-track-num">
+                <p>#</p>
+              </div>
+              <div className="pl-header-title">
+                <p>TITLE</p>
+              </div>
+            </div>
+            <div className="pl-header-album">
+              <p>ALBUM</p>
+            </div>
+            <div className="pl-header-date">
+              <p>DATE ADDED</p>
+            </div>
+            <div className="pl-header-time">
+              <i className="far fa-clock" />
+            </div>
+          </div>
         </div>
       </div>
+      <div className="tracks-container">
+      {tracks?.map(track => (
+        <TrackListing track={track} />
+      ))}
+      </div>
+      <div className="pl-margin-bottom"></div>
     </div>
   )
 }

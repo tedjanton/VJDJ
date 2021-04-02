@@ -40,7 +40,16 @@
 }
 
 .pl-bottom-container {
-  margin: 40px;
+  padding: 40px 40px 20px 40px;
+  background-color: rgb(15, 15, 15);
+  margin-top: 50px;
+}
+
+.pl-bottom-header {
+  display: flex;
+  align-items: center;
+  width: 220px;
+  justify-content: space-between;
 }
 
 .pl-play,
@@ -57,4 +66,128 @@ i.pl.fas.fa-pause,
 i.pl.fas.fa-play {
   color: white;
   font-size: 20px;
+}
+
+.pl.fas.fa-heart {
+  font-size: 30px;
+}
+
+.pl.fas.fa-ellipsis-h {
+  font-size: 20px;
+}
+
+.pl-table-container {
+  margin: 0 20px;
+  color:rgb(189, 189, 189)
+}
+
+.pl-table-header {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  border-bottom: thin solid rgb(39, 39, 39);
+}
+
+.pl-header-num-title-container {
+  display: flex;
+  justify-content: space-between;
+  width: 70px;
+  padding-right: 150px;
+  padding-left: 30px;
+}
+
+.pl-header-time {
+  padding-right: 30px;
+}
+
+.pl-tracks-container {
+  background-color: rgb(15, 15, 15)
+}
+
+.pl-track-container {
+  background-color: rgb(15, 15, 15);
+}
+
+.pl-track-container-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgb(15, 15, 15);
+  margin: 0 50px;
+  padding: 0 30px;
+}
+
+.pl-track-container-inner:hover {
+  background-color: rgb(32, 32, 32);
+  border-radius: 8px;
+}
+
+.track-details-container {
+  display: flex;
+  align-items: center;
+}
+
+.track-img img {
+  height: 50px;
+  margin: 10px;
+}
+
+.track-title-artist-container {
+  width: 200px;
+}
+
+.track-title p,
+.track-artists p {
+  margin: 0;
+}
+
+.track-artists {
+  font-size: 14px;
+  display: flex;
+  color: rgb(172, 172, 172)
+}
+
+.track-album {
+  text-align: left;
+  width: 250px;
+  margin-left: 140px;
+  color: rgb(172, 172, 172);
+}
+
+.track-album p {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.track-video {
+  width: 100px;
+}
+
+button.track-video-button {
+  background: #1db954;
+  height: 40px;
+  width: 80px;
+  border: none;
+  border-radius: 20px;
+}
+
+button.track-video-button:focus {
+  outline: none;
+}
+
+.fa-video {
+  color: white;
+  font-size: 18px;
+}
+
+.track-time {
+  margin-left: 160px;
+}
+
+.pl-margin-bottom {
+  height: 100px;
+  background-color: rgb(15, 15, 15);
 }

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import LoginForm from './components/auth/LoginForm';
 import SignUpForm from './components/auth/SignUpForm';
@@ -10,7 +10,7 @@ import Landing from './components/Landing';
 import Home from './components/Home';
 import PlaylistDetail from './components/PlaylistDetail';
 import { authenticate } from './store/session';
-import MusicPlayer from './components/MusicPlayer';
+import Queue from './components/Queue';
 
 function App() {
   const dispatch = useDispatch();
@@ -65,11 +65,7 @@ function App() {
           <PlaylistDetail isPlaying={isPlaying} setIsPlaying={setIsPlaying}/>
         </ProtectedRoute>
       </Switch>
-      <MusicPlayer
-        authenticated={authenticated}
-        isPlaying={isPlaying}
-        setIsPlaying={setIsPlaying}
-      />
+      <Queue authenticated={authenticated} />
     </BrowserRouter>
   );
 }

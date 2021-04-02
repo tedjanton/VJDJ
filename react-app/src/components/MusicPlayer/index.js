@@ -3,13 +3,8 @@ import Controls from "./Controls";
 import './MusicPlayer.css';
 import { useSelector } from 'react-redux';
 
-const MusicPlayer = ({ authenticated, isPlaying, setIsPlaying }) => {
-  const tracks = useSelector(state => state.playlists.selected?.tracks.map((track) => ({
-    title: track.track.title,
-    artists: track.track.artists.map(artist => artist.name),
-    art: track.track.album.art_src,
-    audio_src: track.track.audio_src,
-  })))
+const MusicPlayer = ({ tracks, isPlaying, setIsPlaying }) => {
+  
   const [trackIdx, setTrackIdx] = useState(0);
   const [trackProgress, setTrackProgress] = useState(0);
   const [vol, setVol] = useState(1);
@@ -115,9 +110,6 @@ const MusicPlayer = ({ authenticated, isPlaying, setIsPlaying }) => {
     -webkit-gradient(linear, 0% 0%, 100% 0%, color-stop(${currentVolPercentage}, #e1e1e1), color-stop(${currentVolPercentage}, #505050))
   `;
 
-  if (!authenticated) {
-    return null;
-  }
 
   return (
     <footer>

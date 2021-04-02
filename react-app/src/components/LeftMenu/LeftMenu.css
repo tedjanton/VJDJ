@@ -6,4 +6,25 @@
   background-color: black;
   width: 250px;
   height: 100%;
+
+}
+
+.lm-nav-buttons,
+.lm-create-pl {
+  margin-left: 20px;
+}
+
+.lm-create-pl {
+  margin-top: 60px;
+}
+
+.lm-logo {
+  font-size: 35px;
+  margin: 50px 0 20px 20px;
+}
+
+.lm-user-pls {
+  padding: 20px 20px 20px 0;
+  margin: 20px;
+  border-top: thin solid white;
 }

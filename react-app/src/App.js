@@ -10,12 +10,14 @@ import Landing from './components/Landing';
 import Home from './components/Home';
 import PlaylistDetail from './components/PlaylistDetail';
 import { authenticate } from './store/session';
+import MusicPlayer from './components/MusicPlayer';
 
 function App() {
   const dispatch = useDispatch();
   const [authenticated, setAuthenticated] = useState(false);
   const [nav, setNav] = useState(true);
   const [loaded, setLoaded] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
 
   useEffect(() => {
     (async() => {
@@ -60,9 +62,14 @@ function App() {
           <Home />
         </ProtectedRoute>
         <ProtectedRoute path='/playlists/:id' exact authenticated={authenticated}>
-          <PlaylistDetail />
+          <PlaylistDetail isPlaying={isPlaying} setIsPlaying={setIsPlaying}/>
         </ProtectedRoute>
       </Switch>
+      <MusicPlayer
+        authenticated={authenticated}
+        isPlaying={isPlaying}
+        setIsPlaying={setIsPlaying}
+      />
     </BrowserRouter>
   );
 }

@@ -11,7 +11,6 @@ const Home = () => {
       <div className="home-featured-video-container">
         <video
           id="featured-video"
-          // src={lil_nas_x_montero}
           src="https://vjdj.s3.amazonaws.com/featured-vids/lil-nas-x-montero.mp4"
           autoPlay
           loop

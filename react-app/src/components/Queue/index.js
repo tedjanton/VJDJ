@@ -3,9 +3,11 @@ import { useSelector } from 'react-redux';
 import MusicPlayer from '../MusicPlayer';
 
 
-const Queue = ({ isPlaying, setIsPlaying, authenticated, trackQueue, setTrackQueue }) => {
+const Queue = ({ authenticated, trackQueue, setTrackQueue }) => {
 
-  let tracks = trackQueue;
+  let tracks = trackQueue
+
+  // let emptyTracks = [{title: "", artists: "", art: "", audio_src: ""}]
 
   if (!authenticated) {
     return null;
@@ -13,12 +15,9 @@ const Queue = ({ isPlaying, setIsPlaying, authenticated, trackQueue, setTrackQue
 
   return (
     <div>
-      {tracks.length && (
-        <MusicPlayer
-          tracks={tracks}
-          isPlaying={isPlaying}
-          setIsPlaying={setIsPlaying} />
-      )}
+    {tracks.length && (
+      <MusicPlayer tracks={tracks} />
+    )}
     </div>
   )
 }

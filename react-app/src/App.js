@@ -22,8 +22,6 @@ function App() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [trackQueue, setTrackQueue] = useState([]);
 
-  console.log(trackQueue);
-
   useEffect(() => {
     (async() => {
       const user = await dispatch(authenticate());
@@ -43,7 +41,7 @@ function App() {
       <AppWithContext.Provider
         trackQueue={trackQueue}
         setTrackQueue={setTrackQueue}
-        value={{trackQueue, setTrackQueue}}
+        value={{trackQueue, setTrackQueue, isPlaying, setIsPlaying}}
       >
         <NavBar nav={nav} authenticated={authenticated} setAuthenticated={setAuthenticated} />
         {authenticated && (

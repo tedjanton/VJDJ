@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ColorExtractor } from 'react-color-extractor';
 import { useParams } from 'react-router-dom';
+import { AppWithContext } from '../../App';
 import TrackListing from './TrackListing';
 import { formatTrack } from '../../utils';
 import { getPlaylist } from '../../store/playlists';
@@ -9,7 +10,8 @@ import { addMultipleTracks } from '../../store/queue';
 import './PlaylistDetail.css';
 
 
-const PlaylistDetail = ({ isPlaying, setIsPlaying, trackQueue, setTrackQueue }) => {
+const PlaylistDetail = () => {
+  const { trackQueue, setTrackQueue, isPlaying, setIsPlaying } = useContext(AppWithContext)
   const dispatch = useDispatch();
   const params = useParams();
   const playlist = useSelector(state => state.playlists.selected?.playlist);
@@ -32,9 +34,13 @@ const PlaylistDetail = ({ isPlaying, setIsPlaying, trackQueue, setTrackQueue }) 
   }, [dispatch, params])
 
   const addToQueue = () => {
-    const plTracks = tracks.map(({ track }) => formatTrack(track));
+    if (trackQueue.length) {
+      setTrackQueue([])
+    } else {
+      const plTracks = tracks.map(({ track }) => formatTrack(track));
+      setTrackQueue([...trackQueue, ...plTracks])
+    }
 
-    setTrackQueue([...trackQueue, ...plTracks])
   }
 
   return (

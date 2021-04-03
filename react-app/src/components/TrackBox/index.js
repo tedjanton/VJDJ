@@ -8,7 +8,7 @@ import './TrackBox.css';
 
 const TrackBox = ({ track }) => {
   const dispatch = useDispatch();
-  const { trackQueue, setTrackQueue } = useContext(AppWithContext)
+  const { trackQueue, setTrackQueue, isPlaying, setIsPlaying } = useContext(AppWithContext)
   const [isHover, setIsHover] = useState(false);
 
   const handleMouseHover = () => {
@@ -16,7 +16,12 @@ const TrackBox = ({ track }) => {
   }
 
   const handleQueue = () => {
-    setTrackQueue([...trackQueue, formatTrack(track)]);
+    if (trackQueue.length) {
+      setTrackQueue([])
+    } else {
+      setTrackQueue([...trackQueue, formatTrack(track)]);
+    }
+
   }
 
   return (

@@ -1,17 +1,20 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useContext } from 'react';
+import { AppWithContext } from '../../App';
 import Controls from "./Controls";
 import './MusicPlayer.css';
 import { useSelector } from 'react-redux';
 
-const MusicPlayer = ({ tracks, isPlaying, setIsPlaying }) => {
+const MusicPlayer = ({ tracks }) => {
+  const { isPlaying, setIsPlaying } = useContext(AppWithContext)
   const [trackIdx, setTrackIdx] = useState(0);
   const [trackProgress, setTrackProgress] = useState(0);
   const [vol, setVol] = useState(1);
-  const { title, artists, art, audio_src } = tracks[trackIdx];
+  const { title, artists, art, audio_src } = tracks[trackIdx]
   const audioRef = useRef(new Audio(audio_src))
   const intervalRef = useRef();
   const isReady = useRef(false);
   const { duration } = audioRef.current;
+
 
   const startTimer = () => {
     clearInterval(intervalRef.current);

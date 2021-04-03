@@ -9,6 +9,13 @@ import { getPlaylist } from '../../store/playlists';
 import { addMultipleTracks } from '../../store/queue';
 import './PlaylistDetail.css';
 
+const initialDnDState = {
+  draggedFrom: null,
+  draggedTo: null,
+  isDragging: false,
+  originalOrder: [],
+  updatedOrder: [],
+}
 
 const PlaylistDetail = () => {
   const { trackQueue, setTrackQueue, isPlaying, setIsPlaying } = useContext(AppWithContext)
@@ -18,6 +25,14 @@ const PlaylistDetail = () => {
   const tracks = useSelector(state => state.playlists.selected?.tracks);
   const [images, setImages] = useState([]);
   const [colors, getColors] = useState([]);
+  const [draggable, setDraggable] = useState(false);
+  const [dragAndDrop, setDragAndDrop] = useState(initialDnDState)
+  const [list, setList] = useState();
+  const [openMenu, setOpenMenu] = useState(false);
+
+  useEffect(() => {
+    setList(tracks);
+  }, [tracks])
 
   useEffect(() => {
     (async() => {
@@ -35,13 +50,74 @@ const PlaylistDetail = () => {
 
   const addToQueue = () => {
     if (trackQueue.length) {
+      setIsPlaying(false)
       setTrackQueue([])
     } else {
       const plTracks = tracks.map(({ track }) => formatTrack(track));
       setTrackQueue([...trackQueue, ...plTracks])
+      setIsPlaying(true);
     }
-
   }
+
+  const onDragStart = (e) => {
+    const initialPosition = Number(e.currentTarget.dataset.position)
+    setDragAndDrop({
+      ...dragAndDrop,
+      draggedFrom: initialPosition,
+      isDragging: true,
+      originalOrder: list,
+    })
+    e.dataTransfer.setData('text/html', '');
+  }
+
+  const onDragOver = (e) => {
+    e.preventDefault();
+    let newList = dragAndDrop.originalOrder;
+    const draggedFrom = dragAndDrop.draggedFrom;
+    const draggedTo = Number(e.currentTarget.dataset.position);
+    const itemDragged = newList[draggedFrom];
+    const remainingItems = newList.filter((track, i) => i !== draggedFrom);
+    newList = [
+      ...remainingItems.slice(0, draggedTo),
+      itemDragged,
+      ...remainingItems.slice(draggedTo)
+    ];
+
+    if (draggedTo !== dragAndDrop.draggedTo) {
+      setDragAndDrop({
+        ...dragAndDrop,
+        updatedOrder: newList,
+        draggedTo: draggedTo
+      })
+    }
+  }
+
+  const onDrop = () => {
+    setList(dragAndDrop.updatedOrder);
+    setDragAndDrop({
+      ...dragAndDrop,
+      draggedFrom: null,
+      draggedTo: null,
+      isDragging: false
+    });
+  };
+
+  const playlistMenu = () => {
+    setOpenMenu(!openMenu)
+  }
+
+  const handleEdit = () => {
+    setOpenMenu(false);
+    setDraggable(true);
+  }
+
+  const submitEdits = () => {
+    const submission = dragAndDrop.updatedOrder.map((track, i) => {
+      return track.order_num = i + 1
+    })
+    console.log(submission);
+  }
+
 
   return (
     <div className="pl-page-container" style={{ backgroundColor: `${colors[3]}80`}}>
@@ -74,40 +150,56 @@ const PlaylistDetail = () => {
       </div>
       <div className="pl-bottom-container">
         <div className="pl-bottom-header">
-          <div className="pl-music-play-buttons">
-          <button
-              type="button"
-              className="pl-play"
-              aria-label="Play"
-              onClick={addToQueue}
-            >
-              <i className="pl fas fa-play" />
-            </button>
-          {/* {isPlaying ? (
-            <button
-              type="button"
-              className="pl-pause"
-              aria-label="Pause"
-              onClick={() => setIsPlaying(false)}
-            >
-              <i className="pl fas fa-pause" />
-            </button>
-          ) : (
-            <button
-              type="button"
-              className="pl-play"
-              aria-label="Play"
-              onClick={() => setIsPlaying(true)}
-            >
-              <i className="pl fas fa-play" />
-            </button>
-          )} */}
+          <div className="pl-bottom-header-left">
+            <div className="pl-music-play-buttons">
+            {isPlaying ? (
+              <button
+                type="button"
+                className="pl-pause"
+                aria-label="Pause"
+                onClick={addToQueue}
+              >
+                <i className="pl fas fa-pause" />
+              </button>
+            ) : (
+              <button
+                type="button"
+                className="pl-play"
+                aria-label="Play"
+                onClick={addToQueue}
+              >
+                <i className="pl fas fa-play" />
+              </button>
+            )}
+            </div>
+            <div className="pl-like-button">
+              <i className="pl fas fa-heart" />
+            </div>
+            <div
+              className="pl-dot-menu"
+              onClick={playlistMenu}>
+              <i className="pl fas fa-ellipsis-h" />
+            </div>
+            {openMenu && (
+              <div className="pl-menu-box">
+                <div className="pl-add-songs-button">
+                  <button>Add Songs</button>
+                </div>
+                <div className="pl-edit-button">
+                  <button onClick={handleEdit}>Edit Playlist</button>
+                </div>
+                <div className="pl-delete-button">
+                  <button>Delete Playlist</button>
+                </div>
+              </div>
+            )}
           </div>
-          <div className="pl-like-button">
-            <i className="pl fas fa-heart" />
-          </div>
-          <div className="pl-dot-menu">
-            <i className="pl fas fa-ellipsis-h" />
+          <div className="pl-bottom-header-right">
+            {draggable && (
+              <div className="pl-edit-confirm-button">
+                <button onClick={submitEdits}>Confirm Changes</button>
+              </div>
+            )}
           </div>
         </div>
         <div className="pl-table-container">
@@ -132,16 +224,27 @@ const PlaylistDetail = () => {
           </div>
         </div>
       </div>
-      <div className="tracks-container">
-      {tracks?.map(track => (
-        <TrackListing
-          track={track}
-          isPlaying={isPlaying}
-          setIsPlaying={setIsPlaying}
-          key={track.id}
-        />
-      ))}
-      </div>
+      <section>
+        <div className="tracks-container">
+          {list?.map((track, i) => (
+            <div
+              data-position={i}
+              key={track.id}
+              draggable={draggable}
+              onDragStart={onDragStart}
+              onDragOver={onDragOver}
+              onDrop={onDrop}
+            >
+              <TrackListing
+                track={track}
+                isPlaying={isPlaying}
+                setIsPlaying={setIsPlaying}
+                key={track.id}
+              />
+            </div>
+          ))}
+        </div>
+      </section>
       <div className="pl-margin-bottom"></div>
     </div>
   )

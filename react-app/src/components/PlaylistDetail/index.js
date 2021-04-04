@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 import { AppWithContext } from '../../App';
 import TrackListing from './TrackListing';
 import { formatTrack } from '../../utils';
-import { getPlaylist } from '../../store/playlists';
+import { editPlaylist, getPlaylist } from '../../store/playlists';
 import { addMultipleTracks } from '../../store/queue';
 import './PlaylistDetail.css';
 
@@ -112,10 +112,13 @@ const PlaylistDetail = () => {
   }
 
   const submitEdits = () => {
-    const submission = dragAndDrop.updatedOrder.map((track, i) => {
-      return track.order_num = i + 1
+    const submission = dragAndDrop.updatedOrder.map(({track}, i) => {
+      return {
+        track_id: track.id,
+        order_num: i + 1,
+      }
     })
-    console.log(submission);
+    dispatch(editPlaylist(submission, playlist.id))
   }
 
 

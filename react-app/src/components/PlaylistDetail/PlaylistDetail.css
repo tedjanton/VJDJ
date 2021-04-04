@@ -2,6 +2,7 @@
   position: relative;
   padding-left: 250px;
   padding-bottom: 30px;
+  max-height: 800px;
 }
 
 .pl-image,
@@ -11,9 +12,11 @@
 }
 
 .pl-header-container {
+  position: relative;
   display: flex;
   align-items: flex-end;
   padding: 150px 10px 235px 40px;
+  /* height: auto; */
 }
 
 .pl-header-image-container {
@@ -58,8 +61,8 @@
 .pl-bottom-container {
   position: relative;
   top: -200px;
-  padding: 40px 40px 0 40px;
-  margin-bottom: 20px;
+  padding: 40px 40px 140px 40px;
+  /* margin-bottom: 20px; */
   background: rgb(15, 15, 15);
   background: linear-gradient(0deg, rgba(15, 15, 15, 1) 71%, rgba(15, 15, 15, 0.8) 87%, rgba(15, 15, 15, 0.6) 95%, rgba(15, 15, 15,0.4) 100%);
 }

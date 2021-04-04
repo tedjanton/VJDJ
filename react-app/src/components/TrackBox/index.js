@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppWithContext } from '../../App';
 import { formatTrack } from '../../utils';
@@ -35,7 +35,6 @@ const TrackBox = ({ track }) => {
     const submission = {
       track_id: track.id,
       playlist_id: pl.id,
-      order_num: pl.pl_len + 1,
     }
     setAddMenu(false)
     dispatch(addToPlaylist(submission, user.id))

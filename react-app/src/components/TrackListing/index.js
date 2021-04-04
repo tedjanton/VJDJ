@@ -13,8 +13,12 @@ const TrackListing = ({ track, playlist }) => {
   const [editMenu, setEditMenu] = useState(false);
   // const [playStyle, setPlayStyle ] = useState()
 
-  const handleMouseHover = () => {
-    setIsHover(!isHover);
+  const handleMouseEnter = () => {
+    setIsHover(true);
+  }
+
+  const handleMouseLeave = () => {
+    setIsHover(false);
     setEditMenu(false);
   }
 
@@ -49,16 +53,15 @@ const TrackListing = ({ track, playlist }) => {
       playlist_id: playlist.id,
       order_num: track.order_num,
     }
-    setEditMenu(false)
-    setIsHover(false)
-    dispatch(deleteFromPlaylist(selection))
+    window.alert("Are you sure you would like to remove this song from this playlist?");
+    dispatch(deleteFromPlaylist(selection));
   }
 
   return (
     <div
       className="pl-track-container"
-      onMouseEnter={handleMouseHover}
-      onMouseLeave={handleMouseHover}>
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}>
       <div
         className="pl-track-container-inner"
         id={`track-${track.order_num}`}

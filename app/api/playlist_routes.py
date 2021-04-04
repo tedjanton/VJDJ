@@ -61,16 +61,19 @@ def edit_playlist(id):
 @playlist_routes.route('/add/<int:id>/', methods=["POST"])
 @login_required
 def add_to_playlist(id):
+  playlist_tracks = PlaylistTrack.query.filter(PlaylistTrack.playlist_id == id).all()
+  req = request.get_json()
 
   form = PlaylistTrackForm()
   form['csrf_token'].data = request.cookies['csrf_token']
   if form.validate_on_submit():
     playlist_track = PlaylistTrack(track_id=form.track_id.data,
                                    playlist_id=form.playlist_id.data,
-                                   order_num=form.order_num.data)
+                                   order_num=len(playlist_tracks) + 1)
     db.session.add(playlist_track)
     db.session.commit()
-    playlists = Playlist.query.filter(Playlist.user_id == id).all()
+    playlists = Playlist.query.filter(Playlist.user_id == req["userId"]).all()
+
     return {'playlists': [playlist.to_pl_name_dict() for playlist in playlists]}
   else:
     return {"errors": form.errors }
@@ -85,7 +88,7 @@ def remove_track(id):
 
   db.session.delete(found[0])
   db.session.commit()
-  
+
   new_ordered = PlaylistTrack.query.filter(PlaylistTrack.playlist_id == id).order_by(PlaylistTrack.order_num).all()
 
   i = 0

@@ -121,6 +121,7 @@ const PlaylistDetail = () => {
         order_num: i + 1,
       }
     })
+    console.log(submission);
     dispatch(editPlaylist(submission, playlist.id))
     setEditState(null);
     window.location.reload();
@@ -132,8 +133,8 @@ const PlaylistDetail = () => {
 
 
   return (
-    <div className="pl-page-container">
-      <div className="pl-header-container" style={{ backgroundColor: `${colors[3]}80`}}>
+    <div className="pl-page-container" style={{ backgroundColor: `${colors[3]}80`}}>
+      <div className="pl-header-container">
         <div className="pl-header-image-container">
         {images && images?.map((image, i) => (
           <div key={i} className="pl-image">

@@ -53,11 +53,11 @@ export const editPlaylist = (editedPl, playlistId) => async dispatch => {
 };
 
 export const addToPlaylist = (playlistTrack, userId) => async dispatch => {
-  const { track_id, playlist_id, order_num } = playlistTrack;
-  const res = await fetch(`/api/playlists/add/${userId}/`, {
+  const { track_id, playlist_id } = playlistTrack;
+  const res = await fetch(`/api/playlists/add/${playlist_id}/`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ track_id, playlist_id, order_num })
+    body: JSON.stringify({ track_id, playlist_id, userId })
   })
 
   const userPlaylists = await res.json();

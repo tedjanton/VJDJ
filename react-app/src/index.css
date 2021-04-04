@@ -25,3 +25,7 @@ footer {
   display: flex;
   justify-content: center;
 }
+
+button:focus {
+  outline: none;
+}

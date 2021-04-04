@@ -2,7 +2,7 @@
 .popular-container {
   display: flex;
   flex-direction: column;
-  margin-left: 290px;
+  margin-left: 270px;
   padding-top: 40px;
   /* margin-right: 40px; */
   /* padding: 40px; */
@@ -21,9 +21,9 @@
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
-  height: 300px;
+  height: 270px;
   overflow-y: hidden;
   background-color: rgb(15, 15, 15);
   padding-top: 30px;
-  padding-right: 30px;
+  padding-right: 20px;
 }

@@ -21,7 +21,6 @@ const TrackBox = ({ track }) => {
     } else {
       setTrackQueue([...trackQueue, formatTrack(track)]);
     }
-
   }
 
   return (

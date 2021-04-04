@@ -1,18 +1,67 @@
-import React from 'react';
+import React, { useState, useContext, useEffect } from 'react';
+import { AppWithContext } from '../../App';
+import { formatTrack } from '../../utils';
 
+const TrackListing = ({ track }) => {
+  const [isHover, setIsHover] = useState(false);
+  const { trackQueue, setTrackQueue, isPlaying, setIsPlaying } = useContext(AppWithContext)
+  const [isTrackPlaying, setIsTrackPlaying] = useState(false);
+  const [playStyle, setPlayStyle] = useState()
 
-const TrackListing = ({ track, isPlaying, setIsPlaying }) => {
+  const handleMouseHover = () => {
+    setIsHover(!isHover);
+  }
+
+  const handleQueue = () => {
+    if (trackQueue.length) {
+      setTrackQueue([]);
+      setIsPlaying(false);
+      setIsTrackPlaying(false)
+    } else {
+      setTrackQueue([...trackQueue, formatTrack(track.track)]);
+      setIsPlaying(true);
+      setIsTrackPlaying(true);
+    }
+  }
+
+  // useEffect(() => {
+  //   if (!isTrackPlaying) {
+  //     setPlayStyle(null)
+  //   } else {
+  //     setPlayStyle("#202020")
+  //   }
+
+  // }, [isTrackPlaying])
 
   return (
-    <div className="pl-track-container">
+    <div
+      className="pl-track-container"
+      onMouseEnter={handleMouseHover}
+      onMouseLeave={handleMouseHover}>
       <div
         className="pl-track-container-inner"
         id={`track-${track.order_num}`}
+        style={{ backgroundColor: playStyle }}
       >
         <div className="track-details-container">
-          <div className="track-num">
-            <p>{track.order_num}</p>
-          </div>
+          {isHover ? (
+            <div>
+              {isPlaying && isTrackPlaying ? (
+                <button onClick={handleQueue} className="track-play-button">
+                  <i className="tl fas fa-pause" />
+                </button>
+              ) : (
+                <button onClick={handleQueue} className="track-pause-button">
+                  <i className="tl fas fa-play" />
+                </button>
+              )}
+            </div>
+          ) : (
+            <div className="track-num">
+              <p>{track.order_num}</p>
+            </div>
+
+          )}
           <div className="track-img">
             <img src={track.track.album.art_src} alt="" />
           </div>

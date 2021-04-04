@@ -31,6 +31,7 @@ const PlaylistDetail = () => {
   const [list, setList] = useState();
   const [openMenu, setOpenMenu] = useState(false);
   const [newPl, setNewPl] = useState();
+  const [editState, setEditState] = useState(null)
 
   useEffect(() => {
     setList(tracks);
@@ -112,9 +113,10 @@ const PlaylistDetail = () => {
   const handleEdit = () => {
     setOpenMenu(false);
     setDraggable(true);
+    setEditState("#1c1c1c");
   }
 
-  const submitEdits = async () => {
+  const submitEdits = () => {
     const submission = dragAndDrop.updatedOrder.map(({track}, i) => {
       return {
         track_id: track.id,
@@ -122,6 +124,11 @@ const PlaylistDetail = () => {
       }
     })
     dispatch(editPlaylist(submission, playlist.id))
+    setEditState(null);
+    window.location.reload();
+  }
+
+  const cancelEdits = () => {
     window.location.reload();
   }
 
@@ -200,11 +207,14 @@ const PlaylistDetail = () => {
                 </div>
               </div>
             )}
-          </div>
-          <div className="pl-bottom-header-right">
             {draggable && (
-              <div className="pl-edit-confirm-button">
-                <button onClick={submitEdits}>Confirm Changes</button>
+              <div className="pl-edit-cancel-container">
+                <div className="pl-edit-confirm-button">
+                  <button onClick={submitEdits}>Confirm</button>
+                </div>
+                <div className="pl-edit-cancel-button">
+                  <button onClick={cancelEdits}>Cancel</button>
+                </div>
               </div>
             )}
           </div>
@@ -231,7 +241,7 @@ const PlaylistDetail = () => {
           </div>
         </div>
         <section>
-          <div className="tracks-container">
+          <div className="tracks-container" style={{backgroundColor: editState }}>
             {list?.map((track, i) => (
               <div
                 data-position={i}
@@ -240,7 +250,7 @@ const PlaylistDetail = () => {
                 onDragStart={onDragStart}
                 onDragOver={onDragOver}
                 onDrop={onDrop}
-                className="track-draggable"
+                className={editState && "track-draggable"}
               >
                 <TrackListing
                   track={track}

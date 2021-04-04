@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ColorExtractor } from 'react-color-extractor';
 import { useHistory, useParams } from 'react-router-dom';
 import { AppWithContext } from '../../App';
-import TrackListing from './TrackListing';
+import TrackListing from '../TrackListing';
 import { formatTrack } from '../../utils';
 import { editPlaylist, getPlaylist } from '../../store/playlists';
 import { addMultipleTracks } from '../../store/queue';
@@ -233,7 +233,7 @@ const PlaylistDetail = () => {
               <p>ALBUM</p>
             </div>
             <div className="pl-header-vid">
-              <p>WATCH VIDEO</p>
+              <p>VIDEO</p>
             </div>
             <div className="pl-header-time">
               <i className="far fa-clock" />

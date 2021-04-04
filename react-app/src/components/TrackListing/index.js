@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { AppWithContext } from '../../App';
 import { formatTrack } from '../../utils';
+import './TrackListing.css';
 
 const TrackListing = ({ track }) => {
   const [isHover, setIsHover] = useState(false);

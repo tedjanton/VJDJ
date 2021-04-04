@@ -204,7 +204,7 @@ i.pl.fas.fa-play {
 
 
 .track-artists {
-  font-size: 14px;
+  font-size: 13px;
   display: flex;
   color: rgb(172, 172, 172)
 }
@@ -267,13 +267,15 @@ button.track-video-button:focus {
 
 .pl-menu-box {
   position: absolute;
-  right: -160px;
-  bottom: -110px;
+  right: -140px;
+  bottom: -120px;
   display: flex;
   flex-direction: column;
-  height: 120px;
-  width: 150px;
-  background-color: rgb(15, 15, 15);
+  height: 140px;
+  width: 130px;
+  background-color: rgb(36, 36, 36);
+  border-radius: 4px;
+
 }
 
 
@@ -282,6 +284,24 @@ button.track-video-button:focus {
 .pl-delete-button button {
   background: none;
   border: none;
-  color: rgb(172, 172, 172);
+  color: rgb(238, 238, 238);
   font-family: 'Montserrat', sans-serif;
+  font-size: 12.5px;
+  font-weight: 500;
+  width: 125px;
+  text-align: left;
+  height: 42px;
+  align-content: center;
+  margin: 2px;
+}
+
+.pl-add-songs-button button,
+.pl-edit-button button {
+  border-bottom: thin solid rgba(133, 133, 133, .4)
+}
+
+.pl-add-songs-button button:hover,
+.pl-edit-button button:hover,
+.pl-delete-button button:hover {
+  background-color: rgb(44, 44, 44);
 }

@@ -1,13 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import React from 'react';
+
 import MusicPlayer from '../MusicPlayer';
 
 
-const Queue = ({ authenticated, trackQueue, setTrackQueue }) => {
+const Queue = ({ authenticated, trackQueue }) => {
 
   let tracks = trackQueue
-
-  // let emptyTracks = [{title: "", artists: "", art: "", audio_src: ""}]
 
   if (!authenticated) {
     return null;

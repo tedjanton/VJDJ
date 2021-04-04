@@ -58,20 +58,44 @@ def edit_playlist(id):
   return {"editedPL": [pl_track.to_dict() for pl_track in pl_tracks]}
 
 
-@playlist_routes.route('/<int:id>/add/', methods=["POST"])
+@playlist_routes.route('/add/<int:id>/', methods=["POST"])
 @login_required
 def add_to_playlist(id):
 
   form = PlaylistTrackForm()
   form['csrf_token'].data = request.cookies['csrf_token']
-  print("FORMMMMMMMMMM", form.track_id.data, form.order_num.data, id)
-  print("FORMMMMMVALIDATEEEEEE", form.validate_on_submit())
   if form.validate_on_submit():
     playlist_track = PlaylistTrack(track_id=form.track_id.data,
                                    playlist_id=form.playlist_id.data,
                                    order_num=form.order_num.data)
     db.session.add(playlist_track)
     db.session.commit()
-    return playlist_track.to_dict()
+    playlists = Playlist.query.filter(Playlist.user_id == id).all()
+    return {'playlists': [playlist.to_pl_name_dict() for playlist in playlists]}
   else:
     return {"errors": form.errors }
+
+
+@playlist_routes.route('/<int:id>/remove-track/', methods=['POST'])
+@login_required
+def remove_track(id):
+  req = request.get_json()
+  pl_tracks = PlaylistTrack.query.filter(PlaylistTrack.playlist_id == id).order_by(PlaylistTrack.order_num).all()
+  found = [pl_track for pl_track in pl_tracks if pl_track.order_num == req['order_num']]
+
+  db.session.delete(found[0])
+  db.session.commit()
+  
+  new_ordered = PlaylistTrack.query.filter(PlaylistTrack.playlist_id == id).order_by(PlaylistTrack.order_num).all()
+
+  i = 0
+  while i < len(new_ordered):
+    new_ordered[i].order_num = i + 1
+    i += 1
+  playlist = Playlist.query.get(id)
+
+  db.session.commit()
+  return {
+    "playlist": playlist.to_pl_name_dict(),
+    "tracks": [track.to_dict() for track in new_ordered],
+    }

@@ -1,16 +1,21 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
+import { useDispatch } from 'react-redux';
 import { AppWithContext } from '../../App';
+import { deleteFromPlaylist } from '../../store/playlists';
 import { formatTrack } from '../../utils';
 import './TrackListing.css';
 
-const TrackListing = ({ track }) => {
+const TrackListing = ({ track, playlist }) => {
+  const dispatch = useDispatch();
   const [isHover, setIsHover] = useState(false);
   const { trackQueue, setTrackQueue, isPlaying, setIsPlaying } = useContext(AppWithContext)
   const [isTrackPlaying, setIsTrackPlaying] = useState(false);
-  const [playStyle, setPlayStyle] = useState()
+  const [editMenu, setEditMenu] = useState(false);
+  // const [playStyle, setPlayStyle ] = useState()
 
   const handleMouseHover = () => {
     setIsHover(!isHover);
+    setEditMenu(false);
   }
 
   const handleQueue = () => {
@@ -34,6 +39,21 @@ const TrackListing = ({ track }) => {
 
   // }, [isTrackPlaying])
 
+  const handleEdit = () => {
+    setEditMenu(true)
+  }
+
+  const handleDelete = () => {
+    const selection = {
+      track_id: track.track.id,
+      playlist_id: playlist.id,
+      order_num: track.order_num,
+    }
+    setEditMenu(false)
+    setIsHover(false)
+    dispatch(deleteFromPlaylist(selection))
+  }
+
   return (
     <div
       className="pl-track-container"
@@ -42,7 +62,7 @@ const TrackListing = ({ track }) => {
       <div
         className="pl-track-container-inner"
         id={`track-${track.order_num}`}
-        style={{ backgroundColor: playStyle }}
+        // style={{ backgroundColor: playStyle }}
       >
         <div className="track-details-container">
           {isHover ? (
@@ -87,8 +107,25 @@ const TrackListing = ({ track }) => {
             <i className="fas fa-video" />
           </button>
         </div>
-        <div className="track-time">
-          <p>{track.track.time}</p>
+        <div className="track-edit-container">
+          <div className="track-time">
+            <p>{track.track.time}</p>
+          </div>
+          {isHover && (
+            <div onClick={handleEdit} className="track-edit">
+              <i className="tl fas fa-ellipsis-h" />
+            </div>
+          )}
+          {editMenu && isHover && (
+            <div className="tl-edit-menu">
+              <div className="tl-delete-button">
+                <button onClick={handleDelete}>Delete</button>
+              </div>
+              <div className="tl-add-to-button">
+                <button>Add to Playlist</button>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>

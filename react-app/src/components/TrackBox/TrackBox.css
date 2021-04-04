@@ -56,10 +56,6 @@
   color: rgb(172, 172, 172)
 }
 
-.tb-artist {
-  margin-right: 4px;
-}
-
 .tb-artist p {
   margin: 2px 0;
 }
@@ -68,7 +64,7 @@
   position: absolute;
   z-index: 200;
   top: 45px;
-  right: -110px;
+  right: 50px;
   background-color: rgb(36, 36, 36);
   border-radius: 4px;
 }

@@ -2,7 +2,6 @@ import React, { useState, useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppWithContext } from '../../App';
 import { formatTrack } from '../../utils';
-import { addOneTrack } from '../../store/queue';
 import './TrackBox.css';
 import { addToPlaylist } from '../../store/playlists';
 
@@ -10,7 +9,8 @@ import { addToPlaylist } from '../../store/playlists';
 const TrackBox = ({ track }) => {
   const dispatch = useDispatch();
   const userPls = useSelector(state => state.playlists.userPls)
-  const { trackQueue, setTrackQueue, isPlaying, setIsPlaying } = useContext(AppWithContext)
+  const user = useSelector(state => state.session.user)
+  const { trackQueue, setTrackQueue } = useContext(AppWithContext)
   const [isHover, setIsHover] = useState(false);
   const [addMenu, setAddMenu] = useState(false);
 
@@ -37,10 +37,8 @@ const TrackBox = ({ track }) => {
       playlist_id: pl.id,
       order_num: pl.pl_len + 1,
     }
-    console.log(submission);
-    dispatch(addToPlaylist(submission))
-    setIsHover(false)
     setAddMenu(false)
+    dispatch(addToPlaylist(submission, user.id))
   }
 
   return (
@@ -61,7 +59,7 @@ const TrackBox = ({ track }) => {
           </div>
         )}
         <div className="tb-add-box-container">
-          {isHover && addMenu && (
+          {addMenu && (
             <div className="tb-add-box">
               <p className="tb-add-title">Add track to:</p>
               {userPls?.map(pl => (
@@ -78,9 +76,9 @@ const TrackBox = ({ track }) => {
         <span>{track.title}</span>
       </div>
       <div className="tb-artists">
-      {track.artists.map(artist => (
+      {track.artists.map((artist, i) => (
         <div className="tb-artist" key={artist.id}>
-          <p>{artist.name}</p>
+          <p>{(i ? ', ': '') + artist.name}</p>
         </div>
       ))}
       </div>

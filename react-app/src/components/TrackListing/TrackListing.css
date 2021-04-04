@@ -59,9 +59,52 @@
 
 }
 
-.track-time {
+.track-edit-container {
+  position: relative;
+  grid-column-start: 9;
+  grid-column-end: 10;
+  display: flex;
+  justify-content: flex-start;
+  margin-left: 10px;
+  align-items: center;
   color:rgb(189, 189, 189);
   font-size: 13px;
+}
+
+.tl-edit-menu {
+  position: absolute;
+  right: 40px;
+  display: flex;
+  flex-direction: column;
+  height: 78px;
+  width: 120px;
+  background-color: rgb(36, 36, 36);
+  border-radius: 4px;
+  padding: 5px;
+}
+
+.tl-delete-button button,
+.tl-add-to-button button {
+  background: none;
+  border: none;
+  color: rgb(238, 238, 238);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12.5px;
+  font-weight: 500;
+  width: 122px;
+  text-align: left;
+  height: 30px;
+  align-content: center;
+  margin: 4px 0;
+}
+
+.tl-delete-button:hover,
+.tl-add-to-button:hover {
+  background-color: rgb(44, 44, 44);
+}
+
+.track-edit {
+  padding: 0 10px;
 }
 
 .track-album p,

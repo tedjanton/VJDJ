@@ -3,7 +3,6 @@ import React from 'react';
 
 const TrackListing = ({ track, isPlaying, setIsPlaying }) => {
 
-
   return (
     <div className="pl-track-container">
       <div
@@ -23,9 +22,9 @@ const TrackListing = ({ track, isPlaying, setIsPlaying }) => {
             <p>{track.track.title}</p>
           </div>
           <div className="track-artists">
-            {track.track.artists.map(artist => (
+            {track.track.artists.map((artist, i) => (
               <div key={artist.id} className="track-artist">
-                <p>{artist.name}</p>
+                <p>{(i ? ', ': '') + artist.name}</p>
               </div>
             ))}
           </div>

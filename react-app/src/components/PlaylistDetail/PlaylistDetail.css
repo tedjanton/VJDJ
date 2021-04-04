@@ -1,7 +1,6 @@
 .pl-page-container {
   position: relative;
   padding-left: 250px;
-
   padding-bottom: 30px;
 }
 
@@ -15,8 +14,8 @@
 .pl-header-container {
   display: flex;
   align-items: flex-end;
-  width: 100%;
-  padding: 150px 10px 40px 40px;
+
+  padding: 150px 10px 250px 40px;
 }
 
 .pl-header-image-container {
@@ -25,25 +24,47 @@
   grid-template-columns: 1fr 1fr;
   width: 260px;
   height: 260px;
+  box-shadow: 0px 0px 200px rgba(0, 0, 0, .5);
 }
 
 .pl-header-details-container {
   margin: 0 0 0 30px;
 }
 
-.pl-subheader {
-  display: flex;
+.pl-header-name {
+  font-size: 50px;
 }
 
-.pl-user-name p,
+.pl-header-name h2 {
+  margin: 0;
+}
+
+.pl-header-playlist {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.pl-subheader {
+  display: flex;
+  align-items: center;
+}
+
+.pl-user-name p {
+  margin: 0;
+}
+
 .pl-num-songs p {
-  margin: 3px;
+  margin: 4px;
 }
 
 .pl-bottom-container {
-  margin: 40px 40px 20px 40px;
-  background-color: rgb(15, 15, 15);
-  border-bottom: thin solid rgb(39, 39, 39);
+  position: relative;
+  top: -200px;
+
+  padding: 40px 40px 0 40px;
+  margin-bottom: 20px;
+  background: rgb(15, 15, 15);
+  background: linear-gradient(0deg, rgba(15, 15, 15, 1) 71%, rgba(15, 15, 15, 0.8) 87%, rgba(15, 15, 15, 0.6) 95%, rgba(15, 15, 15,0.4) 100%);
 }
 
 .pl-bottom-header {
@@ -53,6 +74,7 @@
 }
 
 .pl-bottom-header-left {
+  position: relative;
   display: flex;
   align-items: center;
 }
@@ -88,12 +110,13 @@ i.pl.fas.fa-play {
 }
 
 .pl-table-header {
-  margin-top: 20px;
+  margin: 20px 0;
   display: grid;
   grid-gap: 10px;
   grid-template-columns: repeat(9, 1fr);
   align-items: center;
   font-size: 14px;
+  border-bottom: thin solid rgb(39, 39, 39);
 
 }
 
@@ -103,6 +126,7 @@ i.pl.fas.fa-play {
   grid-column-end: 2;
   justify-content: flex-start;
   padding-left: 28px;
+  width: 100px;
 }
 
 .pl-header-track-num {
@@ -154,10 +178,6 @@ i.pl.fas.fa-play {
   border-radius: 8px;
 }
 
-.track-draggable {
-  margin: 0 40px;
-}
-
 .track-details-container {
   grid-column-start: 1;
   grid-column-end: 2;
@@ -194,6 +214,10 @@ i.pl.fas.fa-play {
   grid-column-start: 5;
   grid-column-end: 7;
 
+}
+
+.track-time {
+  color:rgb(189, 189, 189)
 }
 
 .track-album p,
@@ -239,4 +263,25 @@ button.track-video-button:focus {
 .pl-margin-bottom {
   height: 100px;
   background-color: rgb(15, 15, 15);
+}
+
+.pl-menu-box {
+  position: absolute;
+  right: -160px;
+  bottom: -110px;
+  display: flex;
+  flex-direction: column;
+  height: 120px;
+  width: 150px;
+  background-color: rgb(15, 15, 15);
+}
+
+
+.pl-add-songs-button button,
+.pl-edit-button button,
+.pl-delete-button button {
+  background: none;
+  border: none;
+  color: rgb(172, 172, 172);
+  font-family: 'Montserrat', sans-serif;
 }

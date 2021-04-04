@@ -230,30 +230,29 @@ const PlaylistDetail = () => {
             </div>
           </div>
         </div>
-      </div>
-      <section>
-        <div className="tracks-container">
-          {list?.map((track, i) => (
-            <div
-              data-position={i}
-              key={track.id}
-              draggable={draggable}
-              onDragStart={onDragStart}
-              onDragOver={onDragOver}
-              onDrop={onDrop}
-              className="track-draggable"
-            >
-              <TrackListing
-                track={track}
-                isPlaying={isPlaying}
-                setIsPlaying={setIsPlaying}
+        <section>
+          <div className="tracks-container">
+            {list?.map((track, i) => (
+              <div
+                data-position={i}
                 key={track.id}
-              />
-            </div>
-          ))}
-        </div>
-      </section>
-      <div className="pl-margin-bottom"></div>
+                draggable={draggable}
+                onDragStart={onDragStart}
+                onDragOver={onDragOver}
+                onDrop={onDrop}
+                className="track-draggable"
+              >
+                <TrackListing
+                  track={track}
+                  isPlaying={isPlaying}
+                  setIsPlaying={setIsPlaying}
+                  key={track.id}
+                />
+              </div>
+            ))}
+          </div>
+        </section>
+      </div>
     </div>
   )
 }

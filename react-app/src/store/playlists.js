@@ -1,6 +1,5 @@
 const GET_USER_PLS = 'playlists/GET_USER_PLS';
 const GET_PL = 'playlist/GET_PL';
-const CREATE = 'playlist/CREATE';
 
 const load = (playlists) => ({
   type: GET_USER_PLS,
@@ -11,11 +10,6 @@ const loadOne = (playlist) => ({
   type: GET_PL,
   playlist
 });
-
-// const create = (playlist) => ({
-//   type: CREATE,
-//   playlist
-// })
 
 export const getUserPls = (userId) => async dispatch => {
   const res = await fetch(`/api/users/${userId}/playlists/`);
@@ -52,6 +46,32 @@ export const editPlaylist = (editedPl, playlistId) => async dispatch => {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(editedPl)
   });
+
+  const playlist = await res.json();
+  dispatch(loadOne(playlist));
+  return playlist;
+};
+
+export const addToPlaylist = (playlistTrack, userId) => async dispatch => {
+  const { track_id, playlist_id, order_num } = playlistTrack;
+  const res = await fetch(`/api/playlists/add/${userId}/`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ track_id, playlist_id, order_num })
+  })
+
+  const userPlaylists = await res.json();
+  dispatch(load(userPlaylists.playlists))
+  return userPlaylists.playlist;
+};
+
+export const deleteFromPlaylist = (track) => async dispatch => {
+  const { track_id, playlist_id, order_num } = track;
+  const res = await fetch( `/api/playlists/${playlist_id}/remove-track/`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ track_id, playlist_id, order_num })
+  })
 
   const playlist = await res.json();
   dispatch(loadOne(playlist));

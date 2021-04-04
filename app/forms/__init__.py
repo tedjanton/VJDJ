@@ -4,3 +4,4 @@ from .artist_form import ArtistForm
 from .album_form import AlbumForm
 from .track_form import TrackForm
 from .playlist_form import PlaylistForm
+from .playlist_track_form import PlaylistTrackForm

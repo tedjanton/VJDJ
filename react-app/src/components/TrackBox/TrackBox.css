@@ -31,6 +31,16 @@
   border-radius: 50%;
 }
 
+.tb-add-song-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: none;
+  border: none;
+  font-size: 26px;
+  color:rgb(172, 172, 172)
+}
+
 .tb.fas.fa-play {
   color: white;
 }
@@ -46,10 +56,51 @@
   color: rgb(172, 172, 172)
 }
 
-.tb-artist {
-  margin-right: 4px;
-}
-
 .tb-artist p {
   margin: 2px 0;
+}
+
+.tb-add-box-container {
+  position: absolute;
+  z-index: 200;
+  top: 45px;
+  right: 50px;
+  background-color: rgb(36, 36, 36);
+  border-radius: 4px;
+}
+
+.tb-add-box {
+  font-size: 13px;
+  font-weight: 500;
+  color: rgb(190, 190, 190);
+  padding: 10px 5px;
+}
+
+.tb-add-title {
+  margin: 5px 5px 10px 5px;
+  padding-bottom: 12px;
+  border-bottom: thin solid rgba(190, 190, 190, .5);
+
+}
+
+.tb-add-pl {
+  margin: 5px 0;
+}
+
+.tb-add-pl button {
+  background: none;
+  border: none;
+  color: rgb(238, 238, 238);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12.5px;
+  font-weight: 500;
+  width: 132px;
+  text-align: left;
+  height: auto;
+  align-content: center;
+  margin: 4px 0;
+}
+
+.tb-add-pl:hover {
+  background-color: rgb(44, 44, 44);
 }

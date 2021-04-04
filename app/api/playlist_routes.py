@@ -1,7 +1,7 @@
 from flask import Blueprint, session, request
 from flask_login import login_required
 from app.models import db, PlaylistTrack, Playlist
-from app.forms import PlaylistForm
+from app.forms import PlaylistForm, PlaylistTrackForm
 
 playlist_routes = Blueprint('playlists', __name__)
 
@@ -31,7 +31,7 @@ def create_playlist():
     db.session.commit()
     return pl.to_pl_name_dict()
   else:
-    return {"errors": "invalid submission"}
+    return {"errors": "invalid playlist create submission"}
 
 
 @playlist_routes.route('/<int:id>/edit/', methods=["POST"])
@@ -41,9 +41,6 @@ def edit_playlist(id):
   req = request.get_json()
 
   new_list = []
-
-  print("PLTRACKSSSSSSSSSSSS", [pl_track.track_id for pl_track in pl_tracks])
-  print("REQQQQQQQQQQQQQQQ", [item["track_id"] for item in req])
 
   i = 0
   while i < len(req):
@@ -59,3 +56,46 @@ def edit_playlist(id):
 
   db.session.commit()
   return {"editedPL": [pl_track.to_dict() for pl_track in pl_tracks]}
+
+
+@playlist_routes.route('/add/<int:id>/', methods=["POST"])
+@login_required
+def add_to_playlist(id):
+
+  form = PlaylistTrackForm()
+  form['csrf_token'].data = request.cookies['csrf_token']
+  if form.validate_on_submit():
+    playlist_track = PlaylistTrack(track_id=form.track_id.data,
+                                   playlist_id=form.playlist_id.data,
+                                   order_num=form.order_num.data)
+    db.session.add(playlist_track)
+    db.session.commit()
+    playlists = Playlist.query.filter(Playlist.user_id == id).all()
+    return {'playlists': [playlist.to_pl_name_dict() for playlist in playlists]}
+  else:
+    return {"errors": form.errors }
+
+
+@playlist_routes.route('/<int:id>/remove-track/', methods=['POST'])
+@login_required
+def remove_track(id):
+  req = request.get_json()
+  pl_tracks = PlaylistTrack.query.filter(PlaylistTrack.playlist_id == id).order_by(PlaylistTrack.order_num).all()
+  found = [pl_track for pl_track in pl_tracks if pl_track.order_num == req['order_num']]
+
+  db.session.delete(found[0])
+  db.session.commit()
+  
+  new_ordered = PlaylistTrack.query.filter(PlaylistTrack.playlist_id == id).order_by(PlaylistTrack.order_num).all()
+
+  i = 0
+  while i < len(new_ordered):
+    new_ordered[i].order_num = i + 1
+    i += 1
+  playlist = Playlist.query.get(id)
+
+  db.session.commit()
+  return {
+    "playlist": playlist.to_pl_name_dict(),
+    "tracks": [track.to_dict() for track in new_ordered],
+    }

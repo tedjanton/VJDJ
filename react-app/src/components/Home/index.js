@@ -5,13 +5,12 @@ import "./Home.css";
 
 const Home = () => {
 
-
   return (
     <div className="home-container">
       <div className="home-featured-video-container">
         <video
           id="featured-video"
-          src="https://vjdj.s3.amazonaws.com/featured-vids/lil-nax-x-montero-2.mp4"
+          // src="https://vjdj.s3.amazonaws.com/featured-vids/lil-nax-x-montero-2.mp4"
           autoPlay
           loop
           width="100%"

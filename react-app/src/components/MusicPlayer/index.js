@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef, useContext } from 'react';
 import { AppWithContext } from '../../App';
 import Controls from "./Controls";
 import './MusicPlayer.css';
-import { useSelector } from 'react-redux';
+
 
 const MusicPlayer = ({ tracks }) => {
   const { isPlaying, setIsPlaying } = useContext(AppWithContext)
@@ -10,7 +10,7 @@ const MusicPlayer = ({ tracks }) => {
   const [trackProgress, setTrackProgress] = useState(0);
   const [vol, setVol] = useState(1);
   const { title, artists, art, audio_src } = tracks[trackIdx]
-  const [audioRef, setAudioRef] = useState(useRef(new Audio(audio_src)))
+  const audioRef = useRef(new Audio(audio_src))
   const intervalRef = useRef();
   const isReady = useRef(false);
   const { duration } = audioRef?.current;
@@ -104,6 +104,7 @@ const MusicPlayer = ({ tracks }) => {
     -webkit-gradient(linear, 0% 0%, 100% 0%, color-stop(${currentVolPercentage}, #e1e1e1), color-stop(${currentVolPercentage}, #505050))
   `;
 
+  console.log(artists);
 
   return (
     <footer>
@@ -123,7 +124,9 @@ const MusicPlayer = ({ tracks }) => {
               <p>{title}</p>
             </div>
             <div className="mp-artist-container">
-              <p>{artists}</p>
+            {artists?.map((artist, i) => (
+              <p key={artist}>{(i ? ', ': '') + artist}</p>
+            ))}
             </div>
           </div>
         </div>

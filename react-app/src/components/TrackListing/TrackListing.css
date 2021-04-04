@@ -1,0 +1,159 @@
+.pl-track-container {
+  border-radius: 8px;
+}
+
+.pl-track-container-inner {
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: repeat(9, 1fr);
+  align-items: center;
+  border-radius: 8px;
+}
+
+.pl-track-container-inner:hover {
+  background-color: rgb(32, 32, 32);
+  border-radius: 8px;
+}
+
+
+.track-details-container {
+  grid-column-start: 1;
+  grid-column-end: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 10px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  width: 100px;
+}
+
+.track-title-artist-container {
+  grid-column-start: 2;
+  grid-column-end: 5;
+  grid-row-start: 1;
+}
+
+.track-num {
+  margin-left: 10px;
+}
+
+.track-img img {
+  height: 50px;
+  padding: 10px 10px 10px 10px;
+}
+
+
+.track-artists {
+  font-size: 13px;
+  display: flex;
+  color: rgb(172, 172, 172)
+}
+
+.track-album {
+  color: rgb(172, 172, 172);
+  grid-column-start: 5;
+  grid-column-end: 7;
+  font-size: 13px;
+
+}
+
+.track-edit-container {
+  position: relative;
+  grid-column-start: 9;
+  grid-column-end: 10;
+  display: flex;
+  justify-content: flex-start;
+  margin-left: 10px;
+  align-items: center;
+  color:rgb(189, 189, 189);
+  font-size: 13px;
+}
+
+.tl-edit-menu {
+  position: absolute;
+  right: 40px;
+  display: flex;
+  flex-direction: column;
+  height: 78px;
+  width: 120px;
+  background-color: rgb(36, 36, 36);
+  border-radius: 4px;
+  padding: 5px;
+}
+
+.tl-delete-button button,
+.tl-add-to-button button {
+  background: none;
+  border: none;
+  color: rgb(238, 238, 238);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12.5px;
+  font-weight: 500;
+  width: 122px;
+  text-align: left;
+  height: 30px;
+  align-content: center;
+  margin: 4px 0;
+}
+
+.tl-delete-button:hover,
+.tl-add-to-button:hover {
+  background-color: rgb(44, 44, 44);
+}
+
+.track-edit {
+  padding: 0 10px;
+}
+
+.track-album p,
+.track-title p,
+.track-artists p {
+  margin: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.track-video {
+  grid-column-start: 7;
+  grid-column-end: 8;
+  text-align: center;
+}
+
+button.track-video-button {
+  background: #1db954;
+  height: 40px;
+  width: 80px;
+  border: none;
+  border-radius: 20px;
+}
+
+button.track-video-button:focus {
+  outline: none;
+}
+
+.fa-video {
+  color: white;
+  font-size: 18px;
+}
+
+.track-time {
+  display: flex;
+  grid-column-start: 9;
+  grid-column-end: 10;
+  justify-content: center;
+  /* margin-right: 30px; */
+}
+
+.track-play-button,
+.track-pause-button {
+  background: none;
+  border: none;
+  font-size: 14px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  color: white;
+}

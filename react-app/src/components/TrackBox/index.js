@@ -1,18 +1,22 @@
 import React, { useState, useContext } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { AppWithContext } from '../../App';
 import { formatTrack } from '../../utils';
-import { addOneTrack } from '../../store/queue';
 import './TrackBox.css';
+import { addToPlaylist } from '../../store/playlists';
 
 
 const TrackBox = ({ track }) => {
   const dispatch = useDispatch();
-  const { trackQueue, setTrackQueue, isPlaying, setIsPlaying } = useContext(AppWithContext)
+  const userPls = useSelector(state => state.playlists.userPls)
+  const user = useSelector(state => state.session.user)
+  const { trackQueue, setTrackQueue } = useContext(AppWithContext)
   const [isHover, setIsHover] = useState(false);
+  const [addMenu, setAddMenu] = useState(false);
 
   const handleMouseHover = () => {
     setIsHover(!isHover);
+    setAddMenu(false)
   }
 
   const handleQueue = () => {
@@ -23,6 +27,20 @@ const TrackBox = ({ track }) => {
     }
   }
 
+  const handleAddBox = () => {
+    setAddMenu(true)
+  }
+
+  const addTrack = (pl) => {
+    const submission = {
+      track_id: track.id,
+      playlist_id: pl.id,
+      order_num: pl.pl_len + 1,
+    }
+    setAddMenu(false)
+    dispatch(addToPlaylist(submission, user.id))
+  }
+
   return (
     <div
       className="tb-container"
@@ -31,18 +49,36 @@ const TrackBox = ({ track }) => {
       <div className="tb-img">
         <img src={track.album.art_src} alt={track.title} />
         {isHover && (
-          <button onClick={handleQueue} className="tb-play-button">
-            <i className="tb fas fa-play" />
-          </button>
+          <div>
+            <button onClick={handleQueue} className="tb-play-button">
+              <i className="tb fas fa-play" />
+            </button>
+            <button onClick={handleAddBox} className="tb-add-song-button">
+              <i className="tb fas fa-plus-circle" />
+            </button>
+          </div>
         )}
+        <div className="tb-add-box-container">
+          {addMenu && (
+            <div className="tb-add-box">
+              <p className="tb-add-title">Add track to:</p>
+              {userPls?.map(pl => (
+                <div key={pl.id} className="tb-add-pl">
+                  <button onClick={() => addTrack(pl)}>{pl.name}</button>
+                </div>
+              ))}
+            </div>
+
+          )}
+        </div>
       </div>
       <div className="tb-title">
         <span>{track.title}</span>
       </div>
       <div className="tb-artists">
-      {track.artists.map(artist => (
+      {track.artists.map((artist, i) => (
         <div className="tb-artist" key={artist.id}>
-          <p>{artist.name}</p>
+          <p>{(i ? ', ': '') + artist.name}</p>
         </div>
       ))}
       </div>

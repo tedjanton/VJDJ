@@ -27,7 +27,8 @@
 
 .mp-artist-container {
   font-size: 12px;
-  color: rgb(172, 172, 172)
+  color: rgb(172, 172, 172);
+  display: flex;
 }
 
 .mp-title-container p,

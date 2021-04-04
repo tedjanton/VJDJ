@@ -1,12 +1,11 @@
-import React, { useEffect, useState, useContext, useLayoutEffect } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ColorExtractor } from 'react-color-extractor';
-import { useHistory, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { AppWithContext } from '../../App';
-import TrackListing from './TrackListing';
+import TrackListing from '../TrackListing';
 import { formatTrack } from '../../utils';
 import { editPlaylist, getPlaylist } from '../../store/playlists';
-import { addMultipleTracks } from '../../store/queue';
 import './PlaylistDetail.css';
 
 const initialDnDState = {
@@ -20,7 +19,6 @@ const initialDnDState = {
 const PlaylistDetail = () => {
   const { trackQueue, setTrackQueue, isPlaying, setIsPlaying } = useContext(AppWithContext)
   const dispatch = useDispatch();
-  const history = useHistory();
   const params = useParams();
   const playlist = useSelector(state => state.playlists.selected?.playlist);
   const tracks = useSelector(state => state.playlists.selected?.tracks);
@@ -30,7 +28,7 @@ const PlaylistDetail = () => {
   const [dragAndDrop, setDragAndDrop] = useState(initialDnDState)
   const [list, setList] = useState();
   const [openMenu, setOpenMenu] = useState(false);
-  const [newPl, setNewPl] = useState();
+  // const [newPl, setNewPl] = useState();
   const [editState, setEditState] = useState(null)
 
   useEffect(() => {
@@ -233,7 +231,7 @@ const PlaylistDetail = () => {
               <p>ALBUM</p>
             </div>
             <div className="pl-header-vid">
-              <p>WATCH VIDEO</p>
+              <p>VIDEO</p>
             </div>
             <div className="pl-header-time">
               <i className="far fa-clock" />
@@ -254,8 +252,7 @@ const PlaylistDetail = () => {
               >
                 <TrackListing
                   track={track}
-                  isPlaying={isPlaying}
-                  setIsPlaying={setIsPlaying}
+                  playlist={playlist}
                   key={track.id}
                 />
               </div>

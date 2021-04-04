@@ -4,6 +4,7 @@ import { AppWithContext } from '../../App';
 import { formatTrack } from '../../utils';
 import { addOneTrack } from '../../store/queue';
 import './TrackBox.css';
+import { addToPlaylist } from '../../store/playlists';
 
 
 const TrackBox = ({ track }) => {
@@ -30,8 +31,16 @@ const TrackBox = ({ track }) => {
     setAddMenu(true)
   }
 
-  const addTrack = () => {
-
+  const addTrack = (pl) => {
+    const submission = {
+      track_id: track.id,
+      playlist_id: pl.id,
+      order_num: pl.pl_len + 1,
+    }
+    console.log(submission);
+    dispatch(addToPlaylist(submission))
+    setIsHover(false)
+    setAddMenu(false)
   }
 
   return (
@@ -57,7 +66,7 @@ const TrackBox = ({ track }) => {
               <p className="tb-add-title">Add track to:</p>
               {userPls?.map(pl => (
                 <div key={pl.id} className="tb-add-pl">
-                  <button onClick={addTrack}>{pl.name}</button>
+                  <button onClick={() => addTrack(pl)}>{pl.name}</button>
                 </div>
               ))}
             </div>

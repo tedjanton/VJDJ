@@ -42,9 +42,20 @@ export const createPlaylist = (newPlaylist) => async dispatch => {
   });
 
   const newPl = await res.json();
-  console.log(newPl);
   dispatch(loadOne(newPl));
   return newPl;
+};
+
+export const editPlaylist = (editedPl, playlistId) => async dispatch => {
+  const res = await fetch(`/api/playlists/${playlistId}/edit/`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(editedPl)
+  });
+
+  const playlist = await res.json();
+  dispatch(loadOne(playlist));
+  return playlist;
 }
 
 const playlistsReducer = (state = {}, action) => {

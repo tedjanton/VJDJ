@@ -13,10 +13,10 @@ const LeftMenu = ({ authenticated }) => {
   const userPls = useSelector(state => state.playlists.userPls)
 
   useEffect(() => {
-    dispatch(getUserPls(user.id))
+    if (user) {
+      dispatch(getUserPls(user.id))
+    }
   }, [user, dispatch])
-
-
 
   return (
     <div className="lm-container">

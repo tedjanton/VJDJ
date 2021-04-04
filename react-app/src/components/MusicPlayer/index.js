@@ -10,11 +10,10 @@ const MusicPlayer = ({ tracks }) => {
   const [trackProgress, setTrackProgress] = useState(0);
   const [vol, setVol] = useState(1);
   const { title, artists, art, audio_src } = tracks[trackIdx]
-  const audioRef = useRef(new Audio(audio_src))
+  const [audioRef, setAudioRef] = useState(useRef(new Audio(audio_src)))
   const intervalRef = useRef();
   const isReady = useRef(false);
-  const { duration } = audioRef.current;
-
+  const { duration } = audioRef?.current;
 
   const startTimer = () => {
     clearInterval(intervalRef.current);
@@ -25,11 +24,7 @@ const MusicPlayer = ({ tracks }) => {
         setTrackProgress(audioRef.current.currentTime)
       }
     }, [1000])
-  }
-
-  useEffect(() => {
-    audioRef.current.volume = vol;
-  }, [vol])
+  };
 
   useEffect(() => {
     if (isPlaying) {
@@ -40,6 +35,11 @@ const MusicPlayer = ({ tracks }) => {
       audioRef.current.pause();
     }
   }, [startTimer, isPlaying]);
+
+  useEffect(() => {
+    audioRef.current.volume = vol;
+  }, [vol])
+
 
   useEffect(() => {
     return () => {
@@ -74,6 +74,7 @@ const MusicPlayer = ({ tracks }) => {
   }
 
   const toNextTrack = () => {
+
     if (trackIdx < tracks.length - 1) {
       setTrackIdx(trackIdx + 1);
     } else {

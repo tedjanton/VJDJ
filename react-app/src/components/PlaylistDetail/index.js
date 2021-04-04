@@ -1,7 +1,7 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState, useContext, useLayoutEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ColorExtractor } from 'react-color-extractor';
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { AppWithContext } from '../../App';
 import TrackListing from './TrackListing';
 import { formatTrack } from '../../utils';
@@ -20,6 +20,7 @@ const initialDnDState = {
 const PlaylistDetail = () => {
   const { trackQueue, setTrackQueue, isPlaying, setIsPlaying } = useContext(AppWithContext)
   const dispatch = useDispatch();
+  const history = useHistory();
   const params = useParams();
   const playlist = useSelector(state => state.playlists.selected?.playlist);
   const tracks = useSelector(state => state.playlists.selected?.tracks);
@@ -29,10 +30,12 @@ const PlaylistDetail = () => {
   const [dragAndDrop, setDragAndDrop] = useState(initialDnDState)
   const [list, setList] = useState();
   const [openMenu, setOpenMenu] = useState(false);
+  const [newPl, setNewPl] = useState();
 
   useEffect(() => {
     setList(tracks);
   }, [tracks])
+
 
   useEffect(() => {
     (async() => {
@@ -111,7 +114,7 @@ const PlaylistDetail = () => {
     setDraggable(true);
   }
 
-  const submitEdits = () => {
+  const submitEdits = async () => {
     const submission = dragAndDrop.updatedOrder.map(({track}, i) => {
       return {
         track_id: track.id,
@@ -119,12 +122,13 @@ const PlaylistDetail = () => {
       }
     })
     dispatch(editPlaylist(submission, playlist.id))
+    window.location.reload();
   }
 
 
   return (
-    <div className="pl-page-container" style={{ backgroundColor: `${colors[3]}80`}}>
-      <div className="pl-header-container">
+    <div className="pl-page-container">
+      <div className="pl-header-container" style={{ backgroundColor: `${colors[3]}80`}}>
         <div className="pl-header-image-container">
         {images && images?.map((image, i) => (
           <div key={i} className="pl-image">
@@ -218,8 +222,8 @@ const PlaylistDetail = () => {
             <div className="pl-header-album">
               <p>ALBUM</p>
             </div>
-            <div className="pl-header-date">
-              <p>DATE ADDED</p>
+            <div className="pl-header-vid">
+              <p>WATCH VIDEO</p>
             </div>
             <div className="pl-header-time">
               <i className="far fa-clock" />
@@ -237,6 +241,7 @@ const PlaylistDetail = () => {
               onDragStart={onDragStart}
               onDragOver={onDragOver}
               onDrop={onDrop}
+              className="track-draggable"
             >
               <TrackListing
                 track={track}

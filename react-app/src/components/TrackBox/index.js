@@ -10,7 +10,7 @@ const TrackBox = ({ track }) => {
   const dispatch = useDispatch();
   const userPls = useSelector(state => state.playlists.userPls)
   const user = useSelector(state => state.session.user)
-  const { trackQueue, setTrackQueue } = useContext(AppWithContext)
+  const { trackQueue, setTrackQueue, setIsPlaying } = useContext(AppWithContext)
   const [isHover, setIsHover] = useState(false);
   const [addMenu, setAddMenu] = useState(false);
 
@@ -22,8 +22,10 @@ const TrackBox = ({ track }) => {
   const handleQueue = () => {
     if (trackQueue.length) {
       setTrackQueue([])
+      setIsPlaying(false)
     } else {
       setTrackQueue([...trackQueue, formatTrack(track)]);
+      setIsPlaying(true)
     }
   }
 

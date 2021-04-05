@@ -20,7 +20,7 @@ const VideoModal = ({ vidSrc, setShowModal }) => {
   return (
     <div className="vid-modal-container">
       <iframe
-        width={windowDims.width * .8}
+        width={windowDims.width * .7}
         height={windowDims.height * .9}
         src={vidSrc}
         title="YouTube video player"

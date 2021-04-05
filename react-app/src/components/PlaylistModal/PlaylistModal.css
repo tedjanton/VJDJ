@@ -1,1 +1,43 @@
+.create-pl-container {
+  height: 250px;
+  width: 600px;
+  background-color: rgba(36, 36, 36, 0.9);
+  font-size: 30px;
+  border-radius: 8px;
+}
 
+.create-pl-form {
+  display: flex;
+  margin: 0 50px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.input-box {
+  position: relative;
+  font-family: 'Montserrat', sans-serif;
+  height: 10px;
+  width: 350px;
+  font-size: 20px;
+  border-radius: 25px;
+  padding: 20px;
+  color: white;
+  background-color:rgb(15, 15, 15);
+  border: none;
+}
+
+.input-button {
+  position: relative;
+  left: 170px;
+  bottom: 44px;
+  border: none;
+  background: #1db954;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+}
+
+.fas.fa-plus {
+  color: white;
+}

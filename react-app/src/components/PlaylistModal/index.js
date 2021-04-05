@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { createPlaylist, getUserPls } from '../../store/playlists';
+import './PlaylistModal.css';
 
 const PlaylistModal = ({ setShowModal }) => {
   const dispatch = useDispatch();
@@ -24,15 +25,19 @@ const PlaylistModal = ({ setShowModal }) => {
   return (
     <div className="create-pl-container">
       <h1>Create Playlist</h1>
-      <div className="create-pl-form">
-        <form>
+      <div>
+        <form className="create-pl-form">
           <input
+            className="input-box"
             name="name"
             type="text"
+            placeholder="Enter playlist name..."
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
-          <button onClick={handleSubmit}>CREATE</button>
+          <button className="input-button" onClick={handleSubmit}>
+            <i className="fas fa-plus" />
+          </button>
         </form>
       </div>
     </div>

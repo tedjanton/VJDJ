@@ -22,6 +22,12 @@ const Landing = ({ setNav, authenticated }) => {
         <div className="landing-title-end">
           <h1>is everything</h1>
         </div>
+        <div className="landing-subheader">
+          <p>Because why not have both in the same place?</p>
+        </div>
+      </div>
+      <div className="landing-demo">
+        <button>SIGN IN AS A DEMO USER</button>
       </div>
     </div>
   )

@@ -28,11 +28,12 @@ const NavBar = ({ nav, authenticated, setAuthenticated }) => {
             <p>About Me</p>
           </div>
           <div>
-            <p>Github</p>
+            <a>Github</a>
           </div>
           <div>
-            <p>Linkedin</p>
+            <a>Linkedin</a>
           </div>
+          <div className="spacer"></div>
           <div>
             <NavLink to="/sign-up" exact={true} activeClassName="active">
               Sign Up

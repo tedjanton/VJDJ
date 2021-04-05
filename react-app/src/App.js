@@ -1,4 +1,4 @@
-import React, { useState, useEffect, createContext } from 'react';
+import React, { useState, useEffect, createContext, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import LoginForm from './components/auth/LoginForm';
@@ -21,6 +21,8 @@ function App() {
   const [loaded, setLoaded] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [trackQueue, setTrackQueue] = useState([]);
+  const [trackIdx, setTrackIdx] = useState(0);
+
 
   useEffect(() => {
     (async() => {
@@ -41,7 +43,14 @@ function App() {
       <AppWithContext.Provider
         trackQueue={trackQueue}
         setTrackQueue={setTrackQueue}
-        value={{trackQueue, setTrackQueue, isPlaying, setIsPlaying}}
+        value={{
+          trackQueue,
+          setTrackQueue,
+          isPlaying,
+          setIsPlaying,
+          trackIdx,
+          setTrackIdx
+        }}
       >
         <NavBar nav={nav} authenticated={authenticated} setAuthenticated={setAuthenticated} />
         {authenticated && (

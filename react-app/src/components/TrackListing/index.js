@@ -7,13 +7,20 @@ import { formatTrack } from '../../utils';
 import VideoModal from '../VideoModal';
 import './TrackListing.css';
 
-const TrackListing = ({ track, playlist }) => {
+const TrackListing = ({ track, trackList, index, playlist }) => {
   const dispatch = useDispatch();
   const [isHover, setIsHover] = useState(false);
-  const { trackQueue, setTrackQueue, isPlaying, setIsPlaying } = useContext(AppWithContext)
   const [isTrackPlaying, setIsTrackPlaying] = useState(false);
   const [editMenu, setEditMenu] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const {
+    trackQueue,
+    setTrackQueue,
+    isPlaying,
+    setIsPlaying,
+    trackIdx,
+    setTrackIdx
+  } = useContext(AppWithContext)
   // const [playStyle, setPlayStyle ] = useState()
 
   const handleMouseEnter = () => {
@@ -26,15 +33,11 @@ const TrackListing = ({ track, playlist }) => {
   }
 
   const handleQueue = () => {
-    if (trackQueue.length) {
-      setTrackQueue([]);
-      setIsPlaying(false);
-      setIsTrackPlaying(false)
-    } else {
-      setTrackQueue([...trackQueue, formatTrack(track.track)]);
-      setIsPlaying(true);
-      setIsTrackPlaying(true);
-    }
+    let formatted = trackList.map(track => formatTrack(track.track))
+    setTrackIdx(index);
+    setTrackQueue(formatted);
+    setIsPlaying(true);
+    setIsTrackPlaying(true);
   }
 
   // useEffect(() => {
@@ -109,17 +112,24 @@ const TrackListing = ({ track, playlist }) => {
           <p>{track.track.album.title}</p>
         </div>
         <div className="track-video">
-          <button
-            onClick={() => setShowModal(true)}
-            className="track-video-button"
-          >
-            <i className="fas fa-video" />
-          </button>
-          {showModal && (
-            <Modal onClose={() => setShowModal(false)}>
-              <VideoModal vidSrc={track.track.vid_src}/>
-            </Modal>
-          )}
+        {track.track.vid_src ? (
+          <>
+            <button
+              onClick={() => setShowModal(true)}
+              className="track-video-button"
+            >
+              <i className="fas fa-video" />
+            </button>
+            {showModal && (
+              <Modal onClose={() => setShowModal(false)}>
+                <VideoModal vidSrc={track.track.vid_src}/>
+              </Modal>
+            )}
+          </>
+        ) : (
+          <>
+          </>
+        )}
         </div>
         <div className="track-edit-container">
           <div className="track-time">

@@ -17,7 +17,7 @@ const initialDnDState = {
 }
 
 const PlaylistDetail = () => {
-  const { trackQueue, setTrackQueue, isPlaying, setIsPlaying } = useContext(AppWithContext)
+  const { trackQueue, setTrackQueue, isPlaying, setIsPlaying, setTrackIdx } = useContext(AppWithContext)
   const dispatch = useDispatch();
   const params = useParams();
   const playlist = useSelector(state => state.playlists.selected?.playlist);
@@ -29,7 +29,8 @@ const PlaylistDetail = () => {
   const [list, setList] = useState();
   const [openMenu, setOpenMenu] = useState(false);
   // const [newPl, setNewPl] = useState();
-  const [editState, setEditState] = useState(null)
+  const [editState, setEditState] = useState(null);
+  const [isPlaylistPlaying, setIsPlaylistPlaying] = useState(false);
 
   useEffect(() => {
     setList(tracks);
@@ -51,14 +52,11 @@ const PlaylistDetail = () => {
   }, [dispatch, params])
 
   const addToQueue = () => {
-    if (trackQueue.length) {
-      setIsPlaying(false)
-      setTrackQueue([])
-    } else {
-      const plTracks = tracks.map(({ track }) => formatTrack(track));
-      setTrackQueue([...trackQueue, ...plTracks])
-      setIsPlaying(true);
-    }
+    setTrackQueue([])
+    let formatted = tracks.map(track => formatTrack(track.track))
+    setTrackIdx(0);
+    setTrackQueue(formatted);
+    setIsPlaying(true);
   }
 
   const onDragStart = (e) => {
@@ -121,7 +119,6 @@ const PlaylistDetail = () => {
         order_num: i + 1,
       }
     })
-    console.log(submission);
     dispatch(editPlaylist(submission, playlist.id))
     setEditState(null);
     window.location.reload();
@@ -130,7 +127,6 @@ const PlaylistDetail = () => {
   const cancelEdits = () => {
     window.location.reload();
   }
-
 
   return (
     <div className="pl-page-container" style={{ backgroundColor: `${colors[3]}80`}}>
@@ -165,7 +161,7 @@ const PlaylistDetail = () => {
         <div className="pl-bottom-header">
           <div className="pl-bottom-header-left">
             <div className="pl-music-play-buttons">
-            {isPlaying ? (
+            {isPlaying && isPlaylistPlaying ? (
               <button
                 type="button"
                 className="pl-pause"
@@ -253,6 +249,8 @@ const PlaylistDetail = () => {
               >
                 <TrackListing
                   track={track}
+                  trackList={list}
+                  index={i}
                   playlist={playlist}
                   key={track.id}
                 />

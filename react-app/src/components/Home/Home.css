@@ -3,11 +3,11 @@
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
-  margin-left: 250px;
+  margin-left: 230px;
 }
 
 .home-featured-detail-container {
-  margin-left: 250px;
+  margin-left: 230px;
   padding: 40px;
   z-index: 100;
 }

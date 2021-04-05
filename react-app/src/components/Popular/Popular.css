@@ -2,8 +2,9 @@
 .popular-container {
   display: flex;
   flex-direction: column;
-  margin-left: 270px;
+  margin-left: 230px;
   padding-top: 40px;
+  padding-left: 20px;
   /* margin-right: 40px; */
   /* padding: 40px; */
 }

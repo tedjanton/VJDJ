@@ -29,3 +29,7 @@ footer {
 button:focus {
   outline: none;
 }
+
+button {
+  font-family: 'Montserrat', sans-serif;
+}

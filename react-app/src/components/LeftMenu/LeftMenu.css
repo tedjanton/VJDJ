@@ -4,33 +4,164 @@
   z-index: 200;
   color: white;
   background-color: black;
-  width: 250px;
+  width: 230px;
   height: 100%;
-
 }
 
 .lm-nav-buttons,
 .lm-create-pl {
-  margin-left: 20px;
+  margin-left: 10px;
 }
 
-.lm-create-pl {
-  margin-top: 60px;
+a.nav-active.active {
+  background-color:rgba(206, 206, 206, .3);
+  border-radius: 5px;
+  color: white;
+}
+
+.lm-nav-home,
+.lm-nav-search,
+.lm-nav-library {
+  padding: 5px 15px 5px 5px;
+  line-height: 40px;
+}
+
+.lm-nav-search,
+.lm-nav-library {
+  margin-left: 12px;
+}
+
+.lm-nav-library {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.lm-nav-library img {
+  height: 22px;
+  margin-right: 18px;
+}
+
+.lm-nav-home a,
+.lm-nav-search p,
+.lm-nav-library p,
+.lm-create-pl p {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 600;
+  color: rgb(190, 190, 190);
+  margin: 0;
+}
+
+.fa-home {
+  margin-right: 15px;
+  font-size: 22px;
+  padding-left: 10px;
+}
+
+.fa-search {
+  margin-right: 18px;
+  font-size: 22px;
 }
 
 .lm-logo {
-  font-size: 35px;
-  margin: 50px 0 20px 20px;
+  display: flex;
+  align-items: center;
+  margin: 25px 0 20px 25px;
+}
+
+.fa-spotify {
+  font-size: 40px;
+  margin-right: 5px;
+}
+
+.lm-logo-title,
+.lm-liked {
+  display: flex;
+  align-items: center;
+}
+
+.v,
+.d {
+  font-weight: 700;
+  margin: 0;
+  font-size: 25px;
+  padding-bottom: 10px;
+}
+
+.j {
+  font-size: 40px;
+  font-weight: 500;
+}
+
+.lm-create-pl {
+  margin-top: 40px;
+  display: flex;
+}
+
+.lm-create-pl p,
+.lm-liked p {
+  color: rgb(190, 190, 190);
+  border: none;
+}
+
+.lm-create-pl-plus {
+  background-color:rgb(190, 190, 190);
+  color: black;
+  font-weight: 600;
+  font-size: 20px;
+  width: 26px;
+  height: 25px;
+  text-align: center;
+  line-height: 25px;
+  margin-left: 16px;
+  margin-right: 14px;
 }
 
 .lm-user-pls {
   display: flex;
   flex-direction: column;
-  padding: 20px 20px 20px 0;
-  margin: 20px;
-  border-top: thin solid white;
+  padding: 20px 25px 20px 0;
+  margin: 10px 25px;
+  border-top: thin solid rgba(206, 206, 206, .3);
+}
+
+.lm-user-pl-container > a.lm-user-pl-active {
+  color: white;
 }
 
 .lm-user-pl-container {
   margin: 5px 0;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+a.lm-user-pl {
+  color: rgb(190, 190, 190);
+}
+
+.lm-liked {
+  margin-left: 20px;
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0;
+}
+
+
+.lm-liked-heart {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgb(0,255,205);
+  background: linear-gradient(337deg, rgba(0,255,205,1) 0%, rgba(78,255,247,1) 36%, rgba(164,107,255,1) 100%);
+  line-height: 25px;
+  height: 25px;
+  width: 26px;
+  margin-left: 25.5px;
+  margin-right: 14px;
+  font-size: 12px;
+  opacity: .7;
 }

@@ -6,13 +6,14 @@ import './TrackBox.css';
 import { addToPlaylist } from '../../store/playlists';
 
 
-const TrackBox = ({ track }) => {
+const TrackBox = ({ track, trackList, index }) => {
   const dispatch = useDispatch();
   const userPls = useSelector(state => state.playlists.userPls)
   const user = useSelector(state => state.session.user)
-  const { trackQueue, setTrackQueue, setIsPlaying } = useContext(AppWithContext)
+  const { trackQueue, setTrackQueue, setIsPlaying, setTrackIdx } = useContext(AppWithContext)
   const [isHover, setIsHover] = useState(false);
   const [addMenu, setAddMenu] = useState(false);
+  
 
   const handleMouseHover = () => {
     setIsHover(!isHover);
@@ -20,13 +21,11 @@ const TrackBox = ({ track }) => {
   }
 
   const handleQueue = () => {
-    if (trackQueue.length) {
-      setTrackQueue([])
-      setIsPlaying(false)
-    } else {
-      setTrackQueue([...trackQueue, formatTrack(track)]);
-      setIsPlaying(true)
-    }
+    let formatted = trackList.map(track => formatTrack(track))
+    setTrackIdx(index);
+    setTrackQueue(formatted);
+    setIsPlaying(true);
+    // setIsTrackPlaying(true);
   }
 
   // const handleQueue = () => {

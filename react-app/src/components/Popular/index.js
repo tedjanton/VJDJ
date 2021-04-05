@@ -6,7 +6,7 @@ import './Popular.css';
 
 const Popular = () => {
   const dispatch = useDispatch();
-  const popTracks = useSelector(state => state.tracks.popTracks);
+  const trackList = useSelector(state => state.tracks.popTracks);
 
   useEffect(() => {
     dispatch(getPopTracks())
@@ -18,9 +18,9 @@ const Popular = () => {
         <h2>Popular songs</h2>
       </div>
       <div className="popular-songs-container">
-      {popTracks?.map(track => (
+      {trackList?.map((track, i) => (
         <div className="track-container" key={track.id}>
-          <TrackBox track={track} />
+          <TrackBox trackList={trackList} index={i} track={track} />
         </div>
       ))}
       </div>

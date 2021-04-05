@@ -5,8 +5,7 @@ import './MusicPlayer.css';
 
 
 const MusicPlayer = ({ tracks }) => {
-  const { isPlaying, setIsPlaying } = useContext(AppWithContext)
-  const [trackIdx, setTrackIdx] = useState(0);
+  const { isPlaying, setIsPlaying, trackIdx, setTrackIdx } = useContext(AppWithContext)
   const [trackProgress, setTrackProgress] = useState(0);
   const [vol, setVol] = useState(1);
   const { title, artists, art, audio_src } = tracks[trackIdx]

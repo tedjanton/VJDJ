@@ -38,8 +38,9 @@ a:visited {
 .nav-home-container {
   position: fixed;
   top: 0;
+  right: 10px;
   z-index: 200;
-  width: 100%;
+  width: 200px;
   display: flex;
   justify-content: flex-end;
   color: white;

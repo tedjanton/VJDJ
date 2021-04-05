@@ -1,8 +1,10 @@
 import React, { useState, useContext } from 'react';
 import { useDispatch } from 'react-redux';
 import { AppWithContext } from '../../App';
+import { Modal } from '../../context/Modal';
 import { deleteFromPlaylist } from '../../store/playlists';
 import { formatTrack } from '../../utils';
+import VideoModal from '../VideoModal';
 import './TrackListing.css';
 
 const TrackListing = ({ track, playlist }) => {
@@ -11,6 +13,7 @@ const TrackListing = ({ track, playlist }) => {
   const { trackQueue, setTrackQueue, isPlaying, setIsPlaying } = useContext(AppWithContext)
   const [isTrackPlaying, setIsTrackPlaying] = useState(false);
   const [editMenu, setEditMenu] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   // const [playStyle, setPlayStyle ] = useState()
 
   const handleMouseEnter = () => {
@@ -106,9 +109,17 @@ const TrackListing = ({ track, playlist }) => {
           <p>{track.track.album.title}</p>
         </div>
         <div className="track-video">
-          <button className="track-video-button">
+          <button
+            onClick={() => setShowModal(true)}
+            className="track-video-button"
+          >
             <i className="fas fa-video" />
           </button>
+          {showModal && (
+            <Modal onClose={() => setShowModal(false)}>
+              <VideoModal vidSrc={track.track.vid_src}/>
+            </Modal>
+          )}
         </div>
         <div className="track-edit-container">
           <div className="track-time">

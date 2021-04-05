@@ -27,30 +27,6 @@ const MusicPlayer = ({ tracks }) => {
   };
 
   useEffect(() => {
-    if (isPlaying) {
-      audioRef.current.play();
-      startTimer();
-    } else {
-      clearInterval(intervalRef.current);
-      audioRef.current.pause();
-    }
-  }, [startTimer, isPlaying]);
-
-
-  useEffect(() => {
-    audioRef.current.volume = vol;
-  }, [vol])
-
-
-  useEffect(() => {
-    return () => {
-      audioRef.current.pause();
-      clearInterval(intervalRef.current);
-    }
-  }, []);
-
-
-  useEffect(() => {
     audioRef.current.pause();
     audioRef.current = new Audio(audio_src);
     setTrackProgress(audioRef.current.currentTime);
@@ -63,6 +39,27 @@ const MusicPlayer = ({ tracks }) => {
       isReady.current = true;
     }
   }, [trackIdx])
+
+  useEffect(() => {
+    audioRef.current.volume = vol;
+  }, [vol])
+
+  useEffect(() => {
+    return () => {
+      audioRef.current.pause();
+      clearInterval(intervalRef.current);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (isPlaying) {
+      audioRef.current.play();
+      startTimer();
+    } else {
+      clearInterval(intervalRef.current);
+      audioRef.current.pause();
+    }
+  }, [startTimer, isPlaying]);
 
   const toPrevTrack = () => {
     if (trackProgress > 2) {
@@ -103,8 +100,6 @@ const MusicPlayer = ({ tracks }) => {
   const volStyling = `
     -webkit-gradient(linear, 0% 0%, 100% 0%, color-stop(${currentVolPercentage}, #e1e1e1), color-stop(${currentVolPercentage}, #505050))
   `;
-
-  console.log(artists);
 
   return (
     <footer>

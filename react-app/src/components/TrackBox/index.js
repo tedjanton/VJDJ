@@ -29,6 +29,16 @@ const TrackBox = ({ track }) => {
     }
   }
 
+  // const handleQueue = () => {
+  //   if (trackQueue.length) {
+  //     setTrackQueue([])
+  //     setIsPlaying(false)
+  //   }
+  //   setTrackQueue([formatTrack(track)]);
+  //   setIsPlaying(true)
+
+  // }
+
   const handleAddBox = () => {
     setAddMenu(true)
   }

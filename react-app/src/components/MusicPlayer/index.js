@@ -36,6 +36,7 @@ const MusicPlayer = ({ tracks }) => {
     }
   }, [startTimer, isPlaying]);
 
+
   useEffect(() => {
     audioRef.current.volume = vol;
   }, [vol])
@@ -44,10 +45,10 @@ const MusicPlayer = ({ tracks }) => {
   useEffect(() => {
     return () => {
       audioRef.current.pause();
-
       clearInterval(intervalRef.current);
     }
   }, []);
+
 
   useEffect(() => {
     audioRef.current.pause();
@@ -74,7 +75,6 @@ const MusicPlayer = ({ tracks }) => {
   }
 
   const toNextTrack = () => {
-
     if (trackIdx < tracks.length - 1) {
       setTrackIdx(trackIdx + 1);
     } else {

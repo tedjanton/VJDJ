@@ -18,11 +18,21 @@ def albums_seed2():
                      year=2021,
                      art_src="/static/album-art/up.jpeg",
                      artist_id=8)
+  positions = Album(title="positions",
+                    year=2020,
+                    art_src="/static/album-art/positions.png",
+                    artist_id=4)
+  thankunext = Album(title="thank u, next",
+                     year=2019,
+                     art_src="/static/album-art/thank-u-next.jpeg",
+                     artist_id=4)
 
   db.session.add(cuz_i_love_you)
   db.session.add(after_hours)
   db.session.add(plastic_hearts)
   db.session.add(up)
+  db.session.add(positions)
+  db.session.add(thankunext)
   db.session.commit()
 
 def undo_albums_seed2():

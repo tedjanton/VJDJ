@@ -1,8 +1,8 @@
-"""remigrating
+"""initial migration
 
-Revision ID: 293498c9a5c4
+Revision ID: f0deea88fc7d
 Revises: 
-Create Date: 2021-04-02 11:36:13.597934
+Create Date: 2021-04-06 11:54:41.039994
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '293498c9a5c4'
+revision = 'f0deea88fc7d'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -53,6 +53,13 @@ def upgrade():
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
+    op.create_table('follows',
+    sa.Column('user_id', sa.Integer(), nullable=False),
+    sa.Column('playlist_id', sa.Integer(), nullable=False),
+    sa.ForeignKeyConstraint(['playlist_id'], ['playlists.id'], ),
+    sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
+    sa.PrimaryKeyConstraint('user_id', 'playlist_id')
+    )
     op.create_table('tracks',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('title', sa.String(), nullable=False),
@@ -89,6 +96,7 @@ def downgrade():
     op.drop_table('track_artists')
     op.drop_table('playlist_tracks')
     op.drop_table('tracks')
+    op.drop_table('follows')
     op.drop_table('playlists')
     op.drop_table('albums')
     op.drop_table('users')

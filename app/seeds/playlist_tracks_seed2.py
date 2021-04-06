@@ -4,7 +4,7 @@ from app.models import db, PlaylistTrack
 def playlist_tracks_seed2():
   track1 = PlaylistTrack(order_num=1, track_id=13, playlist_id=2)
   track2 = PlaylistTrack(order_num=2, track_id=9, playlist_id=2)
-  track3 = PlaylistTrack(order_num=3, track_id=3, playlist_id=2)
+  track3 = PlaylistTrack(order_num=3, track_id=14, playlist_id=2)
   track4 = PlaylistTrack(order_num=4, track_id=5, playlist_id=2)
   track5 = PlaylistTrack(order_num=5, track_id=10, playlist_id=2)
   track6 = PlaylistTrack(order_num=6, track_id=7, playlist_id=2)
@@ -13,6 +13,11 @@ def playlist_tracks_seed2():
   track8 = PlaylistTrack(order_num=1, track_id=11, playlist_id=3)
   track9 = PlaylistTrack(order_num=2, track_id=2, playlist_id=3)
   track10 = PlaylistTrack(order_num=3, track_id=8, playlist_id=3)
+
+  track11 = PlaylistTrack(order_num=1, track_id=3, playlist_id=4)
+  track12 = PlaylistTrack(order_num=2, track_id=5, playlist_id=4)
+  track13 = PlaylistTrack(order_num=3, track_id=14, playlist_id=4)
+  track14 = PlaylistTrack(order_num=4, track_id=9, playlist_id=4)
 
   db.session.add(track1)
   db.session.add(track2)

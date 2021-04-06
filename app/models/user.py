@@ -2,6 +2,13 @@ from .db import db
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 
+follows = db.Table(
+  'follows',
+  db.Model.metadata,
+  db.Column('user_id', db.Integer, db.ForeignKey('users.id'), primary_key=True),
+  db.Column('playlist_id', db.Integer, db.ForeignKey('playlists.id'), primary_key=True),
+)
+
 class User(db.Model, UserMixin):
   __tablename__ = 'users'
 
@@ -13,6 +20,7 @@ class User(db.Model, UserMixin):
   hashed_password = db.Column(db.String(255), nullable = False)
 
   playlists = db.relationship('Playlist', back_populates='user')
+  pl_follows = db.relationship('Playlist', secondary=follows, back_populates='user_follows')
 
   @property
   def password(self):

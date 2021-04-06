@@ -1,5 +1,5 @@
 from .db import db
-
+from .user import follows
 
 class Playlist(db.Model):
   __tablename__ = 'playlists'
@@ -11,6 +11,7 @@ class Playlist(db.Model):
 
   user = db.relationship('User', back_populates='playlists')
   tracks = db.relationship('PlaylistTrack', back_populates='playlist')
+  user_follows = db.relationship('User', secondary=follows, back_populates='pl_follows')
 
   def to_dict(self):
     return {

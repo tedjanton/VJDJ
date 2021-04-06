@@ -1,3 +1,7 @@
+body {
+  background-color: rgb(15, 15, 15);
+}
+
 .home-featured-video-container {
   z-index: -2;
   display: flex;
@@ -22,7 +26,7 @@
 }
 
 .home-feature-watch-button button {
-  background: #1db954;
+  background: #1ed760;
   border: none;
   height: 50px;
   width: 140px;

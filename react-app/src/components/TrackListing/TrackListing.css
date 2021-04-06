@@ -71,16 +71,25 @@
   font-size: 13px;
 }
 
-.tl-edit-menu {
+.tl-edit-menu,
+.tl-edit-menu-not-user {
   position: absolute;
   right: 40px;
   display: flex;
   flex-direction: column;
-  height: 78px;
   width: 120px;
   background-color: rgb(36, 36, 36);
   border-radius: 4px;
   padding: 5px;
+}
+
+.tl-edit-menu {
+  height: 78px;
+}
+
+.tl-edit-menu-not-user {
+  height: 40px;
+
 }
 
 .tl-delete-button button,

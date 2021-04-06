@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppWithContext } from '../../App';
 import { formatTrack } from '../../utils';
@@ -10,10 +10,10 @@ const TrackBox = ({ track, trackList, index }) => {
   const dispatch = useDispatch();
   const userPls = useSelector(state => state.playlists.userPls)
   const user = useSelector(state => state.session.user)
-  const { trackQueue, setTrackQueue, setIsPlaying, setTrackIdx } = useContext(AppWithContext)
+  const { setTrackQueue, setIsPlaying, setTrackIdx } = useContext(AppWithContext)
   const [isHover, setIsHover] = useState(false);
   const [addMenu, setAddMenu] = useState(false);
-  
+
 
   const handleMouseHover = () => {
     setIsHover(!isHover);
@@ -38,7 +38,7 @@ const TrackBox = ({ track, trackList, index }) => {
 
   // }
 
-  const handleAddBox = () => {
+  const handleAddMenu = () => {
     setAddMenu(true)
   }
 
@@ -63,7 +63,7 @@ const TrackBox = ({ track, trackList, index }) => {
             <button onClick={handleQueue} className="tb-play-button">
               <i className="tb fas fa-play" />
             </button>
-            <button onClick={handleAddBox} className="tb-add-song-button">
+            <button onClick={handleAddMenu} className="tb-add-song-button">
               <i className="tb fas fa-plus-circle" />
             </button>
           </div>
@@ -78,7 +78,6 @@ const TrackBox = ({ track, trackList, index }) => {
                 </div>
               ))}
             </div>
-
           )}
         </div>
       </div>

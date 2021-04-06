@@ -1,27 +1,27 @@
 import React, { useState, useContext } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { AppWithContext } from '../../App';
 import { Modal } from '../../context/Modal';
-import { deleteFromPlaylist } from '../../store/playlists';
+import { addToPlaylist, deleteFromPlaylist } from '../../store/playlists';
 import { formatTrack } from '../../utils';
 import VideoModal from '../VideoModal';
 import './TrackListing.css';
 
-const TrackListing = ({ track, trackList, index, playlist }) => {
+const TrackListing = ({ track, trackList, index, playlist, isUserPlaylist }) => {
   const dispatch = useDispatch();
+  const user = useSelector(state => state.session.user);
+  const userPls = useSelector(state => state.playlists.userPls)
   const [isHover, setIsHover] = useState(false);
   const [isTrackPlaying, setIsTrackPlaying] = useState(false);
   const [editMenu, setEditMenu] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [addMenu, setAddMenu] = useState(false);
   const {
-    trackQueue,
     setTrackQueue,
     isPlaying,
     setIsPlaying,
-    trackIdx,
     setTrackIdx
   } = useContext(AppWithContext)
-  // const [playStyle, setPlayStyle ] = useState()
 
   const handleMouseEnter = () => {
     setIsHover(true);
@@ -30,6 +30,7 @@ const TrackListing = ({ track, trackList, index, playlist }) => {
   const handleMouseLeave = () => {
     setIsHover(false);
     setEditMenu(false);
+    setAddMenu(false);
   }
 
   const handleQueue = () => {
@@ -61,6 +62,19 @@ const TrackListing = ({ track, trackList, index, playlist }) => {
     }
     window.alert("Are you sure you would like to remove this song from this playlist?");
     dispatch(deleteFromPlaylist(selection));
+  }
+
+  const handleAddMenu = () => {
+    setAddMenu(true)
+  }
+
+  const addTrack = (pl) => {
+    const submission = {
+      track_id: track.track.id,
+      playlist_id: pl.id,
+    }
+    dispatch(addToPlaylist(submission, user.id))
+    setEditMenu(false)
   }
 
   return (
@@ -140,15 +154,46 @@ const TrackListing = ({ track, trackList, index, playlist }) => {
               <i className="tl fas fa-ellipsis-h" />
             </div>
           )}
-          {editMenu && isHover && (
+          {editMenu && isHover && isUserPlaylist && (
             <div className="tl-edit-menu">
               <div className="tl-delete-button">
                 <button onClick={handleDelete}>Delete</button>
               </div>
               <div className="tl-add-to-button">
-                <button>Add to Playlist</button>
+                <button onClick={handleAddMenu}>Add to Playlist</button>
               </div>
+              <div className="tb-add-box-container">
+              {addMenu && (
+                <div className="tb-add-box">
+                  <p className="tb-add-title">Add track to:</p>
+                  {userPls?.map(pl => (
+                    <div key={pl.id} className="tb-add-pl">
+                      <button onClick={() => addTrack(pl)}>{pl.name}</button>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
+          </div>
+          )}
+          {editMenu && isHover && !isUserPlaylist && (
+            <div className="tl-edit-menu-not-user">
+              <div className="tl-add-to-button">
+                <button onClick={handleAddMenu}>Add to Playlist</button>
+              </div>
+              <div className="tb-add-box-container">
+              {addMenu && (
+                <div className="tb-add-box">
+                  <p className="tb-add-title">Add track to:</p>
+                  {userPls?.map(pl => (
+                    <div key={pl.id} className="tb-add-pl">
+                      <button onClick={() => addTrack(pl)}>{pl.name}</button>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
           )}
         </div>
       </div>

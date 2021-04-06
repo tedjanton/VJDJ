@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { Modal } from '../../context/Modal';
 import PlaylistModal from '../PlaylistModal';
-import { getUserPls } from '../../store/playlists';
+import { getUserFollowedPls, getUserPls } from '../../store/playlists';
 import library from '../../images/library.png';
 import './LeftMenu.css';
 
@@ -11,13 +11,20 @@ const LeftMenu = ({ authenticated }) => {
   const dispatch = useDispatch();
   const user = useSelector(state => state.session.user)
   const [showModal, setShowModal] = useState(false);
-  const allUserPls = useSelector(state => state.playlists.allUserPls)
+  const userPls = useSelector(state => state.playlists.userPls);
+  const following = useSelector(state => state.playlists.following);
 
   useEffect(() => {
     if (user) {
+      dispatch(getUserFollowedPls(user.id))
       dispatch(getUserPls(user.id))
     }
   }, [user, dispatch])
+
+  // useEffect(() => {
+  //   dispatch(getUserPls(user.id))
+  //   setPls(allUserPls)
+  // }, [allUserPls, pls, user])
 
 
   return (
@@ -69,7 +76,7 @@ const LeftMenu = ({ authenticated }) => {
           <p>YOUR PLAYLISTS</p>
         </div>
         <div className="lm-user-owned-pls">
-          {allUserPls?.userPls?.map(pl => (
+          {userPls?.map(pl => (
             <div key={pl.id} className="lm-user-pl-container">
               <NavLink
                 to={`/playlists/${pl.id}`}
@@ -84,7 +91,7 @@ const LeftMenu = ({ authenticated }) => {
           <p>FOLLOWED PLAYLISTS</p>
         </div>
         <div className="lm-user-followed-pls">
-          {allUserPls?.following?.map(pl => (
+          {following?.map(pl => (
             <div key={pl.id} className="lm-user-pl-container">
               <NavLink
                 to={`/playlists/${pl.id}`}

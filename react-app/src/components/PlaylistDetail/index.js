@@ -17,20 +17,26 @@ const initialDnDState = {
 }
 
 const PlaylistDetail = () => {
-  const { trackQueue, setTrackQueue, isPlaying, setIsPlaying, setTrackIdx } = useContext(AppWithContext)
+  const { setTrackQueue, isPlaying, setIsPlaying, setTrackIdx } = useContext(AppWithContext)
   const dispatch = useDispatch();
   const params = useParams();
   const playlist = useSelector(state => state.playlists.selected?.playlist);
   const tracks = useSelector(state => state.playlists.selected?.tracks);
+  const user = useSelector(state => state.session.user);
   const [images, setImages] = useState([]);
   const [colors, getColors] = useState([]);
   const [draggable, setDraggable] = useState(false);
   const [dragAndDrop, setDragAndDrop] = useState(initialDnDState)
   const [list, setList] = useState();
   const [openMenu, setOpenMenu] = useState(false);
-  // const [newPl, setNewPl] = useState();
   const [editState, setEditState] = useState(null);
-  const [isPlaylistPlaying, setIsPlaylistPlaying] = useState(false);
+  const [isUserPlaylist, setIsUserPlaylist] = useState()
+  // const [newPl, setNewPl] = useState();
+  // const [isPlaylistPlaying, setIsPlaylistPlaying] = useState(false);
+
+  useEffect(() => {
+    setIsUserPlaylist(playlist?.user.id === user.id)
+  }, [playlist, user])
 
   useEffect(() => {
     setList(tracks);
@@ -161,7 +167,7 @@ const PlaylistDetail = () => {
         <div className="pl-bottom-header">
           <div className="pl-bottom-header-left">
             <div className="pl-music-play-buttons">
-            {isPlaying && isPlaylistPlaying ? (
+            {isPlaying ? (
               <button
                 type="button"
                 className="pl-pause"
@@ -184,11 +190,13 @@ const PlaylistDetail = () => {
             <div className="pl-like-button">
               <i className="pl fas fa-heart" />
             </div>
-            <div
-              className="pl-dot-menu"
-              onClick={playlistMenu}>
-              <i className="pl fas fa-ellipsis-h" />
-            </div>
+            {isUserPlaylist && (
+              <div
+                className="pl-dot-menu"
+                onClick={playlistMenu}>
+                <i className="pl fas fa-ellipsis-h" />
+              </div>
+            )}
             {openMenu && (
               <div className="pl-menu-box">
                 <div className="pl-add-songs-button">
@@ -253,6 +261,7 @@ const PlaylistDetail = () => {
                   index={i}
                   playlist={playlist}
                   key={track.id}
+                  isUserPlaylist={isUserPlaylist}
                 />
               </div>
             ))}

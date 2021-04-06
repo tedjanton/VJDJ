@@ -41,9 +41,10 @@ a:visited {
   top: 0;
   right: 10px;
   z-index: 200;
-  width: 200px;
+  width: 70%;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
+  align-items: center;
   color: white;
 }
 
@@ -55,4 +56,8 @@ a:visited {
   height: 20px;
   width: 2px;
   background-color: white;
+}
+
+.lib-nav-buttons-container {
+  display: flex;
 }

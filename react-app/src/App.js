@@ -10,7 +10,9 @@ import Landing from './components/Landing';
 import Home from './components/Home';
 import PlaylistDetail from './components/PlaylistDetail';
 import Queue from './components/Queue';
-import BrowseLibrary from'./components/BrowseLibrary';
+import PlaylistBrowser from './components/PlaylistBrowser';
+import ArtistBrowser from './components/ArtistBrowser';
+import AlbumBrowser from './components/AlbumBrowser';
 import { authenticate } from './store/session';
 
 export const AppWithContext = createContext();
@@ -19,6 +21,7 @@ function App() {
   const dispatch = useDispatch();
   const [authenticated, setAuthenticated] = useState(false);
   const [nav, setNav] = useState(true);
+  const [inBrowse, setInBrowse] = useState(false);
   const [loaded, setLoaded] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [trackQueue, setTrackQueue] = useState([]);
@@ -44,13 +47,17 @@ function App() {
       <AppWithContext.Provider
         trackQueue={trackQueue}
         setTrackQueue={setTrackQueue}
+        inBrowse={inBrowse}
+        setInBrowse={setInBrowse}
         value={{
           trackQueue,
           setTrackQueue,
           isPlaying,
           setIsPlaying,
           trackIdx,
-          setTrackIdx
+          setTrackIdx,
+          inBrowse,
+          setInBrowse
         }}
       >
         <NavBar nav={nav} authenticated={authenticated} setAuthenticated={setAuthenticated} />
@@ -87,8 +94,14 @@ function App() {
               setTrackQueue={setTrackQueue}
             />
           </ProtectedRoute>
-          <ProtectedRoute path='/library' exact authenticated={authenticated}>
-            <BrowseLibrary />
+          <ProtectedRoute path='/library/playlists' exact authenticated={authenticated}>
+            <PlaylistBrowser />
+          </ProtectedRoute>
+          <ProtectedRoute path='/library/artists' exact authenticated={authenticated}>
+            <ArtistBrowser />
+          </ProtectedRoute>
+          <ProtectedRoute path='/library/albums' exact authenticated={authenticated}>
+            <AlbumBrowser />
           </ProtectedRoute>
         </Switch>
         <Queue

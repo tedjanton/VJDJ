@@ -52,15 +52,45 @@ def tracks_seed2():
                album_id=7,
                artists=[Artist.query.get(8)])
 
+  a3435 = Track(title="34+35",
+                track_num=2,
+                num_plays=234505,
+                audio_src="https://vjdj.s3.amazonaws.com/music/ariana-grande/Ariana+Grande+-+34%2B35+(official+video)+(320+kbps).mp3",
+                vid_src="https://www.youtube.com/embed/B6_iQvaIjXw",
+                length="3:40",
+                album_id=8,
+                artists=[Artist.query.get(4)])
+
+  positions = Track(title="positions",
+                    track_num=12,
+                    num_plays=50235,
+                    audio_src="https://vjdj.s3.amazonaws.com/music/ariana-grande/Ariana+Grande+-+positions+(official+video)+(320+kbps).mp3",
+                    vid_src="https://www.youtube.com/embed/tcYodQoapMg",
+                    length="2:57",
+                    album_id=8,
+                    artists=[Artist.query.get(4)])
+
+  break_up = Track(title="break up with your girlfriend, i'm bored",
+                   track_num=12,
+                   num_plays=85783,
+                   audio_src="https://vjdj.s3.amazonaws.com/music/ariana-grande/Ariana+Grande+-+break+up+with+your+girlfriend%2C+i'm+bored+(Official+Video)+(320+kbps).mp3",
+                   vid_src="https://www.youtube.com/embed/LH4Y1ZUUx2g",
+                   length="3:24",
+                   album_id=9,
+                   artists=[Artist.query.get(4)])
+
 
   db.session.add(good_as_hell)
   db.session.add(juice)
   db.session.add(blinding_lights)
   db.session.add(prisoner)
   db.session.add(midnight_sky)
+  db.session.add(a3435)
+  db.session.add(positions)
   db.session.add(up)
+  db.session.add(break_up)
   db.session.commit()
 
 def undo_tracks_seed2():
-  db.session.execute('TRUNICATE tracks CASCADE;')
+  db.session.execute('TRUNCATE tracks CASCADE;')
   db.session.commit()

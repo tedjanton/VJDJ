@@ -44,3 +44,6 @@ class User(db.Model, UserMixin):
       "username": self.username,
       "email": self.email,
     }
+
+  def to_follows_dict(self):
+    return {"follows": [pl_follow.to_dict() for pl_follow in self.pl_follows]}

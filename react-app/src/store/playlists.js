@@ -81,7 +81,7 @@ export const deleteFromPlaylist = (track) => async dispatch => {
 const playlistsReducer = (state = {}, action) => {
   switch (action.type) {
     case GET_USER_PLS:
-      return { ...state, userPls: action.playlists };
+      return { ...state, allUserPls: action.playlists };
     case GET_PL:
       return { ...state, selected: action.playlist };
     default:

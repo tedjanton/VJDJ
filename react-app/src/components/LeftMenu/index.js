@@ -11,7 +11,7 @@ const LeftMenu = ({ authenticated }) => {
   const dispatch = useDispatch();
   const user = useSelector(state => state.session.user)
   const [showModal, setShowModal] = useState(false);
-  const userPls = useSelector(state => state.playlists.userPls)
+  const userPls = useSelector(state => state.playlists.allUserPls?.userPls)
 
   useEffect(() => {
     if (user) {
@@ -19,7 +19,6 @@ const LeftMenu = ({ authenticated }) => {
     }
   }, [user, dispatch])
 
-  console.log(showModal);
 
   return (
     <div className="lm-container">

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, createContext, useRef } from 'react';
+import React, { useState, useEffect, createContext } from 'react';
 import { useDispatch } from 'react-redux';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import LoginForm from './components/auth/LoginForm';
@@ -9,8 +9,9 @@ import ProtectedRoute from './components/auth/ProtectedRoute';
 import Landing from './components/Landing';
 import Home from './components/Home';
 import PlaylistDetail from './components/PlaylistDetail';
-import { authenticate } from './store/session';
 import Queue from './components/Queue';
+import BrowseLibrary from'./components/BrowseLibrary';
+import { authenticate } from './store/session';
 
 export const AppWithContext = createContext();
 
@@ -85,6 +86,9 @@ function App() {
               trackQueue={trackQueue}
               setTrackQueue={setTrackQueue}
             />
+          </ProtectedRoute>
+          <ProtectedRoute path='/library' exact authenticated={authenticated}>
+            <BrowseLibrary />
           </ProtectedRoute>
         </Switch>
         <Queue

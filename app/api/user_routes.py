@@ -23,4 +23,11 @@ def user(id):
 @login_required
 def user_playlists(id):
     playlists = Playlist.query.filter(Playlist.user_id == id).all()
-    return {'playlists': [playlist.to_pl_name_dict() for playlist in playlists]}
+    return {'userPls': [playlist.to_pl_name_dict() for playlist in playlists]}
+
+
+@user_routes.route('/<int:id>/following/')
+@login_required
+def user_following(id):
+    following = Playlist.query.join(User.pl_follows).filter(User.id == id).all()
+    return {'following': [pl.to_pl_name_dict() for pl in following]}

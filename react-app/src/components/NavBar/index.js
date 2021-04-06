@@ -28,10 +28,10 @@ const NavBar = ({ nav, authenticated, setAuthenticated }) => {
             <p>About Me</p>
           </div>
           <div>
-            <a>Github</a>
+            <a href="https://github.com/tedjanton/VJDJ">Github</a>
           </div>
           <div>
-            <a>Linkedin</a>
+            <a href="https://www.linkedin.com/in/ted-anton/">Linkedin</a>
           </div>
           <div className="spacer"></div>
           <div>

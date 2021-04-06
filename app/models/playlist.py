@@ -26,21 +26,6 @@ class Playlist(db.Model):
       'id': self.id,
       'name': self.name,
       'user': self.user.to_dict(),
-      'pl_len': len(self.tracks),
       'created_at': self.created_at,
+      # 'following': [user_follow.to_follows_dict() for user_follow in self.user_follows],
     }
-  # def to_no_user_dict(self):
-  #   return {
-  #     'id': self.id,
-  #     'name': self.name,
-  #     'tracks': [track.to_dict() for track in self.tracks],
-  #     'created_at': self.created_at,
-  #   }
-
-  # def to_no_tracks_dict(self):
-  #   return {
-  #     'id': self.id,
-  #     'name': self.name,
-  #     'user': self.user,
-  #     'created_at': self.created_at,
-  #   }

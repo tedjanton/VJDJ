@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { Modal } from '../../context/Modal';
 import PlaylistModal from '../PlaylistModal';
-import { getUserPls } from '../../store/playlists';
+import { getUserFollowedPls, getUserPls } from '../../store/playlists';
 import library from '../../images/library.png';
 import './LeftMenu.css';
 
@@ -11,15 +11,21 @@ const LeftMenu = ({ authenticated }) => {
   const dispatch = useDispatch();
   const user = useSelector(state => state.session.user)
   const [showModal, setShowModal] = useState(false);
-  const userPls = useSelector(state => state.playlists.userPls)
+  const userPls = useSelector(state => state.playlists.userPls);
+  const following = useSelector(state => state.playlists.following);
 
   useEffect(() => {
     if (user) {
+      dispatch(getUserFollowedPls(user.id))
       dispatch(getUserPls(user.id))
     }
   }, [user, dispatch])
 
-  console.log(showModal);
+  // useEffect(() => {
+  //   dispatch(getUserPls(user.id))
+  //   setPls(allUserPls)
+  // }, [allUserPls, pls, user])
+
 
   return (
     <div className="lm-container">
@@ -42,8 +48,12 @@ const LeftMenu = ({ authenticated }) => {
           <p><i className="fas fa-search" />Search</p>
         </div>
         <div className="lm-nav-library">
-          <img src={library} alt="library" />
-          <p>Library</p>
+          <NavLink
+            className=""
+            activeClassName="nav-active active"
+            to='/library'
+          ><img src={library} alt="library" />Library
+          </NavLink>
         </div>
       </div>
       <div
@@ -66,16 +76,37 @@ const LeftMenu = ({ authenticated }) => {
         <p>Liked Songs</p>
       </div>
       <div className="lm-user-pls">
-      {userPls?.map(pl => (
-        <div key={pl.id} className="lm-user-pl-container">
-          <NavLink
-            to={`/playlists/${pl.id}`}
-            className="lm-user-pl"
-            activeClassName="lm-user-pl-active">
-            {pl.name}
-          </NavLink>
+        <div className="lm-user-owned-pls-title">
+          <p>YOUR PLAYLISTS</p>
         </div>
-      ))}
+        <div className="lm-user-owned-pls">
+          {userPls?.map(pl => (
+            <div key={pl.id} className="lm-user-pl-container">
+              <NavLink
+                to={`/playlists/${pl.id}`}
+                className="lm-user-pl"
+                activeClassName="lm-user-pl-active">
+                {pl.name}
+              </NavLink>
+            </div>
+          ))}
+        </div>
+        <div className="lm-user-followed-pls-title">
+          <p>FOLLOWED PLAYLISTS</p>
+        </div>
+        <div className="lm-user-followed-pls">
+          {following?.map(pl => (
+            <div key={pl.id} className="lm-user-pl-container">
+              <NavLink
+                to={`/playlists/${pl.id}`}
+                className="lm-user-pl"
+                activeClassName="lm-user-pl-active">
+                {pl.name}
+              </NavLink>
+            </div>
+          ))}
+
+        </div>
       </div>
     </div>
   )

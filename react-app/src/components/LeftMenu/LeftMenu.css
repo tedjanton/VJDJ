@@ -122,9 +122,21 @@ a.nav-active.active {
 .lm-user-pls {
   display: flex;
   flex-direction: column;
-  padding: 20px 25px 20px 0;
+  padding: 20px 20px 20px 0;
   margin: 10px 25px;
   border-top: thin solid rgba(206, 206, 206, .3);
+}
+
+.lm-user-owned-pls-title p,
+.lm-user-followed-pls-title p {
+  margin: 0 0 3px 0;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.lm-user-owned-pls {
+  padding: 0 0 10px 0;
+  margin: 0 0 10px 0;
 }
 
 .lm-user-pl-container > a.lm-user-pl-active {

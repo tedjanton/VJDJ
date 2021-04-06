@@ -11,7 +11,7 @@ const LeftMenu = ({ authenticated }) => {
   const dispatch = useDispatch();
   const user = useSelector(state => state.session.user)
   const [showModal, setShowModal] = useState(false);
-  const userPls = useSelector(state => state.playlists.allUserPls?.userPls)
+  const allUserPls = useSelector(state => state.playlists.allUserPls)
 
   useEffect(() => {
     if (user) {
@@ -65,16 +65,37 @@ const LeftMenu = ({ authenticated }) => {
         <p>Liked Songs</p>
       </div>
       <div className="lm-user-pls">
-      {userPls?.map(pl => (
-        <div key={pl.id} className="lm-user-pl-container">
-          <NavLink
-            to={`/playlists/${pl.id}`}
-            className="lm-user-pl"
-            activeClassName="lm-user-pl-active">
-            {pl.name}
-          </NavLink>
+        <div className="lm-user-owned-pls-title">
+          <p>YOUR PLAYLISTS</p>
         </div>
-      ))}
+        <div className="lm-user-owned-pls">
+          {allUserPls?.userPls?.map(pl => (
+            <div key={pl.id} className="lm-user-pl-container">
+              <NavLink
+                to={`/playlists/${pl.id}`}
+                className="lm-user-pl"
+                activeClassName="lm-user-pl-active">
+                {pl.name}
+              </NavLink>
+            </div>
+          ))}
+        </div>
+        <div className="lm-user-followed-pls-title">
+          <p>FOLLOWED PLAYLISTS</p>
+        </div>
+        <div className="lm-user-followed-pls">
+          {allUserPls?.following?.map(pl => (
+            <div key={pl.id} className="lm-user-pl-container">
+              <NavLink
+                to={`/playlists/${pl.id}`}
+                className="lm-user-pl"
+                activeClassName="lm-user-pl-active">
+                {pl.name}
+              </NavLink>
+            </div>
+          ))}
+
+        </div>
       </div>
     </div>
   )

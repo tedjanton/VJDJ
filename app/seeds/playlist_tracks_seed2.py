@@ -29,6 +29,10 @@ def playlist_tracks_seed2():
   db.session.add(track8)
   db.session.add(track9)
   db.session.add(track10)
+  db.session.add(track11)
+  db.session.add(track12)
+  db.session.add(track13)
+  db.session.add(track14)
   db.session.commit()
 
 

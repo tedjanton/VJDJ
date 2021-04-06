@@ -48,8 +48,12 @@ const LeftMenu = ({ authenticated }) => {
           <p><i className="fas fa-search" />Search</p>
         </div>
         <div className="lm-nav-library">
-          <img src={library} alt="library" />
-          <p>Library</p>
+          <NavLink
+            className=""
+            activeClassName="nav-active active"
+            to='/library'
+          ><img src={library} alt="library" />Library
+          </NavLink>
         </div>
       </div>
       <div

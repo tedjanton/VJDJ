@@ -17,5 +17,5 @@ def playlists_seed2():
 
 
 def undo_playlists_seed2():
-  db.session.execute('TRUNICATE playlists CASCADE;')
+  db.session.execute('TRUNCATE playlists CASCADE;')
   db.session.commit()

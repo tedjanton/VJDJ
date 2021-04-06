@@ -75,5 +75,5 @@ def tracks_seed1():
   db.session.commit()
 
 def undo_tracks_seed1():
-  db.session.execute('TRUNICATE tracks CASCADE;')
+  db.session.execute('TRUNCATE tracks CASCADE;')
   db.session.commit()

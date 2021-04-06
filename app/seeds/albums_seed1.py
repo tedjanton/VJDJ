@@ -21,5 +21,5 @@ def albums_seed1():
   db.session.commit()
 
 def undo_albums_seed1():
-  db.session.execute('TRUNICATE albums CASCADE;')
+  db.session.execute('TRUNCATE albums CASCADE;')
   db.session.commit()

@@ -28,5 +28,5 @@ def playlist_tracks_seed2():
 
 
 def undo_playlist_tracks_seed2():
-  db.session.execute('TRUNICATE playlist_tracks CASCADE;')
+  db.session.execute('TRUNCATE playlist_tracks CASCADE;')
   db.session.commit()

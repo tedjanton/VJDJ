@@ -40,7 +40,8 @@
   color:rgb(172, 172, 172)
 }
 
-.tb.fas.fa-play {
+.tb.fas.fa-play,
+.tb.fas.fa-pause {
   color: white;
 }
 

@@ -27,6 +27,7 @@ function App() {
   const [trackQueue, setTrackQueue] = useState([]);
   const [trackIdx, setTrackIdx] = useState(0);
   const paramsRef = useRef();
+  const trackRef = useRef();
 
 
   useEffect(() => {
@@ -59,7 +60,8 @@ function App() {
           setTrackIdx,
           inBrowse,
           setInBrowse,
-          paramsRef
+          paramsRef,
+          trackRef
         }}
       >
         <NavBar nav={nav} authenticated={authenticated} setAuthenticated={setAuthenticated} />

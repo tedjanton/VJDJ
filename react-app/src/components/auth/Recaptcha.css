@@ -1,0 +1,106 @@
+.recaptcha_container {
+  width: 300px;
+  height: 80px;
+  display: flex;
+  flex-direction: row;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  align-items: center;
+  justify-content: space-between;
+  margin: 20px 5px;
+  background-color: #f4f4f4;
+}
+.checkbox_container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.sign-up-recaptcha {
+  color: black;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.checkbox_container:hover input ~ .checkmark {
+  box-shadow: 0 1px 1px rgb(0 22 36 / 8%), 0 1px 3px rgb(0 22 36 / 16%);
+}
+
+.checkbox_container input:checked ~ .checkmark {
+  background-color: #f4f4f4;
+  border: none;
+}
+
+.checkbox_positional_container {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.checkmark {
+  height: 25px;
+  width: 25px;
+  background-color: white;
+  border: 2px solid #ccc;
+  border-radius: 2px;
+  margin: 10px;
+}
+
+.checkmark:after {
+  content: "";
+  display: none;
+  margin: 10px;
+}
+
+.checkbox_container input:checked ~ .checkmark:after {
+display: flex;
+}
+
+.checkbox_container .checkmark:after {
+position: relative;
+margin-top: -5px;
+width: 10px;
+height: 25px;
+border: solid #3cb371;
+border-width: 0 3px 3px 0;
+-webkit-transform: rotate(45deg);
+-ms-transform: rotate(45deg);
+transform: rotate(45deg);
+}
+
+.checkbox_text {
+  font-family: "Roboto",helvetica,arial,sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 17px;
+  margin-left: 5px;
+}
+
+.image_and_links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 10px;
+  justify-content: center;
+  margin-top: 5px;
+}
+.recaptcha_img_container img{
+  height: 36px;
+  width: 36px;
+
+}
+
+.recaptcha_text {
+  font-size: 10px;
+  margin: 2px;
+}
+
+.signup.google_links {
+  color: #555;
+  font-size: 8px;
+  font-weight: 400;
+  margin: 2px;
+  text-decoration: none;
+}

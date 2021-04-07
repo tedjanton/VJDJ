@@ -1,4 +1,4 @@
-import React, { useState, useEffect, createContext } from 'react';
+import React, { useState, useEffect, createContext, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import LoginForm from './components/auth/LoginForm';
@@ -26,6 +26,7 @@ function App() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [trackQueue, setTrackQueue] = useState([]);
   const [trackIdx, setTrackIdx] = useState(0);
+  const paramsRef = useRef();
 
 
   useEffect(() => {
@@ -57,7 +58,8 @@ function App() {
           trackIdx,
           setTrackIdx,
           inBrowse,
-          setInBrowse
+          setInBrowse,
+          paramsRef
         }}
       >
         <NavBar nav={nav} authenticated={authenticated} setAuthenticated={setAuthenticated} />
@@ -68,7 +70,10 @@ function App() {
         )}
         <Switch>
           <Route path='/' exact >
-            <Landing setNav={setNav} authenticated={authenticated} />
+            <Landing
+              setNav={setNav}
+              authenticated={authenticated}
+              setAuthenticated={setAuthenticated} />
           </Route>
           <Route path='/login' exact >
             <LoginForm

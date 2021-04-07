@@ -10,12 +10,6 @@ const NavBar = ({ nav, authenticated, setAuthenticated }) => {
   const [menu, setMenu] = useState(false);
   const user = useSelector(state => state.session.user);
 
-  // useEffect(() => {
-  //   setMenu(false)
-  // }, [])
-
-  console.log(menu)
-
   useEffect(() => {
     setInBrowse(true);
   }, [inBrowse, setInBrowse])
@@ -92,6 +86,15 @@ const NavBar = ({ nav, authenticated, setAuthenticated }) => {
   } else {
     links = (
       <nav className="nav-container">
+        <div className="lm-logo landing">
+          <i className="fab fa-spotify" />
+          <div className="lm-logo-title">
+            <span className="v">V</span>
+            <span className="j">J</span>
+            <span className="d">D</span>
+            <span className="j">J</span>
+          </div>
+      </div>
         <div className="nav-landing-container">
           <div>
             <p>About Me</p>

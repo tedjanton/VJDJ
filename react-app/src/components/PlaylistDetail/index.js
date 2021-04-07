@@ -31,7 +31,7 @@ const PlaylistDetail = () => {
   const [openMenu, setOpenMenu] = useState(false);
   const [editState, setEditState] = useState(null);
   const [isUserPlaylist, setIsUserPlaylist] = useState()
-  const paramsRef = useRef(params.id);
+
   const [isPlaylistPlaying, setIsPlaylistPlaying] = useState(false);
   const {
     inBrowse,
@@ -39,7 +39,8 @@ const PlaylistDetail = () => {
     setTrackQueue,
     isPlaying,
     setIsPlaying,
-    setTrackIdx
+    setTrackIdx,
+    paramsRef
   } = useContext(AppWithContext)
 
   const removeBackground = (e) => {
@@ -63,7 +64,9 @@ const PlaylistDetail = () => {
   }, [])
 
   useEffect(() => {
-    setIsUserPlaylist(playlist?.user.id === user.id)
+    if (!user.errors) {
+      setIsUserPlaylist(playlist?.user.id === user.id)
+    }
   }, [playlist, user])
 
   useEffect(() => {
@@ -91,7 +94,6 @@ const PlaylistDetail = () => {
   const addToQueue = () => {
     setTrackQueue([])
     let formatted = tracks.map(track => formatTrack(track.track))
-    console.log(formatted);
     setTrackIdx(1);
     setTrackQueue(formatted);
     setTrackIdx(0);

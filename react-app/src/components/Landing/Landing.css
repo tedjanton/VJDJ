@@ -1,8 +1,8 @@
 .landing-background-container {
   background-image: url("../../images/bursts.svg");
   background-color: rgb(41, 65, 171);
-  background-size: 180%;
-  background-position: 50% 15%;
+  background-size: 190%;
+  background-position: 45% 15%;
   display: flex;
   -webkit-box-pack: center;
   justify-content: center;

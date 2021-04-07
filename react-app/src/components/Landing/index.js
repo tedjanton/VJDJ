@@ -1,13 +1,25 @@
 import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { Redirect } from "react-router-dom";
+import { login } from '../../store/session';
 import "./Landing.css";
 
 
-const Landing = ({ setNav, authenticated }) => {
+const Landing = ({ setNav, authenticated, setAuthenticated }) => {
+  const dispatch = useDispatch();
 
   useEffect(() => {
     setNav(true);
   }, [setNav])
+
+  const onLogin = async (e) => {
+    e.preventDefault();
+    const user = await dispatch(login('demo@lition.com', "password"));
+    if (!user.errors) {
+      setNav(true);
+      setAuthenticated(true);
+    }
+  };
 
   if (authenticated) {
     return <Redirect to="/home" />
@@ -30,7 +42,7 @@ const Landing = ({ setNav, authenticated }) => {
         </div>
       </div>
       <div className="landing-demo">
-        <button>SIGN IN AS A DEMO USER</button>
+        <button onClick={(e) => onLogin(e)}>SIGN IN AS A DEMO USER</button>
       </div>
     </div>
   )

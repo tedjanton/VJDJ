@@ -17,7 +17,7 @@ const PlaylistBox = ({ playlist }) => {
     }
     let square = imgs.filter((img, i) => i < 4)
     setImages(square);
-  }, [])
+  }, [playlist])
 
   return (
     <div onClick={() => history.push(`/playlists/${playlist.id}`)}className="plb-container-inner">

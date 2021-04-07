@@ -36,6 +36,37 @@ a:visited {
   background-color: none;
 }
 
+
+.spacer {
+  height: 20px;
+  width: 2px;
+  background-color: white;
+}
+
+.lib-nav-buttons-container {
+  display: flex;
+}
+
+.lib-nav-playlist-button a,
+.lib-nav-artists-button a,
+.lib-nav-albums-button a {
+  margin: 0 15px;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 12px;
+  color:rgb(218, 218, 218);
+  border-radius: 4px;
+}
+
+.nav.nav-active-buttons {
+  background-color:rgba(206, 206, 206, 0.2);
+  color: white;
+}
+
+.nav-home-container.browser {
+  background-color: rgb(20, 20, 20);
+}
+
 .nav-home-container {
   position: fixed;
   top: 0;
@@ -47,18 +78,79 @@ a:visited {
   justify-content: space-between;
   align-items: center;
   color: white;
+  padding: 20px 0;
 }
 
 .nav-home {
   margin-right: 5%;
-}
-
-.spacer {
-  height: 20px;
-  width: 2px;
-  background-color: white;
-}
-
-.lib-nav-buttons-container {
+  position: relative;
   display: flex;
+  flex-direction: column;
+}
+
+.nav-home button {
+  display: flex;
+  align-items: center;
+  border: none;
+  padding: 0;
+  border-radius: 20px;
+  background: rgba(20, 20, 20, 0.8);
+  color: rgb(226, 226, 226);
+  font-weight: 600;
+}
+
+button.active-button {
+  background-color:rgb(39, 39, 39);
+}
+
+.nav-home button:hover {
+  background-color:rgb(39, 39, 39);
+}
+
+.fas.fa-user-circle {
+  font-size: 30px;
+  padding: 3px;
+  color: rgb(217, 217, 217);
+  margin-right: 10px;
+}
+
+.fas.fa-sort-down,
+.fas.fa-sort-up {
+  padding: 5px 10px;
+  font-size: 18px;
+}
+
+.fas.fa-sort-down {
+  margin-bottom: 5px;
+}
+
+.fas.fa-sort-up {
+  margin-top: 5px;
+}
+
+.nav-logout-button {
+  position: absolute;
+  display: flex;
+  border-radius: 4px;
+  justify-content: flex-start;
+  align-items: center;
+  top: 40px;
+  right: 0;
+  height: 50px;
+  width: 160px;
+  padding: 0 5px;
+  background-color:rgb(39, 39, 39)
+}
+
+.nav-logout-button button {
+  background: none;
+  height: 40px;
+  width: 160px;
+  padding: 0 5px;
+}
+
+.nav-logout-button button:hover {
+  background: rgb(61, 61, 61);
+  border-radius: 2px;
+  color: white;
 }

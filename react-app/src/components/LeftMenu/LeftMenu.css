@@ -14,7 +14,7 @@
 }
 
 a.nav-active.active {
-  background-color:rgba(206, 206, 206, .3);
+  background-color:rgba(206, 206, 206, 0.2);
   border-radius: 5px;
   color: white;
 }

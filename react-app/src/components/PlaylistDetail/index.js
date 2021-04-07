@@ -18,7 +18,6 @@ const initialDnDState = {
 }
 
 const PlaylistDetail = () => {
-  const { inBrowse, setInBrowse, setTrackQueue, trackQueue, isPlaying, setIsPlaying, setTrackIdx } = useContext(AppWithContext)
   const dispatch = useDispatch();
   const params = useParams();
   const playlist = useSelector(state => state.playlists.selected?.playlist);
@@ -34,6 +33,15 @@ const PlaylistDetail = () => {
   const [isUserPlaylist, setIsUserPlaylist] = useState()
   const paramsRef = useRef(params.id);
   const [isPlaylistPlaying, setIsPlaylistPlaying] = useState(false);
+  const {
+    inBrowse,
+    setInBrowse,
+    setTrackQueue,
+    trackQueue,
+    isPlaying,
+    setIsPlaying,
+    setTrackIdx
+  } = useContext(AppWithContext)
 
   const removeBackground = (e) => {
     document.getElementById("nav-home").classList.remove("browser")
@@ -49,7 +57,7 @@ const PlaylistDetail = () => {
 
   useEffect(() => {
     handlePlaying();
-  }, [playlist, isPlaying, tracks, params]);
+  }, [playlist, isPlaying, tracks, params, handlePlaying]);
 
   useEffect(() => {
     removeBackground()

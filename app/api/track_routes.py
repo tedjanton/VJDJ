@@ -16,5 +16,3 @@ def pop_tracks():
 def add_track_to_queue(id):
   track = Track.query.get(id)
   return track.to_queue_dict()
-
-

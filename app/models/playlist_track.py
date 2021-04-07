@@ -20,6 +20,13 @@ class PlaylistTrack(db.Model):
       'track': self.track.to_dict(),
     }
 
+  # def to_no_pl_dict(self):
+  #   return {
+  #     'id': self.id,
+  #     'order_num': self.order_num,
+  #     'track': self.track.to_dict(),
+  #   }
+
 
   # def to_no_track_dict(self):
   #   return {

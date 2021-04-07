@@ -1,4 +1,5 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { AppWithContext } from '../../App';
 import LogoutButton from '../auth/LogoutButton';
@@ -6,12 +7,31 @@ import './NavBar.css';
 
 const NavBar = ({ nav, authenticated, setAuthenticated }) => {
   const { inBrowse, setInBrowse } = useContext(AppWithContext);
-
-  console.log(inBrowse);
+  const [menu, setMenu] = useState(false);
+  const user = useSelector(state => state.session.user);
 
   useEffect(() => {
     setInBrowse(true);
-  }, [inBrowse])
+  }, [inBrowse, setInBrowse])
+
+  useEffect(() => {
+
+    let button = document.getElementById("prof-button")
+    if (menu) {
+      button.classList.add("active-button");
+      // document.addEventListener("click", () => {
+      //   setMenu(false)
+      // })
+    } else {
+      button.classList.remove("active-button");
+    }
+    // return () => document.removeEventListener("click", setMenu);
+  }, [menu])
+
+  const handleProfButton = () => {
+    if (menu) setMenu(false);
+    else setMenu(true);
+  }
 
   let links;
   if (authenticated) {
@@ -21,20 +41,41 @@ const NavBar = ({ nav, authenticated, setAuthenticated }) => {
           {inBrowse && (
             <div className="lib-nav-buttons-container">
               <div className="lib-nav-playlist-button">
-                <NavLink to="/library/playlists">Playlists</NavLink>
+                <NavLink
+                  activeClassName="nav nav-active-buttons"
+                  to="/library/playlists">Playlists</NavLink>
               </div>
               <div className="lib-nav-artists-button">
-                <NavLink to="/library/artists">Artists</NavLink>
+                <NavLink
+                  activeClassName="nav nav-active-buttons"
+                  to="/library/artists">Artists</NavLink>
               </div>
               <div className="lib-nav-albums-button">
-                <NavLink to="/library/playalbumslists">Albums</NavLink>
+                <NavLink
+                  activeClassName="nav nav-active-buttons"
+                  to="/library/playalbumslists">Albums</NavLink>
               </div>
             </div>
           )}
         </div>
         <div className="nav-home">
-          <p>Profile Dropdown</p>
-          <LogoutButton setAuthenticated={setAuthenticated} />
+          <button id="prof-button" onClick={handleProfButton}>
+            <i className="fas fa-user-circle"
+            />{`${user.firstName} ${user.lastName}`}
+            {!menu ? (
+              <>
+                <i className="fas fa-sort-down" />
+              </>
+            ) : (
+              <>
+                <i className="fas fa-sort-up" />
+              </>
+            )}</button>
+          {menu && (
+            <div className="nav-logout-button">
+              <LogoutButton className="logout-button" setAuthenticated={setAuthenticated} />
+            </div>
+          )}
         </div>
       </nav>
     )

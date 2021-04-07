@@ -16,7 +16,7 @@ const Home = () => {
 
   useEffect(() => {
     setInBrowse(false)
-  }, [inBrowse])
+  }, [inBrowse, setInBrowse])
 
   return (
     <div className="home-container">

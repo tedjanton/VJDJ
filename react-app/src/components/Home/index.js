@@ -1,14 +1,21 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { AppWithContext } from '../../App';
+import { Modal } from '../../context/Modal';
 import Popular from '../Popular';
+import VideoModal from '../VideoModal';
 import "./Home.css";
 
 const Home = () => {
-  const { inBrowse, setInBrowse } = useContext(AppWithContext);
+  const [showModal, setShowModal] = useState(false);
+  const { inBrowse, setInBrowse, setIsPlaying } = useContext(AppWithContext);
 
   const removeBackground = (e) => {
     document.getElementById("nav-home").classList.remove("browser")
   }
+
+  useEffect(() => {
+    if (showModal) setIsPlaying(false);
+  }, [showModal, setIsPlaying])
 
   useEffect(() => {
     removeBackground()
@@ -37,7 +44,12 @@ const Home = () => {
             <span>Lil Nas X</span>
           </div>
           <div className="home-feature-watch-button">
-            <button>Watch Now</button>
+            <button onClick={() => setShowModal(true)}>Watch Now</button>
+            {showModal && (
+              <Modal onClose={() => setShowModal(false)}>
+                <VideoModal vidSrc="https://www.youtube.com/embed/6swmTBVI83k" />
+              </Modal>
+            )}
           </div>
         </div>
         <Popular />

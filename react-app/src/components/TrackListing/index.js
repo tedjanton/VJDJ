@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppWithContext } from '../../App';
 import { Modal } from '../../context/Modal';
@@ -12,7 +12,7 @@ const TrackListing = ({ track, trackList, index, playlist, isUserPlaylist }) => 
   const user = useSelector(state => state.session.user);
   const userPls = useSelector(state => state.playlists.userPls)
   const [isHover, setIsHover] = useState(false);
-  const [isTrackPlaying, setIsTrackPlaying] = useState(false);
+  const [isTrackPlaying, ] = useState(false);
   const [editMenu, setEditMenu] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [addMenu, setAddMenu] = useState(false);
@@ -20,35 +20,43 @@ const TrackListing = ({ track, trackList, index, playlist, isUserPlaylist }) => 
     setTrackQueue,
     isPlaying,
     setIsPlaying,
-    setTrackIdx
+    setTrackIdx,
+    trackRef
   } = useContext(AppWithContext)
+
+  useEffect(() => {
+    if (showModal) setIsPlaying(false);
+  }, [showModal, setIsPlaying])
 
   const handleMouseEnter = () => {
     setIsHover(true);
-  }
+  };
 
   const handleMouseLeave = () => {
     setIsHover(false);
     setEditMenu(false);
     setAddMenu(false);
-  }
+  };
+
+  // console.log(trackRef.current)
+  // console.log(track.id);
+  // console.log(isTrackPlaying);
+  // useEffect(() => {
+  //   if (trackRef.current?.id === track.id) {
+  //     setIsTrackPlaying(true);
+  //   } else {
+  //     setIsTrackPlaying(false);
+  //   }
+  // })
 
   const handleQueue = () => {
     let formatted = trackList.map(track => formatTrack(track.track))
+    trackRef.current = formatted[index];
     setTrackIdx(index);
     setTrackQueue(formatted);
     setIsPlaying(true);
-    setIsTrackPlaying(true);
+    // setIsTrackPlaying(true);
   }
-
-  // useEffect(() => {
-  //   if (!isTrackPlaying) {
-  //     setPlayStyle(null)
-  //   } else {
-  //     setPlayStyle("#202020")
-  //   }
-
-  // }, [isTrackPlaying])
 
   const handleEdit = () => {
     setEditMenu(true)
@@ -85,26 +93,23 @@ const TrackListing = ({ track, trackList, index, playlist, isUserPlaylist }) => 
       <div
         className="pl-track-container-inner"
         id={`track-${track.order_num}`}
-        // style={{ backgroundColor: playStyle }}
       >
         <div className="track-details-container">
-          {isHover ? (
+          {isHover && (
             <div>
-              {isPlaying && isTrackPlaying ? (
-                <button onClick={handleQueue} className="track-play-button">
-                  <i className="tl fas fa-pause" />
-                </button>
-              ) : (
-                <button onClick={handleQueue} className="track-pause-button">
-                  <i className="tl fas fa-play" />
-                </button>
-              )}
+              <button onClick={handleQueue} className="track-play-button">
+                {isPlaying && isTrackPlaying ? (
+                    <i className="tl fas fa-pause" />
+                ) : (
+                    <i className="tl fas fa-play" />
+                )}
+              </button>
             </div>
-          ) : (
+          )}
+          {!isHover && (
             <div className="track-num">
               <p>{track.order_num}</p>
             </div>
-
           )}
           <div className="track-img">
             <img src={track.track.album.art_src} alt="" />

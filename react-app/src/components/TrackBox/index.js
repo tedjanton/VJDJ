@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppWithContext } from '../../App';
 import { formatTrack } from '../../utils';
@@ -10,10 +10,19 @@ const TrackBox = ({ track, trackList, index }) => {
   const dispatch = useDispatch();
   const userPls = useSelector(state => state.playlists.userPls)
   const user = useSelector(state => state.session.user)
-  const { setTrackQueue, setIsPlaying, setTrackIdx } = useContext(AppWithContext)
+  const { setTrackQueue, isPlaying, setIsPlaying, setTrackIdx, trackRef } = useContext(AppWithContext)
   const [isHover, setIsHover] = useState(false);
   const [addMenu, setAddMenu] = useState(false);
+  const [isTrackPlaying, setIsTrackPlaying] = useState(false);
 
+
+  useEffect(() => {
+    if (trackRef.current?.id === track.id) {
+      setIsTrackPlaying(true);
+    } else {
+      setIsTrackPlaying(false);
+    }
+  })
 
   const handleMouseHover = () => {
     setIsHover(!isHover);
@@ -22,10 +31,10 @@ const TrackBox = ({ track, trackList, index }) => {
 
   const handleQueue = () => {
     let formatted = trackList.map(track => formatTrack(track))
+    trackRef.current = formatted[index];
     setTrackIdx(index);
     setTrackQueue(formatted);
     setIsPlaying(true);
-    // setIsTrackPlaying(true);
   }
 
   // const handleQueue = () => {
@@ -61,7 +70,11 @@ const TrackBox = ({ track, trackList, index }) => {
         {isHover && (
           <div>
             <button onClick={handleQueue} className="tb-play-button">
-              <i className="tb fas fa-play" />
+              {isPlaying && isTrackPlaying ? (
+                <i className="tb fas fa-pause" />
+              ) : (
+                <i className="tb fas fa-play" />
+              )}
             </button>
             <button onClick={handleAddMenu} className="tb-add-song-button">
               <i className="tb fas fa-plus-circle" />

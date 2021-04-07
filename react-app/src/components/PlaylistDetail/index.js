@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext, useRef } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ColorExtractor } from 'react-color-extractor';
 import { useParams } from 'react-router-dom';
@@ -31,7 +31,6 @@ const PlaylistDetail = () => {
   const [openMenu, setOpenMenu] = useState(false);
   const [editState, setEditState] = useState(null);
   const [isUserPlaylist, setIsUserPlaylist] = useState()
-
   const [isPlaylistPlaying, setIsPlaylistPlaying] = useState(false);
   const {
     inBrowse,
@@ -40,7 +39,7 @@ const PlaylistDetail = () => {
     isPlaying,
     setIsPlaying,
     setTrackIdx,
-    paramsRef
+    paramsRef,
   } = useContext(AppWithContext)
 
   const removeBackground = (e) => {

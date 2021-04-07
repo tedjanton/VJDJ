@@ -7,7 +7,7 @@
 .tb-container {
   position: relative;
   padding: 16px;
-  transition: all 0.3s ease-in-out;
+  transition: all 0.2s ease-in-out;
   background-color: rgb(22, 22, 22);
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.4);
   border-radius: 8px;
@@ -17,7 +17,6 @@
 .tb-container:hover {
   background-color: rgb(54, 54, 54);
   border-radius: 10px;
-
 }
 
 .tb-play-button {

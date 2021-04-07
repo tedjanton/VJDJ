@@ -1,3 +1,9 @@
+.plb-image.placeholder img {
+  height: 180px;
+  width: 180px;
+  border-radius: 4px;
+}
+
 .plb-image img,
 .plb-image {
   height: 90px;
@@ -33,9 +39,28 @@
 .plb-container-inner {
   position: relative;
   padding: 16px;
-  transition: all 0.3s ease-in-out;
+  transition: all 0.2s ease-in-out;
   background-color: rgb(22, 22, 22);
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.4);
   border-radius: 8px;
-  margin: 5px;
+  margin: 10px;
+  height: 250px;
+}
+
+.plb-container-inner:hover {
+  background-color: rgb(54, 54, 54);
+  border-radius: 10px;
+}
+
+.plb-name p {
+  font-size: 14.5px;
+  font-weight: 600;
+  margin: 20px 0 5px 0;
+}
+
+.plb-by p {
+  font-size: 13px;
+  color:rgb(172, 172, 172);
+  font-weight: 500;
+  margin: 0 0 10px 0;
 }

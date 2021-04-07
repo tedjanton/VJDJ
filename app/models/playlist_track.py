@@ -16,6 +16,7 @@ class PlaylistTrack(db.Model):
     return {
       'id': self.id,
       'order_num': self.order_num,
+      'playlist_id': self.playlist_id,
       'track': self.track.to_dict(),
     }
 

@@ -28,6 +28,17 @@
   box-shadow: 0px 0px 200px rgba(0, 0, 0, .5);
 }
 
+.pl-image.placeholder img {
+  height: 260px;
+  width: 260px;
+}
+
+.pl-image.placeholder {
+  margin-right: 25px;
+  height: 260px;
+  width: 260px;
+}
+
 .pl-header-details-container {
   margin: 0 0 0 30px;
 }
@@ -62,7 +73,7 @@
   position: relative;
   top: -200px;
   padding: 40px 40px 140px 40px;
-  /* margin-bottom: 20px; */
+  min-height: 220px;
   background: rgb(15, 15, 15);
   background: linear-gradient(0deg, rgba(15, 15, 15, 1) 71%, rgba(15, 15, 15, 0.8) 87%, rgba(15, 15, 15, 0.6) 95%, rgba(15, 15, 15,0.4) 100%);
 }

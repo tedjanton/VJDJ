@@ -16,7 +16,7 @@ const NavBar = ({ nav, authenticated, setAuthenticated }) => {
   let links;
   if (authenticated) {
     links = (
-      <nav className="nav-home-container">
+      <nav id="nav-home" className="nav-home-container">
         <div className="nav-browser">
           {inBrowse && (
             <div className="lib-nav-buttons-container">

@@ -6,7 +6,13 @@ import "./Home.css";
 const Home = () => {
   const { inBrowse, setInBrowse } = useContext(AppWithContext);
 
-  console.log(inBrowse);
+  const removeBackground = (e) => {
+    document.getElementById("nav-home").classList.remove("browser")
+  }
+
+  useEffect(() => {
+    removeBackground()
+  }, [])
 
   useEffect(() => {
     setInBrowse(false)

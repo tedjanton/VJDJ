@@ -5,6 +5,7 @@ body {
 .login-page {
   background: white;
   padding: 4% 0;
+
 }
 
 .login-container {
@@ -19,6 +20,25 @@ body {
   background-color: white;
 }
 
+.login-container.signup {
+  display: flex;
+  padding: 190px 0 300px 0;
+}
+
+.signup-disclaimer {
+  color: black;
+  font-size: 12px;
+  text-align: center;
+}
+
+.signup-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 450px;
+}
+
 .login-logo {
   color: black;
   display: flex;
@@ -28,6 +48,22 @@ body {
   width: 100%;
   border-bottom: thin solid rgba(0, 0, 0, .15);
   padding-bottom: 20px;
+}
+
+.landing-demo.signup button {
+  color: black;
+  width: 70%;
+  font-size: 16px;
+}
+
+.landing-demo.signup button:hover {
+  font-size: 17px;
+  width: 73%;
+}
+
+.login-logo.signup {
+  border: none;
+  padding-bottom: 0;
 }
 
 .login-logo-title {
@@ -51,6 +87,18 @@ body {
 .login-instructions {
   color: black;
   font-weight: 700;
+}
+
+.signup-instructions {
+  color: black;
+  font-size: 30px;
+  font-weight: 700;
+  width: 550px;
+  text-align: center;
+}
+
+.signup-instructions p {
+  margin: 10px 0 40px 0;
 }
 
 .login-fb-auth button,
@@ -205,4 +253,18 @@ body {
   color: black;
   font-weight: 800;
   text-align: center;
+}
+
+.already-have-account,
+#to-login {
+  color: black;
+  display: flex;
+  align-items: center;
+}
+
+#to-login {
+  margin-left: 10px;
+  color:rgb(78, 78, 78);
+  font-weight: 600;
+  text-decoration: underline;
 }

@@ -63,7 +63,7 @@ const PlaylistDetail = () => {
   }, [])
 
   useEffect(() => {
-    if (!user.errors) {
+    if (!user?.errors) {
       setIsUserPlaylist(playlist?.user.id === user.id)
     }
   }, [playlist, user])

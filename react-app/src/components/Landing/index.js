@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Redirect } from "react-router-dom";
 import "./Landing.css";
 
 
 const Landing = ({ setNav, authenticated }) => {
-  setNav(true);
+
+  useEffect(() => {
+    setNav(true);
+  }, [setNav])
 
   if (authenticated) {
     return <Redirect to="/home" />

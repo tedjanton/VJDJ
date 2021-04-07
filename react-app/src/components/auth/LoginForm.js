@@ -118,7 +118,7 @@ const LoginForm = ({ setNav, authenticated, setAuthenticated }) => {
           <div className="login-remember-button-container">
             <div className="login-remember-container">
               <input name="remember" type="checkbox" />
-              <label for="remember">Remember me</label>
+              <label htmlFor="remember">Remember me</label>
             </div>
             <div className="login-submit">
               <button type="submit">LOG IN</button>

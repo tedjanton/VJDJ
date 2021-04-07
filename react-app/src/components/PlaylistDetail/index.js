@@ -37,7 +37,6 @@ const PlaylistDetail = () => {
     inBrowse,
     setInBrowse,
     setTrackQueue,
-    trackQueue,
     isPlaying,
     setIsPlaying,
     setTrackIdx

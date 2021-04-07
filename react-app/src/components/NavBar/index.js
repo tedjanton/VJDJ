@@ -10,27 +10,29 @@ const NavBar = ({ nav, authenticated, setAuthenticated }) => {
   const [menu, setMenu] = useState(false);
   const user = useSelector(state => state.session.user);
 
+  // useEffect(() => {
+  //   setMenu(false)
+  // }, [])
+
+  console.log(menu)
+
   useEffect(() => {
     setInBrowse(true);
   }, [inBrowse, setInBrowse])
 
   useEffect(() => {
-
-    let button = document.getElementById("prof-button")
-    if (menu) {
-      button.classList.add("active-button");
-      // document.addEventListener("click", () => {
-      //   setMenu(false)
-      // })
-    } else {
-      button.classList.remove("active-button");
+    if (!user.errors) {
+      let button = document.getElementById("prof-button")
+      if (menu) {
+        button.classList.add("active-button");
+      } else {
+        button.classList.remove("active-button");
+      }
     }
-    // return () => document.removeEventListener("click", setMenu);
   }, [menu])
 
   const handleProfButton = () => {
-    if (menu) setMenu(false);
-    else setMenu(true);
+    setMenu(!menu)
   }
 
   let links;
@@ -61,7 +63,7 @@ const NavBar = ({ nav, authenticated, setAuthenticated }) => {
         <div className="nav-home">
           <button id="prof-button" onClick={handleProfButton}>
             <i className="fas fa-user-circle"
-            />{`${user.firstName} ${user.lastName}`}
+            />{`${user?.firstName} ${user?.lastName}`}
             {!menu ? (
               <>
                 <i className="fas fa-sort-down" />
@@ -73,7 +75,10 @@ const NavBar = ({ nav, authenticated, setAuthenticated }) => {
             )}</button>
           {menu && (
             <div className="nav-logout-button">
-              <LogoutButton className="logout-button" setAuthenticated={setAuthenticated} />
+              <LogoutButton
+                className="logout-button"
+                setAuthenticated={setAuthenticated}
+                setMenu={setMenu} />
             </div>
           )}
         </div>

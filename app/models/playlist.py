@@ -29,3 +29,12 @@ class Playlist(db.Model):
       'created_at': self.created_at,
       # 'following': [user_follow.to_follows_dict() for user_follow in self.user_follows],
     }
+
+  def to_name_art_dict(self):
+    return {
+      'id': self.id,
+      'name': self.name,
+      'user': self.user.to_dict(),
+      'tracks': [track.to_dict() for track in self.tracks],
+      'created_at': self.created_at,
+    }

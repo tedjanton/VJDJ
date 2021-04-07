@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import App, { AppWithContext } from '../../App';
+import { AppWithContext } from '../../App';
 import Popular from '../Popular';
 import "./Home.css";
 

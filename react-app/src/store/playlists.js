@@ -1,6 +1,7 @@
 const GET_USER_PLS = 'playlists/GET_USER_PLS';
 const GET_PL = 'playlist/GET_PL';
 const GET_USER_FOLLOWING = "following/GET_USER_FOLLOWING";
+const GET_ALL = "playlists/GET_ALL"
 
 const loadFollowing = (playlists) => ({
   type: GET_USER_FOLLOWING,
@@ -16,6 +17,11 @@ const loadOne = (playlist) => ({
   type: GET_PL,
   playlist
 });
+
+const loadAll = (playlists) => ({
+  type: GET_ALL,
+  playlists
+})
 
 export const getUserPls = (userId) => async dispatch => {
   const res = await fetch(`/api/users/${userId}/playlists/`);
@@ -39,6 +45,14 @@ export const getPlaylist = (playlistId) => async dispatch => {
   const playlist = await res.json();
   dispatch(loadOne(playlist))
   return playlist;
+}
+
+export const getAllPlaylists = () => async dispatch => {
+  const res = await fetch('/api/playlists/')
+
+  const playlists = await res.json();
+  dispatch(loadAll(playlists.playlists));
+  return playlists.playlists;
 }
 
 export const createPlaylist = (newPlaylist) => async dispatch => {
@@ -99,7 +113,9 @@ const playlistsReducer = (state = {}, action) => {
     case GET_PL:
       return { ...state, selected: action.playlist };
     case GET_USER_FOLLOWING:
-      return { ...state, following: action.playlists }
+      return { ...state, following: action.playlists };
+    case GET_ALL:
+      return { ...state, allPls: action.playlists };
     default:
       return state;
   }

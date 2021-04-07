@@ -45,6 +45,12 @@ class Track(db.Model):
       'audio_src': self.audio_src
     }
 
+  def to_art_dict(self):
+    return {
+      'id': self.id,
+      'art': self.album.to_only_art_dict(),
+    }
+
 
   # def to_no_artists_album_dict(self):
   #   return {

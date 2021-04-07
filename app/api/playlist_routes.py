@@ -102,3 +102,10 @@ def remove_track(id):
     "playlist": playlist.to_pl_name_dict(),
     "tracks": [track.to_dict() for track in new_ordered],
     }
+
+@playlist_routes.route('/')
+@login_required
+def all_playlists():
+  playlists = Playlist.query.order_by(Playlist.created_at).all()
+
+  return {'playlists': [pl.to_name_art_dict() for pl in playlists]}

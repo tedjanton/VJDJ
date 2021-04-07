@@ -5,7 +5,7 @@ import './MusicPlayer.css';
 
 
 const MusicPlayer = ({ tracks }) => {
-  const { isPlaying, setIsPlaying, trackIdx, setTrackIdx } = useContext(AppWithContext)
+  const { isPlaying, setIsPlaying, trackIdx, setTrackIdx, trackQueue } = useContext(AppWithContext)
   const [trackProgress, setTrackProgress] = useState(0);
   const [vol, setVol] = useState(1);
   const { title, artists, art, audio_src } = tracks[trackIdx]
@@ -37,7 +37,7 @@ const MusicPlayer = ({ tracks }) => {
     } else {
       isReady.current = true;
     }
-  }, [trackIdx])
+  }, [trackIdx, trackQueue])
 
   useEffect(() => {
     audioRef.current.volume = vol;

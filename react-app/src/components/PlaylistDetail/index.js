@@ -1,7 +1,8 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState, useContext, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ColorExtractor } from 'react-color-extractor';
 import { useParams } from 'react-router-dom';
+import playlist_placeholder from '../../images/playlist_placeholder.png';
 import { AppWithContext } from '../../App';
 import TrackListing from '../TrackListing';
 import { formatTrack } from '../../utils';
@@ -17,7 +18,7 @@ const initialDnDState = {
 }
 
 const PlaylistDetail = () => {
-  const { setTrackQueue, isPlaying, setIsPlaying, setTrackIdx } = useContext(AppWithContext)
+  const { inBrowse, setInBrowse, setTrackQueue, trackQueue, isPlaying, setIsPlaying, setTrackIdx } = useContext(AppWithContext)
   const dispatch = useDispatch();
   const params = useParams();
   const playlist = useSelector(state => state.playlists.selected?.playlist);
@@ -31,8 +32,28 @@ const PlaylistDetail = () => {
   const [openMenu, setOpenMenu] = useState(false);
   const [editState, setEditState] = useState(null);
   const [isUserPlaylist, setIsUserPlaylist] = useState()
-  // const [newPl, setNewPl] = useState();
-  // const [isPlaylistPlaying, setIsPlaylistPlaying] = useState(false);
+  const paramsRef = useRef(params.id);
+  const [isPlaylistPlaying, setIsPlaylistPlaying] = useState(false);
+
+  const removeBackground = (e) => {
+    document.getElementById("nav-home").classList.remove("browser")
+  }
+
+  const handlePlaying = () => {
+    if (isPlaying && paramsRef.current === params.id) {
+      setIsPlaylistPlaying(true);
+    } else {
+      setIsPlaylistPlaying(false);
+    }
+  }
+
+  useEffect(() => {
+    handlePlaying();
+  }, [playlist, isPlaying, tracks, params]);
+
+  useEffect(() => {
+    removeBackground()
+  }, [])
 
   useEffect(() => {
     setIsUserPlaylist(playlist?.user.id === user.id)
@@ -42,6 +63,9 @@ const PlaylistDetail = () => {
     setList(tracks);
   }, [tracks])
 
+  useEffect(() => {
+    setInBrowse(false)
+  }, [inBrowse])
 
   useEffect(() => {
     (async() => {
@@ -60,9 +84,12 @@ const PlaylistDetail = () => {
   const addToQueue = () => {
     setTrackQueue([])
     let formatted = tracks.map(track => formatTrack(track.track))
-    setTrackIdx(0);
+    console.log(formatted);
+    setTrackIdx(1);
     setTrackQueue(formatted);
+    setTrackIdx(0);
     setIsPlaying(true);
+    paramsRef.current = params.id;
   }
 
   const onDragStart = (e) => {
@@ -138,13 +165,22 @@ const PlaylistDetail = () => {
     <div className="pl-page-container" style={{ backgroundColor: `${colors[3]}80`}}>
       <div className="pl-header-container">
         <div className="pl-header-image-container">
-        {images && images?.map((image, i) => (
-          <div key={i} className="pl-image">
-            <ColorExtractor getColors={(c) => getColors(c)}>
-              <img src={image} alt="art" />
-            </ColorExtractor>
+        {images.length < 4 ? (
+          <div className="pl-image placeholder">
+            <img src={playlist_placeholder} alt="placeholder" />
           </div>
-        ))}
+
+        ) : (
+          <>
+          {images?.map((image, i) => (
+            <div key={i} className="pl-image">
+              <ColorExtractor getColors={(c) => getColors(c)}>
+                <img src={image} alt="art" />
+              </ColorExtractor>
+            </div>
+          ))}
+          </>
+        )}
         </div>
         <div className="pl-header-details-container">
           <div className="pl-header-playlist">
@@ -167,7 +203,7 @@ const PlaylistDetail = () => {
         <div className="pl-bottom-header">
           <div className="pl-bottom-header-left">
             <div className="pl-music-play-buttons">
-            {isPlaying ? (
+            {isPlaylistPlaying ? (
               <button
                 type="button"
                 className="pl-pause"

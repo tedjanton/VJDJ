@@ -1,9 +1,22 @@
-import React from 'react';
-// import lil_nas_x_montero from '../../media/lil_nas_x_montero.mp4';
+import React, { useContext, useEffect } from 'react';
+import { AppWithContext } from '../../App';
 import Popular from '../Popular';
 import "./Home.css";
 
 const Home = () => {
+  const { inBrowse, setInBrowse } = useContext(AppWithContext);
+
+  const removeBackground = (e) => {
+    document.getElementById("nav-home").classList.remove("browser")
+  }
+
+  useEffect(() => {
+    removeBackground()
+  }, [])
+
+  useEffect(() => {
+    setInBrowse(false)
+  }, [inBrowse])
 
   return (
     <div className="home-container">

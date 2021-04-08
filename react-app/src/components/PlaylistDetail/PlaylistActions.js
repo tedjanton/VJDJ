@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useDispatch } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { AppWithContext } from '../../App';
-import { addFollow, unfollow, editPlaylist } from '../../store/playlists';
+import { addFollow, unfollow, editPlaylist, deletePlaylist, getUserPls } from '../../store/playlists';
 import { formatTrack } from '../../utils';
 
 const PlayFollow = ({
@@ -19,6 +19,7 @@ const PlayFollow = ({
 }) => {
   const dispatch = useDispatch();
   const params = useParams();
+  const history = useHistory();
   const [isPlaylistPlaying, setIsPlaylistPlaying] = useState(false);
   const [isFollowing, setIsFollowing] = useState(false);
   const [openMenu, setOpenMenu] = useState(false);
@@ -104,8 +105,11 @@ const PlayFollow = ({
     window.location.reload();
   }
 
-  const handleDelete = () => {
-    window.confirm(`Are you sure you would like to delete ${playlist.name}?`)
+  const handleDelete = async () => {
+    window.confirm(`Are you sure you would like to delete ${playlist.name}?`);
+    await dispatch(deletePlaylist(playlist.id));
+    await dispatch(getUserPls(user.id));
+    return history.push('/home');
   }
 
   return (

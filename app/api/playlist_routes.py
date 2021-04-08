@@ -103,9 +103,26 @@ def remove_track(id):
     "tracks": [track.to_dict() for track in new_ordered],
     }
 
+
 @playlist_routes.route('/')
 @login_required
 def all_playlists():
   playlists = Playlist.query.order_by(Playlist.created_at).all()
 
+  return {'playlists': [pl.to_name_art_dict() for pl in playlists]}
+
+
+@playlist_routes.route('/<int:id>/delete/')
+@login_required
+def delete_playlist(id):
+  playlist = Playlist.query.get(id)
+  pl_tracks = PlaylistTrack.query.filter(PlaylistTrack.playlist_id == id).all()
+
+  for track in pl_tracks:
+    db.session.delete(track)
+    
+  db.session.delete(playlist)
+  db.session.commit()
+
+  playlists = Playlist.query.order_by(Playlist.created_at).all()
   return {'playlists': [pl.to_name_art_dict() for pl in playlists]}

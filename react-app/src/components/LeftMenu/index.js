@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { Modal } from '../../context/Modal';
@@ -22,12 +22,6 @@ const LeftMenu = ({ authenticated }) => {
       dispatch(getUserPls(user.id))
     }
   }, [user, dispatch])
-
-  // useEffect(() => {
-  //   dispatch(getUserPls(user.id))
-  //   setPls(allUserPls)
-  // }, [allUserPls, pls, user])
-
 
   return (
     <div className="lm-container">
@@ -83,7 +77,7 @@ const LeftMenu = ({ authenticated }) => {
           <p>YOUR PLAYLISTS</p>
         </div>
         <div className="lm-user-owned-pls">
-          {userPls?.map(pl => (
+          {userPls && userPls.map(pl => (
             <div key={pl.id} className="lm-user-pl-container">
               <NavLink
                 to={`/playlists/${pl.id}`}

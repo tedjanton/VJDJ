@@ -20,7 +20,9 @@ const PlaylistBox = ({ playlist }) => {
   }, [playlist])
 
   return (
-    <div onClick={() => history.push(`/playlists/${playlist.id}`)}className="plb-container-inner">
+    <div
+      onClick={() => history.push(`/playlists/${playlist.id}`)}
+      className="plb-container-inner">
       <div className="plb-image-container">
         {images.length < 4 ? (
           <div className="plb-image placeholder">

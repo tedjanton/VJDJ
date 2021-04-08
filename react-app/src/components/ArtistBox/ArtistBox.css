@@ -1,0 +1,16 @@
+.ab-image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 170px;
+  width: 170px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.ab-image-container img {
+  max-height: 100%;
+  object-fit: scale-down;
+  margin: auto;
+  display: block;
+}

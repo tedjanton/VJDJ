@@ -68,7 +68,7 @@ const TrackListing = ({ track, trackList, index, playlist, isUserPlaylist }) => 
       playlist_id: playlist.id,
       order_num: track.order_num,
     }
-    window.alert("Are you sure you would like to remove this song from this playlist?");
+    window.confirm("Are you sure you would like to remove this song from this playlist?");
     dispatch(deleteFromPlaylist(selection));
   }
 

@@ -5,9 +5,9 @@ import { useParams } from 'react-router-dom';
 import playlist_placeholder from '../../images/playlist_placeholder.png';
 import { AppWithContext } from '../../App';
 import TrackListing from '../TrackListing';
-import { formatTrack } from '../../utils';
-import { addFollow, unfollow, editPlaylist, getPlaylist } from '../../store/playlists';
+import { getPlaylist } from '../../store/playlists';
 import './PlaylistDetail.css';
+import PlaylistActions from './PlaylistActions';
 
 const initialDnDState = {
   draggedFrom: null,
@@ -29,55 +29,17 @@ const PlaylistDetail = () => {
   const [draggable, setDraggable] = useState(false);
   const [dragAndDrop, setDragAndDrop] = useState(initialDnDState)
   const [list, setList] = useState();
-  const [openMenu, setOpenMenu] = useState(false);
   const [editState, setEditState] = useState(null);
   const [isUserPlaylist, setIsUserPlaylist] = useState()
-  const [isPlaylistPlaying, setIsPlaylistPlaying] = useState(false);
-  const [isFollowing, setIsFollowing] = useState(false);
-  const {
-    inBrowse,
-    setInBrowse,
-    setTrackQueue,
-    isPlaying,
-    setIsPlaying,
-    setTrackIdx,
-    paramsRef,
-  } = useContext(AppWithContext)
+  const { inBrowse, setInBrowse } = useContext(AppWithContext)
 
-  const removeBackground = (e) => {
+  const removeBackground = () => {
     document.getElementById("nav-home").classList.remove("browser")
   }
-
-  const handlePlaying = () => {
-    if (isPlaying && paramsRef.current === params.id) {
-      setIsPlaylistPlaying(true);
-    } else {
-      setIsPlaylistPlaying(false);
-    }
-  }
-
-  useEffect(() => {
-    let followIds = following?.map(pl => pl.id);
-    if (followIds?.includes(playlist?.id)) {
-      setIsFollowing(true)
-    } else {
-      setIsFollowing(false);
-    }
-  })
-
-  useEffect(() => {
-    handlePlaying();
-  }, [playlist, isPlaying, tracks, params, handlePlaying]);
 
   useEffect(() => {
     removeBackground()
   }, [])
-
-  useEffect(() => {
-    if (!user?.errors) {
-      setIsUserPlaylist(playlist?.user.id === user.id)
-    }
-  }, [playlist, user])
 
   useEffect(() => {
     setList(tracks);
@@ -100,16 +62,6 @@ const PlaylistDetail = () => {
       setImages(square);
     })();
   }, [dispatch, params])
-
-  const addToQueue = () => {
-    setTrackQueue([])
-    let formatted = tracks.map(track => formatTrack(track.track))
-    setTrackIdx(1);
-    setTrackQueue(formatted);
-    setTrackIdx(0);
-    setIsPlaying(true);
-    paramsRef.current = params.id;
-  }
 
   const onDragStart = (e) => {
     const initialPosition = Number(e.currentTarget.dataset.position)
@@ -154,42 +106,6 @@ const PlaylistDetail = () => {
     });
   };
 
-  const playlistMenu = () => {
-    setOpenMenu(!openMenu)
-  }
-
-  const handleFollow = () => {
-    if (playlist?.user.id === user?.id) return;
-    const submission = { userId: user.id, playlistId: playlist.id }
-    if (isFollowing) {
-      dispatch(unfollow(submission))
-    } else {
-      dispatch(addFollow(submission))
-    }
-  }
-
-  const handleEdit = () => {
-    setOpenMenu(false);
-    setDraggable(true);
-    setEditState("#1c1c1c");
-  }
-
-  const submitEdits = () => {
-    const submission = dragAndDrop.updatedOrder.map(({track}, i) => {
-      return {
-        track_id: track.id,
-        order_num: i + 1,
-      }
-    })
-    dispatch(editPlaylist(submission, playlist.id))
-    setEditState(null);
-    window.location.reload();
-  }
-
-  const cancelEdits = () => {
-    window.location.reload();
-  }
-
   return (
     <div className="pl-page-container" style={{ backgroundColor: `${colors[3]}80`}}>
       <div className="pl-header-container">
@@ -228,74 +144,17 @@ const PlaylistDetail = () => {
         </div>
       </div>
       <div className="pl-bottom-container">
-        <div className="pl-bottom-header">
-          <div className="pl-bottom-header-left">
-            <div className="pl-music-play-buttons">
-            {isPlaylistPlaying ? (
-              <button
-                type="button"
-                className="pl-pause"
-                aria-label="Pause"
-                onClick={addToQueue}
-              >
-                <i className="pl fas fa-pause" />
-              </button>
-            ) : (
-              <button
-                type="button"
-                className="pl-play"
-                aria-label="Play"
-                onClick={addToQueue}
-              >
-                <i className="pl fas fa-play" />
-              </button>
-            )}
-            </div>
-            <div onClick={handleFollow} className="pl-like-button">
-            {playlist?.user.id === user?.id ? (
-              <i className="pl fas fa-heart" />
-            ) : (
-              <>
-                {isFollowing ? (
-                  <i className="pl fas fa-heart" />
-                ) : (
-                  <i className="pl far fa-heart" />
-                )}
-              </>
-            )}
-            </div>
-            {isUserPlaylist && (
-              <div
-                className="pl-dot-menu"
-                onClick={playlistMenu}>
-                <i className="pl fas fa-ellipsis-h" />
-              </div>
-            )}
-            {openMenu && (
-              <div className="pl-menu-box">
-                <div className="pl-add-songs-button">
-                  <button>Add Songs</button>
-                </div>
-                <div className="pl-edit-button">
-                  <button onClick={handleEdit}>Edit Playlist</button>
-                </div>
-                <div className="pl-delete-button">
-                  <button>Delete Playlist</button>
-                </div>
-              </div>
-            )}
-            {draggable && (
-              <div className="pl-edit-cancel-container">
-                <div className="pl-edit-confirm-button">
-                  <button onClick={submitEdits}>Confirm</button>
-                </div>
-                <div className="pl-edit-cancel-button">
-                  <button onClick={cancelEdits}>Cancel</button>
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
+        <PlaylistActions
+          playlist={playlist}
+          tracks={tracks}
+          following={following}
+          user={user}
+          setDraggable={setDraggable}
+          setEditState={setEditState}
+          draggable={draggable}
+          dragAndDrop={dragAndDrop}
+          isUserPlaylist={isUserPlaylist}
+          setIsUserPlaylist={setIsUserPlaylist} />
         <div className="pl-table-container">
           <div className="pl-table-header">
             <div className="pl-header-num-title-container">

@@ -198,7 +198,6 @@ const PlaylistDetail = () => {
           <div className="pl-image placeholder">
             <img src={playlist_placeholder} alt="placeholder" />
           </div>
-
         ) : (
           <>
           {images?.map((image, i) => (

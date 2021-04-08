@@ -10,6 +10,7 @@ const LogoutButton = ({setAuthenticated, setMenu}) => {
     setMenu(false);
     setAuthenticated(false);
     await dispatch(logout());
+    // window.location.reload();
     return history.push("/");
   };
 

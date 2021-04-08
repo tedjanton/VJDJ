@@ -15,15 +15,15 @@ const NavBar = ({ nav, authenticated, setAuthenticated }) => {
   }, [inBrowse, setInBrowse])
 
   useEffect(() => {
-    if (!user.errors) {
-      let button = document.getElementById("prof-button")
+    let button = document.getElementById("prof-button")
+    if (!user?.errors && button) {
       if (menu) {
         button.classList.add("active-button");
       } else {
         button.classList.remove("active-button");
       }
     }
-  }, [menu])
+  }, [menu, user])
 
   const handleProfButton = () => {
     setMenu(!menu)

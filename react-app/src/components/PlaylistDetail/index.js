@@ -159,6 +159,7 @@ const PlaylistDetail = () => {
   }
 
   const handleFollow = () => {
+    if (playlist?.user.id === user?.id) return;
     const submission = { userId: user.id, playlistId: playlist.id }
     if (isFollowing) {
       dispatch(unfollow(submission))
@@ -252,11 +253,17 @@ const PlaylistDetail = () => {
             )}
             </div>
             <div onClick={handleFollow} className="pl-like-button">
-              {isFollowing ? (
-                <i className="pl fas fa-heart" />
-              ) : (
-                <i className="pl far fa-heart" />
-              )}
+            {playlist?.user.id === user?.id ? (
+              <i className="pl fas fa-heart" />
+            ) : (
+              <>
+                {isFollowing ? (
+                  <i className="pl fas fa-heart" />
+                ) : (
+                  <i className="pl far fa-heart" />
+                )}
+              </>
+            )}
             </div>
             {isUserPlaylist && (
               <div

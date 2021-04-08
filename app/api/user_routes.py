@@ -42,7 +42,6 @@ def add_follow(id):
     playlist = Playlist.query.get(req["playlistId"])
 
     user.pl_follows.append(playlist)
-
     db.session.commit()
 
     following = Playlist.query.join(User.pl_follows).filter(User.id == id).all()
@@ -56,8 +55,9 @@ def unfollow(id):
 
     user = User.query.get(id)
     playlist = Playlist.query.get(req["playlistId"])
-    user.pl_follows.remove(playlist)
 
+    user.pl_follows.remove(playlist)
     db.session.commit()
+
     following = Playlist.query.join(User.pl_follows).filter(User.id == id).all()
     return {'following': [pl.to_pl_name_dict() for pl in following]}

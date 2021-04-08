@@ -8,8 +8,8 @@ const LogoutButton = ({setAuthenticated, setMenu}) => {
   const dispatch = useDispatch();
   const onLogout = async (e) => {
     setMenu(false);
-    await dispatch(logout());
     setAuthenticated(false);
+    await dispatch(logout());
     return history.push("/");
   };
 

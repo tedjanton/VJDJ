@@ -104,7 +104,31 @@ export const deleteFromPlaylist = (track) => async dispatch => {
   const playlist = await res.json();
   dispatch(loadOne(playlist));
   return playlist;
-}
+};
+
+export const addFollow = ({ userId, playlistId }) => async dispatch => {
+  const res = await fetch(`/api/users/${userId}/add-follow/`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ playlistId })
+  })
+
+  const playlists = await res.json();
+  dispatch(loadFollowing(playlists.following))
+  return playlists.following;
+};
+
+export const unfollow = ({ userId, playlistId }) => async dispatch => {
+  const res = await fetch(`/api/users/${userId}/unfollow/`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ playlistId })
+  })
+
+  const playlists = await res.json();
+  dispatch(loadFollowing(playlists.following))
+  return playlists.following;
+};
 
 const playlistsReducer = (state = {}, action) => {
   switch (action.type) {

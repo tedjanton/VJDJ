@@ -6,7 +6,7 @@ import playlist_placeholder from '../../images/playlist_placeholder.png';
 import { AppWithContext } from '../../App';
 import TrackListing from '../TrackListing';
 import { formatTrack } from '../../utils';
-import { editPlaylist, getPlaylist } from '../../store/playlists';
+import { addFollow, unfollow, editPlaylist, getPlaylist } from '../../store/playlists';
 import './PlaylistDetail.css';
 
 const initialDnDState = {
@@ -22,6 +22,7 @@ const PlaylistDetail = () => {
   const params = useParams();
   const playlist = useSelector(state => state.playlists.selected?.playlist);
   const tracks = useSelector(state => state.playlists.selected?.tracks);
+  const following = useSelector(state => state.playlists.following)
   const user = useSelector(state => state.session.user);
   const [images, setImages] = useState([]);
   const [colors, getColors] = useState([]);
@@ -32,6 +33,7 @@ const PlaylistDetail = () => {
   const [editState, setEditState] = useState(null);
   const [isUserPlaylist, setIsUserPlaylist] = useState()
   const [isPlaylistPlaying, setIsPlaylistPlaying] = useState(false);
+  const [isFollowing, setIsFollowing] = useState(false);
   const {
     inBrowse,
     setInBrowse,
@@ -53,6 +55,15 @@ const PlaylistDetail = () => {
       setIsPlaylistPlaying(false);
     }
   }
+
+  useEffect(() => {
+    let followIds = following?.map(pl => pl.id);
+    if (followIds?.includes(playlist?.id)) {
+      setIsFollowing(true)
+    } else {
+      setIsFollowing(false);
+    }
+  })
 
   useEffect(() => {
     handlePlaying();
@@ -147,6 +158,15 @@ const PlaylistDetail = () => {
     setOpenMenu(!openMenu)
   }
 
+  const handleFollow = () => {
+    const submission = { userId: user.id, playlistId: playlist.id }
+    if (isFollowing) {
+      dispatch(unfollow(submission))
+    } else {
+      dispatch(addFollow(submission))
+    }
+  }
+
   const handleEdit = () => {
     setOpenMenu(false);
     setDraggable(true);
@@ -231,8 +251,12 @@ const PlaylistDetail = () => {
               </button>
             )}
             </div>
-            <div className="pl-like-button">
-              <i className="pl fas fa-heart" />
+            <div onClick={handleFollow} className="pl-like-button">
+              {isFollowing ? (
+                <i className="pl fas fa-heart" />
+              ) : (
+                <i className="pl far fa-heart" />
+              )}
             </div>
             {isUserPlaylist && (
               <div

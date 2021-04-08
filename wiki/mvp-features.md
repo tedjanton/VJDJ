@@ -9,19 +9,19 @@
 * Users cannot utilize site features without signing in
 
 ### 3. Playlists (CRUD)
-* All songs and associated music videos will be seeded (via a link) in the database so that users can create private or public playlists (CREATE)
-* Users can follow any public playlist
-* Users can view all songs and public playlists created by other users (READ)
-* Users can edit their playlists (UPDATE)
+* All songs and associated music videos will be seeded (via a link) in the database so that users can create playlists (CREATE)
+* Users can follow any playlist
+* Users can view all songs and playlists created by other users (READ)
+* Users can edit (add songs / change order) their playlists (UPDATE)
 * Users can delete their playlists or songs from their playlists (DELETE)
 
 ### 4. Home Page
 * After sign in, users will be brought to a home page that displays:
     * Featured music video
     * Featured music releases
-    * The logged in user's recently listened songs
-    * Nav bar with search
-    * Left hand rail with list of playlists
+    * Popular songs (top number of plays)
+    * Nav bar profile button
+    * Left hand rail with list of playlists and search
 
 ### 5. Songs
 * Users will be able to pause, move slider, and navigate back/forward

@@ -1,15 +1,13 @@
-import React from 'react';
-
+import React, { useContext } from 'react';
+import { AppWithContext } from '../../App';
 import MusicPlayer from '../MusicPlayer';
 
 
-const Queue = ({ authenticated, trackQueue }) => {
-
+const Queue = ({ authenticated }) => {
+  const { trackQueue } = useContext(AppWithContext)
   let tracks = trackQueue
 
-  if (!authenticated) {
-    return null;
-  }
+  if (!authenticated) return null;
 
   return (
     <div>

@@ -1,0 +1,35 @@
+.ad-container {
+  position: relative;
+  padding-left: 230px;
+  padding-bottom: 30px;
+  max-height: 800px;
+  color: white;
+}
+
+.ad-header {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 120px 10px 235px 40px;
+  background-size: cover;
+}
+
+.ad-header-top {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+}
+
+.ad-header-top img {
+  height: 40px;
+}
+
+.ad-header-name h1 {
+  margin: 0;
+  font-size: 80px;
+  text-shadow: 1px 6px 30px rgba(0, 0, 0, 0.88);
+}
+
+.ad-header-total-plays p {
+  text-shadow: 1px 6px 30px rgba(0, 0, 0, 0.88);
+}

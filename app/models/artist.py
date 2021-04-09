@@ -1,28 +1,6 @@
 from .db import db
 from .track import track_artists
 
-def quickSort(tracks):
-  if len(tracks) <= 1:
-    return tracks
-
-  pivot = tracks.pop(0);
-  left = [track for track in tracks if track.num_plays >= pivot.num_plays]
-  right = [track for track in tracks if track.num_plays < pivot.num_plays]
-
-  leftSorted = quickSort(left)
-  rightSorted = quickSort(right)
-
-  data = [*leftSorted, pivot, *rightSorted]
-  flat_list = []
-  def flatten_list(dataset):
-    for track in dataset:
-      if type(track) == list:
-        flatten_list(track)
-      else:
-        flat_list.append(track)
-  flatten_list(data)
-  return flat_list
-
 
 class Artist(db.Model):
   __tablename__ = 'artists'
@@ -36,14 +14,17 @@ class Artist(db.Model):
   tracks = db.relationship('Track', secondary=track_artists, back_populates='artists')
 
   def to_dict(self):
-    sorted_tracks = quickSort(self.tracks)
+    total_plays = 0
+    for track in self.tracks:
+      total_plays += track.num_plays
 
     return {
       'id': self.id,
       'name': self.name,
       'bio': self.bio,
       'image': self.image,
-      'tracks': [track.to_dict() for track in sorted_tracks]
+      'total_plays': total_plays,
+      'tracks': [track.to_dict() for track in self.tracks]
     }
 
 

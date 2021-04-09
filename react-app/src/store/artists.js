@@ -24,6 +24,7 @@ export const getArtist = (artistId) => async dispatch => {
 
   const artist = await res.json();
   dispatch(loadOne(artist));
+  return artist;
 }
 
 const artistReducer = (state = {}, action) => {

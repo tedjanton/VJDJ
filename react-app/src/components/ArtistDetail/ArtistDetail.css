@@ -1,0 +1,24 @@
+.ad-container {
+  position: relative;
+  padding-left: 230px;
+  padding-bottom: 30px;
+  max-height: 800px;
+  color: white;
+}
+
+.ad-header {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  padding: 120px 10px 235px 40px;
+}
+
+.ad-header-top {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+}
+
+.ad-header-top img {
+  height: 40px;
+}

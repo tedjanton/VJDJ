@@ -11,3 +11,11 @@ def get_artists():
   artists = Artist.query.order_by(Artist.name).all()
 
   return {"artists": [artist.to_no_tracks_dict() for artist in artists]}
+
+
+@artist_routes.route('/<int:id>/')
+@login_required
+def get_artist_content(id):
+  artist = Artist.query.get(id)
+
+  return artist.to_dict()

@@ -14,6 +14,7 @@ import PlaylistBrowser from './components/PlaylistBrowser';
 import ArtistBrowser from './components/ArtistBrowser';
 import AlbumBrowser from './components/AlbumBrowser';
 import { authenticate } from './store/session';
+import ArtistDetail from './components/ArtistDetail';
 
 export const AppWithContext = createContext();
 
@@ -47,10 +48,6 @@ function App() {
   return (
     <BrowserRouter>
       <AppWithContext.Provider
-        trackQueue={trackQueue}
-        setTrackQueue={setTrackQueue}
-        inBrowse={inBrowse}
-        setInBrowse={setInBrowse}
         value={{
           trackQueue,
           setTrackQueue,
@@ -94,12 +91,7 @@ function App() {
             <Home />
           </ProtectedRoute>
           <ProtectedRoute path='/playlists/:id' exact authenticated={authenticated}>
-            <PlaylistDetail
-              isPlaying={isPlaying}
-              setIsPlaying={setIsPlaying}
-              trackQueue={trackQueue}
-              setTrackQueue={setTrackQueue}
-            />
+            <PlaylistDetail />
           </ProtectedRoute>
           <ProtectedRoute path='/library/playlists' exact authenticated={authenticated}>
             <PlaylistBrowser />
@@ -107,17 +99,14 @@ function App() {
           <ProtectedRoute path='/library/artists' exact authenticated={authenticated}>
             <ArtistBrowser />
           </ProtectedRoute>
+          <ProtectedRoute path='/artists/:id' exact authenticated={authenticated}>
+            <ArtistDetail />
+          </ProtectedRoute>
           <ProtectedRoute path='/library/albums' exact authenticated={authenticated}>
             <AlbumBrowser />
           </ProtectedRoute>
         </Switch>
-        <Queue
-          isPlaying={isPlaying}
-          setIsPlaying={setIsPlaying}
-          authenticated={authenticated}
-          trackQueue={trackQueue}
-          setTrackQueue={setTrackQueue}
-        />
+        <Queue authenticated={authenticated} />
       </AppWithContext.Provider>
     </BrowserRouter>
   );

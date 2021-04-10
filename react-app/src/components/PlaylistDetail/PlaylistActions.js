@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import { AppWithContext } from '../../App';
-import { addFollow, unfollow, editPlaylist, deletePlaylist, getUserPls } from '../../store/playlists';
+import { addFollow, unfollow, editPlaylist, deletePlaylist, getUserPls, getPlaylist } from '../../store/playlists';
 import { formatTrack } from '../../utils';
 
 const PlayFollow = ({
@@ -15,7 +15,8 @@ const PlayFollow = ({
   draggable,
   dragAndDrop,
   isUserPlaylist,
-  setIsUserPlaylist
+  setIsUserPlaylist,
+  setList,
 }) => {
   const dispatch = useDispatch();
   const params = useParams();
@@ -29,6 +30,7 @@ const PlayFollow = ({
     setIsPlaying,
     setTrackIdx,
     paramsRef,
+
   } = useContext(AppWithContext)
 
 
@@ -89,20 +91,26 @@ const PlayFollow = ({
     setEditState("#1c1c1c");
   }
 
-  const submitEdits = () => {
+  const submitEdits = async () => {
     const submission = dragAndDrop.updatedOrder.map(({track}, i) => {
       return {
         track_id: track.id,
         order_num: i + 1,
       }
     })
-    dispatch(editPlaylist(submission, playlist.id))
     setEditState(null);
-    window.location.reload();
+    setOpenMenu(false);
+    setDraggable(false);
+    await dispatch(editPlaylist(submission, playlist.id))
+    await dispatch(getPlaylist(playlist.id))
+    // handle resetting queue order
   }
 
   const cancelEdits = () => {
-    window.location.reload();
+    setList(dragAndDrop.originalOrder)
+    setEditState(null);
+    setOpenMenu(false);
+    setDraggable(false);
   }
 
   const handleDelete = async () => {

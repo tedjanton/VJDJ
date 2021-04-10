@@ -154,7 +154,8 @@ const PlaylistDetail = () => {
           draggable={draggable}
           dragAndDrop={dragAndDrop}
           isUserPlaylist={isUserPlaylist}
-          setIsUserPlaylist={setIsUserPlaylist} />
+          setIsUserPlaylist={setIsUserPlaylist}
+          setList={setList} />
         <div className="pl-table-container">
           <div className="pl-table-header">
             <div className="pl-header-num-title-container">
@@ -195,6 +196,7 @@ const PlaylistDetail = () => {
                   playlist={playlist}
                   key={track.id}
                   isUserPlaylist={isUserPlaylist}
+
                 />
               </div>
             ))}

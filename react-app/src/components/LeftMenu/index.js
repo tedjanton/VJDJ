@@ -9,7 +9,7 @@ import library from '../../images/library.png';
 import './LeftMenu.css';
 
 const LeftMenu = ({ authenticated }) => {
-  const { setInBrowse } = useContext(AppWithContext);
+  const { inBrowse, setInBrowse } = useContext(AppWithContext);
   const dispatch = useDispatch();
   const user = useSelector(state => state.session.user)
   const [showModal, setShowModal] = useState(false);
@@ -46,7 +46,7 @@ const LeftMenu = ({ authenticated }) => {
         <div className="lm-nav-library">
           <NavLink
             onClick={() => setInBrowse(true)}
-            className=""
+            className={ inBrowse ? "nav-active active" : ""}
             activeClassName="nav-active active"
             to='/library/playlists'
           ><img src={library} alt="library" />Library

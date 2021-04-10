@@ -1,10 +1,11 @@
-import React, { useEffect, useContext, useState, useLayoutEffect } from 'react';
+import React, { useEffect, useContext, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { AppWithContext } from '../../App';
 import verified from '../../images/verified.png';
 import { getArtist } from '../../store/artists';
 import { formatTrack } from '../../utils';
+import ArtistTrackListing from '../ArtistTrackListing';
 import './ArtistDetail.css';
 
 
@@ -15,7 +16,6 @@ const ArtistDetail = () => {
   const tracks = useSelector(state => state.artists.selected?.tracks);
   const { inBrowse, setInBrowse, setTrackQueue, setTrackIdx, setIsPlaying } = useContext(AppWithContext);
   const [isArtistPlaying, setIsArtistPlaying] = useState(false);
-
 
   const removeBackground = () => {
     document.getElementById("nav-home").classList.remove("browser")
@@ -58,7 +58,7 @@ const ArtistDetail = () => {
           <p>{artist?.total_plays.toLocaleString()} total plays</p>
         </div>
       </div>
-      <div className="ad-bottom-container">
+      <div className="ad-bottom-container pl-bottom-container">
         <div className="ad-play-container">
         {isArtistPlaying ? (
           <button
@@ -79,6 +79,38 @@ const ArtistDetail = () => {
             <i className="pl fas fa-play" />
           </button>
         )}
+        </div>
+        <div className="pl-table-container">
+          <div className="pl-table-header">
+            <div className="pl-header-num-title-container">
+              <div className="pl-header-track-num">
+                <p>#</p>
+              </div>
+              <div className="pl-header-title">
+                <p>TITLE</p>
+              </div>
+            </div>
+            <div className="pl-header-album">
+              <p>ALBUM</p>
+            </div>
+            <div className="pl-header-vid">
+              <p>VIDEO</p>
+            </div>
+            <div className="pl-header-time">
+              <i className="far fa-clock" />
+            </div>
+          </div>
+          <div className="tracks-container">
+            {tracks?.map((track, i) => (
+              <div key={track.id}>
+                <ArtistTrackListing
+                  track={track}
+                  trackList={tracks}
+                  index={i}
+                  />
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>

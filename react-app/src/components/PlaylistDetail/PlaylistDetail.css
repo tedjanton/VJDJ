@@ -54,11 +54,13 @@
 .pl-header-playlist {
   font-size: 14px;
   font-weight: 500;
+  margin-left: 3px;
 }
 
 .pl-subheader {
   display: flex;
   align-items: center;
+  margin-left: 3px;
 }
 
 .pl-user-name p {

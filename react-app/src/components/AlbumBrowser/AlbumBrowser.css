@@ -1,0 +1,5 @@
+.album-image-container img {
+  position: relative;
+  width: 180px;
+  border-radius: 8px;
+}

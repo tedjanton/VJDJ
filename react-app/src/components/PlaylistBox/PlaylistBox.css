@@ -56,6 +56,10 @@
   font-size: 14.5px;
   font-weight: 600;
   margin: 20px 0 5px 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  width: 180px;
 }
 
 .plb-by p {

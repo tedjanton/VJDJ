@@ -2,7 +2,7 @@ import React, { useEffect, useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppWithContext } from '../../App';
 import { getArtists } from '../../store/artists';
-import ArtistBox from '../ArtistBox';
+import ArtistAlbumBox from '../ArtistAlbumBox';
 import './ArtistBrowser.css';
 
 const ArtistBrowser = () => {
@@ -31,7 +31,7 @@ const ArtistBrowser = () => {
       <div className="plb-container">
         {artists?.map(artist => (
           <div key={artist.id} className="pb-container">
-            <ArtistBox artist={artist} />
+            <ArtistAlbumBox artist={artist} />
           </div>
         ))}
       </div>

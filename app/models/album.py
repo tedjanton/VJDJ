@@ -20,7 +20,7 @@ class Album(db.Model):
       'year': self.year,
       'art_src': self.art_src,
       'artist': self.artist.to_no_tracks_dict(),
-      'tracks': [track.to_no_album_dict() for track in self.tracks]
+      'tracks': [track.to_dict() for track in self.tracks]
     }
 
 

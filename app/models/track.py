@@ -29,6 +29,7 @@ class Track(db.Model):
       'id': self.id,
       'title': self.title,
       'num_plays': self.num_plays,
+      'track_num': self.track_num,
       'audio_src': self.audio_src,
       'vid_src': self.vid_src,
       'time': self.length,

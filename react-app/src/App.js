@@ -15,6 +15,7 @@ import ArtistBrowser from './components/ArtistBrowser';
 import AlbumBrowser from './components/AlbumBrowser';
 import { authenticate } from './store/session';
 import ArtistDetail from './components/ArtistDetail';
+import AlbumDetail from './components/AlbumDetail';
 
 export const AppWithContext = createContext();
 
@@ -104,6 +105,9 @@ function App() {
           </ProtectedRoute>
           <ProtectedRoute path='/library/albums' exact authenticated={authenticated}>
             <AlbumBrowser />
+          </ProtectedRoute>
+          <ProtectedRoute path='/albums/:id' exact authenticated={authenticated}>
+            <AlbumDetail />
           </ProtectedRoute>
         </Switch>
         <Queue authenticated={authenticated} />

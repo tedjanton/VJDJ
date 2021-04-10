@@ -1,8 +1,8 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import './ArtistBox.css';
+import './ArtistAlbumBox.css';
 
-const ArtistBox = ({ artist, album }) => {
+const ArtistAlbumBox = ({ artist, album }) => {
   const history = useHistory();
 
   if (artist) {
@@ -41,4 +41,4 @@ const ArtistBox = ({ artist, album }) => {
 
 }
 
-export default ArtistBox;
+export default ArtistAlbumBox;

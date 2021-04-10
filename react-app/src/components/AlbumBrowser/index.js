@@ -2,7 +2,7 @@ import React, { useEffect, useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppWithContext } from '../../App';
 import { getAlbums } from '../../store/albums';
-import ArtistBox from '../ArtistBox';
+import ArtistAlbumBox from '../ArtistAlbumBox';
 import './AlbumBrowser.css';
 
 const AlbumBrowser = () => {
@@ -26,12 +26,12 @@ const AlbumBrowser = () => {
   return (
     <div className="plbrow-container">
       <div className="plbrow-title">
-        <h2>All Artists</h2>
+        <h2>All Albums</h2>
       </div>
       <div className="plb-container">
         {albums?.map(album => (
           <div key={album.id} className="pb-container">
-            <ArtistBox album={album} />
+            <ArtistAlbumBox album={album} />
           </div>
         ))}
       </div>

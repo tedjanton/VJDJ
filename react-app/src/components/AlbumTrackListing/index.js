@@ -67,12 +67,12 @@ const AlbumTrackListing = ({ track, trackList, index }) => {
         id={`track-${track.track_num}`}
       >
         {!isHover ? (
-          <div className="track-num artist-detail">
+          <div className="track-num album-detail">
             <p>{track?.track_num}</p>
           </div>
           ) : (
           <div>
-            <button onClick={handleQueue} className="track-play-button">
+            <button onClick={handleQueue} className="track-play-button album-detail">
               {isPlaying && isTrackPlaying ? (
                   <i className="tl fas fa-pause" />
               ) : (

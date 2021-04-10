@@ -14,13 +14,15 @@ class Album(db.Model):
   tracks = db.relationship('Track', back_populates='album')
 
   def to_dict(self):
+    sorted_tracks = sorted(self.tracks, key=lambda track: track.track_num)
+
     return {
       'id': self.id,
       'title': self.title,
       'year': self.year,
       'art_src': self.art_src,
       'artist': self.artist.to_no_tracks_dict(),
-      'tracks': [track.to_dict() for track in self.tracks]
+      'tracks': [track.to_dict() for track in sorted_tracks]
     }
 
 

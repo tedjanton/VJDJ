@@ -21,7 +21,6 @@ const Home = () => {
 
   const handleFeaturedPlay = () => {
     setShowModal(true)
-
   }
 
   useEffect(() => {
@@ -32,15 +31,13 @@ const Home = () => {
     } else if (!showModal && videoRef.current) {
       videoRef.current.play();
     }
-    
+
   }, [showModal, setIsPlaying])
 
   useEffect(() => {
     removeBackground()
     handleVideo()
   }, [])
-
-  console.log(videoRef.current);
 
   useEffect(() => {
     setInBrowse(false)

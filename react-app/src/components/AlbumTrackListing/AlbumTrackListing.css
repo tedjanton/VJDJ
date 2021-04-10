@@ -15,8 +15,8 @@
   font-size: 13px;
 }
 
-.track-num.artist-detail,
-.track-play-button {
+.track-num.album-detail,
+.track-play-button.album-detail {
   padding-left: 15px;
   margin: 0;
 }

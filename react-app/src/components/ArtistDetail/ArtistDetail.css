@@ -10,7 +10,7 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  padding: 180px 10px 235px 40px;
+  padding: 200px 10px 235px 40px;
   background-size: cover;
 }
 
@@ -35,4 +35,24 @@
   text-shadow: 1px 1px 10px rgba(0, 0, 0);
   font-weight: 500;
   margin-left: 10px;
+}
+
+.ad-bio {
+  font-size: 14px;
+  color: rgb(218, 218, 218);
+}
+
+.ad-bio h2 {
+  /* border-top: thin solid rgb(39, 39, 39); */
+  padding-top: 30px;
+}
+
+.open-close-text {
+  background: none;
+  color: white;
+  border: none;
+  text-decoration: underline;
+  padding: 0 0 0 5px;
+  font-size: 14px;
+  color: rgb(172, 172, 172);
 }

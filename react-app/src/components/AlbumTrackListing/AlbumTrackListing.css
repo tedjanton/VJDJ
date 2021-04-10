@@ -1,0 +1,22 @@
+.album-track-container,
+.album-track-container-inner {
+  height: 75px;
+  grid-template-columns: .35fr repeat(8, 1fr);
+}
+
+
+.track-title-artist-container.artist-detail {
+  padding-right: 20px;
+  padding-left: 5px;
+}
+
+.track-num-plays.album-detail {
+  color: rgb(197, 197, 197);
+  font-size: 13px;
+}
+
+.track-num.album-detail,
+.track-play-button.album-detail {
+  padding-left: 15px;
+  margin: 0;
+}

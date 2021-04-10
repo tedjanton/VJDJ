@@ -1,0 +1,75 @@
+.ad-header.album-detail {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  padding-top: 150px;
+}
+
+.pl-image.album-image img,
+.pl-image.album-image {
+  width: 230px;
+  height: 230px;
+}
+
+.album-detail-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  margin: 0 25px;
+}
+
+.album-detail-top p {
+  font-size: 13px;
+  margin-left: 5px;
+  font-weight: 500;
+}
+
+.pl-num-songs.artist-detail p,
+p.album-detail-year {
+  margin-left: 4px;
+}
+
+.ad-header-name.album-name h1 {
+  font-size: 50px;
+  text-shadow: none;
+}
+
+.pl-table-header.album-detail {
+  grid-template-columns: .35fr repeat(8, 1fr);
+}
+
+.pl-header-title.album-detail {
+  padding-left: 10px;
+}
+
+.pl-header-track-num.album-detail {
+  padding: 0 0 0 15px;
+  margin: 0;
+}
+
+.ad-header-total-plays.artist-detail {
+  display: flex;
+  align-items: center;
+}
+
+p.album-detail-artist-name {
+  text-shadow: none;
+}
+
+p.album-detail-year,
+.pl-num-songs p {
+  color: rgb(197, 197, 197);
+  text-shadow: none;
+}
+
+.album-detail-artist-image {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.album-detail-artist-image img {
+  max-height: 100%;
+  object-fit: scale-down;
+}

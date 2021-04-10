@@ -49,7 +49,7 @@ const NavBar = ({ nav, authenticated, setAuthenticated }) => {
               <div className="lib-nav-albums-button">
                 <NavLink
                   activeClassName="nav nav-active-buttons"
-                  to="/library/playalbumslists">Albums</NavLink>
+                  to="/library/albums">Albums</NavLink>
               </div>
             </div>
           )}

@@ -1,22 +1,25 @@
 import React, { useEffect, useContext, useState } from 'react';
+import { ColorExtractor } from 'react-color-extractor';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { AppWithContext } from '../../App';
-import verified from '../../images/verified.png';
+import { getAlbum } from '../../store/albums';
 import { getArtist } from '../../store/artists';
 import { formatTrack } from '../../utils';
+import AlbumTrackListing from '../AlbumTrackListing';
 import ArtistTrackListing from '../ArtistTrackListing';
-import './ArtistDetail.css';
+import './AlbumDetail.css';
 
 
-const ArtistDetail = () => {
+const AlbumDetail = () => {
   const dispatch = useDispatch();
   const params = useParams();
-  const artist = useSelector(state => state.artists.selected);
-  const tracks = useSelector(state => state.artists.selected?.tracks);
+  const album = useSelector(state => state.albums.selected);
+  const tracks = useSelector(state => state.albums.selected?.tracks);
   const { inBrowse, setInBrowse, setTrackQueue, setTrackIdx, setIsPlaying } = useContext(AppWithContext);
-  const [isArtistPlaying, setIsArtistPlaying] = useState(false);
+  const [isAlbumPlaying, setIsAlbumPlaying] = useState(false);
   const [openText, setOpenText] = useState(false);
+  const [colors, getColors] = useState([]);
 
   const removeBackground = () => {
     document.getElementById("nav-home").classList.remove("browser")
@@ -31,7 +34,7 @@ const ArtistDetail = () => {
   }, [inBrowse])
 
   useEffect(() => {
-    dispatch(getArtist(params.id))
+    dispatch(getAlbum(params.id))
   }, [dispatch, params])
 
   const addToQueue = () => {
@@ -41,32 +44,39 @@ const ArtistDetail = () => {
     setTrackQueue(formatted);
     setTrackIdx(0);
     setIsPlaying(true);
-    setIsArtistPlaying(true)
+    setIsAlbumPlaying(true)
   };
 
   return (
-    <div className="ad-container">
-      <div className="ad-header" style={
-        { backgroundImage: artist ?
-          `linear-gradient(
-            to bottom, rgba(245, 246, 252, 0.1), rgba(15, 15, 15, 1)),
-             url(${artist.image})`
-          : "none"}
-      }>
-        <div className="ad-header-top">
-          <img src={verified} alt="verified" />
-          <p>Verified Artist</p>
+    <div className="ad-container" style={{ backgroundColor: `${colors[1]}80`}}>
+      <div className="ad-header album-detail">
+        <div className="pl-image album-image">
+          <ColorExtractor getColors={(c) => getColors(c)}>
+            <img src={album?.art_src} alt="art" />
+          </ColorExtractor>
         </div>
-        <div className="ad-header-name">
-          <h1>{artist?.name}</h1>
-        </div>
-        <div className="ad-header-total-plays">
-          <p>{artist?.total_plays.toLocaleString()} total plays</p>
+        <div className="album-detail-details">
+          <div className="album-detail-top">
+            <p>ALBUM</p>
+          </div>
+          <div className="ad-header-name album-name">
+            <h1>{album?.title}</h1>
+          </div>
+          <div className="ad-header-total-plays artist-detail">
+            <div className="album-detail-artist-image">
+              <img src={album?.artist.image} alt="artist" />
+            </div>
+            <p className="album-detail-artist-name">{`${album?.artist.name} •`}</p>
+            <p className="album-detail-year">{`${album?.year} •`}</p>
+            <div className="pl-num-songs artist-detail">
+              <p>{`${tracks?.length} ${tracks?.length === 1 ? "song" : "songs" }`}</p>
+            </div>
+          </div>
         </div>
       </div>
       <div className="ad-bottom-container pl-bottom-container">
         <div className="ad-play-container">
-        {isArtistPlaying ? (
+        {isAlbumPlaying ? (
           <button
             type="button"
             className="pl-pause"
@@ -87,17 +97,15 @@ const ArtistDetail = () => {
         )}
         </div>
         <div className="pl-table-container">
-          <div className="pl-table-header">
-            <div className="pl-header-num-title-container">
-              <div className="pl-header-track-num">
-                <p>#</p>
-              </div>
-              <div className="pl-header-title">
-                <p>TITLE</p>
-              </div>
+          <div className="pl-table-header album-detail">
+            <div className="pl-header-track-num album-detail">
+              <p>#</p>
+            </div>
+            <div className="pl-header-title album-detail">
+              <p>TITLE</p>
             </div>
             <div className="pl-header-album">
-              <p>ALBUM</p>
+              <p>PLAYS</p>
             </div>
             <div className="pl-header-vid">
               <p>VIDEO</p>
@@ -109,7 +117,7 @@ const ArtistDetail = () => {
           <div className="tracks-container">
             {tracks?.map((track, i) => (
               <div key={track.id}>
-                <ArtistTrackListing
+                <AlbumTrackListing
                   track={track}
                   trackList={tracks}
                   index={i}
@@ -118,27 +126,9 @@ const ArtistDetail = () => {
             ))}
           </div>
         </div>
-        <div className="ad-bio">
-          <h2>Artist Biography</h2>
-          {!openText ? (
-            <p>{artist?.bio.slice(0, 300)}...
-              <button
-                className="open-close-text"
-                onClick={() => setOpenText(true)}>read more
-              </button>
-            </p>
-          ) : (
-            <p>{artist?.bio}
-              <button
-                className="open-close-text"
-                onClick={() => setOpenText(false)}>read less
-              </button>
-            </p>
-          )}
-        </div>
       </div>
     </div>
   )
 }
 
-export default ArtistDetail;
+export default AlbumDetail;

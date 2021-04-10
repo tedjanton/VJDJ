@@ -34,12 +34,31 @@ const PlaylistDetail = () => {
   const { inBrowse, setInBrowse } = useContext(AppWithContext)
 
   const removeBackground = () => {
-    document.getElementById("nav-home").classList.remove("browser")
+    document.getElementById("nav-home").classList.remove("browser");
   }
 
   useEffect(() => {
     removeBackground()
   }, [])
+
+  useEffect(() => {
+    window.addEventListener("scroll", () => {
+      let nav = document.getElementById("nav-home");
+      if (window.pageYOffset > 130) {
+        nav.setAttribute(
+          "style",
+          `background-color: rgb(30, 30, 30);
+           transition: all ease-in-out .2s;
+           padding: 10px 0;`)
+      } else {
+        nav.setAttribute(
+          "style",
+          `background-color: none;
+           transition: all ease-in-out .2s;
+           padding: 15px 0;`)
+      }
+    })
+  })
 
   useEffect(() => {
     setList(tracks);
@@ -154,7 +173,8 @@ const PlaylistDetail = () => {
           draggable={draggable}
           dragAndDrop={dragAndDrop}
           isUserPlaylist={isUserPlaylist}
-          setIsUserPlaylist={setIsUserPlaylist} />
+          setIsUserPlaylist={setIsUserPlaylist}
+          setList={setList} />
         <div className="pl-table-container">
           <div className="pl-table-header">
             <div className="pl-header-num-title-container">
@@ -195,6 +215,7 @@ const PlaylistDetail = () => {
                   playlist={playlist}
                   key={track.id}
                   isUserPlaylist={isUserPlaylist}
+
                 />
               </div>
             ))}

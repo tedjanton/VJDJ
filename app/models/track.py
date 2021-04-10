@@ -29,6 +29,7 @@ class Track(db.Model):
       'id': self.id,
       'title': self.title,
       'num_plays': self.num_plays,
+      'track_num': self.track_num,
       'audio_src': self.audio_src,
       'vid_src': self.vid_src,
       'time': self.length,
@@ -36,13 +37,15 @@ class Track(db.Model):
       'artists': [artist.to_no_tracks_dict() for artist in self.artists],
     }
 
-  def to_queue_dict(self):
+  def to_no_album_dict(self):
     return {
       'id': self.id,
       'title': self.title,
+      'num_plays': self.num_plays,
+      'audio_src': self.audio_src,
+      'vid_src': self.vid_src,
+      'time': self.length,
       'artists': [artist.to_no_tracks_dict() for artist in self.artists],
-      'art': self.album.to_only_art_dict(),
-      'audio_src': self.audio_src
     }
 
   def to_art_dict(self):

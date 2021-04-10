@@ -1,11 +1,13 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { AppWithContext } from '../../App';
 import { getArtists } from '../../store/artists';
 import ArtistBox from '../ArtistBox';
 import './ArtistBrowser.css';
 
 const ArtistBrowser = () => {
   const dispatch = useDispatch();
+  const { setInBrowse } = useContext(AppWithContext);
   const artists = useSelector(state => state.artists.all);
 
   const addBackground = (e) => {
@@ -13,6 +15,7 @@ const ArtistBrowser = () => {
   }
 
   useEffect(() => {
+    setInBrowse(true);
     addBackground()
   })
 

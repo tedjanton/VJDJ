@@ -16,6 +16,7 @@ const ArtistDetail = () => {
   const tracks = useSelector(state => state.artists.selected?.tracks);
   const { inBrowse, setInBrowse, setTrackQueue, setTrackIdx, setIsPlaying } = useContext(AppWithContext);
   const [isArtistPlaying, setIsArtistPlaying] = useState(false);
+  const [openText, setOpenText] = useState(false);
 
   const removeBackground = () => {
     document.getElementById("nav-home").classList.remove("browser")
@@ -40,12 +41,17 @@ const ArtistDetail = () => {
     setTrackQueue(formatted);
     setTrackIdx(0);
     setIsPlaying(true);
-  }
+    setIsArtistPlaying(true)
+  };
 
   return (
     <div className="ad-container">
       <div className="ad-header" style={
-        { backgroundImage: artist ? `url(${artist.image})` : "none"}
+        { backgroundImage: artist ?
+          `linear-gradient(
+            to bottom, rgba(245, 246, 252, 0.1), rgba(15, 15, 15, 1)),
+             url(${artist.image})`
+          : "none"}
       }>
         <div className="ad-header-top">
           <img src={verified} alt="verified" />
@@ -111,6 +117,24 @@ const ArtistDetail = () => {
               </div>
             ))}
           </div>
+        </div>
+        <div className="ad-bio">
+          <h2>Artist Biography</h2>
+          {!openText ? (
+            <p>{artist?.bio.slice(0, 300)}...
+              <button
+                className="open-close-text"
+                onClick={() => setOpenText(true)}>read more
+              </button>
+            </p>
+          ) : (
+            <p>{artist?.bio}
+              <button
+                className="open-close-text"
+                onClick={() => setOpenText(false)}>read less
+              </button>
+            </p>
+          )}
         </div>
       </div>
     </div>

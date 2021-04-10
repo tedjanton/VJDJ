@@ -14,7 +14,7 @@ const ArtistBrowser = () => {
 
   useEffect(() => {
     addBackground()
-  }, [])
+  })
 
   useEffect(() => {
     dispatch(getArtists())

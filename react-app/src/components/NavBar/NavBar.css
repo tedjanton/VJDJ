@@ -72,19 +72,17 @@ a:visited {
 .nav-home-container {
   position: fixed;
   top: 20px;
-  right: 10px;
+  right: -70px;
   z-index: 300;
-  width: 220px;
-  /* margin-left: 270px; */
+  width: auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
   color: white;
-  /* padding: 15px 0; */
 }
 
 .nav-home {
-  margin-right: 5%;
+  /* margin-right: 5%; */
   position: fixed;
   display: flex;
   flex-direction: column;
@@ -94,6 +92,8 @@ a:visited {
 .nav-home button {
   display: flex;
   align-items: center;
+  flex-direction: row;
+  flex-wrap: nowrap;
   border: none;
   padding: 0;
   border-radius: 20px;

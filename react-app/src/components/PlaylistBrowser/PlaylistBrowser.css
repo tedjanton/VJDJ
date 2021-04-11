@@ -1,7 +1,13 @@
 
 
 .nav-browser {
-  padding-left: 270px;
+  /* padding-left: 270px; */
+  position: fixed;
+  display: flex;
+  align-items: center;
+  left: 230px;
+  width: 100%;
+  /* top: 30px; */
 }
 
 .plbrow-container {

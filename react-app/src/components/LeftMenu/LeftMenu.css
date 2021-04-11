@@ -134,7 +134,7 @@ a.nav-active.active {
   display: flex;
   flex-direction: column;
   padding: 20px 20px 20px 0;
-  margin: 10px 25px;
+  margin: 10px 0 10px 25px;
   border-top: thin solid rgba(206, 206, 206, .3);
 }
 
@@ -145,9 +145,12 @@ a.nav-active.active {
   font-weight: 700;
 }
 
-.lm-user-owned-pls {
+div.lm-user-owned-pls {
   padding: 0 0 10px 0;
   margin: 0 0 10px 0;
+  scrollbar-color: black rgb(190, 190, 190);
+  overflow-y: scroll;
+  max-height: 80px;
 }
 
 .lm-user-pl-container > a.lm-user-pl-active {

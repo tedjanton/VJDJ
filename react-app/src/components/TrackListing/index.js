@@ -129,7 +129,7 @@ const TrackListing = ({ track, trackList, index, playlist, isUserPlaylist }) => 
           </div>
         </div>
         <div className="track-album">
-          <p>{track.track.album.title}</p>
+          <Link to={`/albums/${track.track.album.id}`}>{track.track.album.title}</Link>
         </div>
         <div className="track-video">
         {track.track.vid_src ? (

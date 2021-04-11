@@ -62,13 +62,18 @@ const PlayFollow = ({
   }, [playlist, user])
 
   const addToQueue = () => {
-    setTrackQueue([])
-    let formatted = tracks.map(track => formatTrack(track.track))
-    setTrackIdx(1);
-    setTrackQueue(formatted);
-    setTrackIdx(0);
-    setIsPlaying(true);
-    paramsRef.current = params.id;
+    if (isPlaylistPlaying && isPlaying) {
+      setIsPlaylistPlaying(false);
+      setIsPlaying(false);
+    } else {
+      setTrackQueue([])
+      let formatted = tracks.map(track => formatTrack(track.track))
+      setTrackIdx(1);
+      setTrackQueue(formatted);
+      setTrackIdx(0);
+      setIsPlaying(true);
+      paramsRef.current = params.id;
+    }
   }
 
   const playlistMenu = () => {

@@ -28,7 +28,7 @@ const ArtistDetail = () => {
 
   useEffect(() => {
     setInBrowse(false)
-  }, [inBrowse])
+  }, [inBrowse, setInBrowse])
 
   useEffect(() => {
     dispatch(getArtist(params.id))

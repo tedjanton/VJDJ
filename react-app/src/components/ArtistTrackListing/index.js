@@ -112,7 +112,7 @@ const ArtistTrackListing = ({ track, trackList, index }) => {
           </div>
         </div>
         <div className="track-album">
-          <p>{track.album.title}</p>
+          <Link to={`/albums/${track.album.id}`}>{track.album.title}</Link>
         </div>
         <div className="track-video">
         {track.vid_src ? (

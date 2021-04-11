@@ -54,7 +54,8 @@
   color: rgb(172, 172, 172)
 }
 
-.track-artist a:hover {
+.track-artist a:hover,
+.track-album a:hover {
   text-decoration: underline;
 }
 
@@ -63,7 +64,10 @@
   grid-column-start: 5;
   grid-column-end: 7;
   font-size: 13px;
+}
 
+.track-album a {
+  color: rgb(172, 172, 172);
 }
 
 .track-edit-container {

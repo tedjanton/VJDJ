@@ -19,10 +19,6 @@ const Home = () => {
     videoRef.current.setAttribute("src", "https://vjdj.s3.amazonaws.com/featured-vids/lil-nax-x-montero-2.mp4")
   }
 
-  const handleFeaturedPlay = () => {
-    setShowModal(true)
-  }
-
   useEffect(() => {
     if (showModal) setIsPlaying(false);
 

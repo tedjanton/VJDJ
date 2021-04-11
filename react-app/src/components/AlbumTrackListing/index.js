@@ -90,7 +90,7 @@ const AlbumTrackListing = ({ track, trackList, index }) => {
           <div className="track-artists">
             {track.artists.map((artist, i) => (
               <div key={artist.id} className="track-artist">
-                <Link to={`/aritsts/${artist.id}`}>{(i ? ', ': '') + artist.name}</Link>
+                <Link to={`/artists/${artist.id}`}>{(i ? ', ': '') + artist.name}</Link>
               </div>
             ))}
           </div>

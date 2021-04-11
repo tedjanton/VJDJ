@@ -34,3 +34,24 @@ button:focus {
 button {
   font-family: 'Montserrat', sans-serif;
 }
+
+/* Works on Firefox */
+* {
+  scrollbar-width: 5px;
+  scrollbar-color:black rgb(190, 190, 190);
+}
+
+/* Works on Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 5px;
+}
+
+*::-webkit-scrollbar-track {
+  background: black;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: rgb(190, 190, 190);
+  border-radius: 20px;
+  border: none;
+}

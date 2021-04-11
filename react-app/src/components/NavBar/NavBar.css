@@ -39,8 +39,6 @@ a:visited {
 .nav-hidden {
   background-color: none;
 }
-
-
 .spacer {
   height: 20px;
   width: 2px;
@@ -73,23 +71,24 @@ a:visited {
 
 .nav-home-container {
   position: fixed;
-  top: 0;
-  right: 0;
-  z-index: 200;
-  width: 100%;
-  margin-left: 270px;
+  top: 20px;
+  right: 10px;
+  z-index: 300;
+  width: 220px;
+  /* margin-left: 270px; */
   display: flex;
   justify-content: space-between;
   align-items: center;
   color: white;
-  padding: 15px 0;
+  /* padding: 15px 0; */
 }
 
 .nav-home {
   margin-right: 5%;
-  position: relative;
+  position: fixed;
   display: flex;
   flex-direction: column;
+  margin-top: 30px;
 }
 
 .nav-home button {

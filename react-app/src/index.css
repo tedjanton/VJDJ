@@ -8,6 +8,10 @@ body {
   overscroll-behavior-y: none;
 }
 
+#root {
+  position: relative;
+}
+
 a,
 a:link,
 a:visited {

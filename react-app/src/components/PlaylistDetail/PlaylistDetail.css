@@ -152,6 +152,7 @@ i.pl.fas.fa-play {
   text-align: center;
   grid-column-start: 7;
   grid-column-end: 8;
+  min-width: 80px;
 }
 
 .pl-header-time {

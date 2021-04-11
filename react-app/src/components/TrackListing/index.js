@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { AppWithContext } from '../../App';
 import { Modal } from '../../context/Modal';
 import { addToPlaylist, deleteFromPlaylist } from '../../store/playlists';
@@ -122,7 +123,7 @@ const TrackListing = ({ track, trackList, index, playlist, isUserPlaylist }) => 
           <div className="track-artists">
             {track.track.artists.map((artist, i) => (
               <div key={artist.id} className="track-artist">
-                <p>{(i ? ', ': '') + artist.name}</p>
+                <Link to={`/artists/${artist.id}`}>{(i ? ', ': '') + artist.name}</Link>
               </div>
             ))}
           </div>

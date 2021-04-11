@@ -57,8 +57,13 @@
   color: rgb(172, 172, 172)
 }
 
-.tb-artist p {
+.tb-artist a {
   margin: 2px 0;
+  color: rgb(172, 172, 172)
+}
+
+.tb-artist a:hover {
+  text-decoration: underline;
 }
 
 .tb-add-box-container {

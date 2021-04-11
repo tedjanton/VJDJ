@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { AppWithContext } from '../../App';
 import { Modal } from '../../context/Modal';
 import { addToPlaylist } from '../../store/playlists';
@@ -9,7 +10,7 @@ import './AlbumTrackListing.css';
 
 const AlbumTrackListing = ({ track, trackList, index }) => {
   const dispatch = useDispatch();
-  const user = useSelector(state => state.session.user);
+  const user = useSelector(state => state.session.user)
   const userPls = useSelector(state => state.playlists.userPls)
   const [isHover, setIsHover] = useState(false);
   const [isTrackPlaying, ] = useState(false);
@@ -89,7 +90,7 @@ const AlbumTrackListing = ({ track, trackList, index }) => {
           <div className="track-artists">
             {track.artists.map((artist, i) => (
               <div key={artist.id} className="track-artist">
-                <p>{(i ? ', ': '') + artist.name}</p>
+                <Link to={`/aritsts/${artist.id}`}>{(i ? ', ': '') + artist.name}</Link>
               </div>
             ))}
           </div>

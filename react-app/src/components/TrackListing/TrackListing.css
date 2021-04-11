@@ -48,7 +48,14 @@
 .track-artists {
   font-size: 13px;
   display: flex;
+}
+
+.track-artist a {
   color: rgb(172, 172, 172)
+}
+
+.track-artist a:hover {
+  text-decoration: underline;
 }
 
 .track-album {

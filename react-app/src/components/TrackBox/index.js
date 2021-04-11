@@ -4,6 +4,7 @@ import { AppWithContext } from '../../App';
 import { formatTrack } from '../../utils';
 import './TrackBox.css';
 import { addToPlaylist } from '../../store/playlists';
+import { Link } from 'react-router-dom';
 
 
 const TrackBox = ({ track, trackList, index }) => {
@@ -100,7 +101,7 @@ const TrackBox = ({ track, trackList, index }) => {
       <div className="tb-artists">
       {track.artists.map((artist, i) => (
         <div className="tb-artist" key={artist.id}>
-          <p>{(i ? ', ': '') + artist.name}</p>
+          <Link to={`/artists/${artist.id}`}>{(i ? ', ': '') + artist.name}</Link>
         </div>
       ))}
       </div>

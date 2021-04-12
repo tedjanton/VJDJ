@@ -2,14 +2,17 @@ from app.models import db, Album
 
 
 def albums_seed1():
+  # album1
   chromatica = Album(title="Chromatica",
                      year=2020,
                      art_src="/static/album-art/chromatica.jpeg",
                      artist_id=1)
+  # album2
   future_nostalgia = Album(title="Future Nostalgia",
                      year=2020,
                      art_src="/static/album-art/future-nostalgia.jpeg",
                      artist_id=2)
+  # album3
   montero = Album(title="MONTERO (Call Me By Your Name)",
                   year=2021,
                   art_src="/static/album-art/montero.jpeg",

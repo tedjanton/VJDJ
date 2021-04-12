@@ -17,10 +17,20 @@ def playlists_seed2():
                  user_id=2,
                  created_at=(datetime.now()),
                  user_follows=[User.query.get(1), User.query.get(3), User.query.get(8)])
+  pl5 = Playlist(name="Jammy Jams",
+                 user_id=3,
+                 created_at=(datetime.now()),
+                 user_follows=[User.query.get(2), User.query.get(4), User.query.get(6)])
+  pl6 = Playlist(name="Toons",
+                 user_id=4,
+                 created_at=(datetime.now()),
+                 user_follows=[User.query.get(1), User.query.get(5), User.query.get(7)])
 
   db.session.add(pl2)
   db.session.add(pl3)
   db.session.add(pl4)
+  db.session.add(pl5)
+  db.session.add(pl6)
   db.session.commit()
 
 

@@ -61,17 +61,17 @@ def albums_seed2():
   heart_to_break = Album(title="Heart To Break",
                          year=2018,
                          art_src="/static/album-art/heart-to-break.jpeg",
-                         artist_id=14)
+                         artist_id=15)
   # album16
   i_dont_want = Album(title="I Don't Want It At All",
                       year=2017,
                       art_src="/static/album-art/i-dont-want-it-at-all.png",
-                      artist_id=14)
+                      artist_id=15)
   # album17
   malibu = Album(title="Malibu",
                  year=2020,
                  art_src="/static/album-art/malibu.png",
-                 artist_id=14)
+                 artist_id=15)
   # album18
   club_fn = Album(title="Club Future Nostalgia",
                   year=2020,

@@ -55,7 +55,8 @@ const AlbumTrackListing = ({ track, trackList, index }) => {
       track_id: track.id,
       playlist_id: pl.id,
     }
-    dispatch(addToPlaylist(submission, user.id))
+    dispatch(addToPlaylist(submission, user.id));
+    setAddMenu(false);
   }
 
   return (

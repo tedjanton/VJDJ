@@ -32,7 +32,7 @@
   <h3 align="center">VjDj</h3>
 
   <p align="center">
-VjDj (Video Jockey, Disc Jockey) is a Spotify clone with music videos...because why not have both in the same place? Pick a song to play, then make a playlist, add songs to it, edit it (with a drag and drop!), follow others' playlists, all while listening to tracks without interruptions.
+VjDj (Video Jockey, Disc Jockey) is a Spotify clone with music videos...because why not have both in the same place? Pick a song to play, then make a playlist, add songs to it, edit it (with a drag and drop!), follow others' playlists, all while listening to tracks without interruptions. Feel like watching the music video for a particular song? Just click the "watch video" button and your wish will be granted.
     <br />
     <a href="https://github.com/tedjanton/VJDJ"><strong>Explore the docs »</strong></a>
     <br />

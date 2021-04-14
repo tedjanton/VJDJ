@@ -1,13 +1,17 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { AppWithContext } from '../../App';
 import { searchTables } from '../../store/search';
+import ArtistAlbumBox from '../ArtistAlbumBox';
+import PlaylistBox from '../PlaylistBox';
+import TrackBox from '../TrackBox';
 import './SearchPage.css';
 
 
 const SearchPage = () => {
   const dispatch = useDispatch();
   const { inBrowse, setInBrowse } = useContext(AppWithContext);
+  const results = useSelector(state => state.search.found);
   const [query, setQuery] = useState("");
 
   const removeBackground = (e) => {
@@ -23,13 +27,13 @@ const SearchPage = () => {
   }, [inBrowse, setInBrowse]);
 
   useEffect(() => {
-    if (query.length <= 1) return;
-    if (query.length % 2 !== 0) return;
+    if (query.length <= 2) return;
+    // if (query.length % 2 !== 0) return;
     dispatch(searchTables(query));
   }, [query])
 
   return (
-    <>
+    <div className="search-page-container">
       <div className="search-bar-container">
         <input
           type="text"
@@ -39,7 +43,67 @@ const SearchPage = () => {
           placeholder="Artists, songs, or playlists"
         />
       </div>
-    </>
+      {query.length <= 2 ? (
+        <div className="search-placeholder">
+          <div className="search-music-icon">
+            <i className="fas fa-music search" />
+          </div>
+          <h1>Discover your new favorite music...</h1>
+        </div>
+      ) : (
+        <div className="search-results-container">
+          {results?.artists && (
+            <>
+              {results.artists.length > 0 && (
+                <h2 className="search-results-artists-header">Artists</h2>
+              )}
+              <div className="search-results-artists">
+                {results.artists.map(artist => (
+                  <ArtistAlbumBox key={artist.id} artist={artist} />
+                ))}
+              </div>
+            </>
+          )}
+          {results?.albums && (
+            <>
+              {results.albums.length > 0 && (
+                <h2 className="search-results-albums-header">Albums</h2>
+              )}
+              <div className="search-results-albums">
+                {results.albums.map(album => (
+                  <ArtistAlbumBox key={album.id} album={album} />
+                ))}
+              </div>
+            </>
+          )}
+          {results?.playlists && (
+            <>
+              {results.playlists.length > 0 && (
+                <h2 className="search-results-playlists-header">Playlists</h2>
+              )}
+              <div className="search-results-playlists">
+                {results.playlists.map(playlist => (
+                  <PlaylistBox key={playlist.id} playlist={playlist} />
+                ))}
+              </div>
+            </>
+          )}
+          {results?.tracks && (
+            <>
+              {results.tracks.length > 0 && (
+                <h2 className="search-results-tracks-header">Songs</h2>
+              )}
+              <div className="search-results-tracks">
+                {results.tracks.map((track, i) => (
+                  <TrackBox key={track.id} track={track} trackList={results.tracks} index={i} />
+                ))}
+              </div>
+            </>
+          )}
+        </div>
+
+      )}
+    </div>
   )
 };
 

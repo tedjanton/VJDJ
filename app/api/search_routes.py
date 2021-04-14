@@ -15,10 +15,10 @@ def find_results(query):
   albums = Album.query.filter(Album.title.ilike(f"%{query}%")).all()
   tracks = Track.query.filter(Track.title.ilike(f"%{query}%")).all()
 
-  found_pls = [pl.to_search_dict() for pl in playlists]
+  found_pls = [pl.to_name_art_dict() for pl in playlists]
   found_artists = [artist.to_search_dict() for artist in artists]
   found_albums = [album.to_search_dict() for album in albums]
-  found_tracks = [track.to_search_dict() for track in tracks]
+  found_tracks = [track.to_dict() for track in tracks]
 
   return {"playlists": found_pls,
           "artists": found_artists,

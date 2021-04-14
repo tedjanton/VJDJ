@@ -42,6 +42,6 @@ class Album(db.Model):
     return {
       'id': self.id,
       'title': self.title,
-      'artist': self.artist.to_only_name_dict(),
+      'artist': self.artist.to_no_tracks_dict(),
       'art_src': self.art_src,
     }

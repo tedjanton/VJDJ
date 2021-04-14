@@ -6,7 +6,7 @@ import LogoutButton from '../auth/LogoutButton';
 import './NavBar.css';
 
 const NavBar = ({ nav, authenticated, setAuthenticated }) => {
-  const { inBrowse, setInBrowse } = useContext(AppWithContext);
+  const { inBrowse, setInBrowse, inSearch } = useContext(AppWithContext);
   const [menu, setMenu] = useState(false);
   const user = useSelector(state => state.session.user);
 

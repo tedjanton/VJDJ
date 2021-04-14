@@ -38,3 +38,10 @@ class Playlist(db.Model):
       'tracks': [track.to_dict() for track in self.tracks],
       'created_at': self.created_at,
     }
+
+  def to_search_dict(self):
+    return {
+      'id': self.id,
+      'name': self.name,
+      'user': self.user.to_dict(),
+    }

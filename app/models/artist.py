@@ -35,3 +35,14 @@ class Artist(db.Model):
       'bio': self.bio,
       'image': self.image,
     }
+
+
+  def to_search_dict(self):
+    return {
+      'id': self.id,
+      'name': self.name,
+      'image': self.image,
+    }
+
+  def to_only_name_dict(self):
+    return self.name

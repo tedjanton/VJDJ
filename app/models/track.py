@@ -54,13 +54,10 @@ class Track(db.Model):
       'art': self.album.to_only_art_dict(),
     }
 
-
-  # def to_no_artists_album_dict(self):
-  #   return {
-  #     'id': self.id,
-  #     'title': self.title,
-  #     'track_num': self.track_num,
-  #     'num_plays': self.num_plays,
-  #     'audio_src': self.audio_src,
-  #     'vid_src': self.vid_src,
-  #   }
+  def to_search_dict(self):
+    return {
+      'id': self.id,
+      'title': self.title,
+      'artists': [artist.to_only_name_dict() for artist in self.artists],
+      'art': self.album.to_only_art_dict(),
+    }

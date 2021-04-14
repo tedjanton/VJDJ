@@ -25,6 +25,7 @@ function App() {
   const [authenticated, setAuthenticated] = useState(false);
   const [nav, setNav] = useState(true);
   const [inBrowse, setInBrowse] = useState(false);
+  const [inSearch, setInSearch] = useState(false);
   const [loaded, setLoaded] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [trackQueue, setTrackQueue] = useState([]);
@@ -60,7 +61,9 @@ function App() {
           inBrowse,
           setInBrowse,
           paramsRef,
-          trackRef
+          trackRef,
+          inSearch,
+          setInSearch
         }}
       >
         <NavBar

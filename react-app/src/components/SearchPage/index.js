@@ -13,6 +13,7 @@ const SearchPage = () => {
   const { inBrowse, setInBrowse } = useContext(AppWithContext);
   const results = useSelector(state => state.search.found);
   const [query, setQuery] = useState("");
+  const [noResults, setNoResults] = useState(false);
 
   const removeBackground = (e) => {
     document.getElementById("nav-home").classList.remove("browser")
@@ -28,13 +29,28 @@ const SearchPage = () => {
 
   useEffect(() => {
     if (query.length <= 2) return;
-    // if (query.length % 2 !== 0) return;
     dispatch(searchTables(query));
   }, [query])
+
+  useEffect(() => {
+    let count = 0
+    if (results) {
+      for (let key in results) {
+        if (results[key].length === 0) {
+          count += 1
+        }
+      }
+    }
+    if (count === 4) setNoResults(true);
+    else setNoResults(false);
+  }, [results])
+
+  console.log(noResults)
 
   return (
     <div className="search-page-container">
       <div className="search-bar-container">
+        <i className="fas fa-search search-bar" />
         <input
           type="text"
           name="search-bar"
@@ -101,8 +117,14 @@ const SearchPage = () => {
             </>
           )}
         </div>
-
       )}
+      <div>
+        {noResults && query.length > 2 && (
+        <div>
+          <h1>No results found. Please try again.</h1>
+        </div>
+        )}
+      </div>
     </div>
   )
 };

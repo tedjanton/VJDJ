@@ -52,8 +52,13 @@ p.album-detail-year {
   align-items: center;
 }
 
-p.album-detail-artist-name {
+a.album-detail-artist-name {
   text-shadow: none;
+  margin-left: 10px;
+}
+
+a.album-detail-artist-name:hover {
+  text-decoration: underline;
 }
 
 p.album-detail-year,

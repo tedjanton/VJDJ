@@ -1,6 +1,26 @@
 .search-page-container {
   padding-left: 230px;
-  padding-top: 50px;
+}
+
+.search-bar-container {
+  margin: 20px 0 0 50px;
+  position: relative;
+}
+
+.fas.fa-search.search-bar {
+  position: absolute;
+  color: rgb(102, 102, 102);
+  top: 10px;
+  font-weight: thin;
+}
+
+.search-bar-container input {
+  height: 40px;
+  width: 260px;
+  border-radius: 20px;
+  border: none;
+  padding: 0 50px;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .search-placeholder {
@@ -20,6 +40,7 @@
 .search-results-container {
   display: flex;
   flex-direction: column;
+  padding: 0 0 0 25px;
 }
 
 .search-results-artists,
@@ -28,6 +49,13 @@
 .search-results-tracks {
   display: flex;
   flex-wrap: wrap;
+}
+
+.search-results-artists-header,
+.search-results-albums-header,
+.search-results-playlists-header,
+.search-results-tracks-header {
+  margin: 40px 0 5px 10px;
 }
 
 .search-music-icon {

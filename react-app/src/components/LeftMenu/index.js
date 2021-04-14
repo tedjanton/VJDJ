@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 import { Modal } from '../../context/Modal';
 import { AppWithContext } from '../../App';
 import PlaylistModal from '../PlaylistModal';
@@ -11,6 +11,7 @@ import './LeftMenu.css';
 const LeftMenu = ({ authenticated }) => {
   const { inBrowse, setInBrowse } = useContext(AppWithContext);
   const dispatch = useDispatch();
+  const history = useHistory();
   const user = useSelector(state => state.session.user)
   const [showModal, setShowModal] = useState(false);
   const userPls = useSelector(state => state.playlists.userPls);
@@ -25,7 +26,7 @@ const LeftMenu = ({ authenticated }) => {
 
   return (
     <div className="lm-container">
-      <div className="lm-logo">
+      <div onClick={() => history.push("/")} className="lm-logo">
         <i className="fab fa-spotify" />
         <div className="lm-logo-title">
           <span className="v">V</span>

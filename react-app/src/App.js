@@ -16,6 +16,7 @@ import AlbumBrowser from './components/AlbumBrowser';
 import { authenticate } from './store/session';
 import ArtistDetail from './components/ArtistDetail';
 import AlbumDetail from './components/AlbumDetail';
+import SearchPage from './components/SearchPage';
 
 export const AppWithContext = createContext();
 
@@ -62,7 +63,11 @@ function App() {
           trackRef
         }}
       >
-        <NavBar nav={nav} authenticated={authenticated} setAuthenticated={setAuthenticated} />
+        <NavBar
+          nav={nav}
+          authenticated={authenticated}
+          setAuthenticated={setAuthenticated}
+        />
         {authenticated && (
         <>
           <LeftMenu authenticated={authenticated} />
@@ -108,6 +113,9 @@ function App() {
           </ProtectedRoute>
           <ProtectedRoute path='/albums/:id' exact authenticated={authenticated}>
             <AlbumDetail />
+          </ProtectedRoute>
+          <ProtectedRoute path='/search' exact authenticated={authenticated}>
+            <SearchPage />
           </ProtectedRoute>
         </Switch>
         <Queue authenticated={authenticated} />

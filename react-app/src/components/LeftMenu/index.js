@@ -41,7 +41,9 @@ const LeftMenu = ({ authenticated }) => {
           </NavLink>
         </div>
         <div className="lm-nav-search">
-          <p><i className="fas fa-search" />Search</p>
+          <NavLink activeClassName="nav-active active" to="/search">
+            <i className="fas fa-search" />Search
+          </NavLink>
         </div>
         <div className="lm-nav-library">
           <NavLink

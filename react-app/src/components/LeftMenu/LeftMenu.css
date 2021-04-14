@@ -25,10 +25,10 @@ a.nav-active.active {
   padding: 5px 15px 5px 5px;
   line-height: 40px;
 }
-
+/*
 .lm-nav-search {
   margin-left: 12px;
-}
+} */
 
 .lm-nav-library {
   display: flex;
@@ -47,7 +47,7 @@ a.nav-active.active {
 }
 
 .lm-nav-home a,
-.lm-nav-search p,
+.lm-nav-search a,
 .lm-nav-library a,
 .lm-create-pl p {
   display: flex;
@@ -60,20 +60,16 @@ a.nav-active.active {
 }
 
 .lm-nav-home a:hover,
-.lm-nav-search p:hover,
+.lm-nav-search a:hover,
 .lm-nav-library a:hover {
   color: white;
 }
 
-.fa-home {
-  margin-right: 15px;
-  font-size: 22px;
-  padding-left: 10px;
-}
-
+.fa-home,
 .fa-search {
   margin-right: 15px;
   font-size: 22px;
+  padding-left: 10px;
 }
 
 .lm-logo {

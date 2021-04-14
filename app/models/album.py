@@ -36,3 +36,12 @@ class Album(db.Model):
 
   def to_only_art_dict(self):
     return self.art_src
+
+
+  def to_search_dict(self):
+    return {
+      'id': self.id,
+      'title': self.title,
+      'artist': self.artist.to_no_tracks_dict(),
+      'art_src': self.art_src,
+    }

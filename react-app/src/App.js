@@ -16,6 +16,7 @@ import AlbumBrowser from './components/AlbumBrowser';
 import { authenticate } from './store/session';
 import ArtistDetail from './components/ArtistDetail';
 import AlbumDetail from './components/AlbumDetail';
+import SearchPage from './components/SearchPage';
 
 export const AppWithContext = createContext();
 
@@ -24,6 +25,7 @@ function App() {
   const [authenticated, setAuthenticated] = useState(false);
   const [nav, setNav] = useState(true);
   const [inBrowse, setInBrowse] = useState(false);
+  const [inSearch, setInSearch] = useState(false);
   const [loaded, setLoaded] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [trackQueue, setTrackQueue] = useState([]);
@@ -59,10 +61,16 @@ function App() {
           inBrowse,
           setInBrowse,
           paramsRef,
-          trackRef
+          trackRef,
+          inSearch,
+          setInSearch
         }}
       >
-        <NavBar nav={nav} authenticated={authenticated} setAuthenticated={setAuthenticated} />
+        <NavBar
+          nav={nav}
+          authenticated={authenticated}
+          setAuthenticated={setAuthenticated}
+        />
         {authenticated && (
         <>
           <LeftMenu authenticated={authenticated} />
@@ -108,6 +116,9 @@ function App() {
           </ProtectedRoute>
           <ProtectedRoute path='/albums/:id' exact authenticated={authenticated}>
             <AlbumDetail />
+          </ProtectedRoute>
+          <ProtectedRoute path='/search' exact authenticated={authenticated}>
+            <SearchPage />
           </ProtectedRoute>
         </Switch>
         <Queue authenticated={authenticated} />

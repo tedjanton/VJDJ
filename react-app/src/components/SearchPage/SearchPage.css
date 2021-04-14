@@ -1,0 +1,44 @@
+.search-page-container {
+  padding-left: 230px;
+  padding-top: 50px;
+}
+
+.search-placeholder {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 80px;
+}
+
+.search-placeholder h1 {
+  max-width: 500px;
+  font-size: 50px;
+  text-align: center;
+}
+
+.search-results-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.search-results-artists,
+.search-results-albums,
+.search-results-playlists,
+.search-results-tracks {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.search-music-icon {
+  font-size: 100px;
+  height: 220px;
+  width: 220px;
+  background-color: #1ed760;
+  border-radius: 50%;
+}
+
+.fas.fa-music.search {
+  border-radius: 50%;
+  padding: 60px 50px 50px 50px;
+}

@@ -1,13 +1,11 @@
 import React, { useEffect, useContext, useState } from 'react';
 import { ColorExtractor } from 'react-color-extractor';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { AppWithContext } from '../../App';
 import { getAlbum } from '../../store/albums';
-import { getArtist } from '../../store/artists';
 import { formatTrack } from '../../utils';
 import AlbumTrackListing from '../AlbumTrackListing';
-import ArtistTrackListing from '../ArtistTrackListing';
 import './AlbumDetail.css';
 
 
@@ -18,7 +16,6 @@ const AlbumDetail = () => {
   const tracks = useSelector(state => state.albums.selected?.tracks);
   const { inBrowse, setInBrowse, setTrackQueue, setTrackIdx, setIsPlaying } = useContext(AppWithContext);
   const [isAlbumPlaying, setIsAlbumPlaying] = useState(false);
-  const [openText, setOpenText] = useState(false);
   const [colors, getColors] = useState([]);
 
   const removeBackground = () => {
@@ -66,8 +63,10 @@ const AlbumDetail = () => {
             <div className="album-detail-artist-image">
               <img src={album?.artist.image} alt="artist" />
             </div>
-            <p className="album-detail-artist-name">{`${album?.artist.name} •`}</p>
-            <p className="album-detail-year">{`${album?.year} •`}</p>
+            <Link
+              to={`/artists/${album?.artist.id}`}
+              className="album-detail-artist-name">{album?.artist.name}</Link>
+            <p className="album-detail-year">{`• ${album?.year} •`}</p>
             <div className="pl-num-songs artist-detail">
               <p>{`${tracks?.length} ${tracks?.length === 1 ? "song" : "songs" }`}</p>
             </div>

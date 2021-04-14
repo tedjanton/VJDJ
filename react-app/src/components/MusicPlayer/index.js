@@ -105,13 +105,13 @@ const MusicPlayer = ({ tracks }) => {
       <div className="mp-container">
         <div className="mp-track-info">
           <div className="mp-art-container">
-            {art && (
-              <img
-                className="mp-art"
-                src={art}
-                alt="track art"
-                />
-            )}
+          {art && (
+            <img
+              className="mp-art"
+              src={art}
+              alt="track art"
+            />
+          )}
           </div>
           <div className="mp-track-details">
             <div className="mp-title-container">

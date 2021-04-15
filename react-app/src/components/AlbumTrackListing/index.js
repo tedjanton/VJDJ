@@ -25,8 +25,11 @@ const AlbumTrackListing = ({ track, trackList, index }) => {
   } = useContext(AppWithContext)
 
   useEffect(() => {
-    if (showModal) setIsPlaying(false);
-  }, [showModal, setIsPlaying])
+    if (showModal) {
+      setIsPlaying(false);
+      setIsHover(false);
+    }
+  }, [showModal, setIsPlaying, isHover, setIsHover])
 
   const handleMouseEnter = () => {
     setIsHover(true);

@@ -22,53 +22,32 @@ const PlaylistDetail = () => {
   const params = useParams();
   const playlist = useSelector(state => state.playlists.selected?.playlist);
   const tracks = useSelector(state => state.playlists.selected?.tracks);
-  const following = useSelector(state => state.playlists.following)
+  const following = useSelector(state => state.playlists.following);
   const user = useSelector(state => state.session.user);
   const [images, setImages] = useState([]);
   const [colors, getColors] = useState([]);
   const [draggable, setDraggable] = useState(false);
-  const [dragAndDrop, setDragAndDrop] = useState(initialDnDState)
+  const [dragAndDrop, setDragAndDrop] = useState(initialDnDState);
   const [list, setList] = useState();
   const [editState, setEditState] = useState(null);
-  const [isUserPlaylist, setIsUserPlaylist] = useState()
-  const { inBrowse, setInBrowse } = useContext(AppWithContext)
+  const [isUserPlaylist, setIsUserPlaylist] = useState();
+  const { inBrowse, setInBrowse } = useContext(AppWithContext);
 
   const removeBackground = () => {
     document.getElementById("nav-home").classList.remove("browser");
-  }
+  };
 
   useEffect(() => {
     removeBackground()
-  }, [])
-
-  // useEffect(() => {
-  //   if (user) {
-  //     window.addEventListener("scroll", () => {
-  //       let nav = document.getElementById("nav-home");
-  //       if (window.pageYOffset > 130) {
-  //         nav.setAttribute(
-  //           "style",
-  //           `background-color: rgb(30, 30, 30);
-  //            transition: all ease-in-out .2s;
-  //            padding: 10px 0;`)
-  //       } else {
-  //         nav.setAttribute(
-  //           "style",
-  //           `background-color: none;
-  //            transition: all ease-in-out .2s;
-  //            padding: 15px 0;`)
-  //       }
-  //     })
-  //   }
-  // }, [user])
+  }, []);
 
   useEffect(() => {
     setList(tracks);
-  }, [tracks])
+  }, [tracks]);
 
   useEffect(() => {
     setInBrowse(false)
-  }, [inBrowse])
+  }, [inBrowse]);
 
   useEffect(() => {
     (async() => {
@@ -156,10 +135,10 @@ const PlaylistDetail = () => {
           </div>
           <div className="pl-subheader">
             <div className="pl-user-name">
-              <p>{`${playlist?.user.firstName} ${playlist?.user.lastName} •`}</p>
+              <p>{`${playlist?.user.firstName} ${playlist?.user.lastName}`}</p>
             </div>
             <div className="pl-num-songs">
-              <p>{`${tracks?.length} ${tracks?.length === 1 ? "song" : "songs" }`}</p>
+              <p>{`• ${tracks?.length} ${tracks?.length === 1 ? "song" : "songs" }`}</p>
             </div>
           </div>
         </div>

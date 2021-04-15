@@ -25,8 +25,11 @@ const ArtistTrackListing = ({ track, trackList, index }) => {
   } = useContext(AppWithContext)
 
   useEffect(() => {
-    if (showModal) setIsPlaying(false);
-  }, [showModal, setIsPlaying])
+    if (showModal) {
+      setIsPlaying(false);
+      setIsHover(false);
+    }
+  }, [showModal, setIsPlaying, isHover, setIsHover])
 
   const handleMouseEnter = () => {
     setIsHover(true);
@@ -37,24 +40,12 @@ const ArtistTrackListing = ({ track, trackList, index }) => {
     setAddMenu(false);
   };
 
-  // console.log(trackRef.current)
-  // console.log(track.id);
-  // console.log(isTrackPlaying);
-  // useEffect(() => {
-  //   if (trackRef.current?.id === track.id) {
-  //     setIsTrackPlaying(true);
-  //   } else {
-  //     setIsTrackPlaying(false);
-  //   }
-  // })
-
   const handleQueue = () => {
     let formatted = trackList.map(track => formatTrack(track))
     trackRef.current = formatted[index];
     setTrackIdx(index);
     setTrackQueue(formatted);
     setIsPlaying(true);
-    // setIsTrackPlaying(true);
   }
 
   const handleAddMenu = () => {
@@ -80,7 +71,7 @@ const ArtistTrackListing = ({ track, trackList, index }) => {
         id={`track-${track.order_num}`}
       >
         <div className="track-details-container">
-          {isHover && (
+          {isHover ? (
             <div>
               <button onClick={handleQueue} className="track-play-button">
                 {isPlaying && isTrackPlaying ? (
@@ -90,8 +81,7 @@ const ArtistTrackListing = ({ track, trackList, index }) => {
                 )}
               </button>
             </div>
-          )}
-          {!isHover && (
+          ) : (
             <div className="track-num">
               <p>{index + 1}</p>
             </div>

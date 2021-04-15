@@ -5,99 +5,97 @@ import './MusicPlayer.css';
 
 
 const MusicPlayer = ({ tracks }) => {
-  const { isPlaying, setIsPlaying, trackIdx, setTrackIdx, trackQueue } = useContext(AppWithContext)
-  const [trackProgress, setTrackProgress] = useState(0);
+  const {
+    isPlaying,
+    setIsPlaying,
+    trackIdx,
+    setTrackIdx,
+    trackQueue
+  } = useContext(AppWithContext);
+  const [progress, setProgress] = useState(0);
   const [vol, setVol] = useState(1);
-  const { title, artists, art, audio_src } = tracks[trackIdx]
-  const audioRef = useRef(new Audio(audio_src))
+  const { title, artists, art, audio_src } = tracks[trackIdx];
+  const audRef = useRef(new Audio(audio_src));
   const intervalRef = useRef();
   const isReady = useRef(false);
-  const { duration } = audioRef?.current;
+  const { duration } = audRef.current;
 
-  const startTimer = () => {
+  const timer = () => {
     clearInterval(intervalRef.current);
     intervalRef.current = setInterval(() => {
-      if (audioRef.current.ended) {
-        toNextTrack();
-      } else {
-        setTrackProgress(audioRef.current.currentTime)
-      }
+      if (audRef.current.ended) toNextTrack();
+      else setProgress(audRef.current.currentTime)
     }, [1000])
   };
 
   useEffect(() => {
-    audioRef.current.pause();
-    audioRef.current = new Audio(audio_src);
-    setTrackProgress(audioRef.current.currentTime);
+    audRef.current.pause();
+    audRef.current = new Audio(audio_src);
+    setProgress(audRef.current.currentTime);
 
     if (isReady.current) {
-      audioRef.current.play();
+      audRef.current.play();
       setIsPlaying(true);
-      startTimer();
+      timer();
     } else {
       isReady.current = true;
     }
   }, [trackIdx, trackQueue])
 
   useEffect(() => {
-    audioRef.current.volume = vol;
+    audRef.current.volume = vol;
   }, [vol])
 
   useEffect(() => {
     return () => {
-      audioRef.current.pause();
+      audRef.current.pause();
       clearInterval(intervalRef.current);
     }
   }, []);
 
   useEffect(() => {
     if (isPlaying) {
-      audioRef.current.play();
-      startTimer();
+      audRef.current.play();
+      timer();
     } else {
       clearInterval(intervalRef.current);
-      audioRef.current.pause();
+      audRef.current.pause();
     }
-  }, [startTimer, isPlaying]);
+  }, [timer, isPlaying]);
 
   const toPrevTrack = () => {
-    if (trackProgress > 2) {
-      audioRef.current.currentTime = 0;
-    } else if (trackIdx - 1 < 0) {
-      setTrackIdx(tracks.length - 1);
-    } else {
-      setTrackIdx(trackIdx - 1);
-    }
+    if (progress > 2) audRef.current.currentTime = 0;
+    else if (trackIdx - 1 < 0) setTrackIdx(tracks.length - 1);
+    else setTrackIdx(trackIdx - 1);
   }
 
   const toNextTrack = () => {
-    if (trackIdx < tracks.length - 1) {
-      setTrackIdx(trackIdx + 1);
-    } else {
-      setTrackIdx(0)
-    }
+    if (trackIdx < tracks.length - 1) setTrackIdx(trackIdx + 1);
+    else setTrackIdx(0)
   }
 
   const onScrub = (value) => {
     clearInterval(intervalRef.current);
-    audioRef.current.currentTime = value;
-    setTrackProgress(audioRef.current.currentTime);
+    audRef.current.currentTime = value;
+    setProgress(audRef.current.currentTime);
   };
 
   const onScrubEnd = () => {
-    if (!isPlaying) {
-      setIsPlaying(true)
-    }
-    startTimer();
+    if (!isPlaying) setIsPlaying(true);
+    timer();
   }
 
-  const currentPercentage = duration ? `${(trackProgress / duration) * 100}%` : '0%';
+  const currPercentage = duration ? `${(progress / duration) * 100}%` : '0%';
   const trackStyling = `
-    -webkit-gradient(linear, 0% 0%, 100% 0%, color-stop(${currentPercentage}, #e1e1e1), color-stop(${currentPercentage}, #505050))
+    -webkit-gradient(linear, 0% 0%, 100% 0%,
+      color-stop(${currPercentage}, #e1e1e1),
+      color-stop(${currPercentage}, #505050))
   `;
-  const currentVolPercentage = `${vol * 100}%`;
+  const curVolPercentage = `${vol * 100}%`;
   const volStyling = `
-    -webkit-gradient(linear, 0% 0%, 100% 0%, color-stop(${currentVolPercentage}, #e1e1e1), color-stop(${currentVolPercentage}, #505050))
+    -webkit-gradient(linear, 0% 0%, 100% 0%,
+      color-stop(${curVolPercentage}, #e1e1e1),
+      color-stop(${curVolPercentage}, #505050))
   `;
 
   return (
@@ -135,11 +133,11 @@ const MusicPlayer = ({ tracks }) => {
           </div>
           <div className="mp-progress-container">
             <div className="mp-progress-start">
-              <p>{trackProgress ? new Date(trackProgress * 1000).toISOString().substr(15, 4) : "0:00"}</p>
+              <p>{progress ? new Date(progress * 1000).toISOString().substr(15, 4) : "0:00"}</p>
             </div>
             <input
               type="range"
-              value={trackProgress}
+              value={progress}
               step="1"
               min="0"
               max={duration ? duration : `${duration}`}
@@ -176,18 +174,4 @@ const MusicPlayer = ({ tracks }) => {
   )
 }
 
-
 export default MusicPlayer;
-
-
-// let tracks = [{
-  //   title: "Stupid Love",
-  //   artist: "Lady Gaga",
-  //   art: chromatica,
-  //   audio_src: 'https://vjdj.s3.amazonaws.com/music/lady-gaga/Chromatica/03+Stupid+Love.m4a'
-  // }, {
-  //   title: "Don't Start Now",
-  //   artist: "Dua Lipa",
-  //   art: future_nostalgia,
-  //   audio_src: 'https://vjdj.s3.amazonaws.com/music/dua-lipa/future-nostalgia/02-dua_lipa-dont_start_now.mp3'
-  // }]

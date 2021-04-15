@@ -40,19 +40,10 @@ def edit_playlist(id):
   pl_tracks = PlaylistTrack.query.filter(PlaylistTrack.playlist_id == id).all();
   req = request.get_json()
 
-  new_list = []
-
-  i = 0
-  while i < len(req):
+  for item in req:
     for pl_track in pl_tracks:
-      if req[i]["track_id"] == pl_track.track_id:
-        new_list.append(pl_track)
-    i += 1
-
-  y = 0
-  while y < len(new_list):
-    new_list[y].order_num = y + 1
-    y += 1
+      if item["track_id"] == pl_track.track_id:
+        pl_track.order_num = item["order_num"]
 
   db.session.commit()
   return {"editedPL": [pl_track.to_dict() for pl_track in pl_tracks]}
@@ -120,7 +111,7 @@ def delete_playlist(id):
 
   for track in pl_tracks:
     db.session.delete(track)
-    
+
   db.session.delete(playlist)
   db.session.commit()
 

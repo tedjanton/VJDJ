@@ -126,9 +126,9 @@ const MusicPlayer = ({ tracks }) => {
           <div className="mp-controls-container">
             <Controls
               isPlaying={isPlaying}
-              onPrevClick={toPrevTrack}
-              onNextClick={toNextTrack}
-              onPlayPauseClick={setIsPlaying}
+              toPrevTrack={toPrevTrack}
+              toNextTrack={toNextTrack}
+              setIsPlaying={setIsPlaying}
               />
           </div>
           <div className="mp-progress-container">

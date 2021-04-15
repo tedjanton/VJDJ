@@ -4,9 +4,9 @@ import './MusicPlayer.css';
 
 const Controls = ({
   isPlaying,
-  onPlayPauseClick,
-  onPrevClick,
-  onNextClick }) => {
+  setIsPlaying,
+  toPrevTrack,
+  toNextTrack }) => {
 
     return (
       <div className="controls-container">
@@ -14,7 +14,7 @@ const Controls = ({
           type="button"
           className="prev"
           aria-label="Previous"
-          onClick={onPrevClick}
+          onClick={toPrevTrack}
         >
           <i className="fas fa-step-backward" />
         </button>
@@ -23,7 +23,7 @@ const Controls = ({
             type="button"
             className="pause"
             aria-label="Pause"
-            onClick={() => onPlayPauseClick(false)}
+            onClick={() => setIsPlaying(false)}
           >
             <i className="fas fa-pause-circle" />
           </button>
@@ -32,7 +32,7 @@ const Controls = ({
             type="button"
             className="play"
             aria-label="Play"
-            onClick={() => onPlayPauseClick(true)}
+            onClick={() => setIsPlaying(true)}
           >
             <i className="fas fa-play-circle" />
           </button>
@@ -41,7 +41,7 @@ const Controls = ({
           type="button"
           className="next"
           aria-label="Next"
-          onClick={onNextClick}
+          onClick={toNextTrack}
         >
           <i className="fas fa-step-forward" />
         </button>

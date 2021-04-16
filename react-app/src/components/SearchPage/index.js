@@ -45,8 +45,6 @@ const SearchPage = () => {
     else setNoResults(false);
   }, [results])
 
-  console.log(noResults)
-
   return (
     <div className="search-page-container">
       <div className="search-bar-container">

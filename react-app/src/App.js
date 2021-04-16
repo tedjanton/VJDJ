@@ -33,7 +33,6 @@ function App() {
   const paramsRef = useRef();
   const trackRef = useRef();
 
-
   useEffect(() => {
     (async() => {
       const user = await dispatch(authenticate());
@@ -46,7 +45,7 @@ function App() {
 
   if (!loaded) {
     return null;
-  }
+  };
 
   return (
     <BrowserRouter>

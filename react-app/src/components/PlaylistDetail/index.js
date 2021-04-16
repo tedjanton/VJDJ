@@ -8,6 +8,7 @@ import TrackListing from '../TrackListing';
 import { getPlaylist } from '../../store/playlists';
 import './PlaylistDetail.css';
 import PlaylistActions from './PlaylistActions';
+import { playlistImageBuilder } from '../../utils';
 
 const initialDnDState = {
   draggedFrom: null,
@@ -33,12 +34,8 @@ const PlaylistDetail = () => {
   const [isUserPlaylist, setIsUserPlaylist] = useState();
   const { inBrowse, setInBrowse } = useContext(AppWithContext);
 
-  const removeBackground = () => {
-    document.getElementById("nav-home").classList.remove("browser");
-  };
-
   useEffect(() => {
-    removeBackground()
+    document.getElementById("nav-home").classList.remove("browser");
   }, []);
 
   useEffect(() => {
@@ -52,14 +49,7 @@ const PlaylistDetail = () => {
   useEffect(() => {
     (async() => {
       let pl = await dispatch(getPlaylist(params.id))
-      let imgs = [];
-      if (pl.tracks) {
-        for (let i = 0; i < pl.tracks.length; i++) {
-          imgs.push(pl.tracks[i].track.album.art_src);
-        }
-      }
-      let square = imgs.filter((img, i) => i < 4)
-      setImages(square);
+      setImages(playlistImageBuilder(pl));
     })();
   }, [dispatch, params])
 

@@ -8,18 +8,13 @@ const PlaylistBrowser = () => {
   const dispatch = useDispatch();
   const playlists = useSelector(state => state.playlists.allPls)
 
-  const addBackground = (e) => {
-    document.getElementById("nav-home").classList.add("browser")
-  }
-
   useEffect(() => {
-    addBackground()
-  }, [])
+    document.getElementById("nav-home").classList.add("browser")
+  }, []);
 
   useEffect(() => {
     dispatch(getAllPlaylists());
   }, [dispatch]);
-
 
   return (
     <div className="plbrow-container">

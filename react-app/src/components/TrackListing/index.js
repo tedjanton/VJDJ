@@ -30,9 +30,7 @@ const TrackListing = ({ track, trackList, index, playlist, isUserPlaylist }) => 
     if (showModal) setIsPlaying(false);
   }, [showModal, setIsPlaying])
 
-  const handleMouseEnter = () => {
-    setIsHover(true);
-  };
+  const handleMouseEnter = () => setIsHover(true);
 
   const handleMouseLeave = () => {
     setIsHover(false);
@@ -46,12 +44,9 @@ const TrackListing = ({ track, trackList, index, playlist, isUserPlaylist }) => 
     setTrackIdx(index);
     setTrackQueue(formatted);
     setIsPlaying(true);
-    // setIsTrackPlaying(true);
   }
 
-  const handleEdit = () => {
-    setEditMenu(true)
-  }
+  const handleEdit = () => setEditMenu(true);
 
   const handleDelete = () => {
     const selection = {
@@ -63,9 +58,7 @@ const TrackListing = ({ track, trackList, index, playlist, isUserPlaylist }) => 
     dispatch(deleteFromPlaylist(selection));
   }
 
-  const handleAddMenu = () => {
-    setAddMenu(true)
-  }
+  const handleAddMenu = () => setAddMenu(true)
 
   const addTrack = (pl) => {
     const submission = {
@@ -114,13 +107,17 @@ const TrackListing = ({ track, trackList, index, playlist, isUserPlaylist }) => 
           <div className="track-artists">
             {track.track.artists.map((artist, i) => (
               <div key={artist.id} className="track-artist">
-                <Link to={`/artists/${artist.id}`}>{(i ? ', ': '') + artist.name}</Link>
+                <Link to={`/artists/${artist.id}`}>
+                  {(i ? ', ': '') + artist.name}
+                </Link>
               </div>
             ))}
           </div>
         </div>
         <div className="track-album">
-          <Link to={`/albums/${track.track.album.id}`}>{track.track.album.title}</Link>
+          <Link to={`/albums/${track.track.album.id}`}>
+            {track.track.album.title}
+          </Link>
         </div>
         <div className="track-video">
         {track.track.vid_src ? (
@@ -139,6 +136,12 @@ const TrackListing = ({ track, trackList, index, playlist, isUserPlaylist }) => 
           </>
         ) : (
           <>
+            <button
+              disabled
+              className="track-video-button"
+            >
+              <i className="fas fa-video" />
+            </button>
           </>
         )}
         </div>

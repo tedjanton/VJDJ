@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import playlist_placeholder from '../../images/playlist_placeholder.png';
+import { playlistImageBuilder } from '../../utils';
 import './PlaylistBox.css';
 
 
@@ -9,14 +10,7 @@ const PlaylistBox = ({ playlist }) => {
   const [images, setImages] = useState([]);
 
   useEffect(() => {
-    let imgs = [];
-    if (playlist.tracks) {
-      for (let i = 0; i < playlist.tracks.length; i++) {
-        imgs.push(playlist.tracks[i].track.album.art_src);
-      }
-    }
-    let square = imgs.filter((img, i) => i < 4)
-    setImages(square);
+    setImages(playlistImageBuilder(playlist));
   }, [playlist])
 
   return (

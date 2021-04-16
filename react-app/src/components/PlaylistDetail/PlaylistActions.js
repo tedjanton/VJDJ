@@ -66,10 +66,7 @@ const PlayFollow = ({
       setIsPlaylistPlaying(false);
       setIsPlaying(false);
     } else {
-      setTrackQueue([])
-      let formatted = tracks.map(track => formatTrack(track.track))
-      setTrackIdx(1);
-      setTrackQueue(formatted);
+      setTrackQueue(tracks.map(track => formatTrack(track.track)));
       setTrackIdx(0);
       setIsPlaying(true);
       paramsRef.current = params.id;

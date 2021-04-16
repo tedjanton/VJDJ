@@ -1,3 +1,5 @@
+import React, {useState, useEffect} from 'react';
+
 
 export const formatTrack = (track) => ({
   id: track.id,
@@ -50,4 +52,18 @@ export const hexToHSL = (H) => {
   l = +(l * 100).toFixed(1);
 
   return "hsl(" + h + "," + s + "%," + l + "%)";
+}
+
+export const useDelayUnmount = (confirmedBox) => {
+  const [showBox, setShowBox] = useState(false);
+  useEffect(() => {
+    let timeoutId;
+    if (confirmedBox && !showBox) {
+      setShowBox(true);
+    } else if (!confirmedBox && showBox) {
+      timeoutId = setTimeout(() => setShowBox(false), 2000); //delay our unmount
+    }
+    return () => clearTimeout(timeoutId); // cleanup mechanism for effects , the use of setTimeout generate a sideEffect
+  }, [confirmedBox, showBox]);
+  return showBox;
 }

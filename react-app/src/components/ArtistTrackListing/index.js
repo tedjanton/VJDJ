@@ -21,7 +21,8 @@ const ArtistTrackListing = ({ track, trackList, index }) => {
     isPlaying,
     setIsPlaying,
     setTrackIdx,
-    trackRef
+    trackRef,
+    setConfirmedBox
   } = useContext(AppWithContext)
 
   useEffect(() => {
@@ -59,6 +60,7 @@ const ArtistTrackListing = ({ track, trackList, index }) => {
     }
     dispatch(addToPlaylist(submission, user.id))
     setAddMenu(false);
+    setConfirmedBox(true);
   }
 
   return (

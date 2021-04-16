@@ -11,10 +11,17 @@ const TrackBox = ({ track, trackList, index }) => {
   const dispatch = useDispatch();
   const userPls = useSelector(state => state.playlists.userPls)
   const user = useSelector(state => state.session.user)
-  const { setTrackQueue, isPlaying, setIsPlaying, setTrackIdx, trackRef } = useContext(AppWithContext)
   const [isHover, setIsHover] = useState(false);
   const [addMenu, setAddMenu] = useState(false);
   const [isTrackPlaying, setIsTrackPlaying] = useState(false);
+  const {
+    setTrackQueue,
+    isPlaying,
+    setIsPlaying,
+    setTrackIdx,
+    trackRef,
+    setConfirmedBox
+  } = useContext(AppWithContext)
 
 
   useEffect(() => {
@@ -55,6 +62,7 @@ const TrackBox = ({ track, trackList, index }) => {
     };
     setAddMenu(false);
     dispatch(addToPlaylist(submission, user.id));
+    setConfirmedBox(true);
   };
 
   return (

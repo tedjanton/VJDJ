@@ -30,6 +30,7 @@ function App() {
   const [isPlaying, setIsPlaying] = useState(false);
   const [trackQueue, setTrackQueue] = useState([]);
   const [trackIdx, setTrackIdx] = useState(0);
+  const [confirmedBox, setConfirmedBox] = useState(false);
   const paramsRef = useRef();
   const trackRef = useRef();
 
@@ -42,6 +43,14 @@ function App() {
       setLoaded(true);
     })();
   }, [dispatch]);
+
+  useEffect(() => {
+    if (confirmedBox) {
+      setTimeout(() => {
+        setConfirmedBox(false)
+      }, 2000)
+    }
+  }, [confirmedBox]);
 
   if (!loaded) {
     return null;
@@ -62,7 +71,8 @@ function App() {
           paramsRef,
           trackRef,
           inSearch,
-          setInSearch
+          setInSearch,
+          setConfirmedBox
         }}
       >
         <NavBar
@@ -121,6 +131,12 @@ function App() {
           </ProtectedRoute>
         </Switch>
         <Queue authenticated={authenticated} />
+        {confirmedBox && (
+          <div className="confirmed-popup fade-out">
+            <p>Added to playlist</p>
+            <i className="fas fa-check-circle confirmed" />
+          </div>
+        )}
       </AppWithContext.Provider>
     </BrowserRouter>
   );

@@ -22,7 +22,8 @@ const TrackListing = ({ track, trackList, index, playlist, isUserPlaylist }) => 
     isPlaying,
     setIsPlaying,
     setTrackIdx,
-    trackRef
+    trackRef,
+    setConfirmedBox
   } = useContext(AppWithContext)
 
   useEffect(() => {
@@ -38,17 +39,6 @@ const TrackListing = ({ track, trackList, index, playlist, isUserPlaylist }) => 
     setEditMenu(false);
     setAddMenu(false);
   };
-
-  // console.log(trackRef.current)
-  // console.log(track.id);
-  // console.log(isTrackPlaying);
-  // useEffect(() => {
-  //   if (trackRef.current?.id === track.id) {
-  //     setIsTrackPlaying(true);
-  //   } else {
-  //     setIsTrackPlaying(false);
-  //   }
-  // })
 
   const handleQueue = () => {
     let formatted = trackList.map(track => formatTrack(track.track))
@@ -83,7 +73,8 @@ const TrackListing = ({ track, trackList, index, playlist, isUserPlaylist }) => 
       playlist_id: pl.id,
     }
     dispatch(addToPlaylist(submission, user.id))
-    setEditMenu(false)
+    setEditMenu(false);
+    setConfirmedBox(true);
   }
 
   return (

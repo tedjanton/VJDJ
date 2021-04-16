@@ -1,11 +1,10 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { AppWithContext } from '../../App';
+import { addToPlaylist } from '../../store/playlists';
 import { formatTrack } from '../../utils';
 import './TrackBox.css';
-import { addToPlaylist } from '../../store/playlists';
-import { Link } from 'react-router-dom';
-
 
 const TrackBox = ({ track, trackList, index }) => {
   const dispatch = useDispatch();
@@ -44,16 +43,6 @@ const TrackBox = ({ track, trackList, index }) => {
     setTrackQueue(formatted);
     setIsPlaying(true);
   };
-
-  // const handleQueue = () => {
-  //   if (trackQueue.length) {
-  //     setTrackQueue([])
-  //     setIsPlaying(false)
-  //   }
-  //   setTrackQueue([formatTrack(track)]);
-  //   setIsPlaying(true)
-
-  // }
 
   const addTrack = (pl) => {
     const submission = {

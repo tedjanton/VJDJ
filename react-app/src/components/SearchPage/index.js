@@ -7,7 +7,6 @@ import PlaylistBox from '../PlaylistBox';
 import TrackBox from '../TrackBox';
 import './SearchPage.css';
 
-
 const SearchPage = () => {
   const dispatch = useDispatch();
   const { inBrowse, setInBrowse } = useContext(AppWithContext);
@@ -15,12 +14,8 @@ const SearchPage = () => {
   const [query, setQuery] = useState("");
   const [noResults, setNoResults] = useState(false);
 
-  const removeBackground = (e) => {
-    document.getElementById("nav-home").classList.remove("browser")
-  }
-
   useEffect(() => {
-    removeBackground()
+    document.getElementById("nav-home").classList.remove("browser");
   }, []);
 
   useEffect(() => {
@@ -116,13 +111,11 @@ const SearchPage = () => {
           )}
         </div>
       )}
-      <div>
-        {noResults && query.length > 2 && (
-        <div>
-          <h1>No results found. Please try again.</h1>
+      {noResults && query.length > 2 && (
+        <div className="search-placeholder">
+          <h1>No luck with that...please try again.</h1>
         </div>
-        )}
-      </div>
+      )}
     </div>
   )
 };

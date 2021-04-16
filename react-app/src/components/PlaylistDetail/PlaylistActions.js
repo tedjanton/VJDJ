@@ -33,15 +33,6 @@ const PlayFollow = ({
 
   } = useContext(AppWithContext)
 
-
-  const handlePlaying = () => {
-    if (isPlaying && paramsRef.current === params.id) {
-      setIsPlaylistPlaying(true);
-    } else {
-      setIsPlaylistPlaying(false);
-    }
-  }
-
   useEffect(() => {
     let followIds = following?.map(pl => pl.id);
     if (followIds?.includes(playlist?.id)) {
@@ -52,8 +43,12 @@ const PlayFollow = ({
   })
 
   useEffect(() => {
-    handlePlaying();
-  }, [playlist, isPlaying, tracks, params, handlePlaying]);
+    if (isPlaying && paramsRef.current === params.id) {
+      setIsPlaylistPlaying(true);
+    } else {
+      setIsPlaylistPlaying(false);
+    }
+  }, [playlist, isPlaying, tracks, params]);
 
   useEffect(() => {
     if (!user?.errors) {

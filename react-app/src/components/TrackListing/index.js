@@ -30,8 +30,6 @@ const TrackListing = ({ track, trackList, index, playlist, isUserPlaylist }) => 
     if (showModal) setIsPlaying(false);
   }, [showModal, setIsPlaying])
 
-  const handleMouseEnter = () => setIsHover(true);
-
   const handleMouseLeave = () => {
     setIsHover(false);
     setEditMenu(false);
@@ -44,9 +42,7 @@ const TrackListing = ({ track, trackList, index, playlist, isUserPlaylist }) => 
     setTrackIdx(index);
     setTrackQueue(formatted);
     setIsPlaying(true);
-  }
-
-  const handleEdit = () => setEditMenu(true);
+  };
 
   const handleDelete = () => {
     const selection = {
@@ -56,24 +52,22 @@ const TrackListing = ({ track, trackList, index, playlist, isUserPlaylist }) => 
     }
     window.confirm("Are you sure you would like to remove this song from this playlist?");
     dispatch(deleteFromPlaylist(selection));
-  }
-
-  const handleAddMenu = () => setAddMenu(true)
+  };
 
   const addTrack = (pl) => {
     const submission = {
       track_id: track.track.id,
       playlist_id: pl.id,
-    }
+    };
     dispatch(addToPlaylist(submission, user.id))
     setEditMenu(false);
     setConfirmedBox(true);
-  }
+  };
 
   return (
     <div
       className="pl-track-container"
-      onMouseEnter={handleMouseEnter}
+      onMouseEnter={() => setIsHover(true)}
       onMouseLeave={handleMouseLeave}>
       <div
         className="pl-track-container-inner"
@@ -150,7 +144,7 @@ const TrackListing = ({ track, trackList, index, playlist, isUserPlaylist }) => 
             <p>{track.track.time}</p>
           </div>
           {isHover && (
-            <div onClick={handleEdit} className="track-edit">
+            <div onClick={() => setEditMenu(true)} className="track-edit">
               <i className="tl fas fa-ellipsis-h" />
             </div>
           )}
@@ -160,7 +154,7 @@ const TrackListing = ({ track, trackList, index, playlist, isUserPlaylist }) => 
                 <button onClick={handleDelete}>Delete</button>
               </div>
               <div className="tl-add-to-button">
-                <button onClick={handleAddMenu}>Add to Playlist</button>
+                <button onClick={() => setAddMenu(true)}>Add to Playlist</button>
               </div>
               <div className="tb-add-box-container">
               {addMenu && (
@@ -179,7 +173,7 @@ const TrackListing = ({ track, trackList, index, playlist, isUserPlaylist }) => 
           {editMenu && isHover && !isUserPlaylist && (
             <div className="tl-edit-menu-not-user">
               <div className="tl-add-to-button">
-                <button onClick={handleAddMenu}>Add to Playlist</button>
+                <button onClick={() => setAddMenu(true)}>Add to Playlist</button>
               </div>
               <div className="tb-add-box-container">
               {addMenu && (

@@ -8,7 +8,6 @@ import { formatTrack } from '../../utils';
 import ArtistTrackListing from '../ArtistTrackListing';
 import './ArtistDetail.css';
 
-
 const ArtistDetail = () => {
   const dispatch = useDispatch();
   const params = useParams();
@@ -18,13 +17,9 @@ const ArtistDetail = () => {
   const [isArtistPlaying, setIsArtistPlaying] = useState(false);
   const [openText, setOpenText] = useState(false);
 
-  const removeBackground = () => {
-    document.getElementById("nav-home").classList.remove("browser")
-  }
-
   useEffect(() => {
-    removeBackground()
-  }, [])
+    document.getElementById("nav-home").classList.remove("browser");
+  }, []);
 
   useEffect(() => {
     setInBrowse(false)

@@ -2,13 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Redirect, useHistory } from 'react-router-dom';
 import { login } from '../../store/session';
+import { getWindowDimensions } from '../../utils';
 import google from '../../images/google.png';
 import "./LoginForm.css";
-
-const getWindowDimensions = () => {
-  const { innerWidth: width, innerHeight: height } = window;
-  return { width, height };
-}
 
 const LoginForm = ({ setNav, authenticated, setAuthenticated }) => {
   const dispatch = useDispatch();
@@ -18,6 +14,8 @@ const LoginForm = ({ setNav, authenticated, setAuthenticated }) => {
   const [password, setPassword] = useState('');
   const [windowDims, setWindowDims] = useState(getWindowDimensions());
 
+  useEffect(() => setNav(false), [setNav])
+
   useEffect(() => {
     const handleResize = () => {
       setWindowDims(getWindowDimensions());
@@ -25,10 +23,6 @@ const LoginForm = ({ setNav, authenticated, setAuthenticated }) => {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, [])
-
-  useEffect(() => {
-    setNav(false)
-  }, [setNav])
 
   const onLogin = async (e) => {
     e.preventDefault();
@@ -89,7 +83,7 @@ const LoginForm = ({ setNav, authenticated, setAuthenticated }) => {
         <form className="login-form" onSubmit={onLogin}>
           <div className="login-form-errors">
             {errors.map((error) => (
-              <div>{error}</div>
+              <div key={error}>{error}</div>
               ))}
           </div>
           <div className="login-email">

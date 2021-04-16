@@ -6,11 +6,11 @@ import { logout } from '../../store/session';
 const LogoutButton = ({setAuthenticated, setMenu}) => {
   const history = useHistory();
   const dispatch = useDispatch();
+
   const onLogout = async (e) => {
     setMenu(false);
     setAuthenticated(false);
     await dispatch(logout());
-    // window.location.reload();
     return history.push("/");
   };
 

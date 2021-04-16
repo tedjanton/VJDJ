@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
-import playlist_placeholder from '../../images/playlist_placeholder.png';
 import { playlistImageBuilder } from '../../utils';
+import playlist_placeholder from '../../images/playlist_placeholder.png';
 import './PlaylistBox.css';
-
 
 const PlaylistBox = ({ playlist }) => {
   const history = useHistory();
@@ -11,7 +10,7 @@ const PlaylistBox = ({ playlist }) => {
 
   useEffect(() => {
     setImages(playlistImageBuilder(playlist));
-  }, [playlist])
+  }, [playlist]);
 
   return (
     <div
@@ -39,8 +38,7 @@ const PlaylistBox = ({ playlist }) => {
         <p>{`by ${playlist.user.firstName} ${playlist.user.lastName}`}</p>
       </div>
     </div>
-
   )
-}
+};
 
 export default PlaylistBox;

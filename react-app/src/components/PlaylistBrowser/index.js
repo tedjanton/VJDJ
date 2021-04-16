@@ -12,9 +12,7 @@ const PlaylistBrowser = () => {
     document.getElementById("nav-home").classList.add("browser")
   }, []);
 
-  useEffect(() => {
-    dispatch(getAllPlaylists());
-  }, [dispatch]);
+  useEffect(() => dispatch(getAllPlaylists()), [dispatch]);
 
   return (
     <div className="plbrow-container">

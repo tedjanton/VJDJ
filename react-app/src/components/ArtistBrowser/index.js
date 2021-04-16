@@ -10,18 +10,12 @@ const ArtistBrowser = () => {
   const { setInBrowse } = useContext(AppWithContext);
   const artists = useSelector(state => state.artists.all);
 
-  const addBackground = (e) => {
-    document.getElementById("nav-home").classList.add("browser")
-  }
-
   useEffect(() => {
     setInBrowse(true);
-    addBackground()
-  })
+    document.getElementById("nav-home").classList.add("browser")
+  });
 
-  useEffect(() => {
-    dispatch(getArtists())
-  }, [dispatch])
+  useEffect(() => dispatch(getArtists()), [dispatch]);
 
   return (
     <div className="plbrow-container">

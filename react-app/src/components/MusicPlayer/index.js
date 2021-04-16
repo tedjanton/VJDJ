@@ -3,7 +3,6 @@ import { AppWithContext } from '../../App';
 import Controls from "./Controls";
 import './MusicPlayer.css';
 
-
 const MusicPlayer = ({ tracks }) => {
   const {
     isPlaying,

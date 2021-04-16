@@ -44,7 +44,7 @@ const PlayFollow = ({
     } else {
       setIsPlaylistPlaying(false);
     }
-  }, [playlist, isPlaying, tracks, params]);
+  }, [playlist, isPlaying, tracks, params, setIsPlaylistPlaying]);
 
   useEffect(() => {
     if (!user?.errors) {

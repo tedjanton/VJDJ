@@ -6,28 +6,19 @@ import LogoutButton from '../auth/LogoutButton';
 import './NavBar.css';
 
 const NavBar = ({ nav, authenticated, setAuthenticated }) => {
-  const { inBrowse, setInBrowse, inSearch } = useContext(AppWithContext);
+  const { inBrowse, setInBrowse } = useContext(AppWithContext);
   const [menu, setMenu] = useState(false);
   const user = useSelector(state => state.session.user);
 
-  useEffect(() => {
-    setInBrowse(true);
-  }, [inBrowse, setInBrowse])
+  useEffect(() => setInBrowse(true), [inBrowse, setInBrowse]);
 
   useEffect(() => {
     let button = document.getElementById("prof-button")
     if (!user?.errors && button) {
-      if (menu) {
-        button.classList.add("active-button");
-      } else {
-        button.classList.remove("active-button");
-      }
+      if (menu) button.classList.add("active-button")
+      else button.classList.remove("active-button");
     }
-  }, [menu, user])
-
-  const handleProfButton = () => {
-    setMenu(!menu)
-  }
+  }, [menu, user]);
 
   let links;
   if (authenticated) {
@@ -55,7 +46,7 @@ const NavBar = ({ nav, authenticated, setAuthenticated }) => {
           )}
         </div>
         <div className="nav-home">
-          <button id="prof-button" onClick={handleProfButton}>
+          <button id="prof-button" onClick={() => setMenu(!menu)}>
             <i className="fas fa-user-circle"
             />{`${user?.firstName} ${user?.lastName}`}
             {!menu ? (

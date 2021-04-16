@@ -2,12 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Redirect, NavLink } from 'react-router-dom';
 import { signUp } from '../../store/session';
+import { getWindowDimensions } from '../../utils';
 import Recaptcha from './Recaptcha';
-
-const getWindowDimensions = () => {
-  const { innerWidth: width, innerHeight: height } = window;
-  return { width, height };
-}
 
 const SignUpForm = ({ setNav, authenticated, setAuthenticated }) => {
   const dispatch = useDispatch();
@@ -20,9 +16,7 @@ const SignUpForm = ({ setNav, authenticated, setAuthenticated }) => {
   const [repeatPassword, setRepeatPassword] = useState('');
   const [windowDims, setWindowDims] = useState(getWindowDimensions());
 
-  useEffect(() => {
-    setNav(false);
-  }, [setNav])
+  useEffect(() => setNav(false), [setNav]);
 
   useEffect(() => {
     const handleResize = () => {

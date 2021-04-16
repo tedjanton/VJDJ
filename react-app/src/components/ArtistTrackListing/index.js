@@ -30,11 +30,7 @@ const ArtistTrackListing = ({ track, trackList, index }) => {
       setIsPlaying(false);
       setIsHover(false);
     }
-  }, [showModal, setIsPlaying, isHover, setIsHover])
-
-  const handleMouseEnter = () => {
-    setIsHover(true);
-  };
+  }, [showModal, setIsPlaying, isHover, setIsHover]);
 
   const handleMouseLeave = () => {
     setIsHover(false);
@@ -42,16 +38,12 @@ const ArtistTrackListing = ({ track, trackList, index }) => {
   };
 
   const handleQueue = () => {
-    let formatted = trackList.map(track => formatTrack(track))
+    let formatted = trackList.map(track => formatTrack(track));
     trackRef.current = formatted[index];
     setTrackIdx(index);
     setTrackQueue(formatted);
     setIsPlaying(true);
-  }
-
-  const handleAddMenu = () => {
-    setAddMenu(true)
-  }
+  };
 
   const addTrack = (pl) => {
     const submission = {
@@ -61,12 +53,12 @@ const ArtistTrackListing = ({ track, trackList, index }) => {
     dispatch(addToPlaylist(submission, user.id))
     setAddMenu(false);
     setConfirmedBox(true);
-  }
+  };
 
   return (
     <div
       className="pl-track-container"
-      onMouseEnter={handleMouseEnter}
+      onMouseEnter={() => setIsHover(true)}
       onMouseLeave={handleMouseLeave}>
       <div
         className="pl-track-container-inner"
@@ -124,6 +116,12 @@ const ArtistTrackListing = ({ track, trackList, index }) => {
           </>
         ) : (
           <>
+            <button
+              disabled
+              className="track-video-button"
+            >
+              <i className="fas fa-video" />
+            </button>
           </>
         )}
         </div>
@@ -132,7 +130,7 @@ const ArtistTrackListing = ({ track, trackList, index }) => {
             <p>{track.time}</p>
           </div>
           {isHover && (
-            <div onClick={handleAddMenu} className="track-edit artist">
+            <div onClick={() => setAddMenu(true)} className="track-edit artist">
               <i className="tl fas fa-ellipsis-h" />
             </div>
           )}

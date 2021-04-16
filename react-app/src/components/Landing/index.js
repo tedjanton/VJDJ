@@ -4,13 +4,10 @@ import { Redirect } from "react-router-dom";
 import { login } from '../../store/session';
 import "./Landing.css";
 
-
 const Landing = ({ setNav, authenticated, setAuthenticated }) => {
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    setNav(true);
-  }, [setNav])
+  useEffect(() => setNav(true), [setNav])
 
   const onLogin = async (e) => {
     e.preventDefault();

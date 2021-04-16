@@ -2,12 +2,7 @@ import React from 'react';
 import './MusicPlayer.css';
 
 
-const Controls = ({
-  isPlaying,
-  setIsPlaying,
-  toPrevTrack,
-  toNextTrack }) => {
-
+const Controls = ({ isPlaying, setIsPlaying, toPrevTrack, toNextTrack }) => {
     return (
       <div className="controls-container">
         <button

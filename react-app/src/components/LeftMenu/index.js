@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, useHistory } from 'react-router-dom';
-import { Modal } from '../../context/Modal';
 import { AppWithContext } from '../../App';
-import PlaylistModal from '../PlaylistModal';
+import { Modal } from '../../context/Modal';
 import { getUserFollowedPls, getUserPls } from '../../store/playlists';
 import library from '../../images/library.png';
+import PlaylistModal from '../PlaylistModal';
 import './LeftMenu.css';
 
 const LeftMenu = ({ authenticated }) => {
@@ -105,7 +105,6 @@ const LeftMenu = ({ authenticated }) => {
               </NavLink>
             </div>
           ))}
-
         </div>
       </div>
     </div>

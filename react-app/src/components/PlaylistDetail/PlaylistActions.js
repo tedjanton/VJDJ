@@ -30,16 +30,12 @@ const PlayFollow = ({
     setIsPlaying,
     setTrackIdx,
     paramsRef,
-
   } = useContext(AppWithContext)
 
   useEffect(() => {
     let followIds = following?.map(pl => pl.id);
-    if (followIds?.includes(playlist?.id)) {
-      setIsFollowing(true)
-    } else {
-      setIsFollowing(false);
-    }
+    if (followIds?.includes(playlist?.id)) setIsFollowing(true);
+    else setIsFollowing(false);
   })
 
   useEffect(() => {
@@ -68,18 +64,12 @@ const PlayFollow = ({
     }
   }
 
-  const playlistMenu = () => {
-    setOpenMenu(!openMenu)
-  }
-
   const handleFollow = () => {
     if (playlist?.user.id === user?.id) return;
-    const submission = { userId: user.id, playlistId: playlist.id }
-    if (isFollowing) {
-      dispatch(unfollow(submission))
-    } else {
-      dispatch(addFollow(submission))
-    }
+
+    const submission = { userId: user.id, playlistId: playlist.id };
+    if (isFollowing) dispatch(unfollow(submission));
+    else dispatch(addFollow(submission));
   }
 
   const handleEdit = () => {
@@ -100,7 +90,6 @@ const PlayFollow = ({
     setDraggable(false);
     await dispatch(editPlaylist(submission, playlist.id))
     await dispatch(getPlaylist(playlist.id))
-    // handle resetting queue order
   }
 
   const cancelEdits = () => {
@@ -157,7 +146,7 @@ const PlayFollow = ({
         {isUserPlaylist && (
           <div
             className="pl-dot-menu"
-            onClick={playlistMenu}>
+            onClick={() => setOpenMenu(!openMenu)}>
             <i className="pl fas fa-ellipsis-h" />
           </div>
         )}

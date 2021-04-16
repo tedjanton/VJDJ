@@ -38,20 +38,16 @@ const PlaylistDetail = () => {
     document.getElementById("nav-home").classList.remove("browser");
   }, []);
 
-  useEffect(() => {
-    setList(tracks);
-  }, [tracks]);
+  useEffect(() => setList(tracks), [tracks]);
 
-  useEffect(() => {
-    setInBrowse(false)
-  }, [inBrowse]);
+  useEffect(() => setInBrowse(false), [inBrowse]);
 
   useEffect(() => {
     (async() => {
       let pl = await dispatch(getPlaylist(params.id))
       setImages(playlistImageBuilder(pl));
     })();
-  }, [dispatch, params])
+  }, [dispatch, params]);
 
   const onDragStart = (e) => {
     const initialPosition = Number(e.currentTarget.dataset.position)
@@ -60,21 +56,21 @@ const PlaylistDetail = () => {
       draggedFrom: initialPosition,
       isDragging: true,
       originalOrder: list,
-    })
+    });
     e.dataTransfer.setData('text/html', '');
-  }
+  };
 
   const onDragOver = (e) => {
     e.preventDefault();
     let newList = dragAndDrop.originalOrder;
     const draggedFrom = dragAndDrop.draggedFrom;
     const draggedTo = Number(e.currentTarget.dataset.position);
-    const itemDragged = newList[draggedFrom];
-    const remainingItems = newList.filter((track, i) => i !== draggedFrom);
+    const trackDragged = newList[draggedFrom];
+    const tracksRemaining = newList.filter((track, i) => i !== draggedFrom);
     newList = [
-      ...remainingItems.slice(0, draggedTo),
-      itemDragged,
-      ...remainingItems.slice(draggedTo)
+      ...tracksRemaining.slice(0, draggedTo),
+      trackDragged,
+      ...tracksRemaining.slice(draggedTo)
     ];
 
     if (draggedTo !== dragAndDrop.draggedTo) {
@@ -83,8 +79,8 @@ const PlaylistDetail = () => {
         updatedOrder: newList,
         draggedTo: draggedTo
       })
-    }
-  }
+    };
+  };
 
   const onDrop = () => {
     setList(dragAndDrop.updatedOrder);

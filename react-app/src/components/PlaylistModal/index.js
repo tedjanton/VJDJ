@@ -7,7 +7,7 @@ import './PlaylistModal.css';
 const PlaylistModal = ({ setShowModal }) => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const user = useSelector(state => state.session.user)
+  const user = useSelector(state => state.session.user);
   const [name, setName] = useState("");
 
   const handleSubmit = async (e) => {
@@ -15,12 +15,12 @@ const PlaylistModal = ({ setShowModal }) => {
     const submission = {
       name,
       user_id: user.id
-    }
+    };
     const newPlaylist = await dispatch(createPlaylist(submission));
     setShowModal(false)
     dispatch(getUserPls(user.id))
     return history.push(`/playlists/${newPlaylist.id}`)
-  }
+  };
 
   return (
     <div className="create-pl-container">

@@ -5,14 +5,13 @@ import MusicPlayer from '../MusicPlayer';
 
 const Queue = ({ authenticated }) => {
   const { trackQueue } = useContext(AppWithContext)
-  let tracks = trackQueue
 
   if (!authenticated) return null;
 
   return (
     <div>
-    {tracks.length && (
-      <MusicPlayer tracks={tracks} />
+    {trackQueue.length && (
+      <MusicPlayer tracks={trackQueue} />
     )}
     </div>
   )

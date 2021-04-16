@@ -38,7 +38,6 @@ const ArtistAlbumBox = ({ artist, album }) => {
       </div>
     )
   }
-
 }
 
 export default ArtistAlbumBox;

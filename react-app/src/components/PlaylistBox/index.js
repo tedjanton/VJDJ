@@ -1,23 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
+import { playlistImageBuilder } from '../../utils';
 import playlist_placeholder from '../../images/playlist_placeholder.png';
 import './PlaylistBox.css';
-
 
 const PlaylistBox = ({ playlist }) => {
   const history = useHistory();
   const [images, setImages] = useState([]);
 
   useEffect(() => {
-    let imgs = [];
-    if (playlist.tracks) {
-      for (let i = 0; i < playlist.tracks.length; i++) {
-        imgs.push(playlist.tracks[i].track.album.art_src);
-      }
-    }
-    let square = imgs.filter((img, i) => i < 4)
-    setImages(square);
-  }, [playlist])
+    setImages(playlistImageBuilder(playlist));
+  }, [playlist]);
 
   return (
     <div
@@ -45,8 +38,7 @@ const PlaylistBox = ({ playlist }) => {
         <p>{`by ${playlist.user.firstName} ${playlist.user.lastName}`}</p>
       </div>
     </div>
-
   )
-}
+};
 
 export default PlaylistBox;

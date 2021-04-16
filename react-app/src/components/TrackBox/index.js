@@ -1,20 +1,26 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { AppWithContext } from '../../App';
+import { addToPlaylist } from '../../store/playlists';
 import { formatTrack } from '../../utils';
 import './TrackBox.css';
-import { addToPlaylist } from '../../store/playlists';
-import { Link } from 'react-router-dom';
-
 
 const TrackBox = ({ track, trackList, index }) => {
   const dispatch = useDispatch();
   const userPls = useSelector(state => state.playlists.userPls)
   const user = useSelector(state => state.session.user)
-  const { setTrackQueue, isPlaying, setIsPlaying, setTrackIdx, trackRef } = useContext(AppWithContext)
   const [isHover, setIsHover] = useState(false);
   const [addMenu, setAddMenu] = useState(false);
   const [isTrackPlaying, setIsTrackPlaying] = useState(false);
+  const {
+    setTrackQueue,
+    isPlaying,
+    setIsPlaying,
+    setTrackIdx,
+    trackRef,
+    setConfirmedBox
+  } = useContext(AppWithContext)
 
 
   useEffect(() => {
@@ -36,30 +42,17 @@ const TrackBox = ({ track, trackList, index }) => {
     setTrackIdx(index);
     setTrackQueue(formatted);
     setIsPlaying(true);
-  }
-
-  // const handleQueue = () => {
-  //   if (trackQueue.length) {
-  //     setTrackQueue([])
-  //     setIsPlaying(false)
-  //   }
-  //   setTrackQueue([formatTrack(track)]);
-  //   setIsPlaying(true)
-
-  // }
-
-  const handleAddMenu = () => {
-    setAddMenu(true)
-  }
+  };
 
   const addTrack = (pl) => {
     const submission = {
       track_id: track.id,
       playlist_id: pl.id,
-    }
-    setAddMenu(false)
-    dispatch(addToPlaylist(submission, user.id))
-  }
+    };
+    setAddMenu(false);
+    dispatch(addToPlaylist(submission, user.id));
+    setConfirmedBox(true);
+  };
 
   return (
     <div
@@ -77,7 +70,7 @@ const TrackBox = ({ track, trackList, index }) => {
                 <i className="tb fas fa-play" />
               )}
             </button>
-            <button onClick={handleAddMenu} className="tb-add-song-button">
+            <button onClick={() => setAddMenu(true)} className="tb-add-song-button">
               <i className="tb fas fa-plus-circle" />
             </button>
           </div>

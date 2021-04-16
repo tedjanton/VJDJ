@@ -8,40 +8,51 @@ import { formatTrack } from '../../utils';
 import AlbumTrackListing from '../AlbumTrackListing';
 import './AlbumDetail.css';
 
-
 const AlbumDetail = () => {
   const dispatch = useDispatch();
   const params = useParams();
   const album = useSelector(state => state.albums.selected);
   const tracks = useSelector(state => state.albums.selected?.tracks);
-  const { inBrowse, setInBrowse, setTrackQueue, setTrackIdx, setIsPlaying } = useContext(AppWithContext);
   const [isAlbumPlaying, setIsAlbumPlaying] = useState(false);
   const [colors, getColors] = useState([]);
+  const {
+    isPlaying,
+    inBrowse,
+    setInBrowse,
+    setTrackQueue,
+    setTrackIdx,
+    setIsPlaying,
+    paramsRef
+  } = useContext(AppWithContext);
 
-  const removeBackground = () => {
+  useEffect(() => {
     document.getElementById("nav-home").classList.remove("browser")
-  }
+  }, []);
 
-  useEffect(() => {
-    removeBackground()
-  }, [])
-
-  useEffect(() => {
-    setInBrowse(false)
-  }, [inBrowse])
+  useEffect(() => setInBrowse(false), [inBrowse]);
 
   useEffect(() => {
     dispatch(getAlbum(params.id))
-  }, [dispatch, params])
+  }, [dispatch, params]);
+
+  useEffect(() => {
+    if (isPlaying && paramsRef.current === params.id) {
+      setIsAlbumPlaying(true);
+    } else {
+      setIsAlbumPlaying(false);
+    }
+  }, [album, isPlaying, tracks, params, setIsAlbumPlaying]);
 
   const addToQueue = () => {
-    setTrackQueue([])
-    let formatted = tracks.map(track => formatTrack(track))
-    setTrackIdx(1);
-    setTrackQueue(formatted);
-    setTrackIdx(0);
-    setIsPlaying(true);
-    setIsAlbumPlaying(true)
+    if (isAlbumPlaying && isPlaying) {
+      setIsAlbumPlaying(false);
+      setIsPlaying(false);
+    } else {
+      setTrackQueue(tracks.map(track => formatTrack(track)));
+      setTrackIdx(0);
+      setIsPlaying(true);
+      setIsAlbumPlaying(true)
+    }
   };
 
   return (

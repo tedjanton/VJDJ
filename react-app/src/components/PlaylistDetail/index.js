@@ -8,6 +8,7 @@ import TrackListing from '../TrackListing';
 import { getPlaylist } from '../../store/playlists';
 import './PlaylistDetail.css';
 import PlaylistActions from './PlaylistActions';
+import { playlistImageBuilder } from '../../utils';
 
 const initialDnDState = {
   draggedFrom: null,
@@ -22,67 +23,31 @@ const PlaylistDetail = () => {
   const params = useParams();
   const playlist = useSelector(state => state.playlists.selected?.playlist);
   const tracks = useSelector(state => state.playlists.selected?.tracks);
-  const following = useSelector(state => state.playlists.following)
+  const following = useSelector(state => state.playlists.following);
   const user = useSelector(state => state.session.user);
   const [images, setImages] = useState([]);
   const [colors, getColors] = useState([]);
   const [draggable, setDraggable] = useState(false);
-  const [dragAndDrop, setDragAndDrop] = useState(initialDnDState)
+  const [dragAndDrop, setDragAndDrop] = useState(initialDnDState);
   const [list, setList] = useState();
   const [editState, setEditState] = useState(null);
-  const [isUserPlaylist, setIsUserPlaylist] = useState()
-  const { inBrowse, setInBrowse } = useContext(AppWithContext)
+  const [isUserPlaylist, setIsUserPlaylist] = useState();
+  const { inBrowse, setInBrowse } = useContext(AppWithContext);
 
-  const removeBackground = () => {
+  useEffect(() => {
     document.getElementById("nav-home").classList.remove("browser");
-  }
+  }, []);
 
-  useEffect(() => {
-    removeBackground()
-  }, [])
+  useEffect(() => setList(tracks), [tracks]);
 
-  // useEffect(() => {
-  //   if (user) {
-  //     window.addEventListener("scroll", () => {
-  //       let nav = document.getElementById("nav-home");
-  //       if (window.pageYOffset > 130) {
-  //         nav.setAttribute(
-  //           "style",
-  //           `background-color: rgb(30, 30, 30);
-  //            transition: all ease-in-out .2s;
-  //            padding: 10px 0;`)
-  //       } else {
-  //         nav.setAttribute(
-  //           "style",
-  //           `background-color: none;
-  //            transition: all ease-in-out .2s;
-  //            padding: 15px 0;`)
-  //       }
-  //     })
-  //   }
-  // }, [user])
-
-  useEffect(() => {
-    setList(tracks);
-  }, [tracks])
-
-  useEffect(() => {
-    setInBrowse(false)
-  }, [inBrowse])
+  useEffect(() => setInBrowse(false), [inBrowse]);
 
   useEffect(() => {
     (async() => {
       let pl = await dispatch(getPlaylist(params.id))
-      let imgs = [];
-      if (pl.tracks) {
-        for (let i = 0; i < pl.tracks.length; i++) {
-          imgs.push(pl.tracks[i].track.album.art_src);
-        }
-      }
-      let square = imgs.filter((img, i) => i < 4)
-      setImages(square);
+      setImages(playlistImageBuilder(pl));
     })();
-  }, [dispatch, params])
+  }, [dispatch, params]);
 
   const onDragStart = (e) => {
     const initialPosition = Number(e.currentTarget.dataset.position)
@@ -91,21 +56,21 @@ const PlaylistDetail = () => {
       draggedFrom: initialPosition,
       isDragging: true,
       originalOrder: list,
-    })
+    });
     e.dataTransfer.setData('text/html', '');
-  }
+  };
 
   const onDragOver = (e) => {
     e.preventDefault();
     let newList = dragAndDrop.originalOrder;
     const draggedFrom = dragAndDrop.draggedFrom;
     const draggedTo = Number(e.currentTarget.dataset.position);
-    const itemDragged = newList[draggedFrom];
-    const remainingItems = newList.filter((track, i) => i !== draggedFrom);
+    const trackDragged = newList[draggedFrom];
+    const tracksRemaining = newList.filter((track, i) => i !== draggedFrom);
     newList = [
-      ...remainingItems.slice(0, draggedTo),
-      itemDragged,
-      ...remainingItems.slice(draggedTo)
+      ...tracksRemaining.slice(0, draggedTo),
+      trackDragged,
+      ...tracksRemaining.slice(draggedTo)
     ];
 
     if (draggedTo !== dragAndDrop.draggedTo) {
@@ -114,8 +79,8 @@ const PlaylistDetail = () => {
         updatedOrder: newList,
         draggedTo: draggedTo
       })
-    }
-  }
+    };
+  };
 
   const onDrop = () => {
     setList(dragAndDrop.updatedOrder);
@@ -156,10 +121,10 @@ const PlaylistDetail = () => {
           </div>
           <div className="pl-subheader">
             <div className="pl-user-name">
-              <p>{`${playlist?.user.firstName} ${playlist?.user.lastName} •`}</p>
+              <p>{`${playlist?.user.firstName} ${playlist?.user.lastName}`}</p>
             </div>
             <div className="pl-num-songs">
-              <p>{`${tracks?.length} ${tracks?.length === 1 ? "song" : "songs" }`}</p>
+              <p>{`• ${tracks?.length} ${tracks?.length === 1 ? "song" : "songs" }`}</p>
             </div>
           </div>
         </div>

@@ -30,30 +30,21 @@ const PlayFollow = ({
     setIsPlaying,
     setTrackIdx,
     paramsRef,
-
   } = useContext(AppWithContext)
 
+  useEffect(() => {
+    let followIds = following?.map(pl => pl.id);
+    if (followIds?.includes(playlist?.id)) setIsFollowing(true);
+    else setIsFollowing(false);
+  })
 
-  const handlePlaying = () => {
+  useEffect(() => {
     if (isPlaying && paramsRef.current === params.id) {
       setIsPlaylistPlaying(true);
     } else {
       setIsPlaylistPlaying(false);
     }
-  }
-
-  useEffect(() => {
-    let followIds = following?.map(pl => pl.id);
-    if (followIds?.includes(playlist?.id)) {
-      setIsFollowing(true)
-    } else {
-      setIsFollowing(false);
-    }
-  })
-
-  useEffect(() => {
-    handlePlaying();
-  }, [playlist, isPlaying, tracks, params, handlePlaying]);
+  }, [playlist, isPlaying, tracks, params, setIsPlaylistPlaying]);
 
   useEffect(() => {
     if (!user?.errors) {
@@ -66,28 +57,19 @@ const PlayFollow = ({
       setIsPlaylistPlaying(false);
       setIsPlaying(false);
     } else {
-      setTrackQueue([])
-      let formatted = tracks.map(track => formatTrack(track.track))
-      setTrackIdx(1);
-      setTrackQueue(formatted);
+      setTrackQueue(tracks.map(track => formatTrack(track.track)));
       setTrackIdx(0);
       setIsPlaying(true);
       paramsRef.current = params.id;
     }
   }
 
-  const playlistMenu = () => {
-    setOpenMenu(!openMenu)
-  }
-
   const handleFollow = () => {
     if (playlist?.user.id === user?.id) return;
-    const submission = { userId: user.id, playlistId: playlist.id }
-    if (isFollowing) {
-      dispatch(unfollow(submission))
-    } else {
-      dispatch(addFollow(submission))
-    }
+
+    const submission = { userId: user.id, playlistId: playlist.id };
+    if (isFollowing) dispatch(unfollow(submission));
+    else dispatch(addFollow(submission));
   }
 
   const handleEdit = () => {
@@ -108,7 +90,6 @@ const PlayFollow = ({
     setDraggable(false);
     await dispatch(editPlaylist(submission, playlist.id))
     await dispatch(getPlaylist(playlist.id))
-    // handle resetting queue order
   }
 
   const cancelEdits = () => {
@@ -165,7 +146,7 @@ const PlayFollow = ({
         {isUserPlaylist && (
           <div
             className="pl-dot-menu"
-            onClick={playlistMenu}>
+            onClick={() => setOpenMenu(!openMenu)}>
             <i className="pl fas fa-ellipsis-h" />
           </div>
         )}

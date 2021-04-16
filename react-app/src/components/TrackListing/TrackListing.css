@@ -154,6 +154,11 @@ button.track-video-button:focus {
   outline: none;
 }
 
+button.track-video-button:disabled {
+  background: grey;
+  opacity: .2;
+}
+
 .fa-video {
   color: white;
   font-size: 18px;

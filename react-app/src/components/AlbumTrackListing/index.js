@@ -21,16 +21,16 @@ const AlbumTrackListing = ({ track, trackList, index }) => {
     isPlaying,
     setIsPlaying,
     setTrackIdx,
-    trackRef
+    trackRef,
+    setConfirmedBox
   } = useContext(AppWithContext)
 
   useEffect(() => {
-    if (showModal) setIsPlaying(false);
-  }, [showModal, setIsPlaying])
-
-  const handleMouseEnter = () => {
-    setIsHover(true);
-  };
+    if (showModal) {
+      setIsPlaying(false);
+      setIsHover(false);
+    }
+  }, [showModal, setIsPlaying, isHover, setIsHover]);
 
   const handleMouseLeave = () => {
     setIsHover(false);
@@ -43,12 +43,7 @@ const AlbumTrackListing = ({ track, trackList, index }) => {
     setTrackIdx(index);
     setTrackQueue(formatted);
     setIsPlaying(true);
-    // setIsTrackPlaying(true);
-  }
-
-  const handleAddMenu = () => {
-    setAddMenu(true)
-  }
+  };
 
   const addTrack = (pl) => {
     const submission = {
@@ -57,12 +52,13 @@ const AlbumTrackListing = ({ track, trackList, index }) => {
     }
     dispatch(addToPlaylist(submission, user.id));
     setAddMenu(false);
+    setConfirmedBox(true);
   }
 
   return (
     <div
       className="pl-track-container album-track-container"
-      onMouseEnter={handleMouseEnter}
+      onMouseEnter={() => setIsHover(true)}
       onMouseLeave={handleMouseLeave}>
       <div
         className="pl-track-container-inner album-track-container-inner"
@@ -116,6 +112,12 @@ const AlbumTrackListing = ({ track, trackList, index }) => {
           </>
         ) : (
           <>
+            <button
+              disabled
+              className="track-video-button"
+            >
+              <i className="fas fa-video" />
+            </button>
           </>
         )}
         </div>
@@ -124,7 +126,7 @@ const AlbumTrackListing = ({ track, trackList, index }) => {
             <p>{track.time}</p>
           </div>
           {isHover && (
-            <div onClick={handleAddMenu} className="track-edit artist">
+            <div onClick={() => setAddMenu(true)} className="track-edit artist">
               <i className="tl fas fa-ellipsis-h" />
             </div>
           )}

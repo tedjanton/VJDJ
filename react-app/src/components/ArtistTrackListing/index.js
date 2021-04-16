@@ -21,45 +21,29 @@ const ArtistTrackListing = ({ track, trackList, index }) => {
     isPlaying,
     setIsPlaying,
     setTrackIdx,
-    trackRef
+    trackRef,
+    setConfirmedBox
   } = useContext(AppWithContext)
 
   useEffect(() => {
-    if (showModal) setIsPlaying(false);
-  }, [showModal, setIsPlaying])
-
-  const handleMouseEnter = () => {
-    setIsHover(true);
-  };
+    if (showModal) {
+      setIsPlaying(false);
+      setIsHover(false);
+    }
+  }, [showModal, setIsPlaying, isHover, setIsHover]);
 
   const handleMouseLeave = () => {
     setIsHover(false);
     setAddMenu(false);
   };
 
-  // console.log(trackRef.current)
-  // console.log(track.id);
-  // console.log(isTrackPlaying);
-  // useEffect(() => {
-  //   if (trackRef.current?.id === track.id) {
-  //     setIsTrackPlaying(true);
-  //   } else {
-  //     setIsTrackPlaying(false);
-  //   }
-  // })
-
   const handleQueue = () => {
-    let formatted = trackList.map(track => formatTrack(track))
+    let formatted = trackList.map(track => formatTrack(track));
     trackRef.current = formatted[index];
     setTrackIdx(index);
     setTrackQueue(formatted);
     setIsPlaying(true);
-    // setIsTrackPlaying(true);
-  }
-
-  const handleAddMenu = () => {
-    setAddMenu(true)
-  }
+  };
 
   const addTrack = (pl) => {
     const submission = {
@@ -68,19 +52,20 @@ const ArtistTrackListing = ({ track, trackList, index }) => {
     }
     dispatch(addToPlaylist(submission, user.id))
     setAddMenu(false);
-  }
+    setConfirmedBox(true);
+  };
 
   return (
     <div
       className="pl-track-container"
-      onMouseEnter={handleMouseEnter}
+      onMouseEnter={() => setIsHover(true)}
       onMouseLeave={handleMouseLeave}>
       <div
         className="pl-track-container-inner"
         id={`track-${track.order_num}`}
       >
         <div className="track-details-container">
-          {isHover && (
+          {isHover ? (
             <div>
               <button onClick={handleQueue} className="track-play-button">
                 {isPlaying && isTrackPlaying ? (
@@ -90,8 +75,7 @@ const ArtistTrackListing = ({ track, trackList, index }) => {
                 )}
               </button>
             </div>
-          )}
-          {!isHover && (
+          ) : (
             <div className="track-num">
               <p>{index + 1}</p>
             </div>
@@ -132,6 +116,12 @@ const ArtistTrackListing = ({ track, trackList, index }) => {
           </>
         ) : (
           <>
+            <button
+              disabled
+              className="track-video-button"
+            >
+              <i className="fas fa-video" />
+            </button>
           </>
         )}
         </div>
@@ -140,7 +130,7 @@ const ArtistTrackListing = ({ track, trackList, index }) => {
             <p>{track.time}</p>
           </div>
           {isHover && (
-            <div onClick={handleAddMenu} className="track-edit artist">
+            <div onClick={() => setAddMenu(true)} className="track-edit artist">
               <i className="tl fas fa-ellipsis-h" />
             </div>
           )}

@@ -98,7 +98,9 @@ The front end is built with React and Javascript while utilizing Redux architect
 * [Javascript](https://www.javascript.com/)
 * [React](https://reactjs.org/)
 * [Redux](https://redux.js.org/)
-
+* [Node.js](https://nodejs.org/en/)
+* [HTML](https://html.com/)
+* [CSS](http://www.css3.info/)
 
 <!-- GETTING STARTED -->
 ## Getting Started

@@ -18,8 +18,7 @@
 ### 4. Home Page
 * After sign in, users will be brought to a home page that displays:
     * Featured music video
-    * Featured music releases
-    * Popular songs (top number of plays)
+    * Popular music releases (top number of plays)
     * Nav bar profile button
     * Left hand rail with list of playlists and search
 

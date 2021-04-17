@@ -176,7 +176,7 @@ const PlaylistDetail = () => {
                 className={editState && "track-draggable"}
               >
                 <TrackListing
-                  track={track}
+                  track={track.track}
                   trackList={list}
                   index={i}
                   playlist={playlist}

@@ -13,7 +13,7 @@ const AlbumTrackListing = ({ track, trackList, index }) => {
   const user = useSelector(state => state.session.user)
   const userPls = useSelector(state => state.playlists.userPls)
   const [isHover, setIsHover] = useState(false);
-  const [isTrackPlaying, ] = useState(false);
+  const [isTrackPlaying, setIsTrackPlaying] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [addMenu, setAddMenu] = useState(false);
   const {
@@ -31,6 +31,14 @@ const AlbumTrackListing = ({ track, trackList, index }) => {
       setIsHover(false);
     }
   }, [showModal, setIsPlaying, isHover, setIsHover]);
+
+  useEffect(() => {
+    if (trackRef.current?.id === track.id) {
+      setIsTrackPlaying(true);
+    } else {
+      setIsTrackPlaying(false);
+    }
+  });
 
   const handleMouseLeave = () => {
     setIsHover(false);
@@ -50,8 +58,8 @@ const AlbumTrackListing = ({ track, trackList, index }) => {
       track_id: track.id,
       playlist_id: pl.id,
     }
-    dispatch(addToPlaylist(submission, user.id));
     setAddMenu(false);
+    dispatch(addToPlaylist(submission, user.id));
     setConfirmedBox(true);
   }
 
@@ -87,7 +95,9 @@ const AlbumTrackListing = ({ track, trackList, index }) => {
           <div className="track-artists">
             {track.artists.map((artist, i) => (
               <div key={artist.id} className="track-artist">
-                <Link to={`/artists/${artist.id}`}>{(i ? ', ': '') + artist.name}</Link>
+                <Link to={`/artists/${artist.id}`}>
+                  {(i ? ', ': '') + artist.name}
+                </Link>
               </div>
             ))}
           </div>

@@ -6,6 +6,7 @@ import verified from '../../images/verified.png';
 import { getArtist } from '../../store/artists';
 import { formatTrack } from '../../utils';
 import ArtistTrackListing from '../ArtistTrackListing';
+import TrackListing from '../TrackListing';
 import './ArtistDetail.css';
 
 const ArtistDetail = () => {
@@ -106,7 +107,7 @@ const ArtistDetail = () => {
           <div className="tracks-container">
             {tracks?.map((track, i) => (
               <div key={track.id}>
-                <ArtistTrackListing
+                <TrackListing
                   track={track}
                   trackList={tracks}
                   index={i}

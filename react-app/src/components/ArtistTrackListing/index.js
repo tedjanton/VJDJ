@@ -23,7 +23,6 @@ const ArtistTrackListing = ({ track, trackList, index }) => {
     setTrackIdx,
     trackRef,
     setConfirmedBox,
-    trackIdx,
   } = useContext(AppWithContext)
 
   useEffect(() => {
@@ -65,10 +64,7 @@ const ArtistTrackListing = ({ track, trackList, index }) => {
       className="pl-track-container"
       onMouseEnter={() => setIsHover(true)}
       onMouseLeave={handleMouseLeave}>
-      <div
-        className="pl-track-container-inner"
-        id={`track-${track.order_num}`}
-      >
+      <div className="pl-track-container-inner">
         <div className="track-details-container">
           {isHover ? (
             <div>
@@ -96,13 +92,17 @@ const ArtistTrackListing = ({ track, trackList, index }) => {
           <div className="track-artists">
             {track.artists.map((artist, i) => (
               <div key={artist.id} className="track-artist">
-                <Link to={`/artists/${artist.id}`}>{(i ? ', ': '') + artist.name}</Link>
+                <Link to={`/artists/${artist.id}`}>
+                  {(i ? ', ': '') + artist.name}
+                </Link>
               </div>
             ))}
           </div>
         </div>
         <div className="track-album">
-          <Link to={`/albums/${track.album.id}`}>{track.album.title}</Link>
+          <Link to={`/albums/${track.album.id}`}>
+            {track.album.title}
+          </Link>
         </div>
         <div className="track-video">
         {track.vid_src ? (

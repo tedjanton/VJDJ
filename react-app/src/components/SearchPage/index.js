@@ -25,7 +25,7 @@ const SearchPage = () => {
   useEffect(() => {
     if (query.length <= 2) return;
     dispatch(searchTables(query));
-  }, [query])
+  }, [query, dispatch])
 
   useEffect(() => {
     let count = 0

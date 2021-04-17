@@ -1,4 +1,5 @@
 
+
 export const formatTrack = (track) => ({
   id: track.id,
   title: track.title,
@@ -15,10 +16,26 @@ export const playlistImageBuilder = (playlist) => {
     }
   }
 
-  return imgs.filter((img, i) => i < 4);
+  return imgs.filter((_img, i) => i < 4);
 }
 
 export const getWindowDimensions = () => {
   const { innerWidth: width, innerHeight: height } = window;
   return { width, height };
 }
+
+export const handleQueue = (
+  trackList,
+  index,
+  trackRef,
+  setTrackIdx,
+  setTrackQueue,
+  setIsPlaying,
+  ) => {
+
+  let formatted = trackList.map(track => formatTrack(track));
+  trackRef.current = formatted[index];
+  setTrackIdx(index);
+  setTrackQueue(formatted);
+  setIsPlaying(true);
+};

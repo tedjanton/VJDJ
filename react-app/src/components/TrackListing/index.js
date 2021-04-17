@@ -8,12 +8,12 @@ import { formatTrack } from '../../utils';
 import VideoModal from '../VideoModal';
 import './TrackListing.css';
 
-const TrackListing = ({ track, trackList, index, playlist, isUserPlaylist }) => {
+const TrackListing = ({ track, trackList, index, playlist, isUserPlaylist, isAlbum }) => {
   const dispatch = useDispatch();
   const user = useSelector(state => state.session.user);
   const userPls = useSelector(state => state.playlists.userPls)
   const [isHover, setIsHover] = useState(false);
-  const [isTrackPlaying, ] = useState(false);
+  const [isTrackPlaying, setIsTrackPlaying] = useState(false);
   const [editMenu, setEditMenu] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [addMenu, setAddMenu] = useState(false);
@@ -27,8 +27,19 @@ const TrackListing = ({ track, trackList, index, playlist, isUserPlaylist }) => 
   } = useContext(AppWithContext)
 
   useEffect(() => {
-    if (showModal) setIsPlaying(false);
-  }, [showModal, setIsPlaying])
+    if (showModal) {
+      setIsPlaying(false);
+      setIsHover(false);
+    }
+  }, [showModal, setIsPlaying, isHover, setIsHover]);
+
+  useEffect(() => {
+    if (trackRef.current?.id === track.id) {
+      setIsTrackPlaying(true);
+    } else {
+      setIsTrackPlaying(false);
+    }
+  }, [setIsTrackPlaying, track, trackRef])
 
   const handleMouseLeave = () => {
     setIsHover(false);
@@ -37,7 +48,7 @@ const TrackListing = ({ track, trackList, index, playlist, isUserPlaylist }) => 
   };
 
   const handleQueue = () => {
-    let formatted = trackList.map(track => formatTrack(track.track))
+    let formatted = trackList.map(track => formatTrack(track.track ? track.track : track))
     trackRef.current = formatted[index];
     setTrackIdx(index);
     setTrackQueue(formatted);
@@ -46,9 +57,9 @@ const TrackListing = ({ track, trackList, index, playlist, isUserPlaylist }) => 
 
   const handleDelete = () => {
     const selection = {
-      track_id: track.track.id,
+      track_id: track.id,
       playlist_id: playlist.id,
-      order_num: track.order_num,
+      order_num: index + 1,
     }
     window.confirm("Are you sure you would like to remove this song from this playlist?");
     dispatch(deleteFromPlaylist(selection));
@@ -56,7 +67,7 @@ const TrackListing = ({ track, trackList, index, playlist, isUserPlaylist }) => 
 
   const addTrack = (pl) => {
     const submission = {
-      track_id: track.track.id,
+      track_id: track.id,
       playlist_id: pl.id,
     };
     dispatch(addToPlaylist(submission, user.id))
@@ -69,12 +80,9 @@ const TrackListing = ({ track, trackList, index, playlist, isUserPlaylist }) => 
       className="pl-track-container"
       onMouseEnter={() => setIsHover(true)}
       onMouseLeave={handleMouseLeave}>
-      <div
-        className="pl-track-container-inner"
-        id={`track-${track.order_num}`}
-      >
-        <div className="track-details-container">
-          {isHover && (
+      <div className="pl-track-container-inner">
+        <div className="track-num-container">
+          {isHover ? (
             <div>
               <button onClick={handleQueue} className="track-play-button">
                 {isPlaying && isTrackPlaying ? (
@@ -84,37 +92,48 @@ const TrackListing = ({ track, trackList, index, playlist, isUserPlaylist }) => 
                 )}
               </button>
             </div>
-          )}
-          {!isHover && (
+          ) : (
             <div className="track-num">
-              <p>{track.order_num}</p>
+              <p>{index + 1}</p>
             </div>
           )}
-          <div className="track-img">
-            <img src={track.track.album.art_src} alt="" />
+        </div>
+        <div className="track-details-container">
+          {!isAlbum ? (
+            <div className="track-img">
+              <img src={track.album?.art_src} alt="" />
+            </div>
+          ) : (
+            null
+          )}
+          <div className="track-title-artist-container">
+            <div className="track-title">
+              <p>{track.title}</p>
+            </div>
+            <div className="track-artists">
+              {track.artists?.map((artist, i) => (
+                <div key={artist.id} className="track-artist">
+                  <Link to={`/artists/${artist.id}`}>
+                    {(i ? ', ': '') + artist.name}
+                  </Link>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
-        <div className="track-title-artist-container">
-          <div className="track-title">
-            <p>{track.track.title}</p>
+        {!isAlbum ? (
+          <div className="track-album">
+            <Link to={`/albums/${track.album.id}`}>
+              {track.album.title}
+            </Link>
           </div>
-          <div className="track-artists">
-            {track.track.artists.map((artist, i) => (
-              <div key={artist.id} className="track-artist">
-                <Link to={`/artists/${artist.id}`}>
-                  {(i ? ', ': '') + artist.name}
-                </Link>
-              </div>
-            ))}
+        ) : (
+          <div className="track-num-plays album-detail">
+            <p>{track.num_plays.toLocaleString()}</p>
           </div>
-        </div>
-        <div className="track-album">
-          <Link to={`/albums/${track.track.album.id}`}>
-            {track.track.album.title}
-          </Link>
-        </div>
+        )}
         <div className="track-video">
-        {track.track.vid_src ? (
+        {track.vid_src ? (
           <>
             <button
               onClick={() => setShowModal(true)}
@@ -124,7 +143,7 @@ const TrackListing = ({ track, trackList, index, playlist, isUserPlaylist }) => 
             </button>
             {showModal && (
               <Modal onClose={() => setShowModal(false)}>
-                <VideoModal vidSrc={track.track.vid_src}/>
+                <VideoModal vidSrc={track.vid_src}/>
               </Modal>
             )}
           </>
@@ -141,7 +160,7 @@ const TrackListing = ({ track, trackList, index, playlist, isUserPlaylist }) => 
         </div>
         <div className="track-edit-container">
           <div className="track-time">
-            <p>{track.track.time}</p>
+            <p>{track.time}</p>
           </div>
           {isHover && (
             <div onClick={() => setEditMenu(true)} className="track-edit">

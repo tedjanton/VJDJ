@@ -34,16 +34,15 @@ p.album-detail-year {
   text-shadow: none;
 }
 
-.pl-table-header.album-detail {
+/* .pl-table-header.album-detail {
   grid-template-columns: .35fr repeat(8, 1fr);
-}
+} */
 
-.pl-header-title.album-detail {
+/* .pl-header-title.album-detail {
   padding-left: 10px;
-}
+} */
 
 .pl-header-track-num.album-detail {
-  padding: 0 0 0 15px;
   margin: 0;
 }
 

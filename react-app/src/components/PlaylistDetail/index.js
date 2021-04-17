@@ -32,7 +32,7 @@ const PlaylistDetail = () => {
   const [list, setList] = useState();
   const [editState, setEditState] = useState(null);
   const [isUserPlaylist, setIsUserPlaylist] = useState();
-  const { inBrowse, setInBrowse } = useContext(AppWithContext);
+  const { setInBrowse } = useContext(AppWithContext);
 
   useEffect(() => {
     document.getElementById("nav-home").classList.remove("browser");
@@ -40,7 +40,7 @@ const PlaylistDetail = () => {
 
   useEffect(() => setList(tracks), [tracks]);
 
-  useEffect(() => setInBrowse(false), [inBrowse]);
+  useEffect(() => setInBrowse(false), [setInBrowse]);
 
   useEffect(() => {
     (async() => {
@@ -144,13 +144,11 @@ const PlaylistDetail = () => {
           setList={setList} />
         <div className="pl-table-container">
           <div className="pl-table-header">
-            <div className="pl-header-num-title-container">
-              <div className="pl-header-track-num">
-                <p>#</p>
-              </div>
-              <div className="pl-header-title">
-                <p>TITLE</p>
-              </div>
+            <div className="pl-header-track-num">
+              <p>#</p>
+            </div>
+            <div className="pl-header-title">
+              <p>TITLE</p>
             </div>
             <div className="pl-header-album">
               <p>ALBUM</p>
@@ -176,7 +174,7 @@ const PlaylistDetail = () => {
                 className={editState && "track-draggable"}
               >
                 <TrackListing
-                  track={track}
+                  track={track.track}
                   trackList={list}
                   index={i}
                   playlist={playlist}

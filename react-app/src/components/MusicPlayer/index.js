@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useContext } from 'react';
+import React, { useState, useEffect, useRef, useContext, useCallback } from 'react';
 import { AppWithContext } from '../../App';
 import Controls from "./Controls";
 import './MusicPlayer.css';
@@ -19,13 +19,24 @@ const MusicPlayer = ({ tracks }) => {
   const isReady = useRef(false);
   const { duration } = audRef.current;
 
-  const timer = () => {
+  const toPrevTrack = () => {
+    if (progress > 2) audRef.current.currentTime = 0;
+    else if (trackIdx - 1 < 0) setTrackIdx(tracks.length - 1);
+    else setTrackIdx(trackIdx - 1);
+  };
+
+  const toNextTrack = useCallback(() => {
+    if (trackIdx < tracks.length - 1) setTrackIdx(trackIdx + 1);
+    else setTrackIdx(0)
+  }, [setTrackIdx, trackIdx, tracks.length]);
+
+  const timer = useCallback(() => {
     clearInterval(intervalRef.current);
     intervalRef.current = setInterval(() => {
       if (audRef.current.ended) toNextTrack();
       else setProgress(audRef.current.currentTime)
     }, [1000])
-  };
+  }, [toNextTrack]);
 
   useEffect(() => {
     audRef.current.pause();
@@ -39,6 +50,7 @@ const MusicPlayer = ({ tracks }) => {
     } else {
       isReady.current = true;
     }
+    // eslint-disable-next-line
   }, [trackIdx, trackQueue])
 
   useEffect(() => {
@@ -62,16 +74,6 @@ const MusicPlayer = ({ tracks }) => {
     }
   }, [timer, isPlaying]);
 
-  const toPrevTrack = () => {
-    if (progress > 2) audRef.current.currentTime = 0;
-    else if (trackIdx - 1 < 0) setTrackIdx(tracks.length - 1);
-    else setTrackIdx(trackIdx - 1);
-  }
-
-  const toNextTrack = () => {
-    if (trackIdx < tracks.length - 1) setTrackIdx(trackIdx + 1);
-    else setTrackIdx(0)
-  }
 
   const onScrub = (value) => {
     clearInterval(intervalRef.current);

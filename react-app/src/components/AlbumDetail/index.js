@@ -5,7 +5,7 @@ import { Link, useParams } from 'react-router-dom';
 import { AppWithContext } from '../../App';
 import { getAlbum } from '../../store/albums';
 import { formatTrack } from '../../utils';
-import AlbumTrackListing from '../AlbumTrackListing';
+import TrackListing from '../TrackListing';
 import './AlbumDetail.css';
 
 const AlbumDetail = () => {
@@ -22,37 +22,23 @@ const AlbumDetail = () => {
     setTrackQueue,
     setTrackIdx,
     setIsPlaying,
-    paramsRef
   } = useContext(AppWithContext);
 
   useEffect(() => {
     document.getElementById("nav-home").classList.remove("browser")
   }, []);
 
-  useEffect(() => setInBrowse(false), [inBrowse]);
+  useEffect(() => setInBrowse(false), [inBrowse, setInBrowse]);
 
   useEffect(() => {
     dispatch(getAlbum(params.id))
   }, [dispatch, params]);
 
-  useEffect(() => {
-    if (isPlaying && paramsRef.current === params.id) {
-      setIsAlbumPlaying(true);
-    } else {
-      setIsAlbumPlaying(false);
-    }
-  }, [album, isPlaying, tracks, params, setIsAlbumPlaying]);
-
   const addToQueue = () => {
-    if (isAlbumPlaying && isPlaying) {
-      setIsAlbumPlaying(false);
-      setIsPlaying(false);
-    } else {
-      setTrackQueue(tracks.map(track => formatTrack(track)));
-      setTrackIdx(0);
-      setIsPlaying(true);
-      setIsAlbumPlaying(true)
-    }
+    setTrackQueue(tracks.map(track => formatTrack(track)));
+    setTrackIdx(0);
+    setIsPlaying(true);
+    setIsAlbumPlaying(true)
   };
 
   return (
@@ -86,12 +72,12 @@ const AlbumDetail = () => {
       </div>
       <div className="ad-bottom-container pl-bottom-container">
         <div className="ad-play-container">
-        {isAlbumPlaying ? (
+        {isAlbumPlaying && isPlaying ? (
           <button
             type="button"
             className="pl-pause"
             aria-label="Pause"
-            onClick={addToQueue}
+            onClick={() => setIsPlaying(false)}
           >
             <i className="pl fas fa-pause" />
           </button>
@@ -127,10 +113,11 @@ const AlbumDetail = () => {
           <div className="tracks-container">
             {tracks?.map((track, i) => (
               <div key={track.id}>
-                <AlbumTrackListing
+                <TrackListing
                   track={track}
                   trackList={tracks}
                   index={i}
+                  isAlbum={true}
                   />
               </div>
             ))}

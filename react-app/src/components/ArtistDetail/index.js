@@ -5,7 +5,7 @@ import { AppWithContext } from '../../App';
 import verified from '../../images/verified.png';
 import { getArtist } from '../../store/artists';
 import { formatTrack } from '../../utils';
-import ArtistTrackListing from '../ArtistTrackListing';
+import TrackListing from '../TrackListing';
 import './ArtistDetail.css';
 
 const ArtistDetail = () => {
@@ -13,27 +13,29 @@ const ArtistDetail = () => {
   const params = useParams();
   const artist = useSelector(state => state.artists.selected);
   const tracks = useSelector(state => state.artists.selected?.tracks);
-  const { inBrowse, setInBrowse, setTrackQueue, setTrackIdx, setIsPlaying } = useContext(AppWithContext);
   const [isArtistPlaying, setIsArtistPlaying] = useState(false);
   const [openText, setOpenText] = useState(false);
+  const {
+    inBrowse,
+    setInBrowse,
+    setTrackQueue,
+    setTrackIdx,
+    setIsPlaying,
+    isPlaying
+  } = useContext(AppWithContext);
 
   useEffect(() => {
     document.getElementById("nav-home").classList.remove("browser");
   }, []);
 
-  useEffect(() => {
-    setInBrowse(false)
-  }, [inBrowse, setInBrowse])
+  useEffect(() => setInBrowse(false), [inBrowse, setInBrowse])
 
   useEffect(() => {
     dispatch(getArtist(params.id))
   }, [dispatch, params])
 
   const addToQueue = () => {
-    setTrackQueue([])
-    let formatted = tracks.map(track => formatTrack(track))
-    setTrackIdx(1);
-    setTrackQueue(formatted);
+    setTrackQueue(tracks.map(track => formatTrack(track)));
     setTrackIdx(0);
     setIsPlaying(true);
     setIsArtistPlaying(true)
@@ -61,12 +63,12 @@ const ArtistDetail = () => {
       </div>
       <div className="ad-bottom-container pl-bottom-container">
         <div className="ad-play-container">
-        {isArtistPlaying ? (
+        {isArtistPlaying && isPlaying ? (
           <button
             type="button"
             className="pl-pause"
             aria-label="Pause"
-            onClick={addToQueue}
+            onClick={() => setIsPlaying(false)}
           >
             <i className="pl fas fa-pause" />
           </button>
@@ -83,13 +85,11 @@ const ArtistDetail = () => {
         </div>
         <div className="pl-table-container">
           <div className="pl-table-header">
-            <div className="pl-header-num-title-container">
-              <div className="pl-header-track-num">
-                <p>#</p>
-              </div>
-              <div className="pl-header-title">
-                <p>TITLE</p>
-              </div>
+            <div className="pl-header-track-num">
+              <p>#</p>
+            </div>
+            <div className="pl-header-title">
+              <p>TITLE</p>
             </div>
             <div className="pl-header-album">
               <p>ALBUM</p>
@@ -104,7 +104,7 @@ const ArtistDetail = () => {
           <div className="tracks-container">
             {tracks?.map((track, i) => (
               <div key={track.id}>
-                <ArtistTrackListing
+                <TrackListing
                   track={track}
                   trackList={tracks}
                   index={i}

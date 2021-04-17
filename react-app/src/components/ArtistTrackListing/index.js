@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { AppWithContext } from '../../App';
 import { Modal } from '../../context/Modal';
 import { addToPlaylist } from '../../store/playlists';
-import { formatTrack } from '../../utils';
+import { handleQueue } from '../../utils';
 import VideoModal from '../VideoModal';
 import './ArtistTrackListing.css';
 
@@ -13,7 +13,7 @@ const ArtistTrackListing = ({ track, trackList, index }) => {
   const user = useSelector(state => state.session.user);
   const userPls = useSelector(state => state.playlists.userPls)
   const [isHover, setIsHover] = useState(false);
-  const [isTrackPlaying, ] = useState(false);
+  const [isTrackPlaying, setIsTrackPlaying] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [addMenu, setAddMenu] = useState(false);
   const {
@@ -22,7 +22,8 @@ const ArtistTrackListing = ({ track, trackList, index }) => {
     setIsPlaying,
     setTrackIdx,
     trackRef,
-    setConfirmedBox
+    setConfirmedBox,
+    trackIdx,
   } = useContext(AppWithContext)
 
   useEffect(() => {
@@ -32,17 +33,21 @@ const ArtistTrackListing = ({ track, trackList, index }) => {
     }
   }, [showModal, setIsPlaying, isHover, setIsHover]);
 
+  useEffect(() => {
+    if (trackRef.current?.id === track.id) {
+      setIsTrackPlaying(true);
+    } else {
+      setIsTrackPlaying(false);
+    }
+  })
+
   const handleMouseLeave = () => {
     setIsHover(false);
     setAddMenu(false);
   };
 
-  const handleQueue = () => {
-    let formatted = trackList.map(track => formatTrack(track));
-    trackRef.current = formatted[index];
-    setTrackIdx(index);
-    setTrackQueue(formatted);
-    setIsPlaying(true);
+  const setQueue = () => {
+    handleQueue(trackList, index, trackRef, setTrackIdx, setTrackQueue, setIsPlaying);
   };
 
   const addTrack = (pl) => {
@@ -50,8 +55,8 @@ const ArtistTrackListing = ({ track, trackList, index }) => {
       track_id: track.id,
       playlist_id: pl.id,
     }
-    dispatch(addToPlaylist(submission, user.id))
     setAddMenu(false);
+    dispatch(addToPlaylist(submission, user.id))
     setConfirmedBox(true);
   };
 
@@ -67,7 +72,7 @@ const ArtistTrackListing = ({ track, trackList, index }) => {
         <div className="track-details-container">
           {isHover ? (
             <div>
-              <button onClick={handleQueue} className="track-play-button">
+              <button onClick={setQueue} className="track-play-button">
                 {isPlaying && isTrackPlaying ? (
                     <i className="tl fas fa-pause" />
                 ) : (

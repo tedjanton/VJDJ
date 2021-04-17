@@ -22,7 +22,6 @@ const AlbumDetail = () => {
     setTrackQueue,
     setTrackIdx,
     setIsPlaying,
-    paramsRef
   } = useContext(AppWithContext);
 
   useEffect(() => {

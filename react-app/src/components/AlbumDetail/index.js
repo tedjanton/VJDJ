@@ -29,30 +29,17 @@ const AlbumDetail = () => {
     document.getElementById("nav-home").classList.remove("browser")
   }, []);
 
-  useEffect(() => setInBrowse(false), [inBrowse]);
+  useEffect(() => setInBrowse(false), [inBrowse, setInBrowse]);
 
   useEffect(() => {
     dispatch(getAlbum(params.id))
   }, [dispatch, params]);
 
-  useEffect(() => {
-    if (isPlaying && paramsRef.current === params.id) {
-      setIsAlbumPlaying(true);
-    } else {
-      setIsAlbumPlaying(false);
-    }
-  }, [album, isPlaying, tracks, params, setIsAlbumPlaying]);
-
   const addToQueue = () => {
-    if (isAlbumPlaying && isPlaying) {
-      setIsAlbumPlaying(false);
-      setIsPlaying(false);
-    } else {
-      setTrackQueue(tracks.map(track => formatTrack(track)));
-      setTrackIdx(0);
-      setIsPlaying(true);
-      setIsAlbumPlaying(true)
-    }
+    setTrackQueue(tracks.map(track => formatTrack(track)));
+    setTrackIdx(0);
+    setIsPlaying(true);
+    setIsAlbumPlaying(true)
   };
 
   return (
@@ -86,12 +73,12 @@ const AlbumDetail = () => {
       </div>
       <div className="ad-bottom-container pl-bottom-container">
         <div className="ad-play-container">
-        {isAlbumPlaying ? (
+        {isAlbumPlaying && isPlaying ? (
           <button
             type="button"
             className="pl-pause"
             aria-label="Pause"
-            onClick={addToQueue}
+            onClick={() => setIsPlaying(false)}
           >
             <i className="pl fas fa-pause" />
           </button>

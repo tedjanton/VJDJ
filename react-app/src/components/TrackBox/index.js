@@ -29,7 +29,7 @@ const TrackBox = ({ track, trackList, index }) => {
     } else {
       setIsTrackPlaying(false);
     }
-  })
+  }, [setIsTrackPlaying, trackRef, track])
 
   const handleMouseHover = () => {
     setIsHover(!isHover);

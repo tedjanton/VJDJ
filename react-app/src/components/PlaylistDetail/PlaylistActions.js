@@ -36,7 +36,7 @@ const PlayFollow = ({
     let followIds = following?.map(pl => pl.id);
     if (followIds?.includes(playlist?.id)) setIsFollowing(true);
     else setIsFollowing(false);
-  })
+  }, [setIsFollowing, following, playlist])
 
   useEffect(() => {
     if (isPlaying && paramsRef.current === params.id) {
@@ -44,13 +44,13 @@ const PlayFollow = ({
     } else {
       setIsPlaylistPlaying(false);
     }
-  }, [playlist, isPlaying, tracks, params, setIsPlaylistPlaying]);
+  }, [playlist, isPlaying, params, setIsPlaylistPlaying, paramsRef]);
 
   useEffect(() => {
     if (!user?.errors) {
       setIsUserPlaylist(playlist?.user.id === user.id)
     }
-  }, [playlist, user])
+  }, [playlist, user, setIsUserPlaylist])
 
   const addToQueue = () => {
     if (isPlaylistPlaying && isPlaying) {

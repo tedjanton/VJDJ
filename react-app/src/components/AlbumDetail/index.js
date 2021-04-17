@@ -5,7 +5,7 @@ import { Link, useParams } from 'react-router-dom';
 import { AppWithContext } from '../../App';
 import { getAlbum } from '../../store/albums';
 import { formatTrack } from '../../utils';
-import AlbumTrackListing from '../AlbumTrackListing';
+import TrackListing from '../TrackListing';
 import './AlbumDetail.css';
 
 const AlbumDetail = () => {
@@ -113,10 +113,11 @@ const AlbumDetail = () => {
           <div className="tracks-container">
             {tracks?.map((track, i) => (
               <div key={track.id}>
-                <AlbumTrackListing
+                <TrackListing
                   track={track}
                   trackList={tracks}
                   index={i}
+                  isAlbum={true}
                   />
               </div>
             ))}

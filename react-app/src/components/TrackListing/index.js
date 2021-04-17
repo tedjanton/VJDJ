@@ -8,7 +8,7 @@ import { formatTrack } from '../../utils';
 import VideoModal from '../VideoModal';
 import './TrackListing.css';
 
-const TrackListing = ({ track, trackList, index, playlist, isUserPlaylist }) => {
+const TrackListing = ({ track, trackList, index, playlist, isUserPlaylist, isAlbum }) => {
   const dispatch = useDispatch();
   const user = useSelector(state => state.session.user);
   const userPls = useSelector(state => state.playlists.userPls)
@@ -39,7 +39,7 @@ const TrackListing = ({ track, trackList, index, playlist, isUserPlaylist }) => 
     } else {
       setIsTrackPlaying(false);
     }
-  })
+  }, [setIsTrackPlaying, track, trackRef])
 
   const handleMouseLeave = () => {
     setIsHover(false);
@@ -48,7 +48,7 @@ const TrackListing = ({ track, trackList, index, playlist, isUserPlaylist }) => 
   };
 
   const handleQueue = () => {
-    let formatted = trackList.map(track => formatTrack(track))
+    let formatted = trackList.map(track => formatTrack(track.track ? track.track : track))
     trackRef.current = formatted[index];
     setTrackIdx(index);
     setTrackQueue(formatted);
@@ -81,7 +81,7 @@ const TrackListing = ({ track, trackList, index, playlist, isUserPlaylist }) => 
       onMouseEnter={() => setIsHover(true)}
       onMouseLeave={handleMouseLeave}>
       <div className="pl-track-container-inner">
-        <div className="track-details-container">
+        <div className="track-num-container">
           {isHover ? (
             <div>
               <button onClick={handleQueue} className="track-play-button">
@@ -97,29 +97,41 @@ const TrackListing = ({ track, trackList, index, playlist, isUserPlaylist }) => 
               <p>{index + 1}</p>
             </div>
           )}
-          <div className="track-img">
-            <img src={track.album.art_src} alt="" />
+        </div>
+        <div className="track-details-container">
+          {!isAlbum ? (
+            <div className="track-img">
+              <img src={track.album?.art_src} alt="" />
+            </div>
+          ) : (
+            null
+          )}
+          <div className="track-title-artist-container">
+            <div className="track-title">
+              <p>{track.title}</p>
+            </div>
+            <div className="track-artists">
+              {track.artists?.map((artist, i) => (
+                <div key={artist.id} className="track-artist">
+                  <Link to={`/artists/${artist.id}`}>
+                    {(i ? ', ': '') + artist.name}
+                  </Link>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
-        <div className="track-title-artist-container">
-          <div className="track-title">
-            <p>{track.title}</p>
+        {!isAlbum ? (
+          <div className="track-album">
+            <Link to={`/albums/${track.album.id}`}>
+              {track.album.title}
+            </Link>
           </div>
-          <div className="track-artists">
-            {track.artists.map((artist, i) => (
-              <div key={artist.id} className="track-artist">
-                <Link to={`/artists/${artist.id}`}>
-                  {(i ? ', ': '') + artist.name}
-                </Link>
-              </div>
-            ))}
+        ) : (
+          <div className="track-num-plays album-detail">
+            <p>{track.num_plays.toLocaleString()}</p>
           </div>
-        </div>
-        <div className="track-album">
-          <Link to={`/albums/${track.album.id}`}>
-            {track.album.title}
-          </Link>
-        </div>
+        )}
         <div className="track-video">
         {track.vid_src ? (
           <>

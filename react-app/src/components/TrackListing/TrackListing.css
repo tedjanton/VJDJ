@@ -5,9 +5,10 @@
 .pl-track-container-inner {
   display: grid;
   grid-gap: 10px;
-  grid-template-columns: repeat(9, 1fr);
+  grid-template-columns: .05fr repeat(8, 1fr);
   align-items: center;
   border-radius: 8px;
+  height: 70px;
 }
 
 .pl-track-container-inner:hover {
@@ -15,33 +16,35 @@
   border-radius: 8px;
 }
 
+.track-num-container {
+  grid-column-start: 1;
+  width: 40px;
+  text-align: center;
+}
 
 .track-details-container {
-  grid-column-start: 1;
-  grid-column-end: 2;
+  grid-column-start: 2;
+  grid-column-end: 5;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding-left: 10px;
+  justify-content: flex-start;
+  /* padding-left: 10px; */
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-  width: 100px;
 }
 
 .track-title-artist-container {
-  grid-column-start: 2;
-  grid-column-end: 5;
-  grid-row-start: 1;
+  overflow: hidden;
 }
 
-.track-num {
-  margin-left: 10px;
-}
+/* .track-num {
+  margin: 0 20px 0 10px;
+} */
 
 .track-img img {
   height: 50px;
-  padding: 10px 10px 10px 10px;
+  padding: 10px 10px 10px 0;
 }
 
 
@@ -64,6 +67,9 @@
   grid-column-start: 5;
   grid-column-end: 7;
   font-size: 13px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .track-album a {
@@ -127,6 +133,10 @@
   padding: 0 10px;
 }
 
+.track-title {
+  overflow: hidden;
+}
+
 .track-album p,
 .track-title p,
 .track-artists p {
@@ -134,6 +144,7 @@
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+  max-width: 100%;
 }
 
 .track-video {
@@ -181,6 +192,7 @@ button.track-video-button:disabled {
   height: 30px;
   border-radius: 50%;
   color: white;
+  padding-right: 10px;
 }
 
 .ad-bottom-container.pl-bottom-container {
@@ -192,4 +204,27 @@ button.track-video-button:disabled {
   right: 20px;
   background-color: rgb(36, 36, 36);
   z-index: 200;
+}
+
+.album-track-container,
+.album-track-container-inner {
+  height: 75px;
+  grid-template-columns: .35fr repeat(8, 1fr);
+}
+
+
+.track-title-artist-container.artist-detail {
+  padding-right: 20px;
+  padding-left: 5px;
+}
+
+.track-num-plays.album-detail {
+  color: rgb(197, 197, 197);
+  font-size: 13px;
+}
+
+.track-num.album-detail,
+.track-play-button.album-detail {
+  padding-left: 15px;
+  margin: 0;
 }

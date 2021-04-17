@@ -5,7 +5,6 @@ import { AppWithContext } from '../../App';
 import verified from '../../images/verified.png';
 import { getArtist } from '../../store/artists';
 import { formatTrack } from '../../utils';
-import ArtistTrackListing from '../ArtistTrackListing';
 import TrackListing from '../TrackListing';
 import './ArtistDetail.css';
 
@@ -86,13 +85,11 @@ const ArtistDetail = () => {
         </div>
         <div className="pl-table-container">
           <div className="pl-table-header">
-            <div className="pl-header-num-title-container">
-              <div className="pl-header-track-num">
-                <p>#</p>
-              </div>
-              <div className="pl-header-title">
-                <p>TITLE</p>
-              </div>
+            <div className="pl-header-track-num">
+              <p>#</p>
+            </div>
+            <div className="pl-header-title">
+              <p>TITLE</p>
             </div>
             <div className="pl-header-album">
               <p>ALBUM</p>

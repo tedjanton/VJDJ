@@ -121,26 +121,21 @@ i.pl.fas.fa-play {
   margin: 20px 0;
   display: grid;
   grid-gap: 10px;
-  grid-template-columns: repeat(9, 1fr);
+  grid-template-columns: .05fr repeat(8, 1fr);
   align-items: center;
   font-size: 13px;
   font-weight: 500;
   color:rgb(189, 189, 189);
   border-bottom: thin solid rgb(39, 39, 39);
-
-}
-
-.pl-header-num-title-container {
-  display: flex;
-  grid-column-start: 1;
-  grid-column-end: 2;
-  justify-content: flex-start;
-  padding-left: 18px;
-  width: 100px;
 }
 
 .pl-header-track-num {
-  margin-right: 25px;
+  text-align: center;
+  width: 40px;
+}
+
+.pl-header-title {
+  grid-column-start: 2;
 }
 
 .pl-header-album {

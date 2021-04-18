@@ -3,7 +3,7 @@ import { getWindowDimensions } from '../../utils';
 import './VideoModal.css';
 
 
-const VideoModal = ({ vidSrc, setShowModal }) => {
+const VideoModal = ({ vidSrc }) => {
   const [windowDims, setWindowDims] = useState(getWindowDimensions());
 
   useEffect(() => {

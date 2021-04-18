@@ -108,7 +108,8 @@ VjDj incorporates a plethora of features, including:
 * Fully functioning music player
   * Play a song, playlist, artist, or album
   * Persistant music playing as you navigate the site
-  * Skip forward or backward, including from the middle of a playlist * Adjust volume
+  * Skip forward or backward, including from the middle of a playlist
+  * Adjust volume
 * Playlist actions
   * Create a new playlist
   * Add songs to a playlist that you own from anywhere a song is listed

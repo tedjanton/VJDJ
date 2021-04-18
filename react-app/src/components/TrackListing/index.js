@@ -48,7 +48,8 @@ const TrackListing = ({ track, trackList, index, playlist, isUserPlaylist, isAlb
   };
 
   const handleQueue = () => {
-    let formatted = trackList.map(track => formatTrack(track.track ? track.track : track))
+    let formatted = trackList.map(track => (
+      formatTrack(track.track ? track.track : track)));
     trackRef.current = formatted[index];
     setTrackIdx(index);
     setTrackQueue(formatted);
@@ -205,8 +206,8 @@ const TrackListing = ({ track, trackList, index, playlist, isUserPlaylist, isAlb
                   ))}
                 </div>
               )}
+              </div>
             </div>
-          </div>
           )}
         </div>
       </div>

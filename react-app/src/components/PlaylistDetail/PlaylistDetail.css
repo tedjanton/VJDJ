@@ -233,3 +233,7 @@ i.pl.fas.fa-play {
 .pl-edit-cancel-button button:hover {
   background-color: rgb(44, 44, 44);
 }
+
+.drop-area {
+  border: thin solid green;
+}

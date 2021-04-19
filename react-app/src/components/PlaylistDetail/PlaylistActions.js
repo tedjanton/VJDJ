@@ -85,7 +85,6 @@ const PlaylistActions = ({
         order_num: i + 1,
       }
     });
-    console.log(submission);
     await dispatch(editPlaylist(submission, playlist.id))
     await dispatch(getPlaylist(playlist.id))
     setEditState(null);

@@ -175,10 +175,7 @@ const PlaylistDetail = () => {
                 onDragStart={onDragStart}
                 onDragOver={onDragOver}
                 onDrop={onDrop}
-                className={
-                  dragAndDrop &&
-                  dragAndDrop.draggedTo === Number(i) ?
-                  "drop-area track-draggable" : "track-draggable"}
+                className={editState && "track-draggable"}
               >
                 <TrackListing
                   track={track.track}

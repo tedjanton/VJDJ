@@ -49,7 +49,8 @@ const SearchPage = () => {
           name="search-bar"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          placeholder="Artists, songs, or playlists"
+          placeholder="Artists, songs, or playlists..."
+          autoComplete="off"
         />
       </div>
       {query.length <= 2 ? (

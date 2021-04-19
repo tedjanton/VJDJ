@@ -16,7 +16,7 @@ const Home = () => {
 
   const handleVideo = () => {
     videoRef.current = document.getElementById("featured-video")
-    // videoRef.current.setAttribute("src", "https://vjdj.s3.amazonaws.com/featured-vids/lil-nax-x-montero.mp4")
+    videoRef.current.setAttribute("src", "https://vjdj.s3.amazonaws.com/featured-vids/lil-nax-x-montero.mp4")
   }
 
   useEffect(() => {

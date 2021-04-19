@@ -84,12 +84,12 @@ const PlayFollow = ({
         track_id: track.id,
         order_num: i + 1,
       }
-    })
+    });
+    await dispatch(editPlaylist(submission, playlist.id))
+    await dispatch(getPlaylist(playlist.id))
     setEditState(null);
     setOpenMenu(false);
     setDraggable(false);
-    await dispatch(editPlaylist(submission, playlist.id))
-    await dispatch(getPlaylist(playlist.id))
   }
 
   const cancelEdits = () => {

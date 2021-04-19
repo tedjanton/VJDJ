@@ -65,6 +65,15 @@
   width: 220px;
   background-color: #1ed760;
   border-radius: 50%;
+  -webkit-animation: rotateY 3s infinite linear;
+  animation: rotateY 3s infinite linear;
+}
+
+@-webkit-keyframes rotateY {
+  to { -webkit-transform: rotateY(360deg); }
+}
+@keyframes rotateY {
+  to { transform: rotateY(360deg); }
 }
 
 .fas.fa-music.search {

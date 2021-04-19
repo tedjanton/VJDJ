@@ -81,7 +81,7 @@
   grid-column-start: 9;
   grid-column-end: 10;
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   margin-left: 10px;
   align-items: center;
   color:rgb(189, 189, 189);
@@ -130,7 +130,8 @@
 }
 
 .track-edit {
-  padding: 0 10px;
+  position: absolute;
+  right: 25px;
 }
 
 .track-title {

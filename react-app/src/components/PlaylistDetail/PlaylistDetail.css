@@ -152,8 +152,7 @@ i.pl.fas.fa-play {
 
 .pl-header-time {
   display: flex;
-  justify-content: flex-start;
-  margin-left: 15px;
+  justify-content: center;
   grid-column-start: 9;
   grid-column-end: 10;
 }

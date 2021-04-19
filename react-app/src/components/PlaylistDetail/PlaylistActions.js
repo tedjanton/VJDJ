@@ -152,9 +152,9 @@ const PlaylistActions = ({
         )}
         {openMenu && (
           <div className="pl-menu-box">
-            <div className="pl-add-songs-button">
+            {/* <div className="pl-add-songs-button">
               <button>Add Songs</button>
-            </div>
+            </div> */}
             <div className="pl-edit-button">
               <button onClick={handleEdit}>Edit Playlist</button>
             </div>

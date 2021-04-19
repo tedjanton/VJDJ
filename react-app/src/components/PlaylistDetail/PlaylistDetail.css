@@ -173,10 +173,10 @@ i.pl.fas.fa-play {
 .pl-menu-box {
   position: absolute;
   right: -140px;
-  bottom: -120px;
+  bottom: -70px;
   display: flex;
   flex-direction: column;
-  height: 152px;
+  height: 100px;
   width: 130px;
   background-color: rgb(36, 36, 36);
   border-radius: 4px;

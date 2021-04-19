@@ -5,7 +5,7 @@ import { AppWithContext } from '../../App';
 import { addFollow, unfollow, editPlaylist, deletePlaylist, getUserPls, getPlaylist } from '../../store/playlists';
 import { formatTrack } from '../../utils';
 
-const PlayFollow = ({
+const PlaylistActions = ({
   playlist,
   tracks,
   following,
@@ -79,18 +79,19 @@ const PlayFollow = ({
   }
 
   const submitEdits = async () => {
-    const submission = dragAndDrop.updatedOrder.map(({track}, i) => {
+    const submission = dragAndDrop.updatedOrder.map((plTrack, i) => {
       return {
-        track_id: track.id,
+        pl_track_id: plTrack.id,
         order_num: i + 1,
       }
     });
+    console.log(submission);
     await dispatch(editPlaylist(submission, playlist.id))
     await dispatch(getPlaylist(playlist.id))
     setEditState(null);
     setOpenMenu(false);
     setDraggable(false);
-  }
+  };
 
   const cancelEdits = () => {
     setList(dragAndDrop.originalOrder)
@@ -178,4 +179,4 @@ const PlayFollow = ({
   )
 }
 
-export default PlayFollow;
+export default PlaylistActions;

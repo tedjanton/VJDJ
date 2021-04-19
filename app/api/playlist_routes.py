@@ -42,7 +42,7 @@ def edit_playlist(id):
 
   for item in req:
     for pl_track in pl_tracks:
-      if item["track_id"] == pl_track.track_id:
+      if item["pl_track_id"] == pl_track.id:
         pl_track.order_num = item["order_num"]
 
   db.session.commit()

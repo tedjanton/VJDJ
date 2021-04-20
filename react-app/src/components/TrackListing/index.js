@@ -159,57 +159,55 @@ const TrackListing = ({ track, trackList, index, playlist, isUserPlaylist, isAlb
           </>
         )}
         </div>
-        <div className="track-edit-container">
-          <div className="track-time">
-            <p>{track.time}</p>
-          </div>
-          {isHover && (
-            <div onClick={() => setEditMenu(true)} className="track-edit">
-              <i className="tl fas fa-ellipsis-h" />
-            </div>
-          )}
-          {editMenu && isHover && isUserPlaylist && (
-            <div className="tl-edit-menu">
-              <div className="tl-delete-button">
-                <button onClick={handleDelete}>Delete</button>
-              </div>
-              <div className="tl-add-to-button">
-                <button onClick={() => setAddMenu(true)}>Add to Playlist</button>
-              </div>
-              <div className="tb-add-box-container">
-              {addMenu && (
-                <div className="tb-add-box">
-                  <p className="tb-add-title">Add track to:</p>
-                  {userPls?.map(pl => (
-                    <div key={pl.id} className="tb-add-pl">
-                      <button onClick={() => addTrack(pl)}>{pl.name}</button>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
-          </div>
-          )}
-          {editMenu && isHover && !isUserPlaylist && (
-            <div className="tl-edit-menu-not-user">
-              <div className="tl-add-to-button">
-                <button onClick={() => setAddMenu(true)}>Add to Playlist</button>
-              </div>
-              <div className="tb-add-box-container">
-              {addMenu && (
-                <div className="tb-add-box">
-                  <p className="tb-add-title">Add track to:</p>
-                  {userPls?.map(pl => (
-                    <div key={pl.id} className="tb-add-pl">
-                      <button onClick={() => addTrack(pl)}>{pl.name}</button>
-                    </div>
-                  ))}
-                </div>
-              )}
-              </div>
-            </div>
-          )}
+        <div className="track-time">
+          <p>{track.time}</p>
         </div>
+        {isHover && (
+          <div onClick={() => setEditMenu(true)} className="track-edit">
+            <i className="tl fas fa-ellipsis-h" />
+          </div>
+        )}
+        {editMenu && isHover && isUserPlaylist && (
+          <div className="tl-edit-menu">
+            <div className="tl-delete-button">
+              <button onClick={handleDelete}>Delete</button>
+            </div>
+            <div className="tl-add-to-button">
+              <button onClick={() => setAddMenu(true)}>Add to Playlist</button>
+            </div>
+            <div className="tb-add-box-container">
+            {addMenu && (
+              <div className="tb-add-box">
+                <p className="tb-add-title">Add track to:</p>
+                {userPls?.map(pl => (
+                  <div key={pl.id} className="tb-add-pl">
+                    <button onClick={() => addTrack(pl)}>{pl.name}</button>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+        )}
+        {editMenu && isHover && !isUserPlaylist && (
+          <div className="tl-edit-menu-not-user">
+            <div className="tl-add-to-button">
+              <button onClick={() => setAddMenu(true)}>Add to Playlist</button>
+            </div>
+            <div className="tb-add-box-container">
+            {addMenu && (
+              <div className="tb-add-box">
+                <p className="tb-add-title">Add track to:</p>
+                {userPls?.map(pl => (
+                  <div key={pl.id} className="tb-add-pl">
+                    <button onClick={() => addTrack(pl)}>{pl.name}</button>
+                  </div>
+                ))}
+              </div>
+            )}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   )

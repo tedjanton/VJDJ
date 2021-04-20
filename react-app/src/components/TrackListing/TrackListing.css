@@ -5,7 +5,7 @@
 .pl-track-container-inner {
   display: grid;
   grid-gap: 10px;
-  grid-template-columns: .05fr repeat(8, 1fr);
+  grid-template-columns: .05fr repeat(7, 1fr) .25fr .25fr;
   align-items: center;
   border-radius: 8px;
   height: 70px;
@@ -76,22 +76,10 @@
   color: rgb(172, 172, 172);
 }
 
-.track-edit-container {
-  position: relative;
-  grid-column-start: 9;
-  grid-column-end: 10;
-  display: flex;
-  justify-content: center;
-  margin-left: 10px;
-  align-items: center;
-  color:rgb(189, 189, 189);
-  font-size: 13px;
-}
-
 .tl-edit-menu,
 .tl-edit-menu-not-user {
   position: absolute;
-  right: 40px;
+  right: 80px;
   display: flex;
   flex-direction: column;
   width: 120px;
@@ -130,8 +118,10 @@
 }
 
 .track-edit {
-  position: absolute;
-  right: 25px;
+  grid-column-start: 10;
+  grid-column-end: 11;
+  color: rgb(172, 172, 172);
+  font-size: 13px;
 }
 
 .track-title {
@@ -181,7 +171,8 @@ button.track-video-button:disabled {
   grid-column-start: 9;
   grid-column-end: 10;
   justify-content: center;
-  /* margin-right: 30px; */
+  color: rgb(172, 172, 172);
+  font-size: 13px;
 }
 
 .track-play-button,

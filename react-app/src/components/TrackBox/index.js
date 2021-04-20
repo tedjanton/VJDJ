@@ -42,6 +42,7 @@ const TrackBox = ({ track, trackList, index }) => {
     setTrackIdx(index);
     setTrackQueue(formatted);
     setIsPlaying(true);
+    setIsTrackPlaying(true);
   };
 
   const addTrack = (pl) => {

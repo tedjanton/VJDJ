@@ -28,6 +28,7 @@ const PlaylistModal = ({ setShowModal }) => {
       <div>
         <form className="create-pl-form">
           <input
+            autoComplete="off"
             className="input-box"
             name="name"
             type="text"

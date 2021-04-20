@@ -81,7 +81,7 @@ VjDj (Video Jockey, Disc Jockey) is a Spotify clone with music videos...because 
 <br>
 </br>
 <!-- ![VjDj](react-app/src/images/home-page.png) -->
-![VjDj](react-app/src/images/vjdj-home-screen.gif)
+![VjDj](react-app/src/images/home-page.png)
 
 ## Overall Structure
 
@@ -153,8 +153,20 @@ VjDj incorporates a plethora of features, including:
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-### Play songs or playlists while navigating the site
+### An impactful home page with the site's most popular songs for quick play
+![Popular](react-app/src/images/popular.gif)
 
+### Search dynamically for any available artist, song, playlist, or album while music is playing
+![Search](react-app/src/images/search.gif)
+
+### Edit your playlists with a dynamic drag and drop feature
+![Edit Playlist](react-app/src/images/edit-playlist.gif)
+
+### Discover music by browsing playlists, artists, or albums
+![Browse](react-app/src/images/browse.gif)
+
+### Create new playlists
+![Playlist Creation](react-app/src/images/create-playlist.gif)
 
 <!-- ROADMAP -->
 ## Roadmap

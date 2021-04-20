@@ -4,11 +4,11 @@ import { Link } from 'react-router-dom';
 import { AppWithContext } from '../../App';
 import { Modal } from '../../context/Modal';
 import { addToPlaylist, deleteFromPlaylist } from '../../store/playlists';
-import { formatTrack } from '../../utils';
+import { formatTrack, playlistImageBuilder } from '../../utils';
 import VideoModal from '../VideoModal';
 import './TrackListing.css';
 
-const TrackListing = ({ track, trackList, index, playlist, isUserPlaylist, isAlbum }) => {
+const TrackListing = ({ track, trackList, index, playlist, isUserPlaylist, isAlbum, setImages }) => {
   const dispatch = useDispatch();
   const user = useSelector(state => state.session.user);
   const userPls = useSelector(state => state.playlists.userPls)
@@ -56,14 +56,15 @@ const TrackListing = ({ track, trackList, index, playlist, isUserPlaylist, isAlb
     setIsPlaying(true);
   };
 
-  const handleDelete = () => {
+  const handleDelete = async () => {
     const selection = {
       track_id: track.id,
       playlist_id: playlist.id,
       order_num: index + 1,
     }
     window.confirm("Are you sure you would like to remove this song from this playlist?");
-    dispatch(deleteFromPlaylist(selection));
+    let pl = await dispatch(deleteFromPlaylist(selection));
+    setImages(playlistImageBuilder(pl));
   };
 
   const addTrack = (pl) => {

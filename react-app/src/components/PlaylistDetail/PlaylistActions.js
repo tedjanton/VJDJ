@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import { AppWithContext } from '../../App';
 import { addFollow, unfollow, editPlaylist, deletePlaylist, getUserPls, getPlaylist } from '../../store/playlists';
-import { formatTrack } from '../../utils';
+import { formatTrack, playlistImageBuilder } from '../../utils';
 
 const PlaylistActions = ({
   playlist,
@@ -17,6 +17,7 @@ const PlaylistActions = ({
   isUserPlaylist,
   setIsUserPlaylist,
   setList,
+  setImages,
 }) => {
   const dispatch = useDispatch();
   const params = useParams();
@@ -29,7 +30,7 @@ const PlaylistActions = ({
     isPlaying,
     setIsPlaying,
     setTrackIdx,
-    paramsRef,
+    paramsRef
   } = useContext(AppWithContext)
 
   useEffect(() => {
@@ -85,8 +86,9 @@ const PlaylistActions = ({
         order_num: i + 1,
       }
     });
-    await dispatch(editPlaylist(submission, playlist.id))
-    await dispatch(getPlaylist(playlist.id))
+    await dispatch(editPlaylist(submission, playlist.id));
+    let pl = await dispatch(getPlaylist(playlist.id));
+    setImages(playlistImageBuilder(pl));
     setEditState(null);
     setOpenMenu(false);
     setDraggable(false);

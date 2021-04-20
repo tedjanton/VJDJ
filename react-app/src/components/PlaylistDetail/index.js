@@ -43,7 +43,7 @@ const PlaylistDetail = () => {
   });
 
   useEffect(() => {
-    setList(tracks)
+    setList(tracks);
   }, [tracks]);
 
   useEffect(() => {
@@ -145,7 +145,9 @@ const PlaylistDetail = () => {
           dragAndDrop={dragAndDrop}
           isUserPlaylist={isUserPlaylist}
           setIsUserPlaylist={setIsUserPlaylist}
-          setList={setList} />
+          setList={setList}
+          setImages={setImages}
+        />
         <div className="pl-table-container">
           <div className="pl-table-header">
             <div className="pl-header-track-num">
@@ -184,7 +186,7 @@ const PlaylistDetail = () => {
                   playlist={playlist}
                   key={track.id}
                   isUserPlaylist={isUserPlaylist}
-
+                  setImages={setImages}
                 />
               </div>
             ))}

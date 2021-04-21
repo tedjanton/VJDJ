@@ -172,20 +172,23 @@ Since I hadn't created a drag and drop feature before, I needed to do a lot of r
 <b>Drag Start</b>
 
 After clicking on the track you want to drag, the onDragStart function stores the starting position of the track by it's index and updates a local React state object with "active" values.
+
 ![Drag Start](react-app/src/images/drag-start.png)
 
 <br>
 <b>Drag Over</b>
 
 In order for the lifted track to be droppable, it must have both "draggable" and "onDragOver" attributes present. Since all tracks are "drop zones", the local state object will update dynamically as a track is hovered over while removing the dragged track from the list of tracks being watched.
+
 ![Drag Over](react-app/src/images/drag-over.png)
 
 <br>
 <b>Drop</b>
 
 Finally, when the track is placed, the variables are "deactivate" within the local state object and the drag and drop order is updated to the newly ordered list.
+
 ![Drop](react-app/src/images/drop.png)
-<br></br>
+
 
 ### Dynamic Searching
 

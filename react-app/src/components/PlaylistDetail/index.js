@@ -29,7 +29,7 @@ const PlaylistDetail = () => {
   const [colors, getColors] = useState([]);
   const [draggable, setDraggable] = useState(false);
   const [dragAndDrop, setDragAndDrop] = useState(initialDnDState);
-  const [list, setList] = useState();
+  const [trackList, setTrackList] = useState();
   const [editState, setEditState] = useState(null);
   const [isUserPlaylist, setIsUserPlaylist] = useState();
   const { setInBrowse, inBrowse } = useContext(AppWithContext);
@@ -43,7 +43,7 @@ const PlaylistDetail = () => {
   });
 
   useEffect(() => {
-    setList(tracks);
+    setTrackList(tracks);
   }, [tracks]);
 
   useEffect(() => {
@@ -54,24 +54,24 @@ const PlaylistDetail = () => {
   }, [dispatch, params]);
 
   const onDragStart = (e) => {
-    const initialPosition = Number(e.currentTarget.dataset.position)
+    const startingPosition = Number(e.currentTarget.dataset.position);
     setDragAndDrop({
       ...dragAndDrop,
-      draggedFrom: initialPosition,
+      draggedFrom: startingPosition,
       isDragging: true,
-      originalOrder: list,
+      originalOrder: trackList,
     });
     e.dataTransfer.setData('text/html', '');
   };
 
   const onDragOver = (e) => {
     e.preventDefault();
-    let newList = dragAndDrop.originalOrder;
+    let newTrackList = dragAndDrop.originalOrder;
     const draggedFrom = dragAndDrop.draggedFrom;
     const draggedTo = Number(e.currentTarget.dataset.position);
-    const trackDragged = newList[draggedFrom];
-    const tracksRemaining = newList.filter((track, i) => i !== draggedFrom);
-    newList = [
+    const trackDragged = newTrackList[draggedFrom];
+    const tracksRemaining = newTrackList.filter((track, i) => i !== draggedFrom);
+    newTrackList = [
       ...tracksRemaining.slice(0, draggedTo),
       trackDragged,
       ...tracksRemaining.slice(draggedTo)
@@ -80,14 +80,14 @@ const PlaylistDetail = () => {
     if (draggedTo !== dragAndDrop.draggedTo) {
       setDragAndDrop({
         ...dragAndDrop,
-        updatedOrder: newList,
+        updatedOrder: newTrackList,
         draggedTo: draggedTo
-      })
+      });
     };
   };
 
   const onDrop = () => {
-    setList(dragAndDrop.updatedOrder);
+    setTrackList(dragAndDrop.updatedOrder);
     setDragAndDrop({
       ...dragAndDrop,
       draggedFrom: null,
@@ -145,7 +145,7 @@ const PlaylistDetail = () => {
           dragAndDrop={dragAndDrop}
           isUserPlaylist={isUserPlaylist}
           setIsUserPlaylist={setIsUserPlaylist}
-          setList={setList}
+          setTrackList={setTrackList}
           setImages={setImages}
         />
         <div className="pl-table-container">
@@ -169,7 +169,7 @@ const PlaylistDetail = () => {
         </div>
         <section>
           <div className="tracks-container" style={{backgroundColor: editState }}>
-            {list?.map((track, i) => (
+            {trackList?.map((track, i) => (
               <div
                 data-position={i}
                 key={track.id}
@@ -181,7 +181,7 @@ const PlaylistDetail = () => {
               >
                 <TrackListing
                   track={track.track}
-                  trackList={list}
+                  trackList={trackList}
                   index={i}
                   playlist={playlist}
                   key={track.id}

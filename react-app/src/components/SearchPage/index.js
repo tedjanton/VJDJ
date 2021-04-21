@@ -25,7 +25,7 @@ const SearchPage = () => {
   useEffect(() => {
     if (query.length <= 2) return;
     dispatch(searchTables(query));
-  }, [query, dispatch])
+  }, [query, dispatch]);
 
   useEffect(() => {
     let count = 0
@@ -33,12 +33,12 @@ const SearchPage = () => {
       for (let key in results) {
         if (results[key].length === 0) {
           count += 1
-        }
-      }
-    }
+        };
+      };
+    };
     if (count === 4) setNoResults(true);
     else setNoResults(false);
-  }, [results])
+  }, [results]);
 
   return (
     <div className="search-page-container">

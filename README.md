@@ -1,27 +1,3 @@
-<!--
-*** Thanks for checking out the Best-README-Template. If you have a suggestion
-*** that would make this better, please fork the repo and create a pull request
-*** or simply open an issue with the tag "enhancement".
-*** Thanks again! Now go create something AMAZING! :D
-***
-***
-***
-*** To avoid retyping too much info. Do a search and replace for the following:
-*** tedjanton, VJDJ, twitter_handle, tedjanton@gmail.com, VjDj, VjDj (Video Jockey, Disc Jockey) is a Spotify clone with music videos...because why not have both in the same place? Pick a song to play, then make a playlist, add songs to it, edit it (with a drag and drop!), follow others' playlists, all while listening to tracks without interruptions.
--->
-
-
-
-<!-- PROJECT SHIELDS -->
-<!--
-*** I'm using markdown "reference style" links for readability.
-*** Reference links are enclosed in brackets [ ] instead of parentheses ( ).
-*** See the bottom of this document for the declaration of the reference variables
-*** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
-*** https://www.markdownguide.org/basic-syntax/#reference-style-links
--->
-
-
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
@@ -54,7 +30,13 @@ VjDj (Video Jockey, Disc Jockey) is a Spotify clone with music videos...because 
     <li>
       <a href="#about-the-project">About The Project</a>
       <ul>
-        <li><a href="#built-with">Built With</a></li>
+        <li><a href="#overall-structure">Overall Structure</a>
+        <ul>
+          <li><a href="#back-end">Back End</a>
+          <li><a href="#front-end">Front End</a>
+          <li><a href="#built-with">Built With</a>
+        </ul>
+        <li><a href="#major-features">Major Features</a>
       </ul>
     </li>
     <li>
@@ -65,6 +47,11 @@ VjDj (Video Jockey, Disc Jockey) is a Spotify clone with music videos...because 
       </ul>
     </li>
     <li><a href="#usage">Usage</a></li>
+    <li><a href="#obstacles">Obstacles</a></li>
+    <ol>
+      <li><a href="#drag-and-drop-playlist-editing">Drag and Drop Playlist Editing</a></li>
+      <li><a href="#dynamic-searching">Dynamic Searching</a></li>
+    </ol>
     <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
@@ -167,6 +154,54 @@ VjDj incorporates a plethora of features, including:
 
 ### Create new playlists
 ![Playlist Creation](react-app/src/images/create-playlist.gif)
+
+### Clicking on a video button pauses the music simultaneously with the video modal opening
+![Video Modal](react-app/src/images/video.gif)
+
+### Follow playlists you love
+![Follow](react-app/src/images/follow.gif)
+
+<!-- OBSTACLES -->
+## Obstacles
+
+### Drag and Drop Playlist Editing
+Since I hadn't created a drag and drop feature before, I needed to do a lot of research before starting. The main resource I used was the [HTML Drag and Drop API](https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API) documentation on MDN.
+
+
+<br>
+<b>Drag Start</b>
+
+After clicking on the track you want to drag, the onDragStart function stores the starting position of the track by it's index and updates a local React state object with "active" values.
+![Drag Start](react-app/src/images/drag-start.png)
+
+<br>
+<b>Drag Over</b>
+
+In order for the lifted track to be droppable, it must have both "draggable" and "onDragOver" attributes present. Since all tracks are "drop zones", the local state object will update dynamically as a track is hovered over while removing the dragged track from the list of tracks being watched.
+![Drag Over](react-app/src/images/drag-over.png)
+
+<br>
+<b>Drop</b>
+
+Finally, when the track is placed, the variables are "deactivate" within the local state object and the drag and drop order is updated to the newly ordered list.
+![Drop](react-app/src/images/drop.png)
+<br></br>
+
+### Dynamic Searching
+
+First, a controlled input element collects the user's search query, but only dispatches the query to the back end if they have typed more than 2 characters to reduce the number of queries to the PostgreSQL database.
+
+![Search Query](react-app/src/images/search-query.png)
+
+<br>
+On the backend, each table is queried for strings or substrings, searching for the user's input and send an object with each table's results in an array back to the front end.
+
+![Search Backend](react-app/src/images/search-backend.png)
+
+<br>
+Once the results are found, the table data arrays are check to determine if they are empty, and if so, a "No results found" message is displayed to the user so that they know to try a different search.
+
+![Search Results](react-app/src/images/search-results.png)
 
 <!-- ROADMAP -->
 ## Roadmap

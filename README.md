@@ -192,16 +192,17 @@ Finally, when the track is placed, the variables are "deactivate" within the loc
 
 ### Dynamic Searching
 
+</br>
 First, a controlled input element collects the user's search query, but only dispatches the query to the back end if they have typed more than 2 characters to reduce the number of queries to the PostgreSQL database.
 
 ![Search Query](react-app/src/images/search-query.png)
 
-<br>
+</br>
 On the backend, each table is queried for strings or substrings, searching for the user's input and send an object with each table's results in an array back to the front end.
 
 ![Search Backend](react-app/src/images/search-backend.png)
 
-<br>
+</br>
 Once the results are found, the table data arrays are check to determine if they are empty, and if so, a "No results found" message is displayed to the user so that they know to try a different search.
 
 ![Search Results](react-app/src/images/search-results.png)

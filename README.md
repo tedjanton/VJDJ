@@ -48,10 +48,10 @@ VjDj (Video Jockey, Disc Jockey) is a Spotify clone with music videos...because 
     </li>
     <li><a href="#usage">Usage</a></li>
     <li><a href="#obstacles">Obstacles</a></li>
-    <ol>
+    <ul>
       <li><a href="#drag-and-drop-playlist-editing">Drag and Drop Playlist Editing</a></li>
       <li><a href="#dynamic-searching">Dynamic Searching</a></li>
-    </ol>
+    </ul>
     <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>

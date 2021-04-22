@@ -87,8 +87,8 @@ const NavBar = ({ nav, authenticated, setAuthenticated }) => {
           </div>
       </div>
         <div className="nav-landing-container">
-          <div>
-            <p>About Me</p>
+        <div>
+            <a href="http://www.tedjanton.com/" target="_blank" rel="noopener noreferrer">About Me</a>
           </div>
           <div>
             <a href="https://github.com/tedjanton/VJDJ">Github</a>

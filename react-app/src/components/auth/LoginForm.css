@@ -4,7 +4,7 @@ body {
 
 .login-page {
   background: white;
-  padding: 4% 0;
+  padding: 2% 0;
 
 }
 
@@ -22,7 +22,7 @@ body {
 
 .login-container.signup {
   display: flex;
-  padding: 190px 0 300px 0;
+  padding: 2% 0;
 }
 
 .signup-disclaimer {
@@ -244,8 +244,9 @@ body {
   letter-spacing: 1.5px;
 }
 
-.login-submit button:hover {
-  /* background: #1ed760; */
+.login-submit button:hover,
+.login-no-account.demo button:hover {
+  border: none;
   background: #1db954;
 }
 

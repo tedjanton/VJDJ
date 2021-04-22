@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Redirect, NavLink } from 'react-router-dom';
 import { signUp } from '../../store/session';
-import { getWindowDimensions } from '../../utils';
 import Recaptcha from './Recaptcha';
 
 const SignUpForm = ({ setNav, authenticated, setAuthenticated }) => {
@@ -14,17 +13,8 @@ const SignUpForm = ({ setNav, authenticated, setAuthenticated }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [repeatPassword, setRepeatPassword] = useState('');
-  const [windowDims, setWindowDims] = useState(getWindowDimensions());
 
   useEffect(() => setNav(false), [setNav]);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setWindowDims(getWindowDimensions());
-    }
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, [])
 
   const onSignUp = async (e) => {
     e.preventDefault();
@@ -50,10 +40,7 @@ const SignUpForm = ({ setNav, authenticated, setAuthenticated }) => {
   }
 
   return (
-    <div
-      className="login-page"
-      style={{ width: windowDims.width, height: windowDims.height}}
-    >
+    <div className="login-page">
       <div className="login-container signup">
         <div className="login-logo signup">
           <i className="fab fa-spotify login" />

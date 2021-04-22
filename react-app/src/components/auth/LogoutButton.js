@@ -14,7 +14,12 @@ const LogoutButton = ({setAuthenticated, setMenu}) => {
     return history.push("/");
   };
 
-  return <button onClick={onLogout}>Logout</button>;
+  return (
+    <>
+      <button onClick={onLogout}>Logout</button>
+      <a href="http://www.tedjanton.com/" target="_blank" rel="noopener noreferrer">About the Developer</a>
+    </>
+  )
 };
 
 export default LogoutButton;

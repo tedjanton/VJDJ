@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Redirect, useHistory } from 'react-router-dom';
 import { login } from '../../store/session';
-import { getWindowDimensions } from '../../utils';
 import google from '../../images/google.png';
 import "./LoginForm.css";
 
@@ -12,17 +11,8 @@ const LoginForm = ({ setNav, authenticated, setAuthenticated }) => {
   const [errors, setErrors] = useState([]);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [windowDims, setWindowDims] = useState(getWindowDimensions());
 
   useEffect(() => setNav(false), [setNav])
-
-  useEffect(() => {
-    const handleResize = () => {
-      setWindowDims(getWindowDimensions());
-    }
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, [])
 
   const onLogin = async (e) => {
     e.preventDefault();
@@ -35,15 +25,21 @@ const LoginForm = ({ setNav, authenticated, setAuthenticated }) => {
     }
   };
 
+  const onDemoLogin = async (e) => {
+    e.preventDefault();
+    const user = await dispatch(login('demo@lition.com', "password"));
+    if (!user.errors) {
+      setNav(true);
+      setAuthenticated(true);
+    }
+  };
+
   if (authenticated) {
     return <Redirect to='/home' />;
   }
 
   return (
-    <div
-      className="login-page"
-      style={{ width: windowDims.width, height: windowDims.height}}
-    >
+    <div className="login-page">
       <div className="login-container">
         <div className="login-logo">
           <i className="fab fa-spotify login" />
@@ -121,6 +117,10 @@ const LoginForm = ({ setNav, authenticated, setAuthenticated }) => {
           <div className="login-no-account">
             <p>Don't have an account?</p>
             <button onClick={() => history.push("/sign-up")}>SIGN UP FOR VJDJ</button>
+          </div>
+          <div className="login-no-account demo">
+            <p>Want to try out the site as a guest?</p>
+            <button onClick={onDemoLogin}>SIGN IN AS GUEST</button>
           </div>
         </form>
       </div>

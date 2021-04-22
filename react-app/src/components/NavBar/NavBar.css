@@ -145,25 +145,38 @@ button.active-button {
 .nav-logout-button {
   position: absolute;
   display: flex;
+  flex-direction: column;
   border-radius: 4px;
   justify-content: flex-start;
-  align-items: center;
-  top: 60px;
+  align-items: flex-start;
+  top: 65px;
   right: 0;
-  height: 50px;
+  height: auto;
   width: 160px;
-  padding: 0 5px;
-  background-color:rgb(39, 39, 39)
+  padding: 5px;
+  background-color:rgb(39, 39, 39);
+  font-weight: 600;
 }
 
-.nav-logout-button button {
+.nav-logout-button button,
+.nav-logout-button a {
   background: none;
   height: 40px;
   width: 160px;
   padding: 0 5px;
+  color: rgb(226, 226, 226);
+  cursor: pointer;
+  font-size: 13px;
 }
 
-.nav-logout-button button:hover {
+.nav-logout-button a {
+  display: flex;
+  align-items: center;
+  width: 150px;
+}
+
+.nav-logout-button button:hover,
+.nav-logout-button a:hover {
   background: rgb(61, 61, 61);
   border-radius: 2px;
   color: white;

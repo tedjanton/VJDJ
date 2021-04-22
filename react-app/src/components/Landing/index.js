@@ -39,7 +39,7 @@ const Landing = ({ setNav, authenticated, setAuthenticated }) => {
         </div>
       </div>
       <div className="landing-demo">
-        <button onClick={(e) => onLogin(e)}>SIGN IN AS A DEMO USER</button>
+        <button onClick={(e) => onLogin(e)}>SIGN IN AS A GUEST</button>
       </div>
     </div>
   )

@@ -76,7 +76,7 @@ VjDj (Video Jockey, Disc Jockey) is a Spotify clone with music videos...because 
 The app was built using Flask and SQLAlchemy on the back end with a PostgreSQL database. The backend structure is RESTful with AJAX requests that are fullfilled with a JSON API. Model class methods are used to minimize database queries to the backend, assuring speed and reliability.
 
 ### Front End
-The front end is built with React and Javascript while utilizing Redux architecture, producing a lightning-fast user interface and calling upon dynamically rendered components.
+The front end is built with React and Javascript while utilizing Redux architecture, producing a lightning-fast user interface and calling upon dynamically rendered components.  
 
 ### Built With
 

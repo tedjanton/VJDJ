@@ -50,7 +50,7 @@ const SignUpForm = ({ setNav, authenticated, setAuthenticated }) => {
     setShowComingSoon(true);
     setTimeout(() => {
       setShowComingSoon(false);
-    }, 3000)
+    }, 2900)
   };
 
   if (authenticated) {

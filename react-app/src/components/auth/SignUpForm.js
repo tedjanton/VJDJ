@@ -15,24 +15,33 @@ const SignUpForm = ({ setNav, authenticated, setAuthenticated }) => {
   const [password, setPassword] = useState('');
   const [repeatPassword, setRepeatPassword] = useState('');
   const [showComingSoon, setShowComingSoon] = useState(false);
+  const [recaptcha, setRecaptcha] = useState(false);
+  const [recaptchaErr, setRecaptchaErr] = useState('');
 
   useEffect(() => setNav(false), [setNav]);
 
   const onSignUp = async (e) => {
     e.preventDefault();
-    if (password === repeatPassword) {
-      const user = await dispatch(signUp(
-        username,
-        firstName,
-        lastName,
-        email,
-        password
-      ));
-      if (!user.errors) {
-        setNav(true);
-        setAuthenticated(true);
+    if (!recaptcha) {
+      setRecaptchaErr("Please confirm you're not a robot!")
+    } else {
+      setRecaptchaErr("")
+      if (password === repeatPassword) {
+        const user = await dispatch(signUp(
+          username,
+          firstName,
+          lastName,
+          email,
+          password
+        ));
+        if (!user.errors) {
+          setNav(true);
+          setAuthenticated(true);
+        } else {
+          setErrors(user.errors);
+        }
       } else {
-        setErrors(user.errors);
+        setErrors(["Passwords must match"])
       }
     }
   };
@@ -41,12 +50,12 @@ const SignUpForm = ({ setNav, authenticated, setAuthenticated }) => {
     setShowComingSoon(true);
     setTimeout(() => {
       setShowComingSoon(false);
-    }, 3000)
-  }
+    }, 2900)
+  };
 
   if (authenticated) {
     return <Redirect to='/home' />;
-  }
+  };
 
   return (
     <div className="login-page">
@@ -80,7 +89,7 @@ const SignUpForm = ({ setNav, authenticated, setAuthenticated }) => {
         <form className="signup-form" onSubmit={onSignUp}>
           <div className="login-form-errors">
             {errors.map((error) => (
-              <div>{error}</div>
+              <div key={error}>{error}</div>
               ))}
           </div>
           <div className="login-email">
@@ -139,7 +148,10 @@ const SignUpForm = ({ setNav, authenticated, setAuthenticated }) => {
             ></input>
           </div>
           <div className="sign-up-recaptcha">
-            <Recaptcha />
+            <Recaptcha recaptcha={recaptcha} setRecaptcha={setRecaptcha} />
+            {recaptchaErr && (
+              <div className="recaptcha-errors">{recaptchaErr}</div>
+            )}
           </div>
           <div className="signup-disclaimer">
             <p>{`By clicking on Sign up, you agree to VjDj's Terms and Conditions (lol).`}</p>

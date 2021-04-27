@@ -4,6 +4,7 @@ import { Redirect, useHistory } from 'react-router-dom';
 import { login } from '../../store/session';
 import google from '../../images/google.png';
 import "./LoginForm.css";
+import ComingSoon from '../ComingSoon';
 
 const LoginForm = ({ setNav, authenticated, setAuthenticated }) => {
   const dispatch = useDispatch();
@@ -11,6 +12,7 @@ const LoginForm = ({ setNav, authenticated, setAuthenticated }) => {
   const [errors, setErrors] = useState([]);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showComingSoon, setShowComingSoon] = useState(false);
 
   useEffect(() => setNav(false), [setNav])
 
@@ -34,9 +36,16 @@ const LoginForm = ({ setNav, authenticated, setAuthenticated }) => {
     }
   };
 
+  const comingSoon = () => {
+    setShowComingSoon(true);
+    setTimeout(() => {
+      setShowComingSoon(false);
+    }, 2900)
+  };
+
   if (authenticated) {
     return <Redirect to='/home' />;
-  }
+  };
 
   return (
     <div className="login-page">
@@ -54,23 +63,26 @@ const LoginForm = ({ setNav, authenticated, setAuthenticated }) => {
           <p>To continue, log in to VjDj.</p>
         </div>
         <div className="login-fb-auth">
-          <button>
+          <button onClick={comingSoon}>
             <i className="fab fa-facebook" />
             CONTINUE WITH FACEBOOK
           </button>
         </div>
         <div className="login-apple-auth">
-          <button>
+          <button onClick={comingSoon}>
             <i className="fab fa-apple" />
             CONTINUE WITH APPLE
           </button>
         </div>
         <div className="login-google-auth">
-          <button>
+          <button onClick={comingSoon}>
             <img className="google-logo" src={google} alt="google" />
             CONTINUE WITH GOOGLE
           </button>
         </div>
+        {showComingSoon && (
+            <ComingSoon />
+          )}
         <div className="login-or-separator">
           <div className="login-or-line"></div>
           <div className="login-or">OR</div>

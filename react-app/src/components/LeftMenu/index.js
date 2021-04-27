@@ -30,7 +30,7 @@ const LeftMenu = ({ authenticated }) => {
     setShowComingSoon(true);
     setTimeout(() => {
       setShowComingSoon(false);
-    }, 3000)
+    }, 2900)
   }
 
   return (

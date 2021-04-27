@@ -1,14 +1,14 @@
 import React from "react";
 import "./Recaptcha.css";
 
-const Recaptcha = () => {
+const Recaptcha = ({ recaptcha, setRecaptcha }) => {
 
     return (
         <div className="recaptcha_container">
             <label className="checkbox_container">
                 <div className="checkbox_positional_container">
                 <input type="checkbox" className="checkbox"/>
-                <span className="checkmark"></span>
+                <span onClick={() => setRecaptcha(!recaptcha)} className="checkmark"></span>
                 <p className="checkbox_text">I'm not a robot</p>
                 </div>
             </label>

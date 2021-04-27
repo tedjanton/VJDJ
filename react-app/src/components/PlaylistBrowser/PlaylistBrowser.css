@@ -19,3 +19,7 @@
   display: flex;
   flex-wrap: wrap;
 }
+
+.plbrow-title {
+  padding-left: 10px;
+}

@@ -12,7 +12,7 @@ body {
 
 .home-featured-detail-container {
   margin-left: 230px;
-  padding: 40px;
+  padding: 40px 40px 40px 35px;
   z-index: 100;
 }
 

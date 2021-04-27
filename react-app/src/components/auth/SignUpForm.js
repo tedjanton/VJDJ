@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Redirect, NavLink } from 'react-router-dom';
 import { signUp } from '../../store/session';
+import ComingSoon from '../ComingSoon';
 import Recaptcha from './Recaptcha';
 
 const SignUpForm = ({ setNav, authenticated, setAuthenticated }) => {
@@ -13,6 +14,7 @@ const SignUpForm = ({ setNav, authenticated, setAuthenticated }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [repeatPassword, setRepeatPassword] = useState('');
+  const [showComingSoon, setShowComingSoon] = useState(false);
 
   useEffect(() => setNav(false), [setNav]);
 
@@ -35,6 +37,13 @@ const SignUpForm = ({ setNav, authenticated, setAuthenticated }) => {
     }
   };
 
+  const comingSoon = () => {
+    setShowComingSoon(true);
+    setTimeout(() => {
+      setShowComingSoon(false);
+    }, 3000)
+  }
+
   if (authenticated) {
     return <Redirect to='/home' />;
   }
@@ -55,10 +64,13 @@ const SignUpForm = ({ setNav, authenticated, setAuthenticated }) => {
           <p>Sign up for free to start listening... and watching.</p>
         </div>
         <div className="login-fb-auth">
-          <button>
+          <button onClick={comingSoon}>
             <i className="fab fa-facebook" />
             SIGN UP WITH FACEBOOK
           </button>
+          {showComingSoon && (
+            <ComingSoon />
+          )}
         </div>
         <div className="login-or-separator">
           <div className="login-or-line"></div>

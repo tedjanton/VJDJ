@@ -1,0 +1,27 @@
+.coming-soon-container {
+  position: fixed;
+  display: flex;
+  flex-wrap: wrap;
+  width: 380px;
+  background-color: rgba(0, 0, 0, 0.95);
+  padding: 20px;
+  font-size: 30px;
+  border-radius: 8px;
+  text-align: center;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+
+}
+
+.fade-out-delay {
+  animation: fadeOut ease 2s;
+  animation-delay: 1s;
+  -webkit-animation: fadeOut ease 2s;
+  -webkit-animation-delay: 1s;
+  -moz-animation: fadeOut ease 2s;
+  -moz-animation-delay: 1s;
+  -o-animation: fadeOut ease 2s;
+  -o-animation-delay: 1s;
+  -ms-animation: fadeOut ease 2s;
+}

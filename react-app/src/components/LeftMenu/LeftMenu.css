@@ -25,10 +25,6 @@ a.nav-active.active {
   padding: 5px 15px 5px 5px;
   line-height: 40px;
 }
-/*
-.lm-nav-search {
-  margin-left: 12px;
-} */
 
 .lm-nav-library {
   display: flex;
@@ -61,7 +57,8 @@ a.nav-active.active {
 
 .lm-nav-home a:hover,
 .lm-nav-search a:hover,
-.lm-nav-library a:hover {
+.lm-nav-library a:hover,
+.lm-user-pl-container a:hover {
   color: white;
 }
 
@@ -164,10 +161,12 @@ a.nav-active.active {
   margin: 5px 0;
   font-size: 14px;
   font-weight: 600;
+
 }
 
 a.lm-user-pl {
   color: rgb(190, 190, 190);
+  transition: color 0.2s ease-in-out;
 }
 
 .lm-liked {
@@ -178,6 +177,7 @@ a.lm-user-pl {
   font-size: 14px;
   font-weight: 600;
   border-bottom: thin solid rgba(206, 206, 206, .3);
+  cursor: pointer;
 }
 
 

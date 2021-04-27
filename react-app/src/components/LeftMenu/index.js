@@ -6,6 +6,7 @@ import { Modal } from '../../context/Modal';
 import { getUserFollowedPls, getUserPls } from '../../store/playlists';
 import library from '../../images/library.png';
 import PlaylistModal from '../PlaylistModal';
+import ComingSoon from '../ComingSoon';
 import './LeftMenu.css';
 
 const LeftMenu = ({ authenticated }) => {
@@ -14,6 +15,7 @@ const LeftMenu = ({ authenticated }) => {
   const history = useHistory();
   const user = useSelector(state => state.session.user)
   const [showModal, setShowModal] = useState(false);
+  const [showComingSoon, setShowComingSoon] = useState(false);
   const userPls = useSelector(state => state.playlists.userPls);
   const following = useSelector(state => state.playlists.following);
 
@@ -22,7 +24,14 @@ const LeftMenu = ({ authenticated }) => {
       dispatch(getUserFollowedPls(user.id))
       dispatch(getUserPls(user.id))
     }
-  }, [user, dispatch])
+  }, [user, dispatch]);
+
+  const comingSoon = () => {
+    setShowComingSoon(true);
+    setTimeout(() => {
+      setShowComingSoon(false);
+    }, 3000)
+  }
 
   return (
     <div className="lm-container">
@@ -69,12 +78,15 @@ const LeftMenu = ({ authenticated }) => {
           <PlaylistModal setShowModal={setShowModal}/>
         </Modal>
       )}
-      <div className="lm-liked">
+      <div onClick={comingSoon} className="lm-liked">
         <div className="lm-liked-heart">
           <i className="fas fa-heart" />
         </div>
         <p>Liked Songs</p>
       </div>
+      {showComingSoon && (
+        <ComingSoon />
+      )}
       <div className="lm-user-pls">
         <div className="lm-user-owned-pls-title">
           <p>YOUR PLAYLISTS</p>

@@ -86,6 +86,7 @@ button {
   -o-animation: fadeOut ease 2s;
   -ms-animation: fadeOut ease 2s;
 }
+
 @keyframes fadeOut {
   0% {
     opacity:1;

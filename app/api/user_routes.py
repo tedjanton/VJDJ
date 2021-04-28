@@ -52,10 +52,8 @@ def add_follow(id):
 @login_required
 def unfollow(id):
     req = request.get_json()
-
     user = User.query.get(id)
     playlist = Playlist.query.get(req["playlistId"])
-
     user.pl_follows.remove(playlist)
     db.session.commit()
 

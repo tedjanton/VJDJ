@@ -72,6 +72,7 @@ const MusicPlayer = ({ tracks }) => {
       setIsPlaying(false);
       clearInterval(intervalRef.current);
     }
+    // eslint-disable-next-line
   }, []);
 
   useEffect(() => {

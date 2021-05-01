@@ -1,17 +1,21 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { AppWithContext } from '../../App';
 import { Modal } from '../../context/Modal';
-import { addToPlaylist, deleteFromPlaylist } from '../../store/playlists';
-import { formatTrack, playlistImageBuilder } from '../../utils';
+import { formatTrack } from '../../utils';
 import VideoModal from '../VideoModal';
 import './TrackListing.css';
+import TrackActions from './TrackActions';
 
-const TrackListing = ({ track, trackList, index, playlist, isUserPlaylist, isAlbum, setImages }) => {
-  const dispatch = useDispatch();
-  const user = useSelector(state => state.session.user);
-  const userPls = useSelector(state => state.playlists.userPls)
+const TrackListing = ({
+  track,
+  trackList,
+  index,
+  playlist,
+  isUserPlaylist,
+  isAlbum,
+  setImages
+}) => {
   const [isHover, setIsHover] = useState(false);
   const [isTrackPlaying, setIsTrackPlaying] = useState(false);
   const [editMenu, setEditMenu] = useState(false);
@@ -23,8 +27,7 @@ const TrackListing = ({ track, trackList, index, playlist, isUserPlaylist, isAlb
     setIsPlaying,
     setTrackIdx,
     trackRef,
-    setConfirmedBox
-  } = useContext(AppWithContext)
+    } = useContext(AppWithContext)
 
   useEffect(() => {
     if (showModal) {
@@ -59,35 +62,6 @@ const TrackListing = ({ track, trackList, index, playlist, isUserPlaylist, isAlb
       setTrackQueue(formatted);
       setIsPlaying(true);
     }
-  };
-
-  const handleUserPlaylist = () => {
-    if (!isUserPlaylist) {
-      setAddMenu(true);
-    }
-    setEditMenu(true);
-  }
-
-  const handleDelete = async () => {
-    const selection = {
-      track_id: track.id,
-      playlist_id: playlist.id,
-      order_num: index + 1,
-    }
-    window.confirm("Are you sure you would like to remove this song from this playlist?");
-    let pl = await dispatch(deleteFromPlaylist(selection));
-    setImages(playlistImageBuilder(pl));
-  };
-
-  const addTrack = (pl) => {
-    const submission = {
-      track_id: track.id,
-      playlist_id: pl.id,
-    };
-    dispatch(addToPlaylist(submission, user.id))
-    setEditMenu(false);
-    setConfirmedBox(true);
-    setIsHover(false);
   };
 
   return (
@@ -176,49 +150,19 @@ const TrackListing = ({ track, trackList, index, playlist, isUserPlaylist, isAlb
         <div className="track-time">
           <p>{track.time}</p>
         </div>
-        {isHover && (
-          <div onClick={handleUserPlaylist} className="track-edit">
-            <i className="tl fas fa-ellipsis-h" />
-          </div>
-        )}
-        {editMenu && isHover && isUserPlaylist && (
-          <div className="tl-edit-menu">
-            <div className="tl-delete-button">
-              <button onClick={handleDelete}>Delete</button>
-            </div>
-            <div className="tl-add-to-button">
-              <button onClick={() => setAddMenu(true)}>Add to Playlist</button>
-            </div>
-            <div className="tb-add-box-container">
-            {addMenu && (
-              <div className="tb-add-box">
-                <p className="tb-add-title">Add track to:</p>
-                {userPls?.map(pl => (
-                  <div key={pl.id} className="tb-add-pl">
-                    <button onClick={() => addTrack(pl)}>{pl.name}</button>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-        </div>
-        )}
-        {editMenu && isHover && !isUserPlaylist && (
-          <div className="tl-edit-menu-not-user">
-            <div className="tb-add-box-container not-user">
-            {addMenu && (
-              <div className="tb-add-box">
-                <p className="tb-add-title">Add track to:</p>
-                {userPls?.map(pl => (
-                  <div key={pl.id} className="tb-add-pl">
-                    <button onClick={() => addTrack(pl)}>{pl.name}</button>
-                  </div>
-                ))}
-              </div>
-            )}
-            </div>
-          </div>
-        )}
+        <TrackActions
+          isUserPlaylist={isUserPlaylist}
+          setAddMenu={setAddMenu}
+          setEditMenu={setEditMenu}
+          track={track}
+          playlist={playlist}
+          index={index}
+          setImages={setImages}
+          setIsHover={setIsHover}
+          isHover={isHover}
+          editMenu={editMenu}
+          addMenu={addMenu}
+        />
       </div>
     </div>
   )

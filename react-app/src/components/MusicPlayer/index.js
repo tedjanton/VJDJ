@@ -9,12 +9,14 @@ const MusicPlayer = ({ tracks }) => {
     setIsPlaying,
     trackIdx,
     setTrackIdx,
-    trackQueue
+    trackQueue,
+    trackRef
   } = useContext(AppWithContext);
   const [progress, setProgress] = useState(0);
-  const [vol, setVol] = useState(1);
   const { title, artists, art, audio_src } = tracks[trackIdx];
   const audRef = useRef(new Audio(audio_src));
+  const [vol, setVol] = useState(audRef.current.volume);
+  const [mute, setMute] = useState(false);
   const intervalRef = useRef();
   const isReady = useRef(false);
   const { duration } = audRef.current;
@@ -41,6 +43,8 @@ const MusicPlayer = ({ tracks }) => {
   useEffect(() => {
     audRef.current.pause();
     audRef.current = new Audio(audio_src);
+    trackRef.current = tracks[trackIdx];
+    audRef.current.volume = vol;
     setProgress(audRef.current.currentTime);
 
     if (isReady.current) {
@@ -58,8 +62,14 @@ const MusicPlayer = ({ tracks }) => {
   }, [vol])
 
   useEffect(() => {
+    if (mute) audRef.current.volume = 0;
+    else audRef.current.volume = vol;
+  })
+
+  useEffect(() => {
     return () => {
       audRef.current.pause();
+      setIsPlaying(false);
       clearInterval(intervalRef.current);
     }
   }, []);
@@ -105,11 +115,7 @@ const MusicPlayer = ({ tracks }) => {
         <div className="mp-track-info">
           <div className="mp-art-container">
           {art && (
-            <img
-              className="mp-art"
-              src={art}
-              alt="track art"
-            />
+            <img className="mp-art" src={art} alt="track art" />
           )}
           </div>
           <div className="mp-track-details">
@@ -154,8 +160,12 @@ const MusicPlayer = ({ tracks }) => {
           </div>
         </div>
         <div className="mp-volume-container">
-          <div className="mp-vol-icon">
-            <i className="fas fa-volume-up" />
+          <div onClick={() => setMute(!mute)} className="mp-vol-icon">
+            {mute ? (
+              <i className="fas fa-volume-mute" />
+            ) : (
+              <i className="fas fa-volume-up" />
+            )}
           </div>
           <div className="mp-vol-slider">
             <input
@@ -166,7 +176,7 @@ const MusicPlayer = ({ tracks }) => {
               max="1"
               className="volume slider"
               onChange={(e) => setVol(e.target.value)}
-              style={{ background: volStyling, height: "4px"  }}
+              style={{ background: volStyling, height: "4px" }}
               />
           </div>
         </div>

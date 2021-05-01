@@ -31,9 +31,9 @@ const TrackBox = ({ track, trackList, index }) => {
     }
   }, [setIsTrackPlaying, trackRef, track])
 
-  const handleMouseHover = () => {
-    setIsHover(!isHover);
-    setAddMenu(false)
+  const handleMouseLeave = () => {
+    setIsHover(false);
+    setAddMenu(false);
   }
 
   const handleQueue = () => {
@@ -63,8 +63,8 @@ const TrackBox = ({ track, trackList, index }) => {
   return (
     <div
       className="tb-container"
-      onMouseEnter={handleMouseHover}
-      onMouseLeave={handleMouseHover}>
+      onMouseEnter={() => setIsHover(true)}
+      onMouseLeave={handleMouseLeave}>
       <div className="tb-img">
         <img src={track.album.art_src} alt={track.title} />
         {isHover && (

@@ -61,6 +61,13 @@ const TrackListing = ({ track, trackList, index, playlist, isUserPlaylist, isAlb
     }
   };
 
+  const handleUserPlaylist = () => {
+    if (!isUserPlaylist) {
+      setAddMenu(true);
+    }
+    setEditMenu(true);
+  }
+
   const handleDelete = async () => {
     const selection = {
       track_id: track.id,
@@ -80,6 +87,7 @@ const TrackListing = ({ track, trackList, index, playlist, isUserPlaylist, isAlb
     dispatch(addToPlaylist(submission, user.id))
     setEditMenu(false);
     setConfirmedBox(true);
+    setIsHover(false);
   };
 
   return (
@@ -169,7 +177,7 @@ const TrackListing = ({ track, trackList, index, playlist, isUserPlaylist, isAlb
           <p>{track.time}</p>
         </div>
         {isHover && (
-          <div onClick={() => setEditMenu(true)} className="track-edit">
+          <div onClick={handleUserPlaylist} className="track-edit">
             <i className="tl fas fa-ellipsis-h" />
           </div>
         )}
@@ -197,10 +205,7 @@ const TrackListing = ({ track, trackList, index, playlist, isUserPlaylist, isAlb
         )}
         {editMenu && isHover && !isUserPlaylist && (
           <div className="tl-edit-menu-not-user">
-            <div className="tl-add-to-button">
-              <button onClick={() => setAddMenu(true)}>Add to Playlist</button>
-            </div>
-            <div className="tb-add-box-container">
+            <div className="tb-add-box-container not-user">
             {addMenu && (
               <div className="tb-add-box">
                 <p className="tb-add-title">Add track to:</p>

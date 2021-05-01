@@ -3,6 +3,7 @@
 }
 
 .pl-track-container-inner {
+  position: relative;
   display: grid;
   grid-gap: 10px;
   grid-template-columns: .05fr repeat(7, 1fr) .25fr .25fr;
@@ -76,20 +77,22 @@
   color: rgb(172, 172, 172);
 }
 
-.tl-edit-menu,
-.tl-edit-menu-not-user {
+.tl-edit-menu {
   position: absolute;
-  right: 80px;
+  right: 25px;
   display: flex;
   flex-direction: column;
   width: 120px;
+  height: 76px;
   background-color: rgb(36, 36, 36);
   border-radius: 4px;
   padding: 5px;
 }
 
-.tl-edit-menu {
-  height: 76px;
+.tl-edit-menu-not-user {
+  position: absolute;
+  right: -25px;
+  top: -32px;
 }
 
 .tl-edit-menu-not-user {

@@ -31,18 +31,23 @@ const TrackBox = ({ track, trackList, index }) => {
     }
   }, [setIsTrackPlaying, trackRef, track])
 
-  const handleMouseHover = () => {
-    setIsHover(!isHover);
-    setAddMenu(false)
+  const handleMouseLeave = () => {
+    setIsHover(false);
+    setAddMenu(false);
   }
 
   const handleQueue = () => {
-    let formatted = trackList.map(track => formatTrack(track))
-    trackRef.current = formatted[index];
-    setTrackIdx(index);
-    setTrackQueue(formatted);
-    setIsPlaying(true);
-    setIsTrackPlaying(true);
+    if (isPlaying && isTrackPlaying) {
+      setIsPlaying(false);
+      setIsTrackPlaying(false);
+    } else {
+      let formatted = trackList.map(track => formatTrack(track))
+      trackRef.current = formatted[index];
+      setTrackIdx(index);
+      setTrackQueue(formatted);
+      setIsPlaying(true);
+      setIsTrackPlaying(true);
+    }
   };
 
   const addTrack = (pl) => {
@@ -58,8 +63,8 @@ const TrackBox = ({ track, trackList, index }) => {
   return (
     <div
       className="tb-container"
-      onMouseEnter={handleMouseHover}
-      onMouseLeave={handleMouseHover}>
+      onMouseEnter={() => setIsHover(true)}
+      onMouseLeave={handleMouseLeave}>
       <div className="tb-img">
         <img src={track.album.art_src} alt={track.title} />
         {isHover && (

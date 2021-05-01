@@ -48,12 +48,17 @@ const TrackListing = ({ track, trackList, index, playlist, isUserPlaylist, isAlb
   };
 
   const handleQueue = () => {
-    let formatted = trackList.map(track => (
-      formatTrack(track.track ? track.track : track)));
-    trackRef.current = formatted[index];
-    setTrackIdx(index);
-    setTrackQueue(formatted);
-    setIsPlaying(true);
+    if (isPlaying && isTrackPlaying) {
+      setIsPlaying(false);
+      setIsTrackPlaying(false);
+    } else {
+      let formatted = trackList.map(track => (
+        formatTrack(track.track ? track.track : track)));
+      trackRef.current = formatted[index];
+      setTrackIdx(index);
+      setTrackQueue(formatted);
+      setIsPlaying(true);
+    }
   };
 
   const handleDelete = async () => {

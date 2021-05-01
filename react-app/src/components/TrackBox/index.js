@@ -37,12 +37,17 @@ const TrackBox = ({ track, trackList, index }) => {
   }
 
   const handleQueue = () => {
-    let formatted = trackList.map(track => formatTrack(track))
-    trackRef.current = formatted[index];
-    setTrackIdx(index);
-    setTrackQueue(formatted);
-    setIsPlaying(true);
-    setIsTrackPlaying(true);
+    if (isPlaying && isTrackPlaying) {
+      setIsPlaying(false);
+      setIsTrackPlaying(false);
+    } else {
+      let formatted = trackList.map(track => formatTrack(track))
+      trackRef.current = formatted[index];
+      setTrackIdx(index);
+      setTrackQueue(formatted);
+      setIsPlaying(true);
+      setIsTrackPlaying(true);
+    }
   };
 
   const addTrack = (pl) => {

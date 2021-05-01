@@ -7,7 +7,15 @@ import VideoModal from '../VideoModal';
 import './TrackListing.css';
 import TrackActions from './TrackActions';
 
-const TrackListing = ({ track, trackList, index, playlist, isUserPlaylist, isAlbum, setImages }) => {
+const TrackListing = ({
+  track,
+  trackList,
+  index,
+  playlist,
+  isUserPlaylist,
+  isAlbum,
+  setImages
+}) => {
   const [isHover, setIsHover] = useState(false);
   const [isTrackPlaying, setIsTrackPlaying] = useState(false);
   const [editMenu, setEditMenu] = useState(false);

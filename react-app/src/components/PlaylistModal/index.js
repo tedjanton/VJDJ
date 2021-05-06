@@ -12,14 +12,18 @@ const PlaylistModal = ({ setShowModal }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const submission = {
-      name,
-      user_id: user.id
-    };
-    const newPlaylist = await dispatch(createPlaylist(submission));
-    setShowModal(false)
-    dispatch(getUserPls(user.id))
-    return history.push(`/playlists/${newPlaylist.id}`)
+    if (name.length) {
+      const submission = {
+        name,
+        user_id: user.id
+      };
+      const newPlaylist = await dispatch(createPlaylist(submission));
+      setShowModal(false)
+      await dispatch(getUserPls(user.id))
+      return history.push(`/playlists/${newPlaylist.id}`)
+    } else {
+      window.alert("You must enter a name to create a playlist!")
+    }
   };
 
   return (
@@ -35,6 +39,7 @@ const PlaylistModal = ({ setShowModal }) => {
             placeholder="Enter playlist name..."
             value={name}
             onChange={(e) => setName(e.target.value)}
+            required={true}
           />
           <button className="input-button" onClick={handleSubmit}>
             <i className="fas fa-plus" />

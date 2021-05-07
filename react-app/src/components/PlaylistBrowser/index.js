@@ -1,16 +1,19 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { AppWithContext } from '../../App';
 import { getAllPlaylists } from '../../store/playlists';
 import PlaylistBox from '../PlaylistBox';
 import './PlaylistBrowser.css';
 
 const PlaylistBrowser = () => {
   const dispatch = useDispatch();
+  const { setInBrowse } = useContext(AppWithContext)
   const playlists = useSelector(state => state.playlists.allPls)
 
   useEffect(() => {
+    setInBrowse(true);
     document.getElementById("nav-home").classList.add("browser")
-  }, []);
+  });
 
   useEffect(() => dispatch(getAllPlaylists()), [dispatch]);
 

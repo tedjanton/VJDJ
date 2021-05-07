@@ -2,8 +2,10 @@ import React, { useState, useEffect, useContext } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import { AppWithContext } from '../../App';
+import { Modal } from '../../context/Modal';
 import { addFollow, unfollow, editPlaylist, deletePlaylist, getUserPls, getPlaylist } from '../../store/playlists';
 import { formatTrack, playlistImageBuilder } from '../../utils';
+import PlaylistAddSongs from './PlaylistAddSongs';
 
 const PlaylistActions = ({
   playlist,
@@ -25,6 +27,7 @@ const PlaylistActions = ({
   const [isPlaylistPlaying, setIsPlaylistPlaying] = useState(false);
   const [isFollowing, setIsFollowing] = useState(false);
   const [openMenu, setOpenMenu] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   const {
     setTrackQueue,
     isPlaying,
@@ -66,8 +69,10 @@ const PlaylistActions = ({
   }
 
   const handleFollow = () => {
-    if (playlist?.user.id === user?.id) return;
-
+    if (playlist?.user.id === user?.id) {
+      setShowModal(true);
+      return;
+    }
     const submission = { userId: user.id, playlistId: playlist.id };
     if (isFollowing) dispatch(unfollow(submission));
     else dispatch(addFollow(submission));
@@ -134,7 +139,7 @@ const PlaylistActions = ({
         </div>
         <div onClick={handleFollow} className="pl-like-button">
         {playlist?.user.id === user?.id ? (
-          <i className="pl fas fa-heart" />
+          <i className="fas fa-plus" />
         ) : (
           <>
             {isFollowing ? (
@@ -145,6 +150,11 @@ const PlaylistActions = ({
           </>
         )}
         </div>
+        {showModal && (
+          <Modal onClose={() => setShowModal(false)}>
+            <PlaylistAddSongs />
+          </Modal>
+        )}
         {isUserPlaylist && (
           <div
             className="pl-dot-menu"
@@ -154,9 +164,6 @@ const PlaylistActions = ({
         )}
         {openMenu && (
           <div className="pl-menu-box">
-            {/* <div className="pl-add-songs-button">
-              <button>Add Songs</button>
-            </div> */}
             <div className="pl-edit-button">
               <button onClick={handleEdit}>Edit Playlist</button>
             </div>

@@ -34,17 +34,13 @@ const PlaylistDetail = () => {
   const [isUserPlaylist, setIsUserPlaylist] = useState();
   const { setInBrowse, inBrowse } = useContext(AppWithContext);
 
-  useEffect(() => {
-    setInBrowse(false)
-  }, [setInBrowse, inBrowse]);
+  useEffect(() => setInBrowse(false), [setInBrowse, inBrowse]);
 
   useEffect(() => {
     document.getElementById("nav-home").classList.remove("browser");
   });
 
-  useEffect(() => {
-    setTrackList(tracks);
-  }, [tracks]);
+  useEffect(() => setTrackList(tracks), [tracks]);
 
   useEffect(() => {
     (async() => {
@@ -102,7 +98,7 @@ const PlaylistDetail = () => {
         <div className="pl-header-image-container">
         {images.length < 4 ? (
           <div className="pl-image placeholder">
-            <img src={playlist_placeholder} alt="placeholder" />
+            <img src={images.length > 0 ? images[0] : playlist_placeholder} alt="placeholder" />
           </div>
         ) : (
           <>

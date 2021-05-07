@@ -1,0 +1,29 @@
+.add-songs-modal-container {
+  height: 250px;
+  width: 600px;
+  background-color: rgba(36, 36, 36, 0.9);
+  font-size: 20px;
+  border-radius: 8px;
+
+}
+
+.add-songs-modal-text {
+  font-size: 16px;
+  padding: 0 50px;
+}
+
+.add-songs-modal-to-lib {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 200px;
+  margin: 30px auto;
+  font-weight: 600;
+  background-color: #1ed760;
+  height: 40px;
+  border-radius: 20px;
+}
+
+.add-songs-modal-to-lib:hover {
+  background-color: #1db954;
+}

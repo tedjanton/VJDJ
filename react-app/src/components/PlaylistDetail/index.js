@@ -98,7 +98,9 @@ const PlaylistDetail = () => {
         <div className="pl-header-image-container">
         {images.length < 4 ? (
           <div className="pl-image placeholder">
-            <img src={images.length > 0 ? images[0] : playlist_placeholder} alt="placeholder" />
+            <ColorExtractor getColors={(c) => getColors(c)}>
+              <img src={images.length > 0 ? images[0] : playlist_placeholder} alt="placeholder" />
+            </ColorExtractor>
           </div>
         ) : (
           <>

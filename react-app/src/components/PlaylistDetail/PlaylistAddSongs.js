@@ -12,7 +12,7 @@ const PlaylistAddSongs = () => {
         Browse the Library to find songs by artist, album, or playlist.
         Hover over any song and click on the "•••" to add that song to any of your playlists.
       </p>
-        <NavLink className="add-songs-modal-to-lib" to="/library/playlists">Go to Library</NavLink>
+      <NavLink className="add-songs-modal-to-lib" to="/library/playlists">Go to Library</NavLink>
     </div>
   )
 }

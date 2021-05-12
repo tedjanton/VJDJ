@@ -18,7 +18,7 @@ const PlaylistActions = ({
   dragAndDrop,
   isUserPlaylist,
   setIsUserPlaylist,
-  setList,
+  setTrackList,
   setImages,
 }) => {
   const dispatch = useDispatch();
@@ -28,6 +28,7 @@ const PlaylistActions = ({
   const [isFollowing, setIsFollowing] = useState(false);
   const [openMenu, setOpenMenu] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
   const {
     setTrackQueue,
     isPlaying,
@@ -69,7 +70,7 @@ const PlaylistActions = ({
   }
 
   const handleFollow = () => {
-    if (playlist?.user.id === user?.id) {
+    if (playlist.user.id === user.id) {
       setShowModal(true);
       return;
     }
@@ -100,14 +101,15 @@ const PlaylistActions = ({
   };
 
   const cancelEdits = () => {
-    setList(dragAndDrop.originalOrder)
+    if (dragAndDrop.originalOrder.length) {
+      setTrackList(dragAndDrop.originalOrder)
+    }
     setEditState(null);
     setOpenMenu(false);
     setDraggable(false);
   }
 
   const handleDelete = async () => {
-    window.confirm(`Are you sure you would like to delete ${playlist.name}?`);
     await dispatch(deletePlaylist(playlist.id));
     await dispatch(getUserPls(user.id));
     return history.push('/home');
@@ -168,9 +170,28 @@ const PlaylistActions = ({
               <button onClick={handleEdit}>Edit Playlist</button>
             </div>
             <div className="pl-delete-button">
-              <button onClick={handleDelete}>Delete Playlist</button>
+              <button onClick={() => setShowDeleteModal(true)}>Delete Playlist</button>
             </div>
           </div>
+        )}
+        {showDeleteModal && (
+          <Modal onClose={() => setShowDeleteModal(false)}>
+            <div className="delete-pl-modal-container">
+              <h2 className="delete-pl-modal-header">
+                {`Are you sure you would like to delete ${playlist.name}?`}
+              </h2>
+              <p className="delete-pl-modal-warning">This action cannot be undone.</p>
+              <div className="">
+                <button onClick={() => {
+                  setShowDeleteModal(false)
+                  setOpenMenu(false)}}
+                  className="delete-pl-modal-button-cancel">Cancel</button>
+                <button
+                  onClick={handleDelete}
+                  className="delete-pl-modal-button-confirm">Confirm</button>
+              </div>
+            </div>
+          </Modal>
         )}
         {draggable && (
           <div className="pl-edit-cancel-container">

@@ -1,10 +1,10 @@
-.add-songs-modal-container {
-  height: 250px;
+.add-songs-modal-container,
+.delete-pl-modal-container {
+  height: auto;
   width: 600px;
   background-color: rgba(36, 36, 36, 0.9);
   font-size: 20px;
   border-radius: 8px;
-
 }
 
 .add-songs-modal-text {
@@ -26,4 +26,41 @@
 
 .add-songs-modal-to-lib:hover {
   background-color: #1db954;
+}
+
+.delete-pl-modal-header {
+  padding: 20px;
+}
+
+.delete-pl-modal-warning {
+  margin: 0;
+  position: relative;
+  bottom: 20px;
+}
+
+.delete-pl-modal-button-cancel,
+.delete-pl-modal-button-confirm {
+  color: white;
+  border: none;
+  font-size: 18px;
+  padding: 10px 20px;
+  font-weight: 700;
+  margin: 10px 10px 30px 10px;
+  border-radius: 20px;
+}
+
+.delete-pl-modal-button-cancel {
+  background:rgb(73, 73, 73);
+}
+
+.delete-pl-modal-button-cancel:hover {
+  background:rgb(54, 54, 54);
+}
+
+.delete-pl-modal-button-confirm {
+  background: #1ed760;
+}
+
+.delete-pl-modal-button-confirm:hover {
+  background: #1db954
 }

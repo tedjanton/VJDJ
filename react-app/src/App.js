@@ -48,7 +48,7 @@ function App() {
     if (confirmedBox) {
       setTimeout(() => {
         setConfirmedBox(false)
-      }, 2000)
+      }, 1900)
     }
   }, [confirmedBox]);
 

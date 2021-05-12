@@ -14,7 +14,8 @@ const TrackListing = ({
   playlist,
   isUserPlaylist,
   isAlbum,
-  setImages
+  setImages,
+  editState
 }) => {
   const [isHover, setIsHover] = useState(false);
   const [isTrackPlaying, setIsTrackPlaying] = useState(false);
@@ -150,19 +151,21 @@ const TrackListing = ({
         <div className="track-time">
           <p>{track.time}</p>
         </div>
-        <TrackActions
-          isUserPlaylist={isUserPlaylist}
-          setAddMenu={setAddMenu}
-          setEditMenu={setEditMenu}
-          track={track}
-          playlist={playlist}
-          index={index}
-          setImages={setImages}
-          setIsHover={setIsHover}
-          isHover={isHover}
-          editMenu={editMenu}
-          addMenu={addMenu}
-        />
+        {!editState && (
+          <TrackActions
+            isUserPlaylist={isUserPlaylist}
+            setAddMenu={setAddMenu}
+            setEditMenu={setEditMenu}
+            track={track}
+            playlist={playlist}
+            index={index}
+            setImages={setImages}
+            setIsHover={setIsHover}
+            isHover={isHover}
+            editMenu={editMenu}
+            addMenu={addMenu}
+          />
+        )}
       </div>
     </div>
   )

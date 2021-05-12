@@ -5,6 +5,7 @@ import { AppWithContext } from '../../App';
 import { Modal } from '../../context/Modal';
 import { addFollow, unfollow, editPlaylist, deletePlaylist, getUserPls, getPlaylist } from '../../store/playlists';
 import { formatTrack, playlistImageBuilder } from '../../utils';
+import DeleteModal from '../DeleteModal';
 import PlaylistAddSongs from './PlaylistAddSongs';
 
 const PlaylistActions = ({
@@ -14,6 +15,7 @@ const PlaylistActions = ({
   user,
   setDraggable,
   setEditState,
+  editState,
   draggable,
   dragAndDrop,
   isUserPlaylist,
@@ -176,21 +178,12 @@ const PlaylistActions = ({
         )}
         {showDeleteModal && (
           <Modal onClose={() => setShowDeleteModal(false)}>
-            <div className="delete-pl-modal-container">
-              <h2 className="delete-pl-modal-header">
-                {`Are you sure you would like to delete ${playlist.name}?`}
-              </h2>
-              <p className="delete-pl-modal-warning">This action cannot be undone.</p>
-              <div className="">
-                <button onClick={() => {
-                  setShowDeleteModal(false)
-                  setOpenMenu(false)}}
-                  className="delete-pl-modal-button-cancel">Cancel</button>
-                <button
-                  onClick={handleDelete}
-                  className="delete-pl-modal-button-confirm">Confirm</button>
-              </div>
-            </div>
+            <DeleteModal
+              setShowDeleteModal={setShowDeleteModal}
+              setOpenMenu={setOpenMenu}
+              handleDelete={handleDelete}
+              item={playlist}
+            />
           </Modal>
         )}
         {draggable && (

@@ -1,8 +1,10 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppWithContext } from '../../App';
+import { Modal } from '../../context/Modal';
 import { addToPlaylist, deleteFromPlaylist } from '../../store/playlists';
 import { playlistImageBuilder } from '../../utils';
+import DeleteModal from '../DeleteModal';
 import './TrackListing.css';
 
 const TrackActions = ({
@@ -22,6 +24,14 @@ const TrackActions = ({
   const user = useSelector(state => state.session.user);
   const userPls = useSelector(state => state.playlists.userPls)
   const { setConfirmedBox } = useContext(AppWithContext);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+
+  useEffect(() => {
+    if (showDeleteModal) {
+      setIsHover(false)
+      setEditMenu(false)
+    }
+  })
 
   const handleUserPlaylist = () => {
     if (!isUserPlaylist) setAddMenu(true);
@@ -34,7 +44,6 @@ const TrackActions = ({
       playlist_id: playlist.id,
       order_num: index + 1,
     }
-    window.confirm("Are you sure you would like to remove this song from this playlist?");
     let pl = await dispatch(deleteFromPlaylist(selection));
     setImages(playlistImageBuilder(pl));
   };
@@ -60,7 +69,7 @@ const TrackActions = ({
       {editMenu && isHover && isUserPlaylist && (
         <div className="tl-edit-menu">
           <div className="tl-delete-button">
-            <button onClick={handleDelete}>Delete</button>
+            <button onClick={() => setShowDeleteModal(true)}>Delete</button>
           </div>
           <div className="tl-add-to-button">
             <button onClick={() => setAddMenu(true)}>Add to Playlist</button>
@@ -94,6 +103,17 @@ const TrackActions = ({
           )}
           </div>
         </div>
+      )}
+      {showDeleteModal && (
+        <Modal onClose={() => setShowDeleteModal(false)}>
+          <DeleteModal
+            setShowDeleteModal={setShowDeleteModal}
+            setOpenMenu={setEditMenu}
+            setEditMenu={setEditMenu}
+            handleDelete={handleDelete}
+            item={track}
+          />
+        </Modal>
       )}
     </>
   )

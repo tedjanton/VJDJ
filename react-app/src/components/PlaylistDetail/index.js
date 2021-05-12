@@ -185,6 +185,7 @@ const PlaylistDetail = () => {
                   key={track.id}
                   isUserPlaylist={isUserPlaylist}
                   setImages={setImages}
+                  editState={editState}
                 />
               </div>
             ))}

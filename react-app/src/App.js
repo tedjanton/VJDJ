@@ -1,4 +1,4 @@
-import React, { useState, useEffect, createContext, useRef } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useDispatch } from 'react-redux';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import LoginForm from './components/auth/LoginForm';
@@ -17,22 +17,14 @@ import { authenticate } from './store/session';
 import ArtistDetail from './components/ArtistDetail';
 import AlbumDetail from './components/AlbumDetail';
 import SearchPage from './components/SearchPage';
-
-export const AppWithContext = createContext();
+import AppWithContext from './context/AppWithContext';
 
 function App() {
   const dispatch = useDispatch();
+  const { confirmedBox } = useContext(AppWithContext);
   const [authenticated, setAuthenticated] = useState(false);
   const [nav, setNav] = useState(true);
-  const [inBrowse, setInBrowse] = useState(false);
-  const [inSearch, setInSearch] = useState(false);
   const [loaded, setLoaded] = useState(false);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [trackQueue, setTrackQueue] = useState([]);
-  const [trackIdx, setTrackIdx] = useState(0);
-  const [confirmedBox, setConfirmedBox] = useState(false);
-  const paramsRef = useRef();
-  const trackRef = useRef();
 
   useEffect(() => {
     (async() => {
@@ -44,100 +36,74 @@ function App() {
     })();
   }, [dispatch]);
 
-  useEffect(() => {
-    if (confirmedBox) {
-      setTimeout(() => {
-        setConfirmedBox(false)
-      }, 1900)
-    }
-  }, [confirmedBox]);
-
   if (!loaded) {
     return null;
   };
 
   return (
     <BrowserRouter>
-      <AppWithContext.Provider
-        value={{
-          trackQueue,
-          setTrackQueue,
-          isPlaying,
-          setIsPlaying,
-          trackIdx,
-          setTrackIdx,
-          inBrowse,
-          setInBrowse,
-          paramsRef,
-          trackRef,
-          inSearch,
-          setInSearch,
-          setConfirmedBox
-        }}
-      >
-        <NavBar
-          nav={nav}
-          authenticated={authenticated}
-          setAuthenticated={setAuthenticated}
-        />
-        {authenticated && (
-        <>
-          <LeftMenu authenticated={authenticated} />
-        </>
-        )}
-        <Switch>
-          <Route path='/' exact >
-            <Landing
-              setNav={setNav}
-              authenticated={authenticated}
-              setAuthenticated={setAuthenticated} />
-          </Route>
-          <Route path='/login' exact >
-            <LoginForm
-              setNav={setNav}
-              authenticated={authenticated}
-              setAuthenticated={setAuthenticated}
-            />
-          </Route>
-          <Route path='/sign-up' exact >
-            <SignUpForm
-              setNav={setNav}
-              authenticated={authenticated}
-              setAuthenticated={setAuthenticated} />
-          </Route>
-          <ProtectedRoute path='/home' exact authenticated={authenticated}>
-            <Home />
-          </ProtectedRoute>
-          <ProtectedRoute path='/playlists/:id' exact authenticated={authenticated}>
-            <PlaylistDetail />
-          </ProtectedRoute>
-          <ProtectedRoute path='/library/playlists' exact authenticated={authenticated}>
-            <PlaylistBrowser />
-          </ProtectedRoute>
-          <ProtectedRoute path='/library/artists' exact authenticated={authenticated}>
-            <ArtistBrowser />
-          </ProtectedRoute>
-          <ProtectedRoute path='/artists/:id' exact authenticated={authenticated}>
-            <ArtistDetail />
-          </ProtectedRoute>
-          <ProtectedRoute path='/library/albums' exact authenticated={authenticated}>
-            <AlbumBrowser />
-          </ProtectedRoute>
-          <ProtectedRoute path='/albums/:id' exact authenticated={authenticated}>
-            <AlbumDetail />
-          </ProtectedRoute>
-          <ProtectedRoute path='/search' exact authenticated={authenticated}>
-            <SearchPage />
-          </ProtectedRoute>
-        </Switch>
-        <Queue authenticated={authenticated} />
-        {confirmedBox && (
-          <div className="confirmed-popup fade-out">
-            <p>Added to playlist</p>
-            <i className="fas fa-check-circle confirmed" />
-          </div>
-        )}
-      </AppWithContext.Provider>
+      <NavBar
+        nav={nav}
+        authenticated={authenticated}
+        setAuthenticated={setAuthenticated}
+      />
+      {authenticated && (
+      <>
+        <LeftMenu authenticated={authenticated} />
+      </>
+      )}
+      <Switch>
+        <Route path='/' exact >
+          <Landing
+            setNav={setNav}
+            authenticated={authenticated}
+            setAuthenticated={setAuthenticated} />
+        </Route>
+        <Route path='/login' exact >
+          <LoginForm
+            setNav={setNav}
+            authenticated={authenticated}
+            setAuthenticated={setAuthenticated}
+          />
+        </Route>
+        <Route path='/sign-up' exact >
+          <SignUpForm
+            setNav={setNav}
+            authenticated={authenticated}
+            setAuthenticated={setAuthenticated} />
+        </Route>
+        <ProtectedRoute path='/home' exact authenticated={authenticated}>
+          <Home />
+        </ProtectedRoute>
+        <ProtectedRoute path='/playlists/:id' exact authenticated={authenticated}>
+          <PlaylistDetail />
+        </ProtectedRoute>
+        <ProtectedRoute path='/library/playlists' exact authenticated={authenticated}>
+          <PlaylistBrowser />
+        </ProtectedRoute>
+        <ProtectedRoute path='/library/artists' exact authenticated={authenticated}>
+          <ArtistBrowser />
+        </ProtectedRoute>
+        <ProtectedRoute path='/artists/:id' exact authenticated={authenticated}>
+          <ArtistDetail />
+        </ProtectedRoute>
+        <ProtectedRoute path='/library/albums' exact authenticated={authenticated}>
+          <AlbumBrowser />
+        </ProtectedRoute>
+        <ProtectedRoute path='/albums/:id' exact authenticated={authenticated}>
+          <AlbumDetail />
+        </ProtectedRoute>
+        <ProtectedRoute path='/search' exact authenticated={authenticated}>
+          <SearchPage />
+        </ProtectedRoute>
+      </Switch>
+      <Queue authenticated={authenticated} />
+      {confirmedBox && (
+        <div className="confirmed-popup fade-out">
+          <p>Added to playlist</p>
+          <i className="fas fa-check-circle confirmed" />
+        </div>
+      )}
     </BrowserRouter>
   );
 }

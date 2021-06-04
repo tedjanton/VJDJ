@@ -1,7 +1,7 @@
 import React, { useEffect, useContext, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { AppWithContext } from '../../App';
+import AppWithContext from '../../context/AppWithContext';
 import verified from '../../images/verified.png';
 import { getArtist } from '../../store/artists';
 import { formatTrack } from '../../utils';

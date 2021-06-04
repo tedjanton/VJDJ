@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ColorExtractor } from 'react-color-extractor';
 import { useParams } from 'react-router-dom';
 import playlist_placeholder from '../../images/playlist_placeholder.png';
-import { AppWithContext } from '../../App';
+import AppWithContext from '../../context/AppWithContext';
 import TrackListing from '../TrackListing';
 import { getPlaylist } from '../../store/playlists';
 import './PlaylistDetail.css';

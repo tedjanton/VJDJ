@@ -2,7 +2,7 @@ import React, { useEffect, useContext, useState } from 'react';
 import { ColorExtractor } from 'react-color-extractor';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
-import { AppWithContext } from '../../App';
+import AppWithContext from '../../context/AppWithContext';
 import { getAlbum } from '../../store/albums';
 import { formatTrack } from '../../utils';
 import TrackListing from '../TrackListing';

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useContext, useCallback } from 'react';
-import { AppWithContext } from '../../App';
+import AppWithContext from '../../context/AppWithContext';
 import Controls from "./Controls";
 import './MusicPlayer.css';
 

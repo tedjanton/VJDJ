@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { AppWithContext } from '../../App';
+import AppWithContext from '../../context/AppWithContext';
 import { Modal } from '../../context/Modal';
 import { addToPlaylist, deleteFromPlaylist } from '../../store/playlists';
 import { playlistImageBuilder } from '../../utils';

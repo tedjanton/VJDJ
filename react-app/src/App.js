@@ -1,23 +1,23 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useDispatch } from 'react-redux';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import LoginForm from './components/auth/LoginForm';
-import SignUpForm from './components/auth/SignUpForm';
-import NavBar from './components/NavBar';
-import LeftMenu from './components/LeftMenu';
-import ProtectedRoute from './components/auth/ProtectedRoute';
-import Landing from './components/Landing';
-import Home from './components/Home';
-import PlaylistDetail from './components/PlaylistDetail';
-import Queue from './components/Queue';
-import PlaylistBrowser from './components/PlaylistBrowser';
-import ArtistBrowser from './components/ArtistBrowser';
-import AlbumBrowser from './components/AlbumBrowser';
 import { authenticate } from './store/session';
-import ArtistDetail from './components/ArtistDetail';
-import AlbumDetail from './components/AlbumDetail';
-import SearchPage from './components/SearchPage';
 import AppWithContext from './context/AppWithContext';
+import AlbumBrowser from './components/LibraryBrowsers/AlbumBrowser';
+import AlbumDetail from './components/AlbumDetail';
+import ArtistBrowser from './components/LibraryBrowsers/ArtistBrowser';
+import ArtistDetail from './components/ArtistDetail';
+import Home from './components/Home';
+import Landing from './components/Landing';
+import LeftMenu from './components/LeftMenu';
+import LoginForm from './components/auth/LoginForm';
+import NavBar from './components/NavBar';
+import PlaylistBrowser from './components/LibraryBrowsers/PlaylistBrowser';
+import PlaylistDetail from './components/PlaylistDetail';
+import ProtectedRoute from './components/auth/ProtectedRoute';
+import SearchPage from './components/SearchPage';
+import SignUpForm from './components/auth/SignUpForm';
+import Queue from './components/Queue';
 
 function App() {
   const dispatch = useDispatch();
@@ -29,16 +29,12 @@ function App() {
   useEffect(() => {
     (async() => {
       const user = await dispatch(authenticate());
-      if (!user.errors) {
-        setAuthenticated(true);
-      }
+      if (!user.errors) setAuthenticated(true);
       setLoaded(true);
     })();
   }, [dispatch]);
 
-  if (!loaded) {
-    return null;
-  };
+  if (!loaded) return null;
 
   return (
     <BrowserRouter>
@@ -106,6 +102,6 @@ function App() {
       )}
     </BrowserRouter>
   );
-}
+};
 
 export default App;

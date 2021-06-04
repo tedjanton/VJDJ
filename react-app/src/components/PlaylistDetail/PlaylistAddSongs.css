@@ -22,6 +22,7 @@
   background-color: #1ed760;
   height: 40px;
   border-radius: 20px;
+  color: white !important;
 }
 
 .add-songs-modal-to-lib:hover {

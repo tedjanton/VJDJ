@@ -1,6 +1,6 @@
-from flask import Blueprint, session, request
+from flask import Blueprint
 from flask_login import login_required
-from app.models import db, Album, Track
+from app.models import Album
 
 album_routes = Blueprint('albums', __name__)
 
@@ -8,6 +8,10 @@ album_routes = Blueprint('albums', __name__)
 @album_routes.route('/')
 @login_required
 def get_albums():
+  """
+  Queries all albums from the database and orders them
+  in alphabetical order by album title
+  """
   albums = Album.query.order_by(Album.title).all()
 
   return {"albums": [album.to_dict() for album in albums]}

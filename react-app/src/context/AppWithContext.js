@@ -3,8 +3,7 @@ import React, { useRef, useState, useEffect } from 'react';
 const AppWithContext = React.createContext();
 
 export function AppContextProvider({ children }) {
-  const [inBrowse, setInBrowse] = useState(false);
-  const [inSearch, setInSearch] = useState(false);
+  const [isBrowsing, setIsBrowsing] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [trackQueue, setTrackQueue] = useState([]);
   const [trackIdx, setTrackIdx] = useState(0);
@@ -30,12 +29,10 @@ export function AppContextProvider({ children }) {
           setIsPlaying,
           trackIdx,
           setTrackIdx,
-          inBrowse,
-          setInBrowse,
+          isBrowsing,
+          setIsBrowsing,
           paramsRef,
           trackRef,
-          inSearch,
-          setInSearch,
           setConfirmedBox,
           confirmedBox
         }}

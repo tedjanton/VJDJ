@@ -17,8 +17,8 @@ const AlbumDetail = () => {
   const [colors, getColors] = useState([]);
   const {
     isPlaying,
-    inBrowse,
-    setInBrowse,
+    isBrowsing,
+    setIsBrowsing,
     setTrackQueue,
     setTrackIdx,
     setIsPlaying,
@@ -28,7 +28,7 @@ const AlbumDetail = () => {
     document.getElementById("nav-home").classList.remove("browser")
   }, []);
 
-  useEffect(() => setInBrowse(false), [inBrowse, setInBrowse]);
+  useEffect(() => setIsBrowsing(false), [isBrowsing, setIsBrowsing]);
 
   useEffect(() => {
     dispatch(getAlbum(params.id))

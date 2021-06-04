@@ -16,8 +16,8 @@ const ArtistDetail = () => {
   const [isArtistPlaying, setIsArtistPlaying] = useState(false);
   const [openText, setOpenText] = useState(false);
   const {
-    inBrowse,
-    setInBrowse,
+    isBrowsing,
+    setIsBrowsing,
     setTrackQueue,
     setTrackIdx,
     setIsPlaying,
@@ -28,7 +28,7 @@ const ArtistDetail = () => {
     document.getElementById("nav-home").classList.remove("browser");
   }, []);
 
-  useEffect(() => setInBrowse(false), [inBrowse, setInBrowse])
+  useEffect(() => setIsBrowsing(false), [isBrowsing, setIsBrowsing])
 
   useEffect(() => {
     dispatch(getArtist(params.id))

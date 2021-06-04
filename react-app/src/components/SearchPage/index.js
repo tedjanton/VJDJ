@@ -9,7 +9,7 @@ import './SearchPage.css';
 
 const SearchPage = () => {
   const dispatch = useDispatch();
-  const { inBrowse, setInBrowse } = useContext(AppWithContext);
+  const { isBrowsing, setIsBrowsing } = useContext(AppWithContext);
   const results = useSelector(state => state.search.found);
   const [query, setQuery] = useState("");
   const [noResults, setNoResults] = useState(false);
@@ -19,8 +19,8 @@ const SearchPage = () => {
   }, []);
 
   useEffect(() => {
-    setInBrowse(false)
-  }, [inBrowse, setInBrowse]);
+    setIsBrowsing(false)
+  }, [isBrowsing, setIsBrowsing]);
 
   useEffect(() => {
     if (query.length <= 2) return;

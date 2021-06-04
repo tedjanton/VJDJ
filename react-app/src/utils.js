@@ -1,4 +1,13 @@
+import { useContext, useEffect } from 'react';
+import AppWithContext from './context/AppWithContext';
 
+export const useBrowsingState = () => {
+  const { setIsBrowsing } = useContext(AppWithContext);
+  useEffect(() => {
+    setIsBrowsing(true);
+    document.getElementById("nav-home").classList.add("browser");
+  })
+}
 
 export const formatTrack = (track) => ({
   id: track.id,
@@ -9,7 +18,7 @@ export const formatTrack = (track) => ({
 });
 
 export const playlistImageBuilder = (playlist) => {
-  let imgs = [];
+  const imgs = [];
   if (playlist.tracks) {
     for (let i = 0; i < playlist.tracks.length; i++) {
       imgs.push(playlist.tracks[i].track.album.art_src);
@@ -33,7 +42,7 @@ export const handleQueue = (
   setIsPlaying,
   ) => {
 
-  let formatted = trackList.map(track => formatTrack(track));
+  const formatted = trackList.map(track => formatTrack(track));
   trackRef.current = formatted[index];
   setTrackIdx(index);
   setTrackQueue(formatted);

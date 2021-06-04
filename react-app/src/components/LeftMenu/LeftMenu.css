@@ -2,7 +2,8 @@
   position: fixed;
   top: 0;
   z-index: 200;
-  color: white;
+  /* color: white; */
+
   background-color: black;
   width: 230px;
   height: 100%;
@@ -11,6 +12,7 @@
 .lm-nav-buttons,
 .lm-create-pl {
   margin-left: 10px;
+  color: rgb(190, 190, 190);
 }
 
 a.nav-active.active {
@@ -24,6 +26,7 @@ a.nav-active.active {
 .lm-nav-library {
   padding: 5px 15px 5px 5px;
   line-height: 40px;
+  color: rgb(190, 190, 190);
 }
 
 .lm-nav-library {

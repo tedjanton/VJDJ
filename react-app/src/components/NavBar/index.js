@@ -6,11 +6,11 @@ import LogoutButton from '../auth/LogoutButton';
 import './NavBar.css';
 
 const NavBar = ({ nav, authenticated, setAuthenticated }) => {
-  const { inBrowse, setInBrowse } = useContext(AppWithContext);
+  const { isBrowsing, setIsBrowsing } = useContext(AppWithContext);
   const [menu, setMenu] = useState(false);
   const user = useSelector(state => state.session.user);
 
-  useEffect(() => setInBrowse(true), [inBrowse, setInBrowse]);
+  useEffect(() => setIsBrowsing(true), [isBrowsing, setIsBrowsing]);
 
   useEffect(() => {
     let button = document.getElementById("prof-button")
@@ -25,7 +25,7 @@ const NavBar = ({ nav, authenticated, setAuthenticated }) => {
     links = (
       <nav id="nav-home" className="nav-home-container">
         <div className="nav-browser">
-          {inBrowse && (
+          {isBrowsing && (
             <div className="lib-nav-buttons-container">
               <div className="lib-nav-playlist-button">
                 <NavLink

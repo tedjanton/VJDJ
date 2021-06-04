@@ -24,23 +24,16 @@
   font-weight: 500;
 }
 
-.pl-num-songs.artist-detail p,
-p.album-detail-year {
+.pl-num-songs.artist-detail p{
   margin-left: 4px;
 }
+
+
 
 .ad-header-name.album-name h1 {
   font-size: 50px;
   text-shadow: none;
 }
-
-/* .pl-table-header.album-detail {
-  grid-template-columns: .35fr repeat(8, 1fr);
-} */
-
-/* .pl-header-title.album-detail {
-  padding-left: 10px;
-} */
 
 .pl-header-track-num.album-detail {
   margin: 0;
@@ -54,6 +47,7 @@ p.album-detail-year {
 a.album-detail-artist-name {
   text-shadow: none;
   margin-left: 10px;
+  color: white !important;
 }
 
 a.album-detail-artist-name:hover {
@@ -62,8 +56,8 @@ a.album-detail-artist-name:hover {
 
 p.album-detail-year,
 .pl-num-songs p {
-  color: rgb(197, 197, 197);
-  text-shadow: none;
+  color: white;
+  text-shadow: none !important;
 }
 
 .album-detail-artist-image {

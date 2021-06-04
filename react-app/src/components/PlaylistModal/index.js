@@ -13,10 +13,7 @@ const PlaylistModal = ({ setShowModal }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (name.length) {
-      const submission = {
-        name,
-        user_id: user.id
-      };
+      const submission = { name, user_id: user.id };
       const newPlaylist = await dispatch(createPlaylist(submission));
       setShowModal(false)
       await dispatch(getUserPls(user.id))

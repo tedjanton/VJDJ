@@ -8,7 +8,7 @@ import "./Home.css";
 const Home = () => {
   const [showModal, setShowModal] = useState(false);
   const videoRef = useRef();
-  const { inBrowse, setInBrowse, setIsPlaying } = useContext(AppWithContext);
+  const { isBrowsing, setIsBrowsing, setIsPlaying } = useContext(AppWithContext);
 
   const removeBackground = (e) => {
     document.getElementById("nav-home").classList.remove("browser")
@@ -36,8 +36,8 @@ const Home = () => {
   }, [])
 
   useEffect(() => {
-    setInBrowse(false)
-  }, [inBrowse, setInBrowse])
+    setIsBrowsing(false)
+  }, [isBrowsing, setIsBrowsing])
 
   return (
     <div className="home-container">

@@ -10,7 +10,7 @@ import ComingSoon from '../ComingSoon';
 import './LeftMenu.css';
 
 const LeftMenu = ({ authenticated }) => {
-  const { inBrowse, setInBrowse } = useContext(AppWithContext);
+  const { isBrowsing, setIsBrowsing } = useContext(AppWithContext);
   const dispatch = useDispatch();
   const history = useHistory();
   const user = useSelector(state => state.session.user)
@@ -57,8 +57,8 @@ const LeftMenu = ({ authenticated }) => {
         </div>
         <div className="lm-nav-library">
           <NavLink
-            onClick={() => setInBrowse(true)}
-            className={ inBrowse ? "nav-active active" : ""}
+            onClick={() => setIsBrowsing(true)}
+            className={ isBrowsing ? "nav-active active" : ""}
             activeClassName="nav-active active"
             to='/library/playlists'
           ><img src={library} alt="library" />Library

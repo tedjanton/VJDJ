@@ -1,28 +1,23 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import AppWithContext from '../../context/AppWithContext';
 import { getArtists } from '../../store/artists';
+import { useBrowsingState } from '../../utils';
 import ArtistAlbumBox from '../ArtistAlbumBox';
-import './ArtistBrowser.css';
+import './Browser.css';
 
 const ArtistBrowser = () => {
   const dispatch = useDispatch();
-  const { setInBrowse } = useContext(AppWithContext);
   const artists = useSelector(state => state.artists.all);
-
-  useEffect(() => {
-    setInBrowse(true);
-    document.getElementById("nav-home").classList.add("browser")
-  });
+  useBrowsingState();
 
   useEffect(() => dispatch(getArtists()), [dispatch]);
 
   return (
-    <div className="plbrow-container">
-      <div className="plbrow-title">
+    <div className="browser-page-container">
+      <div className="browser-title">
         <h2>All Artists</h2>
       </div>
-      <div className="plb-container">
+      <div className="browser-content-container">
         {artists?.map(artist => (
           <div key={artist.id} className="pb-container">
             <ArtistAlbumBox artist={artist} />

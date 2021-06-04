@@ -1,4 +1,4 @@
-/* TODO Add site wide styles */
+/* Add site wide styles */
 body {
   font-family: 'Montserrat', sans-serif;
   position: relative;
@@ -16,7 +16,7 @@ a,
 a:link,
 a:visited {
   text-decoration: none;
-  color: white;
+  color: rgb(190, 190, 190);
 }
 
 footer {

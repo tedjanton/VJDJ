@@ -1,28 +1,23 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import AppWithContext from '../../context/AppWithContext';
 import { getAllPlaylists } from '../../store/playlists';
+import { useBrowsingState } from '../../utils';
 import PlaylistBox from '../PlaylistBox';
-import './PlaylistBrowser.css';
+import './Browser.css';
 
 const PlaylistBrowser = () => {
   const dispatch = useDispatch();
-  const { setInBrowse } = useContext(AppWithContext)
   const playlists = useSelector(state => state.playlists.allPls)
-
-  useEffect(() => {
-    setInBrowse(true);
-    document.getElementById("nav-home").classList.add("browser")
-  });
+  useBrowsingState();
 
   useEffect(() => dispatch(getAllPlaylists()), [dispatch]);
 
   return (
-    <div className="plbrow-container">
-      <div className="plbrow-title">
+    <div className="browser-page-container">
+      <div className="browser-title">
         <h2>Recent Playlists</h2>
       </div>
-      <div className="plb-container">
+      <div className="browser-content-container">
         {playlists?.map(pl => (
           <div key={pl.id} className="pb-container">
             <PlaylistBox playlist={pl} />

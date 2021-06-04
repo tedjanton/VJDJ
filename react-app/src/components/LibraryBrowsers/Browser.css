@@ -10,16 +10,22 @@
   /* top: 30px; */
 }
 
-.plbrow-container {
+.browser-page-container {
   padding: 0 0 150px 250px;
   margin-top: 100px;
 }
 
-.plb-container {
+.browser-content-container {
   display: flex;
   flex-wrap: wrap;
 }
 
-.plbrow-title {
+.browser-title {
   padding-left: 12px;
+}
+
+.album-image-container img {
+  position: relative;
+  width: 180px;
+  border-radius: 8px;
 }

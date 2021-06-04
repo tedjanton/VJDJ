@@ -32,9 +32,9 @@ const PlaylistDetail = () => {
   const [trackList, setTrackList] = useState();
   const [editState, setEditState] = useState(null);
   const [isUserPlaylist, setIsUserPlaylist] = useState();
-  const { setInBrowse, inBrowse } = useContext(AppWithContext);
+  const { setIsBrowsing, isBrowsing } = useContext(AppWithContext);
 
-  useEffect(() => setInBrowse(false), [setInBrowse, inBrowse]);
+  useEffect(() => setIsBrowsing(false), [setIsBrowsing, isBrowsing]);
 
   useEffect(() => {
     document.getElementById("nav-home").classList.remove("browser");

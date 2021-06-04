@@ -1,6 +1,6 @@
 import React, { useEffect, useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { AppWithContext } from '../../App';
+import AppWithContext from '../../context/AppWithContext';
 import { getAlbums } from '../../store/albums';
 import ArtistAlbumBox from '../ArtistAlbumBox';
 import './AlbumBrowser.css';

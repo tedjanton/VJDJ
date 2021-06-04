@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, useHistory } from 'react-router-dom';
-import { AppWithContext } from '../../App';
+import AppWithContext from '../../context/AppWithContext';
 import { Modal } from '../../context/Modal';
 import { getUserFollowedPls, getUserPls } from '../../store/playlists';
 import library from '../../images/library.png';

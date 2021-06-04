@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
-import { AppWithContext } from '../../App';
+import AppWithContext from '../../context/AppWithContext';
 import { Modal } from '../../context/Modal';
 import Popular from '../Popular';
 import VideoModal from '../VideoModal';

@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { AppWithContext } from '../../App';
+import AppWithContext from '../../context/AppWithContext';
 import { addToPlaylist } from '../../store/playlists';
 import { formatTrack } from '../../utils';
 import './TrackBox.css';

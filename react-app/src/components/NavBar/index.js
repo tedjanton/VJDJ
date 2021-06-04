@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import { AppWithContext } from '../../App';
+import AppWithContext from '../../context/AppWithContext';
 import LogoutButton from '../auth/LogoutButton';
 import './NavBar.css';
 

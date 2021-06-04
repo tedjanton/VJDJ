@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { AppWithContext } from '../../App';
+import AppWithContext from '../../context/AppWithContext';
 import { Modal } from '../../context/Modal';
 import { formatTrack } from '../../utils';
 import VideoModal from '../VideoModal';

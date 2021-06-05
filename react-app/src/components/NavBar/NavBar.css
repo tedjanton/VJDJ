@@ -36,6 +36,10 @@ a:visited {
   margin: 10px;
 }
 
+.nav-landing-container div a:hover {
+  color: white;
+}
+
 .nav-hidden {
   background-color: none;
 }

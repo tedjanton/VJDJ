@@ -88,13 +88,25 @@ const NavBar = ({ nav, authenticated, setAuthenticated }) => {
       </div>
         <div className="nav-landing-container">
           <div>
-            <a href="http://www.tedjanton.com/" target="_blank" rel="noopener noreferrer">About Me</a>
+            <a
+              href="http://www.tedjanton.com/"
+              target="_blank"
+              rel="noopener noreferrer">About Me
+            </a>
           </div>
           <div>
-            <a href="https://github.com/tedjanton/VJDJ" target="_blank" rel="noopener noreferrer">GitHub</a>
+            <a
+              href="https://github.com/tedjanton/VJDJ"
+              target="_blank"
+              rel="noopener noreferrer">GitHub
+            </a>
           </div>
           <div>
-            <a href="https://www.linkedin.com/in/ted-anton/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            <a
+              href="https://www.linkedin.com/in/ted-anton/"
+              target="_blank"
+              rel="noopener noreferrer">LinkedIn
+            </a>
           </div>
           <div className="spacer"></div>
           <div>

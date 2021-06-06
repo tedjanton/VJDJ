@@ -94,7 +94,7 @@ const NavBar = ({ nav, authenticated, setAuthenticated }) => {
             <a href="https://github.com/tedjanton/VJDJ" target="_blank" rel="noopener noreferrer">GitHub</a>
           </div>
           <div>
-            <a href="https://www.linkedin.com/in/ted-anton/" target="_blank" rel="noopener noreferrer">Linkedin</a>
+            <a href="https://www.linkedin.com/in/ted-anton/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
           </div>
           <div className="spacer"></div>
           <div>

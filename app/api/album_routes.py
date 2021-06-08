@@ -20,6 +20,9 @@ def get_albums():
 @album_routes.route('/<int:id>/')
 @login_required
 def get_album_content(id):
+  """
+  Finds a single album by album ID
+  """
   album = Album.query.get(id)
 
   return album.to_dict()

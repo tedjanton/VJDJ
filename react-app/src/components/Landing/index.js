@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Redirect } from "react-router-dom";
 import { login } from '../../store/session';
@@ -6,15 +6,18 @@ import "./Landing.css";
 
 const Landing = ({ setNav, authenticated, setAuthenticated }) => {
   const dispatch = useDispatch();
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => setNav(true), [setNav])
 
   const onLogin = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
     const user = await dispatch(login('demo@lition.com', "password"));
     if (!user.errors) {
       setNav(true);
       setAuthenticated(true);
+      setIsLoading(false);
     }
   };
 
@@ -39,7 +42,13 @@ const Landing = ({ setNav, authenticated, setAuthenticated }) => {
         </div>
       </div>
       <div className="landing-demo">
-        <button onClick={(e) => onLogin(e)}>SIGN IN AS A GUEST</button>
+        {isLoading ? (
+          <div className="loader">
+            <div className="loader-spinner"></div>
+          </div>
+         ) : (
+          <button onClick={(e) => onLogin(e)}>SIGN IN AS A GUEST</button>
+         )}
       </div>
     </div>
   )

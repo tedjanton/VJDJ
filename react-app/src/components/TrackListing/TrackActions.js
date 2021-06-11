@@ -57,6 +57,7 @@ const TrackActions = ({
     setImages(playlistImageBuilder(pl));
   };
 
+  // Adds track to the selected user's playlist
   const addTrack = (pl) => {
     const submission = {
       track_id: track.id,

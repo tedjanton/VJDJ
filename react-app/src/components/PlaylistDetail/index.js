@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ColorExtractor } from 'react-color-extractor';
 import { useParams } from 'react-router-dom';
@@ -9,15 +9,14 @@ import './PlaylistDetail.css';
 import PlaylistActions from './PlaylistActions';
 import { playlistImageBuilder, useNonBrowsingState } from '../../utils';
 
-const initialDnDState = {
-  draggedFrom: null,
-  draggedTo: null,
-  isDragging: false,
-  originalOrder: [],
-  updatedOrder: [],
-}
-
 const PlaylistDetail = () => {
+  const initialDnDState = {
+    draggedFrom: null,
+    draggedTo: null,
+    isDragging: false,
+    originalOrder: [],
+    updatedOrder: [],
+  };
   const dispatch = useDispatch();
   const params = useParams();
   const playlist = useSelector(state => state.playlists.selected?.playlist);
@@ -31,16 +30,12 @@ const PlaylistDetail = () => {
   const [trackList, setTrackList] = useState();
   const [editStyleState, setEditStyleState] = useState(null);
   const [isUserPlaylist, setIsUserPlaylist] = useState();
-  const paramsRef = useRef();
   useNonBrowsingState();
 
   useEffect(() => setTrackList(tracks), [tracks]);
 
   useEffect(() => {
-    // if (paramsRef.current !== params.id) {
-      fetchPlaylist();
-    //   paramsRef.current = params.id;
-    // }
+    fetchPlaylist();
     // eslint-disable-next-line
   }, [dispatch, params]);
 

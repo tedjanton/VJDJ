@@ -23,10 +23,13 @@ const AlbumDetail = () => {
   } = useContext(AppWithContext);
   useNonBrowsingState();
 
+  // Get the album details from the database
   useEffect(() => {
     dispatch(getAlbum(params.id))
   }, [dispatch, params]);
 
+  // Add album tracks to queue when the green play button
+  // is clicked
   const addToQueue = () => {
     setTrackQueue(tracks.map(track => formatTrack(track)));
     setTrackIdx(0);
@@ -111,7 +114,7 @@ const AlbumDetail = () => {
                   trackList={tracks}
                   index={i}
                   isAlbum={true}
-                  />
+                />
               </div>
             ))}
           </div>

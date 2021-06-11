@@ -7,6 +7,13 @@ import VideoModal from '../VideoModal';
 import './TrackListing.css';
 import TrackActions from './TrackActions';
 
+/*
+This component is reused for track listings on the Playlist, Album,
+and Artist Detail pages. The "isAlbum" variable conditionally renders
+content since Album Detail Pages need to display slightly different
+information for each Track Listing.
+*/
+
 const TrackListing = ({
   track,
   trackList,
@@ -19,7 +26,7 @@ const TrackListing = ({
 }) => {
   const [isHover, setIsHover] = useState(false);
   const [isTrackPlaying, setIsTrackPlaying] = useState(false);
-  const [editMenu, setEditMenu] = useState(false);
+  const [showUserOptions, setShowUserOptions] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [addMenu, setAddMenu] = useState(false);
   const {
@@ -30,6 +37,8 @@ const TrackListing = ({
     trackRef,
     } = useContext(AppWithContext)
 
+  // Pauses music and cancels hovering if music video
+  // button is clicked
   useEffect(() => {
     if (showModal) {
       setIsPlaying(false);
@@ -37,6 +46,8 @@ const TrackListing = ({
     }
   }, [showModal, setIsPlaying, isHover, setIsHover]);
 
+  // Determines which track is currently playing to properly
+  // render the play/pause buttons on the Track Listing
   useEffect(() => {
     if (trackRef.current?.id === track.id) {
       setIsTrackPlaying(true);
@@ -45,12 +56,16 @@ const TrackListing = ({
     }
   }, [setIsTrackPlaying, track, trackRef])
 
+  // Resets all state when mouse is no longer hovering over
+  // a Track Listing
   const handleMouseLeave = () => {
     setIsHover(false);
-    setEditMenu(false);
+    setShowUserOptions(false);
     setAddMenu(false);
   };
 
+  // Pauses currently playing music OR adds playlist tracks to the
+  // queue and starts playing selected track
   const handleQueue = () => {
     if (isPlaying && isTrackPlaying) {
       setIsPlaying(false);
@@ -155,14 +170,14 @@ const TrackListing = ({
           <TrackActions
             isUserPlaylist={isUserPlaylist}
             setAddMenu={setAddMenu}
-            setEditMenu={setEditMenu}
+            setShowUserOptions={setShowUserOptions}
             track={track}
             playlist={playlist}
             index={index}
             setImages={setImages}
             setIsHover={setIsHover}
             isHover={isHover}
-            editMenu={editMenu}
+            showUserOptions={showUserOptions}
             addMenu={addMenu}
           />
         )}

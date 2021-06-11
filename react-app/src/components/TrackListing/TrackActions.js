@@ -7,18 +7,23 @@ import { playlistImageBuilder } from '../../utils';
 import DeleteModal from '../DeleteModal';
 import './TrackListing.css';
 
+/*
+This component handles all actions when a user clicks on the
+ellipsis on the right side of the Track Listing
+*/
+
 const TrackActions = ({
   isUserPlaylist,
   setAddMenu,
-  setEditMenu,
+  addMenu,
+  setShowUserOptions,
+  showUserOptions,
   track,
   playlist,
   index,
   setImages,
   setIsHover,
   isHover,
-  editMenu,
-  addMenu,
 }) => {
   const dispatch = useDispatch();
   const user = useSelector(state => state.session.user);
@@ -26,18 +31,22 @@ const TrackActions = ({
   const { setConfirmedBox } = useContext(AppWithContext);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
+  // Clears hovering and editing state if Delete Modal is open
   useEffect(() => {
     if (showDeleteModal) {
       setIsHover(false)
-      setEditMenu(false)
+      setShowUserOptions(false)
     }
   })
 
-  const handleUserPlaylist = () => {
+  // Opens the user options menu when the ellipsis is clicked
+  // and skips the "delete" option if not the user's playlist
+  const handleUserOptionsMenu = () => {
     if (!isUserPlaylist) setAddMenu(true);
-    setEditMenu(true);
+    setShowUserOptions(true);
   }
 
+  // Deletes song from playlist and rerenders image collage
   const handleDelete = async () => {
     const selection = {
       track_id: track.id,
@@ -54,7 +63,7 @@ const TrackActions = ({
       playlist_id: pl.id,
     };
     dispatch(addToPlaylist(submission, user.id))
-    setEditMenu(false);
+    setShowUserOptions(false);
     setConfirmedBox(true);
     setIsHover(false);
   };
@@ -62,11 +71,11 @@ const TrackActions = ({
   return (
     <>
       {isHover && (
-        <div onClick={handleUserPlaylist} className="track-edit">
+        <div onClick={handleUserOptionsMenu} className="track-edit">
           <i className="tl fas fa-ellipsis-h" />
         </div>
       )}
-      {editMenu && isHover && isUserPlaylist && (
+      {showUserOptions && isHover && isUserPlaylist && (
         <div className="tl-edit-menu">
           <div className="tl-delete-button">
             <button onClick={() => setShowDeleteModal(true)}>Delete</button>
@@ -88,7 +97,7 @@ const TrackActions = ({
         </div>
       </div>
       )}
-      {editMenu && isHover && !isUserPlaylist && (
+      {showUserOptions && isHover && !isUserPlaylist && (
         <div className="tl-edit-menu-not-user">
           <div className="tb-add-box-container not-user">
           {addMenu && (
@@ -108,8 +117,8 @@ const TrackActions = ({
         <Modal onClose={() => setShowDeleteModal(false)}>
           <DeleteModal
             setShowDeleteModal={setShowDeleteModal}
-            setOpenMenu={setEditMenu}
-            setEditMenu={setEditMenu}
+            setOpenMenu={setShowUserOptions}
+            setShowUserOptions={setShowUserOptions}
             handleDelete={handleDelete}
             item={track}
           />

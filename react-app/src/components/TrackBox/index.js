@@ -22,7 +22,6 @@ const TrackBox = ({ track, trackList, index }) => {
     setConfirmedBox
   } = useContext(AppWithContext)
 
-
   useEffect(() => {
     if (trackRef.current?.id === track.id) {
       setIsTrackPlaying(true);

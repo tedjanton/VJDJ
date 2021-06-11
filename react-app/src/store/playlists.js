@@ -2,7 +2,6 @@ const GET_USER_PLS = 'playlists/GET_USER_PLS';
 const GET_PL = 'playlist/GET_PL';
 const GET_USER_FOLLOWING = "following/GET_USER_FOLLOWING";
 const GET_ALL = "playlists/GET_ALL";
-// const DELETE_PL = 'playlists/DELETE_PL';
 
 const loadFollowing = (playlists) => ({
   type: GET_USER_FOLLOWING,

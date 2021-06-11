@@ -14,30 +14,30 @@ const PlaylistActions = ({
   following,
   user,
   setDraggable,
-  setEditState,
-  editState,
-  draggable,
+  setEditStyleState,
   dragAndDrop,
   isUserPlaylist,
   setIsUserPlaylist,
   setTrackList,
   setImages,
 }) => {
-  const dispatch = useDispatch();
-  const params = useParams();
-  const history = useHistory();
-  const [isPlaylistPlaying, setIsPlaylistPlaying] = useState(false);
-  const [isFollowing, setIsFollowing] = useState(false);
-  const [openMenu, setOpenMenu] = useState(false);
-  const [showModal, setShowModal] = useState(false);
-  const [showDeleteModal, setShowDeleteModal] = useState(false);
   const {
     setTrackQueue,
     isPlaying,
     setIsPlaying,
     setTrackIdx,
-    paramsRef
+    paramsRef,
+    isPlaylistMenuOpen,
+    setIsPlaylistMenuOpen
   } = useContext(AppWithContext)
+  const dispatch = useDispatch();
+  const params = useParams();
+  const history = useHistory();
+  const [isPlaylistPlaying, setIsPlaylistPlaying] = useState(false);
+  const [isFollowing, setIsFollowing] = useState(false);
+  const [showAddSongsModal, setShowAddSongsModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showEditMenu, setShowEditMenu] = useState(false);
 
   useEffect(() => {
     let followIds = following?.map(pl => pl.id);
@@ -55,9 +55,19 @@ const PlaylistActions = ({
 
   useEffect(() => {
     if (!user?.errors) {
-      setIsUserPlaylist(playlist?.user.id === user.id)
+      if (playlist?.user.id === user.id) {
+        setIsUserPlaylist(true);
+      } else {
+        setIsUserPlaylist(false);
+        cancelEdits();
+      }
     }
-  }, [playlist, user, setIsUserPlaylist])
+    // eslint-disable-next-line
+  }, [playlist, user, setIsUserPlaylist]);
+
+  useEffect(() => {
+    if (!isPlaylistMenuOpen) setEditStyleState(null);
+  });
 
   const addToQueue = () => {
     if (isPlaylistPlaying && isPlaying) {
@@ -73,18 +83,23 @@ const PlaylistActions = ({
 
   const handleFollow = () => {
     if (playlist.user.id === user.id) {
-      setShowModal(true);
+      setShowAddSongsModal(true);
       return;
     }
     const submission = { userId: user.id, playlistId: playlist.id };
     if (isFollowing) dispatch(unfollow(submission));
     else dispatch(addFollow(submission));
-  }
+  };
 
-  const handleEdit = () => {
-    setOpenMenu(false);
+  const handleEditState = () => {
     setDraggable(true);
-    setEditState("#1c1c1c");
+    setEditStyleState("#1c1c1c");
+    setShowEditMenu(false);
+  };
+
+  const togglePlaylistMenu = () => {
+    setIsPlaylistMenuOpen(!isPlaylistMenuOpen);
+    setShowEditMenu(true);
   }
 
   const submitEdits = async () => {
@@ -97,8 +112,8 @@ const PlaylistActions = ({
     await dispatch(editPlaylist(submission, playlist.id));
     let pl = await dispatch(getPlaylist(playlist.id));
     setImages(playlistImageBuilder(pl));
-    setEditState(null);
-    setOpenMenu(false);
+    setEditStyleState(null);
+    setIsPlaylistMenuOpen(false);
     setDraggable(false);
   };
 
@@ -106,8 +121,8 @@ const PlaylistActions = ({
     if (dragAndDrop.originalOrder.length) {
       setTrackList(dragAndDrop.originalOrder)
     }
-    setEditState(null);
-    setOpenMenu(false);
+    setEditStyleState(null);
+    setIsPlaylistMenuOpen(false);
     setDraggable(false);
   }
 
@@ -115,7 +130,7 @@ const PlaylistActions = ({
     await dispatch(deletePlaylist(playlist.id));
     await dispatch(getUserPls(user.id));
     return history.push('/home');
-  }
+  };
 
   return (
     <div className="pl-bottom-header">
@@ -154,51 +169,57 @@ const PlaylistActions = ({
           </>
         )}
         </div>
-        {showModal && (
-          <Modal onClose={() => setShowModal(false)}>
+        {showAddSongsModal && (
+          <Modal onClose={() => setShowAddSongsModal(false)}>
             <PlaylistAddSongs />
           </Modal>
         )}
         {isUserPlaylist && (
           <div
             className="pl-dot-menu"
-            onClick={() => setOpenMenu(!openMenu)}>
+            onClick={togglePlaylistMenu}>
             <i className="pl fas fa-ellipsis-h" />
           </div>
         )}
-        {openMenu && (
-          <div className="pl-menu-box">
-            <div className="pl-edit-button">
-              <button onClick={handleEdit}>Edit Playlist</button>
+        {isPlaylistMenuOpen && (
+          <>
+          {showEditMenu ? (
+            <div className="pl-menu-box">
+              <div className="pl-edit-button">
+                <button onClick={handleEditState}>Edit Playlist</button>
+              </div>
+              <div className="pl-delete-button">
+                <button onClick={() => setShowDeleteModal(true)}>Delete Playlist</button>
+              </div>
+              <div className="pl-cancel-button">
+                <button onClick={cancelEdits}>Cancel</button>
+              </div>
             </div>
-            <div className="pl-delete-button">
-              <button onClick={() => setShowDeleteModal(true)}>Delete Playlist</button>
+          ) : (
+            <div className="pl-edit-cancel-container">
+              <div className="pl-edit-confirm-button">
+                <button onClick={submitEdits}>Confirm</button>
+              </div>
+              <div className="pl-edit-cancel-button">
+                <button onClick={cancelEdits}>Cancel</button>
+              </div>
             </div>
-          </div>
+          )}
+          </>
         )}
         {showDeleteModal && (
           <Modal onClose={() => setShowDeleteModal(false)}>
             <DeleteModal
               setShowDeleteModal={setShowDeleteModal}
-              setOpenMenu={setOpenMenu}
+              setIsPlaylistMenuOpen={setIsPlaylistMenuOpen}
               handleDelete={handleDelete}
               item={playlist}
             />
           </Modal>
         )}
-        {draggable && (
-          <div className="pl-edit-cancel-container">
-            <div className="pl-edit-confirm-button">
-              <button onClick={submitEdits}>Confirm</button>
-            </div>
-            <div className="pl-edit-cancel-button">
-              <button onClick={cancelEdits}>Cancel</button>
-            </div>
-          </div>
-        )}
       </div>
     </div>
   )
-}
+};
 
 export default PlaylistActions;

@@ -8,6 +8,7 @@ export function AppContextProvider({ children }) {
   const [trackQueue, setTrackQueue] = useState([]);
   const [trackIdx, setTrackIdx] = useState(0);
   const [confirmedBox, setConfirmedBox] = useState(false);
+  const [isPlaylistMenuOpen, setIsPlaylistMenuOpen] = useState(false);
   const paramsRef = useRef();
   const trackRef = useRef();
 
@@ -34,7 +35,9 @@ export function AppContextProvider({ children }) {
           paramsRef,
           trackRef,
           setConfirmedBox,
-          confirmedBox
+          confirmedBox,
+          isPlaylistMenuOpen,
+          setIsPlaylistMenuOpen
         }}
       >
         {children}

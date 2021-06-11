@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import AppWithContext from '../../context/AppWithContext';
 import verified from '../../images/verified.png';
 import { getArtist } from '../../store/artists';
-import { formatTrack } from '../../utils';
+import { formatTrack, useNonBrowsingState } from '../../utils';
 import TrackListing from '../TrackListing';
 import './ArtistDetail.css';
 
@@ -16,19 +16,12 @@ const ArtistDetail = () => {
   const [isArtistPlaying, setIsArtistPlaying] = useState(false);
   const [openText, setOpenText] = useState(false);
   const {
-    isBrowsing,
-    setIsBrowsing,
     setTrackQueue,
     setTrackIdx,
     setIsPlaying,
     isPlaying
   } = useContext(AppWithContext);
-
-  useEffect(() => {
-    document.getElementById("nav-home").classList.remove("browser");
-  }, []);
-
-  useEffect(() => setIsBrowsing(false), [isBrowsing, setIsBrowsing])
+  useNonBrowsingState();
 
   useEffect(() => {
     dispatch(getArtist(params.id))

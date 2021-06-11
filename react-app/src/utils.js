@@ -7,6 +7,14 @@ export const useBrowsingState = () => {
     setIsBrowsing(true);
     document.getElementById("nav-home").classList.add("browser");
   })
+};
+
+export const useNonBrowsingState = () => {
+  const { setIsBrowsing } = useContext(AppWithContext);
+  useEffect(() => {
+    setIsBrowsing(false);
+    document.getElementById("nav-home").classList.remove("browser");
+  })
 }
 
 export const formatTrack = (track) => ({

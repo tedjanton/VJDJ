@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import AppWithContext from '../../context/AppWithContext';
 import { getAlbum } from '../../store/albums';
-import { formatTrack } from '../../utils';
+import { formatTrack, useNonBrowsingState } from '../../utils';
 import TrackListing from '../TrackListing';
 import './AlbumDetail.css';
 
@@ -17,18 +17,11 @@ const AlbumDetail = () => {
   const [colors, getColors] = useState([]);
   const {
     isPlaying,
-    isBrowsing,
-    setIsBrowsing,
     setTrackQueue,
     setTrackIdx,
-    setIsPlaying,
+    setIsPlaying
   } = useContext(AppWithContext);
-
-  useEffect(() => {
-    document.getElementById("nav-home").classList.remove("browser")
-  }, []);
-
-  useEffect(() => setIsBrowsing(false), [isBrowsing, setIsBrowsing]);
+  useNonBrowsingState();
 
   useEffect(() => {
     dispatch(getAlbum(params.id))

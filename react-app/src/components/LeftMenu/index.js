@@ -9,8 +9,8 @@ import PlaylistModal from '../PlaylistModal';
 import ComingSoon from '../ComingSoon';
 import './LeftMenu.css';
 
-const LeftMenu = ({ authenticated }) => {
-  const { isBrowsing, setIsBrowsing } = useContext(AppWithContext);
+const LeftMenu = () => {
+  const { isBrowsing, setIsBrowsing, setIsPlaylistMenuOpen } = useContext(AppWithContext);
   const dispatch = useDispatch();
   const history = useHistory();
   const user = useSelector(state => state.session.user)
@@ -87,7 +87,7 @@ const LeftMenu = ({ authenticated }) => {
       {showComingSoon && (
         <ComingSoon />
       )}
-      <div className="lm-user-pls">
+      <div onClick={() => setIsPlaylistMenuOpen(false)} className="lm-user-pls">
         <div className="lm-user-owned-pls-title">
           <p>YOUR PLAYLISTS</p>
         </div>

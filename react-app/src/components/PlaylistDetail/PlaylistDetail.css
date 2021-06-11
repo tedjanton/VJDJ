@@ -172,19 +172,20 @@ i.pl.fas.fa-play {
 
 .pl-menu-box {
   position: absolute;
-  right: -140px;
-  bottom: -70px;
+  right: -135px;
+  bottom: -120px;
   display: flex;
   flex-direction: column;
-  height: 100px;
+  height: 152px;
   width: 130px;
   background-color: rgb(36, 36, 36);
   border-radius: 4px;
+  z-index: 200;
 }
 
 .pl-edit-cancel-container {
   position: absolute;
-  right: -140px;
+  right: -135px;
   bottom: -70px;
   display: flex;
   flex-direction: column;
@@ -196,6 +197,7 @@ i.pl.fas.fa-play {
 .pl-add-songs-button button,
 .pl-edit-button button,
 .pl-delete-button button,
+.pl-cancel-button button,
 .pl-edit-confirm-button button,
 .pl-edit-cancel-button button {
   background: none;
@@ -213,6 +215,7 @@ i.pl.fas.fa-play {
 
 .pl-add-songs-button,
 .pl-edit-button,
+.pl-delete-button,
 .pl-edit-confirm-button {
   border-bottom: thin solid rgba(133, 133, 133, .4)
 }
@@ -220,6 +223,7 @@ i.pl.fas.fa-play {
 .pl-add-songs-button,
 .pl-edit-button,
 .pl-delete-button,
+.pl-cancel-button,
 .pl-edit-confirm-button,
 .pl-edit-cancel-button {
   margin: 0 4px;
@@ -228,6 +232,7 @@ i.pl.fas.fa-play {
 .pl-add-songs-button button:hover,
 .pl-edit-button button:hover,
 .pl-delete-button button:hover,
+.pl-cancel-button button:hover,
 .pl-edit-confirm-button button:hover,
 .pl-edit-cancel-button button:hover {
   background-color: rgb(44, 44, 44);

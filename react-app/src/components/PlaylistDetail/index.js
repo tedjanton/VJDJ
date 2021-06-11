@@ -1,14 +1,13 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ColorExtractor } from 'react-color-extractor';
 import { useParams } from 'react-router-dom';
 import playlist_placeholder from '../../images/playlist_placeholder.png';
-import AppWithContext from '../../context/AppWithContext';
 import TrackListing from '../TrackListing';
 import { getPlaylist } from '../../store/playlists';
 import './PlaylistDetail.css';
 import PlaylistActions from './PlaylistActions';
-import { playlistImageBuilder } from '../../utils';
+import { playlistImageBuilder, useNonBrowsingState } from '../../utils';
 
 const initialDnDState = {
   draggedFrom: null,
@@ -30,24 +29,25 @@ const PlaylistDetail = () => {
   const [draggable, setDraggable] = useState(false);
   const [dragAndDrop, setDragAndDrop] = useState(initialDnDState);
   const [trackList, setTrackList] = useState();
-  const [editState, setEditState] = useState(null);
+  const [editStyleState, setEditStyleState] = useState(null);
   const [isUserPlaylist, setIsUserPlaylist] = useState();
-  const { setIsBrowsing, isBrowsing } = useContext(AppWithContext);
-
-  useEffect(() => setIsBrowsing(false), [setIsBrowsing, isBrowsing]);
-
-  useEffect(() => {
-    document.getElementById("nav-home").classList.remove("browser");
-  });
+  const paramsRef = useRef();
+  useNonBrowsingState();
 
   useEffect(() => setTrackList(tracks), [tracks]);
 
   useEffect(() => {
-    (async() => {
-      let pl = await dispatch(getPlaylist(params.id))
-      setImages(playlistImageBuilder(pl));
-    })();
+    // if (paramsRef.current !== params.id) {
+      fetchPlaylist();
+    //   paramsRef.current = params.id;
+    // }
+    // eslint-disable-next-line
   }, [dispatch, params]);
+
+  const fetchPlaylist = async () => {
+    let pl = await dispatch(getPlaylist(params.id))
+    setImages(playlistImageBuilder(pl));
+  };
 
   const onDragStart = (e) => {
     const startingPosition = Number(e.currentTarget.dataset.position);
@@ -138,7 +138,7 @@ const PlaylistDetail = () => {
           following={following}
           user={user}
           setDraggable={setDraggable}
-          setEditState={setEditState}
+          setEditStyleState={setEditStyleState}
           draggable={draggable}
           dragAndDrop={dragAndDrop}
           isUserPlaylist={isUserPlaylist}
@@ -166,7 +166,7 @@ const PlaylistDetail = () => {
           </div>
         </div>
         <section>
-          <div className="tracks-container" style={{backgroundColor: editState }}>
+          <div className="tracks-container" style={{backgroundColor: editStyleState }}>
             {trackList?.map((track, i) => (
               <div
                 data-position={i}
@@ -175,7 +175,7 @@ const PlaylistDetail = () => {
                 onDragStart={onDragStart}
                 onDragOver={onDragOver}
                 onDrop={onDrop}
-                className={editState && "track-draggable"}
+                className={editStyleState && "track-draggable"}
               >
                 <TrackListing
                   track={track.track}
@@ -185,7 +185,7 @@ const PlaylistDetail = () => {
                   key={track.id}
                   isUserPlaylist={isUserPlaylist}
                   setImages={setImages}
-                  editState={editState}
+                  editStyleState={editStyleState}
                 />
               </div>
             ))}

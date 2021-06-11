@@ -1,6 +1,6 @@
 import React from 'react';
 
-const DeleteModal = ({ setShowDeleteModal, setOpenMenu, handleDelete, item }) => {
+const DeleteModal = ({ setShowDeleteModal, setIsPlaylistMenuOpen, handleDelete, item }) => {
 
   return (
     <div className="delete-pl-modal-container">
@@ -14,7 +14,7 @@ const DeleteModal = ({ setShowDeleteModal, setOpenMenu, handleDelete, item }) =>
       <div className="">
         <button onClick={() => {
           setShowDeleteModal(false)
-          setOpenMenu(false)}}
+          setIsPlaylistMenuOpen(false)}}
           className="delete-pl-modal-button-cancel">Cancel</button>
         <button
           onClick={handleDelete}

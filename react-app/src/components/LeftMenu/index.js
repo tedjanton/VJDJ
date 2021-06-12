@@ -10,15 +10,20 @@ import ComingSoon from '../ComingSoon';
 import './LeftMenu.css';
 
 const LeftMenu = () => {
-  const { isBrowsing, setIsBrowsing, setIsPlaylistMenuOpen } = useContext(AppWithContext);
   const dispatch = useDispatch();
   const history = useHistory();
   const user = useSelector(state => state.session.user)
-  const [showModal, setShowModal] = useState(false);
-  const [showComingSoon, setShowComingSoon] = useState(false);
   const userPls = useSelector(state => state.playlists.userPls);
   const following = useSelector(state => state.playlists.following);
+  const [showCreatePlaylistModal, setShowCreatePlaylistModal] = useState(false);
+  const [showComingSoon, setShowComingSoon] = useState(false);
+  const {
+    isBrowsing,
+    setIsBrowsing,
+    setIsPlaylistMenuOpen
+  } = useContext(AppWithContext);
 
+  // If user is logged in, get their playlists from the database
   useEffect(() => {
     if (user) {
       dispatch(getUserFollowedPls(user.id))
@@ -66,16 +71,16 @@ const LeftMenu = () => {
         </div>
       </div>
       <div
-        onClick={() => setShowModal(true)}
+        onClick={() => setShowCreatePlaylistModal(true)}
         id="create-playlist-modal"
         className="lm-create-pl"
       >
         <div className="lm-create-pl-plus">+</div>
         <p>Create Playlist</p>
       </div>
-      {showModal && (
-        <Modal onClose={() => setShowModal(false)}>
-          <PlaylistModal setShowModal={setShowModal}/>
+      {showCreatePlaylistModal && (
+        <Modal onClose={() => setShowCreatePlaylistModal(false)}>
+          <PlaylistModal setShowCreatePlaylistModal={setShowCreatePlaylistModal}/>
         </Modal>
       )}
       <div onClick={comingSoon} className="lm-liked">

@@ -2,6 +2,10 @@ import React, { useContext } from 'react';
 import AppWithContext from '../../context/AppWithContext';
 import MusicPlayer from '../MusicPlayer';
 
+/*
+This component acts as a gatekeeper for the display
+of the Music Player
+*/
 
 const Queue = ({ authenticated }) => {
   const { trackQueue } = useContext(AppWithContext)

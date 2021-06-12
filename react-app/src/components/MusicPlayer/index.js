@@ -12,14 +12,14 @@ const MusicPlayer = ({ tracks }) => {
     trackQueue,
     trackRef
   } = useContext(AppWithContext);
-  const [progress, setProgress] = useState(0);
   const { title, artists, art, audio_src } = tracks[trackIdx];
   const audRef = useRef(new Audio(audio_src));
-  const [vol, setVol] = useState(audRef.current.volume);
-  const [mute, setMute] = useState(false);
   const intervalRef = useRef();
   const isReady = useRef(false);
   const { duration } = audRef.current;
+  const [progress, setProgress] = useState(0);
+  const [vol, setVol] = useState(audRef.current.volume);
+  const [mute, setMute] = useState(false);
 
   const toPrevTrack = () => {
     if (progress > 2) audRef.current.currentTime = 0;
@@ -40,6 +40,19 @@ const MusicPlayer = ({ tracks }) => {
     }, [1000])
   }, [toNextTrack]);
 
+  // Set the volume to slider value
+  useEffect(() => {
+    audRef.current.volume = vol;
+  }, [vol])
+
+  // Mute/unmute on speaker icon click
+  useEffect(() => {
+    if (mute) audRef.current.volume = 0;
+    else audRef.current.volume = vol;
+  })
+
+  // Handles the setup when changing tracks and stops the
+  // music from playing on initial render with the isReady ref
   useEffect(() => {
     audRef.current.pause();
     audRef.current = new Audio(audio_src);
@@ -57,24 +70,7 @@ const MusicPlayer = ({ tracks }) => {
     // eslint-disable-next-line
   }, [trackIdx, trackQueue])
 
-  useEffect(() => {
-    audRef.current.volume = vol;
-  }, [vol])
-
-  useEffect(() => {
-    if (mute) audRef.current.volume = 0;
-    else audRef.current.volume = vol;
-  })
-
-  useEffect(() => {
-    return () => {
-      audRef.current.pause();
-      setIsPlaying(false);
-      clearInterval(intervalRef.current);
-    }
-    // eslint-disable-next-line
-  }, []);
-
+  // Start/pause music & timer
   useEffect(() => {
     if (isPlaying) {
       audRef.current.play();
@@ -85,6 +81,16 @@ const MusicPlayer = ({ tracks }) => {
     }
   }, [timer, isPlaying]);
 
+  // Pause current track that is playing and clear
+  // timer that is running on unmount
+  useEffect(() => {
+    return () => {
+      audRef.current.pause();
+      setIsPlaying(false);
+      clearInterval(intervalRef.current);
+    }
+    // eslint-disable-next-line
+  }, []);
 
   const onScrub = (value) => {
     clearInterval(intervalRef.current);

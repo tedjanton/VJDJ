@@ -4,7 +4,11 @@ import { useHistory } from 'react-router-dom';
 import { createPlaylist, getUserPls } from '../../store/playlists';
 import './PlaylistModal.css';
 
-const PlaylistModal = ({ setShowModal }) => {
+/*
+Creates a new playlist
+*/
+
+const PlaylistModal = ({ setShowCreatePlaylistModal }) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const user = useSelector(state => state.session.user);
@@ -12,22 +16,18 @@ const PlaylistModal = ({ setShowModal }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (name.length) {
-      const submission = { name, user_id: user.id };
-      const newPlaylist = await dispatch(createPlaylist(submission));
-      setShowModal(false)
-      await dispatch(getUserPls(user.id))
-      return history.push(`/playlists/${newPlaylist.id}`)
-    } else {
-      window.alert("You must enter a name to create a playlist!")
-    }
+    const submission = { name, user_id: user.id };
+    const newPlaylist = await dispatch(createPlaylist(submission));
+    setShowCreatePlaylistModal(false)
+    await dispatch(getUserPls(user.id))
+    return history.push(`/playlists/${newPlaylist.id}`)
   };
 
   return (
     <div className="create-pl-container">
       <h1>Create Playlist</h1>
       <div>
-        <form className="create-pl-form">
+        <form onSubmit={handleSubmit} className="create-pl-form">
           <input
             autoComplete="off"
             className="input-box"
@@ -36,9 +36,9 @@ const PlaylistModal = ({ setShowModal }) => {
             placeholder="Enter playlist name..."
             value={name}
             onChange={(e) => setName(e.target.value)}
-            required={true}
+            required
           />
-          <button className="input-button" onClick={handleSubmit}>
+          <button type="submit" className="input-button">
             <i className="fas fa-plus" />
           </button>
         </form>

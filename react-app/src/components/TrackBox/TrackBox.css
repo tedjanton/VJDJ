@@ -81,6 +81,7 @@
   font-weight: 500;
   color: rgb(190, 190, 190);
   padding: 10px 5px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.4);
 }
 
 .tb-add-title {

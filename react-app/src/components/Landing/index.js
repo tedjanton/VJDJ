@@ -8,6 +8,7 @@ const Landing = ({ setNav, authenticated, setAuthenticated }) => {
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
 
+  // Display landing page nav bar
   useEffect(() => setNav(true), [setNav])
 
   const onLogin = async (e) => {

@@ -5,8 +5,8 @@ import playlist_placeholder from '../../images/playlist_placeholder.png';
 import './NonTrackBox.css';
 
 /*
-This component is reused for Artist and Album boxes
-on the search page
+This component is reused for all boxes except a single
+Track Box (used on the search page).
 */
 
 const NonTrackBox = ({ artist, album, playlist }) => {

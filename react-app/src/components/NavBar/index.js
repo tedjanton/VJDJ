@@ -10,8 +10,10 @@ const NavBar = ({ nav, authenticated, setAuthenticated }) => {
   const [menu, setMenu] = useState(false);
   const user = useSelector(state => state.session.user);
 
+  // Open browsing nav bar options
   useEffect(() => setIsBrowsing(true), [isBrowsing, setIsBrowsing]);
 
+  // Handles user profile button appearance
   useEffect(() => {
     let button = document.getElementById("prof-button")
     if (!user?.errors && button) {
@@ -22,6 +24,7 @@ const NavBar = ({ nav, authenticated, setAuthenticated }) => {
 
   let links;
   if (authenticated) {
+    // Shows nav bar if user is in the Library
     links = (
       <nav id="nav-home" className="nav-home-container">
         <div className="nav-browser">
@@ -70,11 +73,13 @@ const NavBar = ({ nav, authenticated, setAuthenticated }) => {
       </nav>
     )
   } else if (!nav) {
+    // Hides nav bar for every other page except the Library
     links = (
       <nav className="nav-container-hidden">
       </nav>
     )
   } else {
+    // Displays the landing page nav bar and options
     links = (
       <nav className="nav-container">
         <div className="lm-logo landing">

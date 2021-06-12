@@ -1,6 +1,16 @@
 import React from 'react';
 
-const DeleteModal = ({ setShowDeleteModal, setIsPlaylistMenuOpen, handleDelete, item }) => {
+/*
+Basic warning modal to confirm deletion of a playlist OR
+track from a playlist
+*/
+
+const DeleteModal = ({
+  setShowDeleteModal,
+  setIsPlaylistMenuOpen,
+  handleDelete,
+  item
+}) => {
 
   return (
     <div className="delete-pl-modal-container">

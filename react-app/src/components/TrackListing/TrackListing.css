@@ -87,6 +87,7 @@
   background-color: rgb(36, 36, 36);
   border-radius: 4px;
   padding: 5px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.4);
 }
 
 .tl-edit-menu-not-user {

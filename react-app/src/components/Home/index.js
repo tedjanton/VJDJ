@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import AppWithContext from '../../context/AppWithContext';
 import { Modal } from '../../context/Modal';
+import { useNonBrowsingState } from '../../utils';
 import Popular from '../Popular';
 import VideoModal from '../VideoModal';
 import "./Home.css";
@@ -8,17 +9,18 @@ import "./Home.css";
 const Home = () => {
   const [showModal, setShowModal] = useState(false);
   const videoRef = useRef();
-  const { isBrowsing, setIsBrowsing, setIsPlaying } = useContext(AppWithContext);
+  const { setIsPlaying } = useContext(AppWithContext);
+  useNonBrowsingState();
 
-  const removeBackground = (e) => {
-    document.getElementById("nav-home").classList.remove("browser")
-  }
-
-  const handleVideo = () => {
+  // Create reference to featured video
+  useEffect(() => {
     videoRef.current = document.getElementById("featured-video")
     videoRef.current.setAttribute("src", "https://vjdj.s3.amazonaws.com/featured-vids/lil-nax-x-montero.mp4")
-  }
+  }, []);
 
+
+  // Pause music and background video when "Watch Now"
+  // button is clicked.
   useEffect(() => {
     if (showModal) setIsPlaying(false);
 
@@ -27,17 +29,8 @@ const Home = () => {
     } else if (!showModal && videoRef.current) {
       videoRef.current.play();
     }
-
   }, [showModal, setIsPlaying])
 
-  useEffect(() => {
-    removeBackground()
-    handleVideo()
-  }, [])
-
-  useEffect(() => {
-    setIsBrowsing(false)
-  }, [isBrowsing, setIsBrowsing])
 
   return (
     <div className="home-container">

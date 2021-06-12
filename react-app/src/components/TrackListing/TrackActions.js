@@ -1,9 +1,9 @@
-import React, { useContext, useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import AppWithContext from '../../context/AppWithContext';
+import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { Modal } from '../../context/Modal';
-import { addToPlaylist, deleteFromPlaylist } from '../../store/playlists';
+import { deleteFromPlaylist } from '../../store/playlists';
 import { playlistImageBuilder } from '../../utils';
+import AddToPlaylistMenu from '../AddToPlaylistMenu';
 import DeleteModal from '../DeleteModal';
 import './TrackListing.css';
 
@@ -26,9 +26,6 @@ const TrackActions = ({
   isHover,
 }) => {
   const dispatch = useDispatch();
-  const user = useSelector(state => state.session.user);
-  const userPls = useSelector(state => state.playlists.userPls)
-  const { setConfirmedBox } = useContext(AppWithContext);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   // Clears hovering and editing state if Delete Modal is open
@@ -57,18 +54,6 @@ const TrackActions = ({
     setImages(playlistImageBuilder(pl));
   };
 
-  // Adds track to the selected user's playlist
-  const addTrack = (pl) => {
-    const submission = {
-      track_id: track.id,
-      playlist_id: pl.id,
-    };
-    dispatch(addToPlaylist(submission, user.id))
-    setShowUserOptions(false);
-    setConfirmedBox(true);
-    setIsHover(false);
-  };
-
   return (
     <>
       {isHover && (
@@ -86,14 +71,11 @@ const TrackActions = ({
           </div>
           <div className="tb-add-box-container">
           {addMenu && (
-            <div className="tb-add-box">
-              <p className="tb-add-title">Add track to:</p>
-              {userPls?.map(pl => (
-                <div key={pl.id} className="tb-add-pl">
-                  <button onClick={() => addTrack(pl)}>{pl.name}</button>
-                </div>
-              ))}
-            </div>
+            <AddToPlaylistMenu
+              setShowUserOptions={setShowUserOptions}
+              setIsHover={setIsHover}
+              track={track}
+            />
           )}
         </div>
       </div>
@@ -102,14 +84,11 @@ const TrackActions = ({
         <div className="tl-edit-menu-not-user">
           <div className="tb-add-box-container not-user">
           {addMenu && (
-            <div className="tb-add-box">
-              <p className="tb-add-title">Add track to:</p>
-              {userPls?.map(pl => (
-                <div key={pl.id} className="tb-add-pl">
-                  <button onClick={() => addTrack(pl)}>{pl.name}</button>
-                </div>
-              ))}
-            </div>
+            <AddToPlaylistMenu
+              setShowUserOptions={setShowUserOptions}
+              setIsHover={setIsHover}
+              track={track}
+            />
           )}
           </div>
         </div>

@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import AppWithContext from '../../context/AppWithContext';
 import { addToPlaylist } from '../../store/playlists';
 import { formatTrack } from '../../utils';
+import AddToPlaylistMenu from '../AddToPlaylistMenu';
 import './TrackBox.css';
 
 const TrackBox = ({ track, trackList, index }) => {
@@ -49,16 +50,6 @@ const TrackBox = ({ track, trackList, index }) => {
     }
   };
 
-  const addTrack = (pl) => {
-    const submission = {
-      track_id: track.id,
-      playlist_id: pl.id,
-    };
-    setAddMenu(false);
-    dispatch(addToPlaylist(submission, user.id));
-    setConfirmedBox(true);
-  };
-
   return (
     <div
       className="tb-container"
@@ -81,16 +72,9 @@ const TrackBox = ({ track, trackList, index }) => {
           </div>
         )}
         <div className="tb-add-box-container">
-          {addMenu && (
-            <div className="tb-add-box">
-              <p className="tb-add-title">Add track to:</p>
-              {userPls?.map(pl => (
-                <div key={pl.id} className="tb-add-pl">
-                  <button onClick={() => addTrack(pl)}>{pl.name}</button>
-                </div>
-              ))}
-            </div>
-          )}
+        {addMenu && (
+          <AddToPlaylistMenu setAddMenu={setAddMenu} track={track}/>
+        )}
         </div>
       </div>
       <div className="tb-title">

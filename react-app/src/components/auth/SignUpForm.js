@@ -18,14 +18,15 @@ const SignUpForm = ({ setNav, authenticated, setAuthenticated }) => {
   const [recaptcha, setRecaptcha] = useState(false);
   const [recaptchaErr, setRecaptchaErr] = useState('');
 
+  // Hides nav bar on sign up page.
   useEffect(() => setNav(false), [setNav]);
 
   const onSignUp = async (e) => {
     e.preventDefault();
     if (!recaptcha) {
-      setRecaptchaErr("Please confirm you're not a robot!")
+      setRecaptchaErr("Please confirm you're not a robot!");
     } else {
-      setRecaptchaErr("")
+      setRecaptchaErr("");
       if (password === repeatPassword) {
         const user = await dispatch(signUp(
           username,
@@ -41,11 +42,12 @@ const SignUpForm = ({ setNav, authenticated, setAuthenticated }) => {
           setErrors(user.errors);
         }
       } else {
-        setErrors(["Passwords must match"])
-      }
-    }
+        setErrors(["Passwords must match"]);
+      };
+    };
   };
 
+  // Handle 3rd party auth features
   const comingSoon = () => {
     setShowComingSoon(true);
     setTimeout(() => {
@@ -90,7 +92,7 @@ const SignUpForm = ({ setNav, authenticated, setAuthenticated }) => {
           <div className="login-form-errors">
             {errors.map((error) => (
               <div key={error}>{error}</div>
-              ))}
+            ))}
           </div>
           <div className="login-email">
             <label>What's your username?</label>
@@ -98,8 +100,8 @@ const SignUpForm = ({ setNav, authenticated, setAuthenticated }) => {
               type='text'
               name='username'
               onChange={(e) => setUsername(e.target.value)}
-              value={username}
-            ></input>
+              value={username}>
+            </input>
           </div>
           <div className="login-email">
             <label>What's your first name?</label>
@@ -107,8 +109,8 @@ const SignUpForm = ({ setNav, authenticated, setAuthenticated }) => {
               type='text'
               name='firstName'
               onChange={(e) => setFirstName(e.target.value)}
-              value={firstName}
-            ></input>
+              value={firstName}>
+            </input>
           </div>
           <div className="login-email">
             <label>And your last name?</label>
@@ -116,8 +118,8 @@ const SignUpForm = ({ setNav, authenticated, setAuthenticated }) => {
               type='text'
               name='lastName'
               onChange={(e) => setLastName(e.target.value)}
-              value={lastName}
-            ></input>
+              value={lastName}>
+            </input>
           </div>
           <div className="login-email">
             <label>What's your email?</label>
@@ -125,8 +127,8 @@ const SignUpForm = ({ setNav, authenticated, setAuthenticated }) => {
               type='email'
               name='email'
               onChange={(e) => setEmail(e.target.value)}
-              value={email}
-            ></input>
+              value={email}>
+            </input>
           </div>
           <div className="login-email">
             <label>Create a password</label>
@@ -134,8 +136,8 @@ const SignUpForm = ({ setNav, authenticated, setAuthenticated }) => {
               type='password'
               name='password'
               onChange={(e) => setPassword(e.target.value)}
-              value={password}
-            ></input>
+              value={password}>
+            </input>
           </div>
           <div className="login-email">
             <label>Confirm your password</label>
@@ -144,8 +146,8 @@ const SignUpForm = ({ setNav, authenticated, setAuthenticated }) => {
               name='repeat_password'
               onChange={(e) => setRepeatPassword(e.target.value)}
               value={repeatPassword}
-              required={true}
-            ></input>
+              required={true}>
+            </input>
           </div>
           <div className="sign-up-recaptcha">
             <Recaptcha recaptcha={recaptcha} setRecaptcha={setRecaptcha} />

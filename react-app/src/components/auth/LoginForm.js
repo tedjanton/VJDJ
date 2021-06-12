@@ -14,6 +14,7 @@ const LoginForm = ({ setNav, authenticated, setAuthenticated }) => {
   const [password, setPassword] = useState('');
   const [showComingSoon, setShowComingSoon] = useState(false);
 
+  // Hide the nav bar on login page
   useEffect(() => setNav(false), [setNav])
 
   const onLogin = async (e) => {
@@ -36,6 +37,7 @@ const LoginForm = ({ setNav, authenticated, setAuthenticated }) => {
     }
   };
 
+  // Handle 3rd party auth features
   const comingSoon = () => {
     setShowComingSoon(true);
     setTimeout(() => {

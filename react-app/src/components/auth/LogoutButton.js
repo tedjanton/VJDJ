@@ -17,7 +17,11 @@ const LogoutButton = ({setAuthenticated, setMenu}) => {
   return (
     <>
       <button onClick={onLogout}>Logout</button>
-      <a href="http://www.tedjanton.com/" target="_blank" rel="noopener noreferrer">About the Developer</a>
+      <a
+        href="http://www.tedjanton.com/"
+        target="_blank"
+        rel="noopener noreferrer">About the Developer
+      </a>
     </>
   )
 };

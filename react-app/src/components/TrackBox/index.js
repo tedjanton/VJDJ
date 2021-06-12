@@ -1,16 +1,11 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import AppWithContext from '../../context/AppWithContext';
-import { addToPlaylist } from '../../store/playlists';
 import { formatTrack } from '../../utils';
 import AddToPlaylistMenu from '../AddToPlaylistMenu';
 import './TrackBox.css';
 
 const TrackBox = ({ track, trackList, index }) => {
-  const dispatch = useDispatch();
-  const userPls = useSelector(state => state.playlists.userPls)
-  const user = useSelector(state => state.session.user)
   const [isHover, setIsHover] = useState(false);
   const [addMenu, setAddMenu] = useState(false);
   const [isTrackPlaying, setIsTrackPlaying] = useState(false);
@@ -19,8 +14,7 @@ const TrackBox = ({ track, trackList, index }) => {
     isPlaying,
     setIsPlaying,
     setTrackIdx,
-    trackRef,
-    setConfirmedBox
+    trackRef
   } = useContext(AppWithContext)
 
   useEffect(() => {

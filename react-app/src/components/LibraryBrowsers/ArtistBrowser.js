@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getArtists } from '../../store/artists';
 import { useBrowsingState } from '../../utils';
-import ArtistAlbumBox from '../ArtistAlbumBox';
+import NonTrackBox from '../NonTrackBox';
 import './Browser.css';
 
 const ArtistBrowser = () => {
@@ -20,7 +20,7 @@ const ArtistBrowser = () => {
       <div className="browser-content-container">
         {artists?.map(artist => (
           <div key={artist.id} className="pb-container">
-            <ArtistAlbumBox artist={artist} />
+            <NonTrackBox artist={artist} />
           </div>
         ))}
       </div>

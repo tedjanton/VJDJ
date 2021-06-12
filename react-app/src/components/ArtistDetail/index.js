@@ -2,8 +2,8 @@ import React, { useEffect, useContext, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import AppWithContext from '../../context/AppWithContext';
-import verified from '../../images/verified.png';
 import { getArtist } from '../../store/artists';
+import verified from '../../images/verified.png';
 import { formatTrack, useNonBrowsingState } from '../../utils';
 import TrackListing from '../TrackListing';
 import './ArtistDetail.css';
@@ -21,17 +21,21 @@ const ArtistDetail = () => {
     setIsPlaying,
     isPlaying
   } = useContext(AppWithContext);
+
+  // Hide library page nav bar options
   useNonBrowsingState();
 
+  // Gets artist tracks from the database
   useEffect(() => {
     dispatch(getArtist(params.id))
-  }, [dispatch, params])
+  }, [dispatch, params]);
 
+  // Adds artist tracks to the queue and starts first track
   const addToQueue = () => {
     setTrackQueue(tracks.map(track => formatTrack(track)));
     setTrackIdx(0);
     setIsPlaying(true);
-    setIsArtistPlaying(true)
+    setIsArtistPlaying(true);
   };
 
   return (

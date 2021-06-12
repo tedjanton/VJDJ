@@ -2,8 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import AppWithContext from '../../context/AppWithContext';
 import { searchTables } from '../../store/search';
-import ArtistAlbumBox from '../ArtistAlbumBox';
-import PlaylistBox from '../PlaylistBox';
+import NonTrackBox from '../NonTrackBox';
 import TrackBox from '../TrackBox';
 import './SearchPage.css';
 
@@ -69,7 +68,7 @@ const SearchPage = () => {
               )}
               <div className="search-results-artists">
                 {results.artists.map(artist => (
-                  <ArtistAlbumBox key={artist.id} artist={artist} />
+                  <NonTrackBox key={artist.id} artist={artist} />
                 ))}
               </div>
             </>
@@ -81,7 +80,7 @@ const SearchPage = () => {
               )}
               <div className="search-results-albums">
                 {results.albums.map(album => (
-                  <ArtistAlbumBox key={album.id} album={album} />
+                  <NonTrackBox key={album.id} album={album} />
                 ))}
               </div>
             </>
@@ -93,7 +92,7 @@ const SearchPage = () => {
               )}
               <div className="search-results-playlists">
                 {results.playlists.map(playlist => (
-                  <PlaylistBox key={playlist.id} playlist={playlist} />
+                  <NonTrackBox key={playlist.id} playlist={playlist} />
                 ))}
               </div>
             </>

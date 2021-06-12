@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAlbums } from '../../store/albums';
 import { useBrowsingState } from '../../utils';
-import ArtistAlbumBox from '../ArtistAlbumBox';
+import NonTrackBox from '../NonTrackBox';
 import './Browser.css';
 
 const AlbumBrowser = () => {
@@ -20,7 +20,7 @@ const AlbumBrowser = () => {
       <div className="browser-content-container">
         {albums?.map(album => (
           <div key={album.id} className="pb-container">
-            <ArtistAlbumBox album={album} />
+            <NonTrackBox album={album} />
           </div>
         ))}
       </div>

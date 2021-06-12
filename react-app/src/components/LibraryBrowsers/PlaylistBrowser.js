@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllPlaylists } from '../../store/playlists';
 import { useBrowsingState } from '../../utils';
-import PlaylistBox from '../PlaylistBox';
+import NonTrackBox from '../NonTrackBox';
 import './Browser.css';
 
 const PlaylistBrowser = () => {
@@ -20,7 +20,7 @@ const PlaylistBrowser = () => {
       <div className="browser-content-container">
         {playlists?.map(pl => (
           <div key={pl.id} className="pb-container">
-            <PlaylistBox playlist={pl} />
+            <NonTrackBox playlist={pl} />
           </div>
         ))}
       </div>

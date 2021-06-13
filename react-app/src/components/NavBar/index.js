@@ -2,29 +2,27 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import AppWithContext from '../../context/AppWithContext';
-import LogoutButton from '../auth/LogoutButton';
+import LogoutButton from './LogoutButton';
 import './NavBar.css';
 
 const NavBar = ({ nav, authenticated, setAuthenticated }) => {
-  const { isBrowsing, setIsBrowsing } = useContext(AppWithContext);
-  const [menu, setMenu] = useState(false);
+  const { isBrowsing } = useContext(AppWithContext);
+  const [showProfileMenu, setShowProfileMenu] = useState(false);
   const user = useSelector(state => state.session.user);
-
-  // Open browsing nav bar options
-  useEffect(() => setIsBrowsing(true), [isBrowsing, setIsBrowsing]);
 
   // Handles user profile button appearance
   useEffect(() => {
     let button = document.getElementById("prof-button")
     if (!user?.errors && button) {
-      if (menu) button.classList.add("active-button")
+      if (showProfileMenu) button.classList.add("active-button")
       else button.classList.remove("active-button");
     }
-  }, [menu, user]);
+  }, [showProfileMenu, user]);
 
   let links;
   if (authenticated) {
-    // Shows nav bar if user is in the Library
+    // Loads profile button if user is authenticated and
+    // shows nav bar if user is browsing the Library
     links = (
       <nav id="nav-home" className="nav-home-container">
         <div className="nav-browser">
@@ -49,24 +47,21 @@ const NavBar = ({ nav, authenticated, setAuthenticated }) => {
           )}
         </div>
         <div className="nav-home">
-          <button id="prof-button" onClick={() => setMenu(!menu)}>
-            <i className="fas fa-user-circle"
-            />{`${user?.firstName} ${user?.lastName}`}
-            {!menu ? (
-              <>
-                <i className="fas fa-sort-down" />
-              </>
+          <button id="prof-button" onClick={() => setShowProfileMenu(!showProfileMenu)}>
+            <i className="fas fa-user-circle" />
+            {`${user?.firstName} ${user?.lastName}`}
+            {!showProfileMenu ? (
+              <i className="fas fa-sort-down" />
             ) : (
-              <>
-                <i className="fas fa-sort-up" />
-              </>
-            )}</button>
-          {menu && (
+              <i className="fas fa-sort-up" />
+            )}
+          </button>
+          {showProfileMenu && (
             <div className="nav-logout-button">
               <LogoutButton
                 className="logout-button"
                 setAuthenticated={setAuthenticated}
-                setMenu={setMenu} />
+                setShowProfileMenu={setShowProfileMenu} />
             </div>
           )}
         </div>

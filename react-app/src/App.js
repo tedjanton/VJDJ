@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useDispatch } from 'react-redux';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import { authenticate } from './store/session';
 import AppWithContext from './context/AppWithContext';
 import AlbumBrowser from './components/LibraryBrowsers/AlbumBrowser';
@@ -37,16 +37,14 @@ function App() {
   if (!loaded) return null;
 
   return (
-    <BrowserRouter>
+    <>
       <NavBar
         nav={nav}
         authenticated={authenticated}
         setAuthenticated={setAuthenticated}
       />
       {authenticated && (
-      <>
         <LeftMenu authenticated={authenticated} />
-      </>
       )}
       <Switch>
         <Route path='/' exact >
@@ -71,8 +69,8 @@ function App() {
         <ProtectedRoute path='/home' exact authenticated={authenticated}>
           <Home />
         </ProtectedRoute>
-        <ProtectedRoute path='/playlists/:id' exact authenticated={authenticated}>
-          <PlaylistDetail />
+        <ProtectedRoute path='/search' exact authenticated={authenticated}>
+          <SearchPage />
         </ProtectedRoute>
         <ProtectedRoute path='/library/playlists' exact authenticated={authenticated}>
           <PlaylistBrowser />
@@ -80,17 +78,17 @@ function App() {
         <ProtectedRoute path='/library/artists' exact authenticated={authenticated}>
           <ArtistBrowser />
         </ProtectedRoute>
-        <ProtectedRoute path='/artists/:id' exact authenticated={authenticated}>
-          <ArtistDetail />
-        </ProtectedRoute>
         <ProtectedRoute path='/library/albums' exact authenticated={authenticated}>
           <AlbumBrowser />
         </ProtectedRoute>
+        <ProtectedRoute path='/playlists/:id' exact authenticated={authenticated}>
+          <PlaylistDetail />
+        </ProtectedRoute>
+        <ProtectedRoute path='/artists/:id' exact authenticated={authenticated}>
+          <ArtistDetail />
+        </ProtectedRoute>
         <ProtectedRoute path='/albums/:id' exact authenticated={authenticated}>
           <AlbumDetail />
-        </ProtectedRoute>
-        <ProtectedRoute path='/search' exact authenticated={authenticated}>
-          <SearchPage />
         </ProtectedRoute>
       </Switch>
       <Queue authenticated={authenticated} />
@@ -100,7 +98,7 @@ function App() {
           <i className="fas fa-check-circle confirmed" />
         </div>
       )}
-    </BrowserRouter>
+    </>
   );
 };
 

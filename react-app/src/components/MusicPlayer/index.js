@@ -2,7 +2,11 @@ import React, { useState, useEffect, useRef, useContext, useCallback } from 'rea
 import AudioContext from '../../context/AudioContext';
 import Controls from "./Controls";
 import './MusicPlayer.css';
-                                                                                
+
+/*
+Manages the audio player actions
+*/
+
 const MusicPlayer = ({ tracks }) => {
   const {
     isPlaying,

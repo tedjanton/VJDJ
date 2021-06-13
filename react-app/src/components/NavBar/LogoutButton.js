@@ -3,6 +3,10 @@ import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router';
 import { logout } from '../../store/session';
 
+/*
+Logout a user and redirect to the landing page
+*/
+
 const LogoutButton = ({setAuthenticated, setShowProfileMenu}) => {
   const history = useHistory();
   const dispatch = useDispatch();

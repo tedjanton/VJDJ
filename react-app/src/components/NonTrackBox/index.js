@@ -5,14 +5,15 @@ import playlist_placeholder from '../../images/playlist_placeholder.png';
 import './NonTrackBox.css';
 
 /*
-This component is reused for all boxes except a single
-Track Box (used on the search page).
+This component is reused for all boxes (except a single
+Track Box) and is used on the search page.
 */
 
 const NonTrackBox = ({ artist, album, playlist }) => {
   const history = useHistory();
   const [images, setImages] = useState([]);
 
+  // If a playlist box, build the image collage
   useEffect(() => {
     if (playlist) {
       setImages(playlistImageBuilder(playlist));

@@ -1,6 +1,9 @@
 import React from 'react';
 import './ComingSoon.css';
 
+/*
+Simple message for features in progress
+*/
 
 const ComingSoon = () => {
 

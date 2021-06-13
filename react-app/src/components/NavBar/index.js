@@ -5,6 +5,11 @@ import UIContext from '../../context/UIContext';
 import LogoutButton from './LogoutButton';
 import './NavBar.css';
 
+/*
+Dynamically rendered nav bar depending on what page the
+user is on
+*/
+
 const NavBar = ({ nav, authenticated, setAuthenticated }) => {
   const { isBrowsing } = useContext(UIContext);
   const [showProfileMenu, setShowProfileMenu] = useState(false);

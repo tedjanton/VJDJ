@@ -1,6 +1,9 @@
 import React from 'react';
 import './MusicPlayer.css';
 
+/*
+Component to control the music player buttons
+*/
 
 const Controls = ({ isPlaying, setIsPlaying, toPrevTrack, toNextTrack }) => {
     return (

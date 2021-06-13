@@ -3,12 +3,12 @@ import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router';
 import { logout } from '../../store/session';
 
-const LogoutButton = ({setAuthenticated, setMenu}) => {
+const LogoutButton = ({setAuthenticated, setShowProfileMenu}) => {
   const history = useHistory();
   const dispatch = useDispatch();
 
   const onLogout = async (e) => {
-    setMenu(false);
+    setShowProfileMenu(false);
     setAuthenticated(false);
     await dispatch(logout());
     return history.push("/");

@@ -5,7 +5,7 @@ import { createPlaylist, getUserPls } from '../../store/playlists';
 import './PlaylistModal.css';
 
 /*
-Creates a new playlist
+Modal for creating a new playlist
 */
 
 const PlaylistModal = ({ setShowCreatePlaylistModal }) => {

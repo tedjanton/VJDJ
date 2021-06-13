@@ -2,7 +2,7 @@ import React, { useEffect, useContext, useState } from 'react';
 import { ColorExtractor } from 'react-color-extractor';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
-import AppWithContext from '../../context/AppWithContext';
+import AudioContext from '../../context/AudioContext';
 import { getAlbum } from '../../store/albums';
 import { formatTrack, useNonBrowsingState } from '../../utils';
 import TrackListing from '../TrackListing';
@@ -20,7 +20,7 @@ const AlbumDetail = () => {
     setTrackQueue,
     setTrackIdx,
     setIsPlaying
-  } = useContext(AppWithContext);
+  } = useContext(AudioContext);
   useNonBrowsingState();
 
   // Get the album details from the database

@@ -1,7 +1,8 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
-import AppWithContext from '../../context/AppWithContext';
+import AudioContext from '../../context/AudioContext';
+import UIContext from '../../context/UIContext';
 import { Modal } from '../../context/Modal';
 import { addFollow, unfollow, editPlaylist, deletePlaylist, getUserPls, getPlaylist } from '../../store/playlists';
 import { formatTrack, playlistImageBuilder } from '../../utils';
@@ -21,18 +22,12 @@ const PlaylistActions = ({
   setTrackList,
   setImages,
 }) => {
-  const {
-    setTrackQueue,
-    isPlaying,
-    setIsPlaying,
-    setTrackIdx,
-    paramsRef,
-    isPlaylistMenuOpen,
-    setIsPlaylistMenuOpen
-  } = useContext(AppWithContext)
+  const { setTrackQueue, isPlaying, setIsPlaying, setTrackIdx } = useContext(AudioContext);
+  const { isPlaylistMenuOpen, setIsPlaylistMenuOpen } = useContext(UIContext);
   const dispatch = useDispatch();
   const params = useParams();
   const history = useHistory();
+  const paramsRef = useRef();
   const [isPlaylistPlaying, setIsPlaylistPlaying] = useState(false);
   const [isFollowing, setIsFollowing] = useState(false);
   const [showAddSongsModal, setShowAddSongsModal] = useState(false);
@@ -45,6 +40,8 @@ const PlaylistActions = ({
     else setIsFollowing(false);
   }, [setIsFollowing, following, playlist])
 
+  // Connects the green button with the playlist ID param to
+  // track if a playlist is currently playing or not.
   useEffect(() => {
     if (isPlaying && paramsRef.current === params.id) {
       setIsPlaylistPlaying(true);
@@ -157,7 +154,7 @@ const PlaylistActions = ({
         )}
         </div>
         <div onClick={handleFollow} className="pl-like-button">
-        {playlist?.user.id === user?.id ? (
+        {isUserPlaylist ? (
           <i className="fas fa-plus" />
         ) : (
           <>

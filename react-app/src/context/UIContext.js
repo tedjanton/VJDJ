@@ -1,16 +1,11 @@
 import React, { useRef, useState, useEffect } from 'react';
 
-const AppWithContext = React.createContext();
+const UIContext = React.createContext();
 
-export function AppContextProvider({ children }) {
+export function UIContextProvider({ children }) {
   const [isBrowsing, setIsBrowsing] = useState(false);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [trackQueue, setTrackQueue] = useState([]);
-  const [trackIdx, setTrackIdx] = useState(0);
   const [confirmedBox, setConfirmedBox] = useState(false);
   const [isPlaylistMenuOpen, setIsPlaylistMenuOpen] = useState(false);
-  const paramsRef = useRef();
-  const trackRef = useRef();
 
   useEffect(() => {
     if (confirmedBox) {
@@ -22,18 +17,10 @@ export function AppContextProvider({ children }) {
 
   return (
     <>
-      <AppWithContext.Provider
+      <UIContext.Provider
         value={{
-          trackQueue,
-          setTrackQueue,
-          isPlaying,
-          setIsPlaying,
-          trackIdx,
-          setTrackIdx,
           isBrowsing,
           setIsBrowsing,
-          paramsRef,
-          trackRef,
           setConfirmedBox,
           confirmedBox,
           isPlaylistMenuOpen,
@@ -41,9 +28,9 @@ export function AppContextProvider({ children }) {
         }}
       >
         {children}
-      </AppWithContext.Provider>
+      </UIContext.Provider>
     </>
   );
 };
 
-export default AppWithContext;
+export default UIContext;

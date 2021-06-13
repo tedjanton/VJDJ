@@ -1,12 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import AppWithContext from '../../context/AppWithContext';
+import UIContext from '../../context/UIContext';
 import LogoutButton from './LogoutButton';
 import './NavBar.css';
 
 const NavBar = ({ nav, authenticated, setAuthenticated }) => {
-  const { isBrowsing } = useContext(AppWithContext);
+  const { isBrowsing } = useContext(UIContext);
   const [showProfileMenu, setShowProfileMenu] = useState(false);
   const user = useSelector(state => state.session.user);
 

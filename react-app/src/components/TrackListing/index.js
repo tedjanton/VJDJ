@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import AppWithContext from '../../context/AppWithContext';
+import AudioContext from '../../context/AudioContext';
 import { Modal } from '../../context/Modal';
 import { formatTrack } from '../../utils';
 import VideoModal from '../VideoModal';
@@ -34,7 +34,7 @@ const TrackListing = ({
     setIsPlaying,
     setTrackIdx,
     trackRef,
-    } = useContext(AppWithContext)
+    } = useContext(AudioContext);
 
   // Pauses music and cancels hovering if music video
   // button is clicked
@@ -118,7 +118,8 @@ const TrackListing = ({
               {track.artists?.map((artist, i) => (
                 <div key={artist.id} className="track-artist">
                   <Link to={`/artists/${artist.id}`}>
-                    {(i ? ', ': '') + artist.name}
+                    <span>{(i ? ", ": "")}</span>
+                    <span className="track-artist-name">{artist.name}</span>
                   </Link>
                 </div>
               ))}

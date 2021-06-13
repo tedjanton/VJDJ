@@ -63,10 +63,6 @@
   color: rgb(172, 172, 172)
 }
 
-.tb-artist a:hover {
-  text-decoration: underline;
-}
-
 .tb-add-box-container {
   position: absolute;
   z-index: 600;

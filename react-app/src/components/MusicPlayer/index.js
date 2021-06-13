@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef, useContext, useCallback } from 'react';
-import AppWithContext from '../../context/AppWithContext';
+import AudioContext from '../../context/AudioContext';
 import Controls from "./Controls";
 import './MusicPlayer.css';
-
+                                                                                
 const MusicPlayer = ({ tracks }) => {
   const {
     isPlaying,
@@ -11,7 +11,7 @@ const MusicPlayer = ({ tracks }) => {
     setTrackIdx,
     trackQueue,
     trackRef
-  } = useContext(AppWithContext);
+  } = useContext(AudioContext);
   const { title, artists, art, audio_src } = tracks[trackIdx];
   const audRef = useRef(new Audio(audio_src));
   const intervalRef = useRef();

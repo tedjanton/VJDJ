@@ -1,7 +1,7 @@
 import React, { useEffect, useContext, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import AppWithContext from '../../context/AppWithContext';
+import AudioContext from '../../context/AudioContext';
 import { getArtist } from '../../store/artists';
 import verified from '../../images/verified.png';
 import { formatTrack, useNonBrowsingState } from '../../utils';
@@ -20,7 +20,7 @@ const ArtistDetail = () => {
     setTrackIdx,
     setIsPlaying,
     isPlaying
-  } = useContext(AppWithContext);
+  } = useContext(AudioContext);
 
   // Hide library page nav bar options
   useNonBrowsingState();

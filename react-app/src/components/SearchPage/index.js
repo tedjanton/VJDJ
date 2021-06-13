@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import AppWithContext from '../../context/AppWithContext';
+import UIContext from '../../context/UIContext';
 import { searchTables } from '../../store/search';
 import NonTrackBox from '../NonTrackBox';
 import TrackBox from '../TrackBox';
@@ -8,7 +8,7 @@ import './SearchPage.css';
 
 const SearchPage = () => {
   const dispatch = useDispatch();
-  const { isBrowsing, setIsBrowsing } = useContext(AppWithContext);
+  const { isBrowsing, setIsBrowsing } = useContext(UIContext);
   const results = useSelector(state => state.search.found);
   const [query, setQuery] = useState("");
   const [noResults, setNoResults] = useState(false);

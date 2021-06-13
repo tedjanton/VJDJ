@@ -58,7 +58,7 @@
   color: rgb(172, 172, 172)
 }
 
-.track-artist a:hover,
+.track-artist-name:hover,
 .track-album a:hover {
   text-decoration: underline;
 }

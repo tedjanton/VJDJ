@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
-import AppWithContext from '../../context/AppWithContext';
+import AudioContext from '../../context/AudioContext';
 import { Modal } from '../../context/Modal';
 import { useNonBrowsingState } from '../../utils';
 import Popular from '../Popular';
@@ -9,7 +9,7 @@ import "./Home.css";
 const Home = () => {
   const [showModal, setShowModal] = useState(false);
   const videoRef = useRef();
-  const { setIsPlaying } = useContext(AppWithContext);
+  const { setIsPlaying } = useContext(AudioContext);
   useNonBrowsingState();
 
   // Create reference to featured video

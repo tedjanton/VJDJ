@@ -1,8 +1,8 @@
 import { useContext, useEffect } from 'react';
-import AppWithContext from './context/AppWithContext';
+import UIContext from './context/UIContext';
 
 export const useBrowsingState = () => {
-  const { setIsBrowsing } = useContext(AppWithContext);
+  const { setIsBrowsing } = useContext(UIContext);
   useEffect(() => {
     setIsBrowsing(true);
     document.getElementById("nav-home").classList.add("browser");
@@ -10,7 +10,7 @@ export const useBrowsingState = () => {
 };
 
 export const useNonBrowsingState = () => {
-  const { setIsBrowsing } = useContext(AppWithContext);
+  const { setIsBrowsing } = useContext(UIContext);
   useEffect(() => {
     setIsBrowsing(false);
     document.getElementById("nav-home").classList.remove("browser");

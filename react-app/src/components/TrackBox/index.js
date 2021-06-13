@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import AppWithContext from '../../context/AppWithContext';
+import AudioContext from '../../context/AudioContext';
 import { formatTrack } from '../../utils';
 import AddToPlaylistMenu from '../AddToPlaylistMenu';
 import './TrackBox.css';
@@ -15,7 +15,7 @@ const TrackBox = ({ track, trackList, index }) => {
     setIsPlaying,
     setTrackIdx,
     trackRef
-  } = useContext(AppWithContext)
+  } = useContext(AudioContext);
 
   useEffect(() => {
     if (trackRef.current?.id === track.id) {
@@ -77,7 +77,10 @@ const TrackBox = ({ track, trackList, index }) => {
       <div className="tb-artists">
       {track.artists.map((artist, i) => (
         <div className="tb-artist" key={artist.id}>
-          <Link to={`/artists/${artist.id}`}>{(i ? ', ': '') + artist.name}</Link>
+          <Link to={`/artists/${artist.id}`}>
+            <span>{(i ? ", ": "")}</span>
+            <span className="track-artist-name">{artist.name}</span>
+          </Link>
         </div>
       ))}
       </div>

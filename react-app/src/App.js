@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { useDispatch } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
 import { authenticate } from './store/session';
-import AppWithContext from './context/AppWithContext';
+import AppWithContext from './context/AudioContext';
 import AlbumBrowser from './components/LibraryBrowsers/AlbumBrowser';
 import AlbumDetail from './components/AlbumDetail';
 import ArtistBrowser from './components/LibraryBrowsers/ArtistBrowser';

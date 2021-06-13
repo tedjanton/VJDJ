@@ -1,7 +1,6 @@
 import React, { useContext } from 'react';
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
-import AppWithContext from '../../context/AppWithContext';
+import { useSelector, useDispatch } from 'react-redux';
+import UIContext from '../../context/UIContext';
 import { addToPlaylist } from '../../store/playlists';
 
 /*
@@ -12,7 +11,7 @@ const AddToPlaylistMenu = (props) => {
   const dispatch = useDispatch();
   const user = useSelector(state => state.session.user);
   const userPls = useSelector(state => state.playlists.userPls);
-  const { setConfirmedBox } = useContext(AppWithContext);
+  const { setConfirmedBox } = useContext(UIContext);
 
   const addTrack = (pl) => {
     const submission = {

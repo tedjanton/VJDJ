@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import AppWithContext from '../../context/AppWithContext';
+import AudioContext from '../../context/AudioContext';
 import MusicPlayer from '../MusicPlayer';
 
 /*
@@ -8,7 +8,7 @@ of the Music Player
 */
 
 const Queue = ({ authenticated }) => {
-  const { trackQueue } = useContext(AppWithContext)
+  const { trackQueue } = useContext(AudioContext);
 
   if (!authenticated) return null;
 

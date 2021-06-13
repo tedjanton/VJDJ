@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, useHistory } from 'react-router-dom';
-import AppWithContext from '../../context/AppWithContext';
+import UIContext from '../../context/UIContext';
 import { Modal } from '../../context/Modal';
 import { getUserFollowedPls, getUserPls } from '../../store/playlists';
 import library from '../../images/library.png';
@@ -17,11 +17,7 @@ const LeftMenu = () => {
   const following = useSelector(state => state.playlists.following);
   const [showCreatePlaylistModal, setShowCreatePlaylistModal] = useState(false);
   const [showComingSoon, setShowComingSoon] = useState(false);
-  const {
-    isBrowsing,
-    setIsBrowsing,
-    setIsPlaylistMenuOpen
-  } = useContext(AppWithContext);
+  const { isBrowsing, setIsBrowsing, setIsPlaylistMenuOpen } = useContext(UIContext);
 
   // If user is logged in, get their playlists from the database
   useEffect(() => {

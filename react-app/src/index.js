@@ -4,7 +4,8 @@ import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import configureStore from './store';
 import * as sessionActions from './store/session';
-import { AppContextProvider } from './context/AppWithContext';
+import { AudioContextProvider } from './context/AudioContext';
+import { UIContextProvider } from './context/UIContext';
 import { ModalProvider } from './context/Modal';
 import App from './App';
 import './index.css';
@@ -20,13 +21,15 @@ if (process.env.NODE_ENV !== 'production') {
 function Root() {
   return (
     <Provider store={store}>
-      <AppContextProvider>
-        <ModalProvider>
-          <BrowserRouter>
-            <App />
-          </BrowserRouter>
-        </ModalProvider>
-      </AppContextProvider>
+      <UIContextProvider>
+        <AudioContextProvider>
+          <ModalProvider>
+            <BrowserRouter>
+              <App />
+            </BrowserRouter>
+          </ModalProvider>
+        </AudioContextProvider>
+      </UIContextProvider>
     </Provider>
   )
 };

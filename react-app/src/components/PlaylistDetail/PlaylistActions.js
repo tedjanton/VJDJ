@@ -38,6 +38,7 @@ const PlaylistActions = ({
     if (isPlaylistMenuOpen) {
       cancelEdits()
     }
+    // eslint-disable-next-line
   }, [params.id])
 
   // Manages heart button appearance on non-user owned playlists

@@ -80,7 +80,7 @@ const NonTrackBox = ({ artist, album, playlist }) => {
         </div>
       </div>
     )
-  }
-}
+  };
+};
 
 export default NonTrackBox;

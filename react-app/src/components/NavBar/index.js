@@ -17,9 +17,9 @@ const NavBar = ({ nav, authenticated, setAuthenticated }) => {
 
   // Handles user profile button appearance
   useEffect(() => {
-    let button = document.getElementById("prof-button")
+    let button = document.getElementById("prof-button");
     if (!user?.errors && button) {
-      if (showProfileMenu) button.classList.add("active-button")
+      if (showProfileMenu) button.classList.add("active-button");
       else button.classList.remove("active-button");
     }
   }, [showProfileMenu, user]);
@@ -134,6 +134,6 @@ const NavBar = ({ nav, authenticated, setAuthenticated }) => {
       {links}
     </>
   );
-}
+};
 
 export default NavBar;

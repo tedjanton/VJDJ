@@ -85,7 +85,7 @@ const MusicPlayer = ({ tracks }) => {
     }
   }, [timer, isPlaying]);
 
-  // Pause current track that is playing and clear
+  // Pause current track that is playing and clears
   // timer that is running on unmount
   useEffect(() => {
     return () => {

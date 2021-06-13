@@ -1,31 +1,30 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import UIContext from '../../context/UIContext';
 import { searchTables } from '../../store/search';
+import { useNonBrowsingState } from '../../utils';
 import NonTrackBox from '../NonTrackBox';
 import TrackBox from '../TrackBox';
 import './SearchPage.css';
 
+/*
+Dynamically renders search queries as a user is typing
+*/
+
 const SearchPage = () => {
   const dispatch = useDispatch();
-  const { isBrowsing, setIsBrowsing } = useContext(UIContext);
   const results = useSelector(state => state.search.found);
   const [query, setQuery] = useState("");
   const [noResults, setNoResults] = useState(false);
+  useNonBrowsingState();
 
-  useEffect(() => {
-    document.getElementById("nav-home").classList.remove("browser");
-  }, []);
-
-  useEffect(() => {
-    setIsBrowsing(false)
-  }, [isBrowsing, setIsBrowsing]);
-
+  // Waits until a user types at least 2 characters
+  // to fetch results from the database
   useEffect(() => {
     if (query.length <= 2) return;
     dispatch(searchTables(query));
   }, [query, dispatch]);
 
+  // Tracks if no results are found
   useEffect(() => {
     let count = 0
     if (results) {

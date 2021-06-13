@@ -5,6 +5,10 @@ import { formatTrack } from '../../utils';
 import AddToPlaylistMenu from '../AddToPlaylistMenu';
 import './TrackBox.css';
 
+/*
+Single track box component
+*/
+
 const TrackBox = ({ track, trackList, index }) => {
   const [isHover, setIsHover] = useState(false);
   const [addMenu, setAddMenu] = useState(false);
@@ -17,6 +21,8 @@ const TrackBox = ({ track, trackList, index }) => {
     trackRef
   } = useContext(AudioContext);
 
+  // Dynamically renders play/pause button if track is
+  // currently playing
   useEffect(() => {
     if (trackRef.current?.id === track.id) {
       setIsTrackPlaying(true);
@@ -30,6 +36,7 @@ const TrackBox = ({ track, trackList, index }) => {
     setAddMenu(false);
   }
 
+  // Manages playing of a track
   const handleQueue = () => {
     if (isPlaying && isTrackPlaying) {
       setIsPlaying(false);

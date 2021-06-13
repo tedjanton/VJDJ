@@ -15,7 +15,7 @@ const PlaylistAudio = ({ playlist, tracks }) => {
   const params = useParams();
 
   // Connects the green button with the playlist ID param to
-  // track if a playlist is currently playing or not.
+  // track if a playlist is currently playing.
   useEffect(() => {
     if (isPlaying && paramsRef.current === params.id) {
       setIsPlaylistPlaying(true);

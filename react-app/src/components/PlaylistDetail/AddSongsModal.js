@@ -19,6 +19,6 @@ const AddSongsModal = () => {
       <NavLink className="add-songs-modal-to-lib" to="/library/playlists">Go to Library</NavLink>
     </div>
   )
-}
+};
 
 export default AddSongsModal;

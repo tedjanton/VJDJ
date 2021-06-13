@@ -3,6 +3,10 @@ import { useParams } from 'react-router-dom';
 import AudioContext from '../../context/AudioContext';
 import { formatTrack } from '../../utils';
 
+/*
+Manages the big green button on playlist pages
+*/
+
 const PlaylistAudio = ({ playlist, tracks }) => {
   const {
     isPlaying,
@@ -21,7 +25,7 @@ const PlaylistAudio = ({ playlist, tracks }) => {
       setIsPlaylistPlaying(true);
     } else {
       setIsPlaylistPlaying(false);
-    }
+    };
   }, [playlist, isPlaying, params, setIsPlaylistPlaying, paramsRef]);
 
   const addToQueue = () => {
@@ -33,8 +37,8 @@ const PlaylistAudio = ({ playlist, tracks }) => {
       setTrackIdx(0);
       setIsPlaying(true);
       paramsRef.current = params.id;
-    }
-  }
+    };
+  };
 
   return (
     <div className="pl-music-play-buttons">

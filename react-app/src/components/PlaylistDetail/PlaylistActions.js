@@ -7,6 +7,11 @@ import { playlistImageBuilder } from '../../utils';
 import DeleteModal from '../DeleteModal';
 import PlaylistAddSongs from './PlaylistAddSongs';
 
+/*
+This component handles "following" of non-owned playlists and
+playlist editing actions for user-owned playlists
+*/
+
 const PlaylistActions = ({
   playlist,
   following,

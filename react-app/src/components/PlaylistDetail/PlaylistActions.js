@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import UIContext from '../../context/UIContext';
 import { Modal } from '../../context/Modal';
 import { addFollow, unfollow, editPlaylist, deletePlaylist, getUserPls, getPlaylist } from '../../store/playlists';
@@ -10,7 +10,6 @@ import PlaylistAddSongs from './PlaylistAddSongs';
 
 const PlaylistActions = ({
   playlist,
-  tracks,
   following,
   user,
   setDraggable,
@@ -21,13 +20,18 @@ const PlaylistActions = ({
   setTrackList,
   setImages,
 }) => {
-  const { isPlaylistMenuOpen, setIsPlaylistMenuOpen } = useContext(UIContext);
-  const dispatch = useDispatch();
-  const history = useHistory();
+  const [isPlaylistMenuOpen, setIsPlaylistMenuOpen] = useState(false);
   const [isFollowing, setIsFollowing] = useState(false);
   const [showAddSongsModal, setShowAddSongsModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showEditMenu, setShowEditMenu] = useState(false);
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const params = useParams();
+
+  useEffect(() => {
+    cancelEdits()
+  }, [params.id])
 
   useEffect(() => {
     let followIds = following?.map(pl => pl.id);

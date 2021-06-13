@@ -1,11 +1,14 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const UIContext = React.createContext();
+
+/*
+Visual state variable context
+*/
 
 export function UIContextProvider({ children }) {
   const [isBrowsing, setIsBrowsing] = useState(false);
   const [confirmedBox, setConfirmedBox] = useState(false);
-  const [isPlaylistMenuOpen, setIsPlaylistMenuOpen] = useState(false);
 
   useEffect(() => {
     if (confirmedBox) {
@@ -23,8 +26,6 @@ export function UIContextProvider({ children }) {
           setIsBrowsing,
           setConfirmedBox,
           confirmedBox,
-          isPlaylistMenuOpen,
-          setIsPlaylistMenuOpen
         }}
       >
         {children}

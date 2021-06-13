@@ -4,6 +4,10 @@ import './Modal.css';
 
 const ModalContext = React.createContext();
 
+/*
+Simple modal context component
+*/
+
 export function ModalProvider({ children }) {
   const modalRef = useRef();
   const [value, setValue] = useState();
@@ -22,6 +26,9 @@ export function ModalProvider({ children }) {
   );
 };
 
+
+// Create new portal to not disrupt the rendering
+// of the React App itself
 export function Modal({ onClose, children }) {
   const modalNode = useContext(ModalContext);
   if (!modalNode) return null;

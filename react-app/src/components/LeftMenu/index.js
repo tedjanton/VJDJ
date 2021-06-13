@@ -17,7 +17,7 @@ const LeftMenu = () => {
   const following = useSelector(state => state.playlists.following);
   const [showCreatePlaylistModal, setShowCreatePlaylistModal] = useState(false);
   const [showComingSoon, setShowComingSoon] = useState(false);
-  const { isBrowsing, setIsBrowsing, setIsPlaylistMenuOpen } = useContext(UIContext);
+  const { isBrowsing, setIsBrowsing } = useContext(UIContext);
 
   // If user is logged in, get their playlists from the database
   useEffect(() => {
@@ -88,7 +88,7 @@ const LeftMenu = () => {
       {showComingSoon && (
         <ComingSoon />
       )}
-      <div onClick={() => setIsPlaylistMenuOpen(false)} className="lm-user-pls">
+      <div className="lm-user-pls">
         <div className="lm-user-owned-pls-title">
           <p>YOUR PLAYLISTS</p>
         </div>

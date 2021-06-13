@@ -1,6 +1,10 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState } from 'react';
 
 const AudioContext = React.createContext();
+
+/*
+Audio context to be tracked throughout the app
+*/
 
 export function AudioContextProvider({ children }) {
   const [isPlaying, setIsPlaying] = useState(false);

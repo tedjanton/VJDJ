@@ -2,10 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { getWindowDimensions } from '../../utils';
 import './VideoModal.css';
 
+/*
+Simple music video modal component
+*/
 
 const VideoModal = ({ vidSrc }) => {
   const [windowDims, setWindowDims] = useState(getWindowDimensions());
 
+  // Adjusts video size to fit within window
   useEffect(() => {
     const handleResize = () => {
       setWindowDims(getWindowDimensions());

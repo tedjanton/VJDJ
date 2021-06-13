@@ -26,7 +26,7 @@ const TrackListing = ({
   const [isHover, setIsHover] = useState(false);
   const [isTrackPlaying, setIsTrackPlaying] = useState(false);
   const [showUserOptions, setShowUserOptions] = useState(false);
-  const [showModal, setShowModal] = useState(false);
+  const [showVideoModal, setShowVideoModal] = useState(false);
   const [addMenu, setAddMenu] = useState(false);
   const {
     setTrackQueue,
@@ -39,11 +39,11 @@ const TrackListing = ({
   // Pauses music and cancels hovering if music video
   // button is clicked
   useEffect(() => {
-    if (showModal) {
+    if (showVideoModal) {
       setIsPlaying(false);
       setIsHover(false);
     }
-  }, [showModal, setIsPlaying, isHover, setIsHover]);
+  }, [showVideoModal, setIsPlaying, isHover, setIsHover]);
 
   // Determines which track is currently playing to properly
   // render the play/pause buttons on the Track Listing
@@ -141,13 +141,13 @@ const TrackListing = ({
         {track.vid_src ? (
           <>
             <button
-              onClick={() => setShowModal(true)}
+              onClick={() => setShowVideoModal(true)}
               className="track-video-button"
             >
               <i className="fas fa-video" />
             </button>
-            {showModal && (
-              <Modal onClose={() => setShowModal(false)}>
+            {showVideoModal && (
+              <Modal onClose={() => setShowVideoModal(false)}>
                 <VideoModal vidSrc={track.vid_src}/>
               </Modal>
             )}

@@ -8,6 +8,7 @@ import { getPlaylist } from '../../store/playlists';
 import './PlaylistDetail.css';
 import PlaylistActions from './PlaylistActions';
 import { playlistImageBuilder, useNonBrowsingState } from '../../utils';
+import PlaylistAudio from './PlaylistAudio';
 
 const PlaylistDetail = () => {
   const initialDnDState = {
@@ -127,20 +128,23 @@ const PlaylistDetail = () => {
         </div>
       </div>
       <div className="pl-bottom-container">
-        <PlaylistActions
-          playlist={playlist}
-          tracks={tracks}
-          following={following}
-          user={user}
-          setDraggable={setDraggable}
-          setEditStyleState={setEditStyleState}
-          draggable={draggable}
-          dragAndDrop={dragAndDrop}
-          isUserPlaylist={isUserPlaylist}
-          setIsUserPlaylist={setIsUserPlaylist}
-          setTrackList={setTrackList}
-          setImages={setImages}
-        />
+        <div className="pl-bottom-header">
+          <PlaylistAudio playlist={playlist} tracks={tracks} />
+          <PlaylistActions
+            playlist={playlist}
+            tracks={tracks}
+            following={following}
+            user={user}
+            setDraggable={setDraggable}
+            setEditStyleState={setEditStyleState}
+            draggable={draggable}
+            dragAndDrop={dragAndDrop}
+            isUserPlaylist={isUserPlaylist}
+            setIsUserPlaylist={setIsUserPlaylist}
+            setTrackList={setTrackList}
+            setImages={setImages}
+          />
+        </div>
         <div className="pl-table-container">
           <div className="pl-table-header">
             <div className="pl-header-track-num">

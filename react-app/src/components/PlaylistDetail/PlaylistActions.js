@@ -1,7 +1,6 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
-import UIContext from '../../context/UIContext';
 import { Modal } from '../../context/Modal';
 import { addFollow, unfollow, editPlaylist, deletePlaylist, getUserPls, getPlaylist } from '../../store/playlists';
 import { playlistImageBuilder } from '../../utils';
@@ -29,16 +28,21 @@ const PlaylistActions = ({
   const history = useHistory();
   const params = useParams();
 
+  // Cancels all editing state if user goes to another page
   useEffect(() => {
-    cancelEdits()
+    if (isPlaylistMenuOpen) {
+      cancelEdits()
+    }
   }, [params.id])
 
+  // Manages heart button appearance on non-user owned playlists
   useEffect(() => {
     let followIds = following?.map(pl => pl.id);
     if (followIds?.includes(playlist?.id)) setIsFollowing(true);
     else setIsFollowing(false);
   }, [setIsFollowing, following, playlist])
 
+  // Tracks if a playlist is owned by the user
   useEffect(() => {
     if (!user?.errors) {
       if (playlist?.user.id === user.id) {
@@ -51,30 +55,30 @@ const PlaylistActions = ({
     // eslint-disable-next-line
   }, [playlist, user, setIsUserPlaylist]);
 
-  useEffect(() => {
-    if (!isPlaylistMenuOpen) setEditStyleState(null);
-  });
-
-  const handleFollow = () => {
-    if (playlist.user.id === user.id) {
+  const handleFollowOrAdd = () => {
+    if (isUserPlaylist) {
       setShowAddSongsModal(true);
-      return;
+    } else {
+      const submission = { userId: user.id, playlistId: playlist.id };
+      if (isFollowing) dispatch(unfollow(submission));
+      else dispatch(addFollow(submission));
     }
-    const submission = { userId: user.id, playlistId: playlist.id };
-    if (isFollowing) dispatch(unfollow(submission));
-    else dispatch(addFollow(submission));
   };
 
-  const handleEditState = () => {
+  const showEditingState = () => {
     setDraggable(true);
     setEditStyleState("#1c1c1c");
     setShowEditMenu(false);
   };
 
   const togglePlaylistMenu = () => {
-    setIsPlaylistMenuOpen(!isPlaylistMenuOpen);
-    setShowEditMenu(true);
-  }
+    if (isPlaylistMenuOpen) {
+      cancelEdits();
+    } else {
+      setIsPlaylistMenuOpen(true);
+      setShowEditMenu(true);
+    }
+  };
 
   const submitEdits = async () => {
     const submission = dragAndDrop.updatedOrder.map((plTrack, i) => {
@@ -108,7 +112,7 @@ const PlaylistActions = ({
 
   return (
     <div className="pl-bottom-header-left">
-      <div onClick={handleFollow} className="pl-like-button">
+      <div onClick={handleFollowOrAdd} className="pl-like-button">
       {isUserPlaylist ? (
         <i className="fas fa-plus" />
       ) : (
@@ -138,7 +142,7 @@ const PlaylistActions = ({
         {showEditMenu ? (
           <div className="pl-menu-box">
             <div className="pl-edit-button">
-              <button onClick={handleEditState}>Edit Playlist</button>
+              <button onClick={showEditingState}>Edit Playlist</button>
             </div>
             <div className="pl-delete-button">
               <button onClick={() => setShowDeleteModal(true)}>Delete Playlist</button>

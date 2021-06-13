@@ -4,6 +4,10 @@ import { getPopTracks } from '../../store/tracks';
 import TrackBox from '../TrackBox';
 import './Popular.css';
 
+/*
+Home page popular tracks sorted by most played
+*/
+
 const Popular = () => {
   const dispatch = useDispatch();
   const trackList = useSelector(state => state.tracks.popTracks);

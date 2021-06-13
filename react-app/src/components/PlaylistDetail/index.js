@@ -33,8 +33,10 @@ const PlaylistDetail = () => {
   const [isUserPlaylist, setIsUserPlaylist] = useState();
   useNonBrowsingState();
 
+  // Loads track list into a local state variable
   useEffect(() => setTrackList(tracks), [tracks]);
 
+  // Get the playlist info from the database
   useEffect(() => {
     fetchPlaylist();
     // eslint-disable-next-line
@@ -45,6 +47,9 @@ const PlaylistDetail = () => {
     setImages(playlistImageBuilder(pl));
   };
 
+  /*
+  DRAG AND DROP FUNCTIONS
+  */
   const onDragStart = (e) => {
     const startingPosition = Number(e.currentTarget.dataset.position);
     setDragAndDrop({

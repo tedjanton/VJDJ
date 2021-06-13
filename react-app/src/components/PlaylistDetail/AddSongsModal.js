@@ -2,6 +2,10 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import './PlaylistAddSongs.css';
 
+/*
+Directs users to the library to find more songs to add to
+a playlist
+*/
 
 const AddSongsModal = () => {
 

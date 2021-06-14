@@ -73,7 +73,7 @@ const NavBar = ({ nav, authenticated, setAuthenticated }) => {
       </nav>
     )
   } else if (!nav) {
-    // Hides nav bar for every other page except the Library
+    // Hides nav bar for sign up and log in pages
     links = (
       <nav className="nav-container-hidden">
       </nav>

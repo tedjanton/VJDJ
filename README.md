@@ -5,6 +5,7 @@
     <img src="react-app/src/images/vjdj-logo.png" alt="Logo" width="175" height="80">
   </a>
 
+  
   <h3 align="center">VjDj</h3>
 
   <p align="center">
